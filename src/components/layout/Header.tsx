@@ -82,7 +82,9 @@ export function Header() {
         setActiveSection(shortcut.section);
         if (pathname === "/") {
           window.history.replaceState(null, "", `#${shortcut.section}`);
-          document.getElementById(shortcut.section)?.scrollIntoView({ behavior: "smooth" });
+          document.dispatchEvent(
+            new CustomEvent("portfolio-scroll-to", { detail: { id: shortcut.section } }),
+          );
         } else {
           router.push(shortcut.href);
         }

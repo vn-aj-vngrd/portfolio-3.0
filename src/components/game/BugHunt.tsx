@@ -181,7 +181,12 @@ export function BugHunt() {
         <kbd>⇧ B</kbd>
       </button>
 
-      <dialog className="bug-hunt-dialog" ref={dialogRef} onClose={reset}>
+      <dialog
+        className="bug-hunt-dialog"
+        ref={dialogRef}
+        onClose={reset}
+        data-lenis-prevent
+      >
         <div className="bug-hunt-shell">
           <header>
             <div>
