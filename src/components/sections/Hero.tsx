@@ -4,10 +4,10 @@ import Link from "next/link";
 import { profile } from "@/content/profile";
 
 const signals = [
-  { value: "Web + mobile", label: "Product surfaces" },
-  { value: "TypeScript", label: "Primary language" },
-  { value: "AI", label: "With guardrails" },
-  { value: "Cebu", label: "Philippines" },
+  { value: "3+ years", label: "Shipping products" },
+  { value: "TypeScript", label: "Primary ecosystem" },
+  { value: "ASP.NET Core", label: "Backend systems" },
+  { value: "Claude + Codex", label: "Agent-assisted delivery" },
 ] as const;
 
 export function Hero() {

@@ -1,10 +1,10 @@
 export const profile = {
   name: "Van AJ Vanguardia",
-  title: "Product-minded full-stack engineer.",
+  title: "Product-minded full-stack developer.",
   statement:
-    "I turn product requirements into reliable web, mobile, and AI-enabled software—from interface and backend to validation and release.",
+    "For 3+ years, I’ve shipped web and mobile products across TypeScript and ASP.NET Core—from product requirements to interfaces, APIs, data, and release.",
   introduction:
-    "Based in Cebu, Philippines. TypeScript sits at the center of my work.",
+    "Based in Cebu, Philippines. Claude Code, Codex, and agent workflows accelerate the work; validation and engineering judgment stay mine.",
   location: "Cebu, Philippines",
   availability: "Open to opportunities",
   email: "vanajvanguardia@gmail.com",
