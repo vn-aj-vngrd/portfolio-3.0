@@ -135,6 +135,7 @@ export function Header() {
               </Link>
             );
           })}
+          <span className="nav-divider" aria-hidden="true" />
           <Link
             href="/ai"
             data-active={pathname === "/ai"}
@@ -177,22 +178,20 @@ export function Header() {
           </Link>
         </nav>
 
-        <div className="sidebar-game">
-          <p className="shortcut-hint">
-            Hold <kbd>⌘ / Ctrl</kbd> for shortcuts
-          </p>
-          <BugHunt />
-        </div>
+        <div className="sidebar-dock">
+          <div className="sidebar-game">
+            <BugHunt />
+          </div>
 
-        <div className="sidebar-presence">
-          <LivePresence />
-        </div>
+          <div className="sidebar-presence">
+            <LivePresence />
+          </div>
 
-        <div className="header-utilities">
-          <InterfaceControls />
-          <details ref={menuRef} className="mobile-menu">
-            <summary aria-label="Open navigation">Menu</summary>
-            <nav aria-label="Mobile navigation" onClick={closeMenu}>
+          <div className="header-utilities">
+            <InterfaceControls />
+            <details ref={menuRef} className="mobile-menu">
+              <summary aria-label="Open navigation">Menu</summary>
+              <nav aria-label="Mobile navigation" onClick={closeMenu}>
               {links.map((link) => {
                 const isActive = pathname === "/" && activeSection === link.id;
                 return (
@@ -252,20 +251,21 @@ export function Header() {
               <a href={profile.github} target="_blank" rel="noreferrer">
                 GitHub ↗
               </a>
-            </nav>
-          </details>
-        </div>
+              </nav>
+            </details>
+          </div>
 
-        <div className="sidebar-bottom">
-          <div className="sidebar-contact">
-            <p>For work, collaborations, and everything else—reach me at</p>
-            <a className="sidebar-email" href={`mailto:${profile.email}`}>
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="3" y="5.5" width="18" height="13" rx="1.5" />
-                <path d="m4 7 8 6 8-6" />
-              </svg>
-              <span>{profile.email}</span>
-            </a>
+          <div className="sidebar-bottom">
+            <div className="sidebar-contact">
+              <p>Contact</p>
+              <a className="sidebar-email" href={`mailto:${profile.email}`}>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="3" y="5.5" width="18" height="13" rx="1.5" />
+                  <path d="m4 7 8 6 8-6" />
+                </svg>
+                <span>{profile.email}</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>

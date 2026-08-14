@@ -208,19 +208,22 @@ export function InterfaceControls() {
 
   return (
     <div className="interface-controls" aria-label="Interface preferences">
-      <div className="theme-options" role="group" aria-label="Color theme">
-        {themes.map((choice) => (
-          <button
-            key={choice.value}
-            type="button"
-            onClick={(event) => changeTheme(choice.value, event)}
-            aria-label={choice.label}
-            aria-pressed={mounted && theme === choice.value}
-            title={choice.label}
-          >
-            {choice.icon}
-          </button>
-        ))}
+      <div className="theme-control">
+        <span className="preference-label">Theme</span>
+        <div className="theme-options" role="group" aria-label="Color theme">
+          {themes.map((choice) => (
+            <button
+              key={choice.value}
+              type="button"
+              onClick={(event) => changeTheme(choice.value, event)}
+              aria-label={choice.label}
+              aria-pressed={mounted && theme === choice.value}
+              title={choice.label}
+            >
+              {choice.icon}
+            </button>
+          ))}
+        </div>
       </div>
       <button
         type="button"
@@ -230,6 +233,7 @@ export function InterfaceControls() {
         aria-pressed={soundEnabled}
         title={soundEnabled ? "Disable interface sounds" : "Enable interface sounds"}
       >
+        <span className="preference-label">Sound</span>
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M5 9.5v5h3.5l4 3.5V6l-4 3.5H5Z" />
           {soundEnabled ? (

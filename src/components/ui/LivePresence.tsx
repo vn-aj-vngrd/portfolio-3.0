@@ -70,10 +70,12 @@ export function LivePresence() {
         ))}
         {count > 3 ? <span className="presence-more">+{count - 3}</span> : null}
       </div>
-      <p>
-        <strong>{count}</strong> {count === 1 ? "person" : "people"} viewing now
-      </p>
-      <span>Anonymous presence · no fingerprinting</span>
+      <div className="presence-copy">
+        <p>
+          <strong>{count}</strong> {count === 1 ? "person" : "people"} viewing now
+        </p>
+        <span>Anonymous · active within 75 seconds</span>
+      </div>
     </section>
   );
 }
