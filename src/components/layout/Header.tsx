@@ -72,6 +72,14 @@ export function Header() {
             );
           })}
           <Link
+            href="/gear"
+            data-active={pathname === "/gear"}
+            aria-current={pathname === "/gear" ? "page" : undefined}
+          >
+            <span>↗</span>
+            Gear
+          </Link>
+          <Link
             href="/resume"
             data-active={pathname === "/resume"}
             aria-current={pathname === "/resume" ? "page" : undefined}
@@ -100,6 +108,13 @@ export function Header() {
                   </Link>
                 );
               })}
+              <Link
+                href="/gear"
+                data-active={pathname === "/gear"}
+                aria-current={pathname === "/gear" ? "page" : undefined}
+              >
+                Gear ↗
+              </Link>
               <Link
                 href="/resume"
                 data-active={pathname === "/resume"}
