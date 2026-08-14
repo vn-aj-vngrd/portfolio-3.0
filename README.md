@@ -10,7 +10,7 @@ Product-driven portfolio for Van AJ Vanguardia, a product-minded full-stack soft
 - Tailwind CSS 4
 - `next-themes`
 
-The homepage and project case studies are statically generated. Client JavaScript is limited to theme selection, mobile navigation, email copying, and résumé printing.
+The homepage, AI workflow, gear catalog, résumé, and project case studies use statically generated content. Client JavaScript supports theme selection, smooth scrolling, keyboard navigation, live anonymous presence, Bug Hunt, email copying, and résumé printing.
 
 ## Content
 
@@ -21,7 +21,10 @@ src/content/
 ├── profile.ts
 ├── projects.ts
 ├── engineering.ts
-└── experience.ts
+├── experience.ts
+├── certifications.ts
+├── ai-workflow.ts
+└── gear.ts
 ```
 
 Project media lives in `public/images/projects/`.
@@ -30,6 +33,8 @@ Project media lives in `public/images/projects/`.
 
 ```text
 /
+/ai
+/gear
 /resume
 /work/viya
 /work/crave-roulette

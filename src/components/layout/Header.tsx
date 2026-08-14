@@ -25,9 +25,10 @@ const shortcuts = [
     href: link.href,
     section: link.id,
   })),
-  { key: "7", label: "Gear", href: "/gear" },
-  { key: "8", label: "Résumé", href: "/resume" },
-  { key: "9", label: "Bug hunt", action: "game" },
+  { key: "7", label: "AI workflow", href: "/ai" },
+  { key: "8", label: "Gear", href: "/gear" },
+  { key: "9", label: "Résumé", href: "/resume" },
+  { key: "0", label: "Bug hunt", action: "game" },
 ] as const;
 
 export function Header() {
@@ -140,6 +141,14 @@ export function Header() {
             );
           })}
           <Link
+            href="/ai"
+            data-active={pathname === "/ai"}
+            aria-current={pathname === "/ai" ? "page" : undefined}
+          >
+            <span>↗</span>
+            AI workflow
+          </Link>
+          <Link
             href="/gear"
             data-active={pathname === "/gear"}
             aria-current={pathname === "/gear" ? "page" : undefined}
@@ -194,6 +203,13 @@ export function Header() {
               >
                 Bug hunt <span>⇧ B</span>
               </button>
+              <Link
+                href="/ai"
+                data-active={pathname === "/ai"}
+                aria-current={pathname === "/ai" ? "page" : undefined}
+              >
+                AI workflow ↗
+              </Link>
               <Link
                 href="/gear"
                 data-active={pathname === "/gear"}
