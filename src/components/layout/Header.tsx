@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import { BugHunt } from "@/components/game/BugHunt";
 import { InterfaceControls } from "@/components/ui/InterfaceControls";
 import { LivePresence } from "@/components/ui/LivePresence";
 import { profile } from "@/content/profile";
@@ -90,6 +91,10 @@ export function Header() {
           </Link>
         </nav>
 
+        <div className="sidebar-game">
+          <BugHunt />
+        </div>
+
         <div className="sidebar-presence">
           <LivePresence />
         </div>
@@ -113,6 +118,13 @@ export function Header() {
                   </Link>
                 );
               })}
+              <button
+                className="mobile-game-button"
+                type="button"
+                onClick={() => document.dispatchEvent(new Event("open-bug-hunt"))}
+              >
+                Bug hunt <span>⇧ B</span>
+              </button>
               <Link
                 href="/gear"
                 data-active={pathname === "/gear"}
