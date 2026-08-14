@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-12T00:00:00.000Z",
+  "title": "Design System: Portfolio 3.0",
+  "extensions": {
+    "colorMeta": {
+      "signal-blue": {
+        "role": "primary",
+        "displayName": "Signal Blue",
+        "canonical": "#1768E5",
+        "tonalRamp": [
+          "#071A3A",
+          "#0B2D67",
+          "#10469C",
+          "#1768E5",
+          "#5C93ED",
+          "#9BBCF5",
+          "#D5E3FB",
+          "#F1F6FE"
+        ]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Clear Canvas",
+        "canonical": "#FCFCFD",
+        "tonalRamp": [
+          "#171719",
+          "#303034",
+          "#55555A",
+          "#7D7D84",
+          "#A9A9AF",
+          "#D1D1D5",
+          "#ECECEE",
+          "#FCFCFD"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Near-black Ink",
+        "canonical": "#111214",
+        "tonalRamp": [
+          "#111214",
+          "#27292D",
+          "#42454B",
+          "#62666E",
+          "#878B94",
+          "#B0B3BA",
+          "#D9DBDF",
+          "#F5F6F8"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero and flagship case-study thesis."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Readable product and engineering narrative."
+      },
+      "label": {
+        "displayName": "Technical Metadata",
+        "purpose": "Stack and architecture metadata only."
+      }
+    },
+    "shadows": [
+      {
+        "name": "media-low",
+        "value": "0 4px 8px rgba(17,18,20,0.08)",
+        "purpose": "Physical separation for product screenshots only."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Short state transitions and the single hero entrance."
+      }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "640px" },
+      { "name": "tablet", "value": "900px" },
+      { "name": "desktop", "value": "1200px" }
+    ]
+  },
+  "components": [],
+  "narrative": {
+    "northStar": "The Product Release Narrative",
+    "overview": "Real products are presented like careful releases: problem first, product in use, then the decisions that made it dependable.",
+    "keyCharacteristics": [
+      "Product screens before technology lists",
+      "Restrained signal blue",
+      "Flat structural surfaces",
+      "Complete without motion"
+    ],
+    "rules": [
+      {
+        "name": "The Ten Percent Rule",
+        "body": "Signal Blue occupies less than ten percent of a page.",
+        "section": "colors"
+      },
+      {
+        "name": "The Flat-by-Default Rule",
+        "body": "Surfaces are flat unless product media needs physical separation.",
+        "section": "elevation"
+      }
+    ],
+    "dos": ["Do lead with real screenshots and verified decisions."],
+    "donts": [
+      "Don't use glassmorphism, glowing gradients, decorative code fragments, or generic card grids."
+    ]
+  }
+}

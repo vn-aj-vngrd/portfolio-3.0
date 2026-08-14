@@ -1,64 +1,65 @@
-"use client";
+import { certifications } from "@/content/certifications";
 
-import { ExternalLink } from "lucide-react";
+export function Certifications() {
+  const featured = certifications.find((item) => item.featured);
+  const credentials = certifications.filter((item) => !item.featured);
 
-import portfolioData from "@/data/portfolio-data.json";
-
-import { Button } from "../ui/Button";
-import { Card, CardFooter, CardHeader, CardTitle } from "../ui/Card";
-import { Grid } from "../ui/Layout";
-import { FadeIn } from "../ui/Motion";
-import { Section } from "../ui/Section";
-import { Heading, Text } from "../ui/Typography";
-
-const certifications = portfolioData.certifications;
-
-export const Certifications = () => {
   return (
-    <Section id="certifications">
-      <FadeIn>
-        <Heading
-          variant="h2"
-          className="text-4xl font-semibold mb-16 tracking-tight"
-        >
-          Certifications
-        </Heading>
-      </FadeIn>
-      <Grid className="gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {certifications.map((cert, index) => (
-          <FadeIn
-            key={index}
-            delay={index * 0.1}
-            viewport={{ once: true }}
-            className="h-full"
-          >
-            <Card className="p-8 flex flex-col h-full hover:scale-[1.02] transition-transform duration-300">
-              <CardHeader className="p-0 mb-6 grow">
-                <CardTitle className="text-xl font-semibold mb-2 group-hover:text-accent transition-colors">
-                  {cert.title}
-                </CardTitle>
-                <Text className="text-base text-muted-foreground font-medium">
-                  {cert.issuer}
-                </Text>
-              </CardHeader>
+    <section
+      className="section certifications-section"
+      id="certifications"
+      aria-labelledby="certifications-title"
+    >
+      <div className="section-heading section-heading-wide">
+        <div className="section-index">
+          <span>04</span>
+          <span>Credentials</span>
+        </div>
+        <h2 id="certifications-title">Recognition with a reason to exist.</h2>
+        <p>
+          A short selection tied to product delivery, engineering quality,
+          professional growth, and technical community work.
+        </p>
+      </div>
 
-              <CardFooter className="p-0 mt-auto">
-                <Button variant="outline" size="sm" asChild className="w-full">
-                  <a
-                    href={cert.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2"
-                  >
-                    See Certificate
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                </Button>
-              </CardFooter>
-            </Card>
-          </FadeIn>
-        ))}
-      </Grid>
-    </Section>
+      <div className="credentials-layout">
+        {featured ? (
+          <article className="featured-credential">
+            <div className="credential-mark" aria-hidden="true">
+              <span>HF</span>
+              <small>2024</small>
+            </div>
+            <div>
+              <p>{featured.kind}</p>
+              <h3>{featured.title}</h3>
+              <span>{featured.issuer}</span>
+            </div>
+          </article>
+        ) : null}
+
+        <ol className="credential-list">
+          {credentials.map((credential, index) => (
+            <li key={credential.title}>
+              <span className="credential-number">0{index + 1}</span>
+              <div>
+                <p>{credential.kind}</p>
+                <h3>{credential.title}</h3>
+                <span>{credential.issuer}</span>
+              </div>
+              {credential.href ? (
+                <a
+                  href={credential.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`View ${credential.title}`}
+                >
+                  View ↗
+                </a>
+              ) : null}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
   );
-};
+}

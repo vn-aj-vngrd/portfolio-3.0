@@ -1,135 +1,69 @@
-"use client";
+import { experience } from "@/content/experience";
 
-import { motion, useScroll, useSpring } from "framer-motion";
-import { useRef } from "react";
-
-import portfolioData from "@/data/portfolio-data.json";
-
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
-import { Box, Stack } from "../ui/Layout";
-import { FadeIn } from "../ui/Motion";
-import { Section } from "../ui/Section";
-import { Heading, Text } from "../ui/Typography";
-
-const experience = portfolioData.experience.map((job) => ({
-  role: job.role,
-  company: job.company,
-  period: job.dates,
-  description: job.description,
-}));
-
-export const Experience = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end center"],
-  });
-
-  const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
-
+export function Experience() {
   return (
-    <Section id="experience">
-      <FadeIn>
-        <Heading
-          variant="h2"
-          className="text-4xl font-semibold mb-16 tracking-tight"
-        >
-          Experience
-        </Heading>
-      </FadeIn>
-      <Box ref={containerRef} className="relative ml-4 md:ml-8 space-y-12">
-        {/* Timeline Line */}
-        <Box className="absolute left-0 top-[46px] bottom-0 w-px bg-border/30" />
-        <motion.div
-          className="absolute left-0 top-[46px] bottom-0 w-px bg-accent origin-top"
-          style={{ scaleY }}
-        />
+    <section
+      className="section experience-section"
+      id="experience"
+      aria-labelledby="experience-title"
+    >
+      <div className="section-heading section-heading-wide">
+        <div className="section-index">
+          <span>03</span>
+          <span>Experience</span>
+        </div>
+        <h2 id="experience-title">From requirements to release.</h2>
+        <p>
+          A working history of turning operational needs into maintainable
+          software—across interfaces, APIs, data, quality, and delivery.
+        </p>
+      </div>
 
-        {experience.map((job, index) => {
-          const isLast = index === experience.length - 1;
+      <ol className="experience-timeline">
+        {experience.map((item, index) => (
+          <li className="timeline-item" key={`${item.company}-${item.period}`}>
+            <div className="timeline-period">
+              <time>{item.period}</time>
+              <span>{item.kind}</span>
+            </div>
 
-          return (
-            <Box key={index} className="relative pl-8 md:pl-12">
-              {/* Timeline Dot */}
-              <Box className="absolute left-[-5px] top-10 z-10">
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  viewport={{ once: true, margin: "-20% 0px -20% 0px" }}
-                  className="relative flex items-center justify-center w-3 h-3 bg-background border-2 border-muted-foreground rounded-full"
-                >
-                  <motion.div
-                    className="absolute inset-0 bg-accent rounded-full"
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true, margin: "-20% 0px -20% 0px" }}
-                    transition={{ duration: 0.2 }}
-                  />
-                  <motion.div
-                    className="absolute -inset-2 bg-accent/40 dark:bg-accent/60 rounded-full"
-                    initial={{ scale: 0, opacity: 0 }}
-                    whileInView={{
-                      scale: [1, 1.5, 1],
-                      opacity: [0.6, 0, 0.6],
-                    }}
-                    viewport={{ once: true, margin: "-20% 0px -20% 0px" }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
-                </motion.div>
-              </Box>
+            <div className="timeline-track" aria-hidden="true">
+              <span className={item.current ? "is-current" : ""} />
+            </div>
 
-              {/* Mask for last item to hide line tail */}
-              {isLast && (
-                <Box className="absolute left-[-2px] top-[47px] bottom-0 w-2 bg-background" />
-              )}
+            <article className="experience-entry">
+              <header>
+                <div>
+                  <p className="experience-sequence">0{index + 1}</p>
+                  <h3>{item.role}</h3>
+                  <p className="experience-company">{item.company}</p>
+                </div>
+                {item.current ? <span className="current-role">Current</span> : null}
+              </header>
 
-              <FadeIn
-                delay={index * 0.1}
-                viewport={{ once: true, margin: "-100px" }}
-                className="group"
-              >
-                <Card className="transition-[border-color,box-shadow] duration-300 hover:shadow-lg hover:border-accent/20">
-                  <CardHeader className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-2 p-8 md:p-10 pb-0 md:pb-0">
-                    <Box>
-                      <CardTitle className="text-2xl font-semibold text-foreground">
-                        {job.role}
-                      </CardTitle>
-                      <Text className="text-lg text-accent font-medium mt-1">
-                        {job.company}
-                      </Text>
-                    </Box>
-                    <Box className="text-sm font-medium text-muted-foreground bg-muted px-3 py-1 rounded-full self-start md:self-auto">
-                      {job.period}
-                    </Box>
-                  </CardHeader>
-                  <CardContent className="p-8 md:p-10 pt-0 md:pt-6">
-                    <Stack as="ul" gap="gap-3" className="space-y-3">
-                      {job.description.map((item, i) => (
-                        <Box
-                          as="li"
-                          key={i}
-                          className="text-base text-muted-foreground leading-relaxed flex items-start"
-                        >
-                          <span className="mr-3 mt-2 block w-1.5 h-1.5 rounded-full bg-accent/60 shrink-0" />
-                          {item}
-                        </Box>
-                      ))}
-                    </Stack>
-                  </CardContent>
-                </Card>
-              </FadeIn>
-            </Box>
-          );
-        })}
-      </Box>
-    </Section>
+              <p className="experience-summary">{item.summary}</p>
+
+              <ul className="experience-highlights">
+                {item.highlights.map((highlight) => (
+                  <li key={highlight.action}>
+                    <strong>{highlight.action}</strong> {highlight.detail}
+                  </li>
+                ))}
+              </ul>
+
+              <ul className="experience-stack" aria-label={`${item.role} technologies`}>
+                {item.stack.map((technology) => (
+                  <li key={technology}>{technology}</li>
+                ))}
+              </ul>
+            </article>
+          </li>
+        ))}
+      </ol>
+
+      <a className="text-link" href="/resume">
+        View full résumé →
+      </a>
+    </section>
   );
-};
+}

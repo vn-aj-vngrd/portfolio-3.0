@@ -1,89 +1,76 @@
 import "./globals.css";
 
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
-import { KeyboardManager } from "@/components/ui/KeyboardManager";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Van AJ Vanguardia | Full Stack Developer",
-  description:
-    "Full Stack Developer based in Cebu, Philippines, specializing in building scalable, high-performance web applications using the JavaScript ecosystem, .NET, and PHP. Passionate about creating intuitive user experiences and solving complex problems.",
-  keywords: [
-    "Van AJ Vanguardia",
-    "Full Stack Developer",
-    "Software Engineer",
-    "Web Developer",
-    "React",
-    "Next.js",
-    "ASP.NET Core",
-    "TypeScript",
-    "Cebu",
-    "Philippines",
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FCFCFD" },
+    { media: "(prefers-color-scheme: dark)", color: "#090A0C" },
   ],
+};
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://vanajvanguardia.vercel.app"),
+  title: {
+    default: "Van AJ Vanguardia — Product-minded Full-Stack Software Engineer",
+    template: "%s — Van AJ Vanguardia",
+  },
+  description:
+    "Full-stack software engineer in Cebu building TypeScript web, mobile, backend, and AI-powered products from idea to release.",
   authors: [{ name: "Van AJ Vanguardia" }],
+  creator: "Van AJ Vanguardia",
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Van AJ Vanguardia | Full Stack Developer",
+    title: "Van AJ Vanguardia — Product-minded Full-Stack Software Engineer",
     description:
-      "Full Stack Developer specializing in scalable web applications, design systems, and performance optimization.",
-    url: "https://vanajvanguardia.com", // Replace with actual URL if available
-    siteName: "Van AJ Vanguardia Portfolio",
-    images: [
-      {
-        url: "/images/profile.jpg", // Using the profile image as OG image
-        width: 800,
-        height: 800,
-        alt: "Van AJ Vanguardia",
-      },
-    ],
-    locale: "en_US",
+      "Selected web, mobile, backend, and AI-powered product engineering work.",
+    url: "/",
+    siteName: "Van AJ Vanguardia",
+    locale: "en_PH",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Van AJ Vanguardia | Full Stack Developer",
+    title: "Van AJ Vanguardia — Product-minded Full-Stack Software Engineer",
     description:
-      "Building digital products with precision and purpose. Specializing in React, Next.js, and .NET.",
-    images: ["/images/profile.jpg"],
+      "Selected web, mobile, backend, and AI-powered product engineering work.",
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased text-foreground relative`}
-      >
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
-          <div className="fixed inset-0 -z-10 h-full w-full bg-background transition-colors duration-300">
-            <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-300/30 dark:bg-purple-500/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-30 dark:opacity-20 animate-blob"></div>
-            <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-300/30 dark:bg-blue-500/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-30 dark:opacity-20 animate-blob animation-delay-2000"></div>
-            <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300/30 dark:bg-indigo-500/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-3xl opacity-30 dark:opacity-20 animate-blob animation-delay-4000"></div>
-          </div>
+          <a className="skip-link" href="#main-content">
+            Skip to content
+          </a>
+          <div id="top" />
           <Header />
-          <KeyboardManager />
           {children}
           <Footer />
         </ThemeProvider>

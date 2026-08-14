@@ -1,68 +1,54 @@
-"use client";
+import Image from "next/image";
+import Link from "next/link";
 
-import { ArrowUpRight, ArrowDown } from "lucide-react";
+import { profile } from "@/content/profile";
 
-import portfolioData from "@/data/portfolio-data.json";
+const signals = [
+  { value: "Web + mobile", label: "Product surfaces" },
+  { value: "TypeScript", label: "Primary language" },
+  { value: "AI", label: "With guardrails" },
+  { value: "Cebu", label: "Philippines" },
+] as const;
 
-import { Button } from "../ui/Button";
-import { HeroBackground } from "../ui/HeroBackground";
-import { Box } from "../ui/Layout";
-import { FadeIn } from "../ui/Motion";
-import { Section } from "../ui/Section";
-import { Heading, Text } from "../ui/Typography";
-
-export const Hero = () => {
-  const { about, hero } = portfolioData;
-
+export function Hero() {
   return (
-    <Section
-      id="hero"
-      className="min-h-screen flex items-start md:items-center pt-48! md:pt-32 pb-16 justify-center text-center relative overflow-hidden"
-    >
-      <HeroBackground />
-      <Box className="max-w-4xl mx-auto">
-        <FadeIn>
-          <Heading
-            variant="h1"
-            className="text-5xl md:text-8xl lg:text-8xl font-semibold tracking-tighter mb-8 leading-[1.05] bg-clip-text text-transparent bg-linear-to-b from-foreground to-foreground/70"
-          >
-            Building digital products with{" "}
-            <span className="text-accent">precision</span> and{" "}
-            <span className="text-accent">purpose</span>.
-          </Heading>
-        </FadeIn>
+    <section className="hero" aria-labelledby="hero-title">
+      <div className="hero-portrait" aria-hidden="true">
+        <Image
+          src="/images/profile.jpg"
+          alt=""
+          width={1000}
+          height={1000}
+          priority
+          sizes="(max-width: 700px) 72vw, 360px"
+        />
+      </div>
 
-        <FadeIn delay={0.2}>
-          <Text
-            variant="lead"
-            className="text-xl md:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed"
-          >
-            I&apos;m {about.details.name}, a {about.role} based in{" "}
-            {about.details.address}. {hero.summary}
-          </Text>
-        </FadeIn>
+      <div className="hero-copy">
+        <p className="hero-kicker">Hello, I’m</p>
+        <h1 id="hero-title">{profile.name}</h1>
+        <p className="hero-role">{profile.title}</p>
+        <p className="hero-statement">{profile.statement}</p>
+        <p className="hero-intro">{profile.introduction}</p>
+        <nav className="hero-links" aria-label="Profile links">
+          <a href={profile.github} target="_blank" rel="noreferrer">
+            GitHub ↗
+          </a>
+          <a href={profile.linkedin} target="_blank" rel="noreferrer">
+            LinkedIn ↗
+          </a>
+          <Link href="/resume">Résumé ↗</Link>
+        </nav>
+      </div>
 
-        <FadeIn
-          delay={0.4}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
-        >
-          <Button size="lg" className="h-14 px-8 text-lg" asChild>
-            <a href="/resume" target="_blank">
-              View Resume <ArrowUpRight className="h-5 w-5" />
-            </a>
-          </Button>
-          <Button
-            variant="glass"
-            size="lg"
-            className="h-14 px-8 text-lg"
-            asChild
-          >
-            <a href="#highlights">
-              Explore Portfolio <ArrowDown className="h-5 w-5" />
-            </a>
-          </Button>
-        </FadeIn>
-      </Box>
-    </Section>
+      <dl className="signal-strip">
+        {signals.map((signal) => (
+          <div key={signal.value}>
+            <dt>{signal.value}</dt>
+            <dd>{signal.label}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
   );
-};
+}

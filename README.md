@@ -1,81 +1,58 @@
-# Van AJ Vanguardia - Portfolio 2.0
+# Portfolio 3.0
 
-A high-performance, product-driven portfolio website built with Next.js 15, Tailwind CSS, and TypeScript. This project showcases my work as a Full Stack Developer, featuring a modern bento-grid layout, smooth animations, and a focus on user experience.
+Product-driven portfolio for Van AJ Vanguardia, a product-minded full-stack software engineer.
 
-## Features
+## Stack
 
-- **Modern Design**: Bento-grid layout inspired by modern design trends.
-- **Dark Mode**: Fully supported dark mode with a toggle switch.
-- **Animations**: Smooth transitions and scroll animations using Framer Motion.
-- **Dynamic Content**: All content (experience, projects, skills, etc.) is managed via a single JSON file.
-- **Responsive**: Fully responsive layout optimized for all devices.
-- **SEO Optimized**: Comprehensive metadata and Open Graph support.
-- **Performance**: Built on Next.js App Router for optimal speed and SEO.
+- Next.js 16 App Router
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- `next-themes`
 
-## Tech Stack
+The homepage and project case studies are statically generated. Client JavaScript is limited to theme selection, mobile navigation, email copying, and résumé printing.
 
-- **Framework**: [Next.js 15](https://nextjs.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Font**: [Geist](https://vercel.com/font)
+## Content
 
-## Getting Started
+Typed portfolio content lives in:
 
-### Prerequisites
+```text
+src/content/
+├── profile.ts
+├── projects.ts
+├── engineering.ts
+└── experience.ts
+```
 
-- Node.js 18+
-- Node.js 18+
-- Yarn
+Project media lives in `public/images/projects/`.
 
-### Installation
+## Routes
 
-1.  Clone the repository:
+```text
+/
+/resume
+/work/viya
+/work/crave-roulette
+/work/watchbox
+```
 
-    ```bash
-    git clone <repository-url>
-    cd portfolio-2.0
-    ```
+Metadata routes provide `/sitemap.xml`, `/robots.txt`, and `/opengraph-image`.
 
-2.  Install dependencies:
+## Development
 
-    ```bash
-    yarn install
-    ```
+```bash
+yarn install
+yarn dev
+```
 
-3.  Run the development server:
+## Validation
 
-    ```bash
-    yarn dev
-    ```
+```bash
+yarn lint
+yarn build
+```
 
-    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Design context
 
-## Customization
-
-All portfolio data is centralized in `src/data/portfolio-data.json`. You can easily update your information without touching the component code.
-
-- **Personal Info**: Update `about` section.
-- **Experience**: Update `experience` array.
-- **Projects**: Update `projects` array.
-- **Skills**: Update `skills` object.
-- **Top Stack**: Update `topStack` array for the highlights section.
-- **Hobbies**: Update `hobbies` array.
-
-### Styling
-
-- **Colors**: Modify CSS variables in `src/app/globals.css`.
-- **Theme**: The theme toggle is handled in `src/components/ui/ThemeToggle.tsx`.
-
-## Deployment
-
-The easiest way to deploy is using [Vercel](https://vercel.com/new).
-
-1.  Push your code to a Git repository (GitHub, GitLab, BitBucket).
-2.  Import the project into Vercel.
-3.  Vercel will automatically detect Next.js and deploy.
-
-## License
-
-MIT
+- `PRODUCT.md` defines audience, purpose, positioning, and strategic constraints.
+- `DESIGN.md` defines the visual system and implementation guardrails.
