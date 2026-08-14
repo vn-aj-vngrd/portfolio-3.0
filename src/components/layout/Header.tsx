@@ -1,23 +1,45 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 import { InterfaceControls } from "@/components/ui/InterfaceControls";
 import { profile } from "@/content/profile";
 
 const links = [
-  { href: "/#work", label: "Selected work", index: "01" },
-  { href: "/#engineering", label: "How I build", index: "02" },
-  { href: "/#experience", label: "Experience", index: "03" },
-  { href: "/#certifications", label: "Credentials", index: "04" },
-  { href: "/#about", label: "About", index: "05" },
-  { href: "/#contact", label: "Contact", index: "06" },
-];
+  { href: "/#work", id: "work", label: "Selected work", index: "01" },
+  { href: "/#engineering", id: "engineering", label: "How I build", index: "02" },
+  { href: "/#experience", id: "experience", label: "Experience", index: "03" },
+  { href: "/#certifications", id: "certifications", label: "Credentials", index: "04" },
+  { href: "/#about", id: "about", label: "About", index: "05" },
+  { href: "/#contact", id: "contact", label: "Contact", index: "06" },
+] as const;
 
 export function Header() {
+  const pathname = usePathname();
   const menuRef = useRef<HTMLDetailsElement>(null);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const closeMenu = () => menuRef.current?.removeAttribute("open");
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+
+    const sections = links
+      .map((link) => document.getElementById(link.id))
+      .filter((section): section is HTMLElement => section !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.find((entry) => entry.isIntersecting);
+        if (visible) setActiveSection(visible.target.id);
+      },
+      { rootMargin: "-28% 0px -62% 0px", threshold: 0 },
+    );
+
+    for (const section of sections) observer.observe(section);
+    return () => observer.disconnect();
+  }, [pathname]);
 
   return (
     <header className="site-header">
@@ -34,12 +56,21 @@ export function Header() {
         </div>
 
         <nav className="desktop-nav" aria-label="Primary navigation">
-          {links.map((link) => (
-            <Link key={link.href} href={link.href}>
-              <span>{link.index}</span>
-              {link.label}
-            </Link>
-          ))}
+          {links.map((link) => {
+            const isActive = activeSection === link.id;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                data-active={isActive}
+                aria-current={isActive ? "location" : undefined}
+                onClick={() => setActiveSection(link.id)}
+              >
+                <span>{link.index}</span>
+                {link.label}
+              </Link>
+            );
+          })}
           <Link href="/resume">
             <span>↗</span>
             Résumé
@@ -51,11 +82,20 @@ export function Header() {
           <details ref={menuRef} className="mobile-menu">
             <summary aria-label="Open navigation">Menu</summary>
             <nav aria-label="Mobile navigation" onClick={closeMenu}>
-              {links.map((link) => (
-                <Link key={link.href} href={link.href}>
-                  <span>{link.index}</span> {link.label}
-                </Link>
-              ))}
+              {links.map((link) => {
+                const isActive = activeSection === link.id;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    data-active={isActive}
+                    aria-current={isActive ? "location" : undefined}
+                    onClick={() => setActiveSection(link.id)}
+                  >
+                    <span>{link.index}</span> {link.label}
+                  </Link>
+                );
+              })}
               <Link href="/resume">Résumé ↗</Link>
               <a href={profile.github} target="_blank" rel="noreferrer">
                 GitHub ↗
