@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import { BugHunt } from "@/components/game/BugHunt";
@@ -18,10 +18,24 @@ const links = [
   { href: "/#contact", id: "contact", label: "Contact", index: "06" },
 ] as const;
 
+const shortcuts = [
+  ...links.map((link, index) => ({
+    key: String(index + 1),
+    label: link.label,
+    href: link.href,
+    section: link.id,
+  })),
+  { key: "7", label: "Gear", href: "/gear" },
+  { key: "8", label: "Résumé", href: "/resume" },
+  { key: "9", label: "Bug hunt", action: "game" },
+] as const;
+
 export function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const menuRef = useRef<HTMLDetailsElement>(null);
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [shortcutMode, setShortcutMode] = useState(false);
   const closeMenu = () => menuRef.current?.removeAttribute("open");
 
   useEffect(() => {
@@ -42,6 +56,56 @@ export function Header() {
     for (const section of sections) observer.observe(section);
     return () => observer.disconnect();
   }, [pathname]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      const isTyping = target?.matches("input, textarea, select, [contenteditable='true']");
+      if (isTyping) return;
+
+      if (event.key === "Meta" || event.key === "Control") {
+        setShortcutMode(true);
+        return;
+      }
+
+      if (!event.metaKey && !event.ctrlKey) return;
+      const shortcut = shortcuts.find((item) => item.key === event.key);
+      if (!shortcut) return;
+
+      event.preventDefault();
+      if ("action" in shortcut) {
+        document.dispatchEvent(new Event("open-bug-hunt"));
+        return;
+      }
+
+      if ("section" in shortcut) {
+        setActiveSection(shortcut.section);
+        if (pathname === "/") {
+          window.history.replaceState(null, "", `#${shortcut.section}`);
+          document.getElementById(shortcut.section)?.scrollIntoView({ behavior: "smooth" });
+        } else {
+          router.push(shortcut.href);
+        }
+        return;
+      }
+
+      router.push(shortcut.href);
+    };
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      if (event.key === "Meta" || event.key === "Control") setShortcutMode(false);
+    };
+    const handleBlur = () => setShortcutMode(false);
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
+    window.addEventListener("blur", handleBlur);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
+      window.removeEventListener("blur", handleBlur);
+    };
+  }, [pathname, router]);
 
   return (
     <header className="site-header">
@@ -92,6 +156,9 @@ export function Header() {
         </nav>
 
         <div className="sidebar-game">
+          <p className="shortcut-hint">
+            Hold <kbd>⌘ / Ctrl</kbd> for shortcuts
+          </p>
           <BugHunt />
         </div>
 
@@ -159,6 +226,26 @@ export function Header() {
           </div>
         </div>
       </div>
+
+      <aside
+        className="shortcut-palette"
+        data-visible={shortcutMode}
+        aria-hidden={!shortcutMode}
+      >
+        <header>
+          <span>Quick navigation</span>
+          <kbd>⌘ / Ctrl</kbd>
+        </header>
+        <div>
+          {shortcuts.map((shortcut) => (
+            <span key={shortcut.key}>
+              <kbd>{shortcut.key}</kbd>
+              {shortcut.label}
+            </span>
+          ))}
+        </div>
+        <p>Keep the modifier held, then press a number.</p>
+      </aside>
     </header>
   );
 }
