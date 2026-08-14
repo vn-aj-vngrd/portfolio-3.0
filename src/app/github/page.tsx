@@ -54,7 +54,7 @@ export default async function GitHubPage() {
 
   return (
     <main id="main-content" className="github-page">
-      <section className="github-hero" aria-labelledby="github-title">
+      <section className="github-hero" aria-labelledby="github-title" data-reveal>
         <Link className="page-back-link" href="/">
           <span aria-hidden="true">←</span> Back to portfolio
         </Link>
@@ -78,7 +78,7 @@ export default async function GitHubPage() {
 
       {stats ? (
         <>
-          <section className="github-overview" aria-label="GitHub activity overview">
+          <section className="github-overview" aria-label="GitHub activity overview" data-reveal>
             <dl>
               <div>
                 <dt>{formatNumber(stats.contributions.total)}</dt>
@@ -104,7 +104,7 @@ export default async function GitHubPage() {
             </div>
           </section>
 
-          <section className="github-section" aria-labelledby="rhythm-title">
+          <section className="github-section" aria-labelledby="rhythm-title" data-reveal>
             <header className="github-section-heading">
               <p>01 · Rhythm</p>
               <div>
@@ -148,7 +148,7 @@ export default async function GitHubPage() {
             </dl>
           </section>
 
-          <section className="github-section" aria-labelledby="languages-title">
+          <section className="github-section" aria-labelledby="languages-title" data-reveal>
             <header className="github-section-heading">
               <p>02 · Languages</p>
               <div>
@@ -194,7 +194,7 @@ export default async function GitHubPage() {
             </p>
           </section>
 
-          <section className="github-section" aria-labelledby="repositories-title">
+          <section className="github-section" aria-labelledby="repositories-title" data-reveal>
             <header className="github-section-heading">
               <p>03 · Repositories</p>
               <div>
@@ -248,7 +248,7 @@ export default async function GitHubPage() {
             </ol>
           </section>
 
-          <section className="github-section" aria-labelledby="stack-context-title">
+          <section className="github-section" aria-labelledby="stack-context-title" data-reveal>
             <header className="github-section-heading">
               <p>04 · Stack context</p>
               <div>
@@ -270,13 +270,13 @@ export default async function GitHubPage() {
           </section>
         </>
       ) : (
-        <section className="github-unavailable">
+        <section className="github-unavailable" data-reveal>
           <h2>GitHub activity is temporarily unavailable.</h2>
           <p>The portfolio remains available while the private stats connection recovers.</p>
         </section>
       )}
 
-      <footer className="github-footer">
+      <footer className="github-footer" data-reveal>
         <p>Activity adds context. The product and engineering decisions still matter more.</p>
         <Link href="/#work">See selected work →</Link>
       </footer>

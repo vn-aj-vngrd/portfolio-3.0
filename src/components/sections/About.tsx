@@ -6,6 +6,7 @@ export function About() {
       className="section about-section"
       id="about"
       aria-labelledby="about-title"
+      data-reveal
     >
       <div className="about-copy">
         <div className="section-index"><span>05</span><span>About</span></div>

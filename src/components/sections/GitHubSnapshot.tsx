@@ -12,7 +12,7 @@ export async function GitHubSnapshot() {
   if (!stats) return null;
 
   return (
-    <section className="section github-snapshot" aria-labelledby="github-snapshot-title">
+    <section className="section github-snapshot" aria-labelledby="github-snapshot-title" data-reveal>
       <div className="github-snapshot-copy">
         <p>GitHub activity · private included</p>
         <h2 id="github-snapshot-title">A year of work beyond the public repository list.</h2>

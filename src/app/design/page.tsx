@@ -30,7 +30,7 @@ const principles = [
 export default function DesignPage() {
   return (
     <main id="main-content" className="design-page">
-      <section className="design-hero" aria-labelledby="design-title">
+      <section className="design-hero" aria-labelledby="design-title" data-reveal>
         <Link className="page-back-link" href="/">
           <span aria-hidden="true">←</span> Back to portfolio
         </Link>
@@ -79,7 +79,7 @@ export default function DesignPage() {
         <a href="#rules"><span>05</span> Rules</a>
       </nav>
 
-      <section className="design-section" id="foundations" aria-labelledby="foundations-title">
+      <section className="design-section" id="foundations" aria-labelledby="foundations-title" data-reveal>
         <header className="design-section-heading">
           <p>01 · Foundations</p>
           <div>
@@ -129,7 +129,7 @@ export default function DesignPage() {
         </div>
       </section>
 
-      <section className="design-section" id="type" aria-labelledby="type-title">
+      <section className="design-section" id="type" aria-labelledby="type-title" data-reveal>
         <header className="design-section-heading">
           <p>02 · Typography</p>
           <div>
@@ -164,7 +164,7 @@ export default function DesignPage() {
         </div>
       </section>
 
-      <section className="design-section" id="components" aria-labelledby="components-title">
+      <section className="design-section" id="components" aria-labelledby="components-title" data-reveal>
         <header className="design-section-heading">
           <p>03 · Components</p>
           <div>
@@ -206,7 +206,7 @@ export default function DesignPage() {
         </ol>
       </section>
 
-      <section className="design-section" id="structure" aria-labelledby="structure-title">
+      <section className="design-section" id="structure" aria-labelledby="structure-title" data-reveal>
         <header className="design-section-heading">
           <p>04 · Structure</p>
           <div>
@@ -236,7 +236,7 @@ export default function DesignPage() {
         </div>
       </section>
 
-      <section className="design-rules" id="rules" aria-labelledby="rules-title">
+      <section className="design-rules" id="rules" aria-labelledby="rules-title" data-reveal>
         <div>
           <p>05 · Operating rules</p>
           <h2 id="rules-title">Restraint is part of the implementation.</h2>
@@ -248,7 +248,7 @@ export default function DesignPage() {
         </ol>
       </section>
 
-      <footer className="design-footer">
+      <footer className="design-footer" data-reveal>
         <div>
           <p>Portable specification</p>
           <h2>Use the same decisions in the next iteration.</h2>

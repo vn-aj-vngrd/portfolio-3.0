@@ -12,6 +12,7 @@ export function SelectedWork() {
       className="section work-section"
       id="work"
       aria-labelledby="work-title"
+      data-reveal
     >
       <div className="section-heading">
         <div className="section-index"><span>01</span><span>My work</span></div>

@@ -6,6 +6,7 @@ export function Engineering() {
       className="section engineering-section"
       id="engineering"
       aria-labelledby="engineering-title"
+      data-reveal
     >
       <div className="section-heading section-heading-wide">
         <div className="section-index">

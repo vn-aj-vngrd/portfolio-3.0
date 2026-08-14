@@ -8,6 +8,10 @@ import { BugHunt } from "@/components/game/BugHunt";
 import { InterfaceControls } from "@/components/ui/InterfaceControls";
 import { LivePresence } from "@/components/ui/LivePresence";
 import { profile } from "@/content/profile";
+import {
+  isPlatformModifierPressed,
+  usePlatformModifier,
+} from "@/hooks/usePlatformModifier";
 
 const links = [
   { href: "/#work", id: "work", label: "My work", index: "01" },
@@ -17,6 +21,14 @@ const links = [
   { href: "/#about", id: "about", label: "About", index: "05" },
   { href: "/#contact", id: "contact", label: "Contact", index: "06" },
 ] as const;
+
+function setMobileMenuIsolation(open: boolean) {
+  for (const element of document.querySelectorAll<HTMLElement>(
+    ".skip-link, .site-identity, main, .site-footer",
+  )) {
+    element.inert = open;
+  }
+}
 
 const shortcuts = [
   ...links.map((link, index) => ({
@@ -35,9 +47,43 @@ export function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const menuRef = useRef<HTMLDetailsElement>(null);
+  const menuCloseTimer = useRef<number | null>(null);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [shortcutMode, setShortcutMode] = useState(false);
-  const closeMenu = () => menuRef.current?.removeAttribute("open");
+  const platformModifier = usePlatformModifier();
+
+  const closeMenu = () => {
+    const menu = menuRef.current;
+    if (!menu?.open) return;
+
+    menu.dataset.closing = "true";
+    if (menuCloseTimer.current) window.clearTimeout(menuCloseTimer.current);
+    menuCloseTimer.current = window.setTimeout(() => {
+      menu.open = false;
+      delete menu.dataset.closing;
+      document.documentElement.classList.remove("mobile-menu-open");
+      setMobileMenuIsolation(false);
+      menu.querySelector<HTMLElement>("summary")?.focus();
+    }, 280);
+  };
+
+  const handleMenuToggle = () => {
+    const open = Boolean(menuRef.current?.open);
+    if (open) {
+      delete menuRef.current?.dataset.closing;
+      window.requestAnimationFrame(() => {
+        menuRef.current?.querySelector<HTMLElement>(".mobile-menu-panel header button")?.focus();
+      });
+    }
+    document.documentElement.classList.toggle("mobile-menu-open", open);
+    setMobileMenuIsolation(open);
+  };
+
+  useEffect(() => () => {
+    if (menuCloseTimer.current) window.clearTimeout(menuCloseTimer.current);
+    document.documentElement.classList.remove("mobile-menu-open");
+    setMobileMenuIsolation(false);
+  }, []);
 
   useEffect(() => {
     if (pathname !== "/") return;
@@ -64,12 +110,16 @@ export function Header() {
       const isTyping = target?.matches("input, textarea, select, [contenteditable='true']");
       if (isTyping) return;
 
-      if (event.key === "Meta" || event.key === "Control") {
+      const isModifierKey =
+        (platformModifier === "⌘" && event.key === "Meta") ||
+        (platformModifier === "Ctrl" && event.key === "Control") ||
+        (platformModifier === null && (event.key === "Meta" || event.key === "Control"));
+      if (isModifierKey) {
         setShortcutMode(true);
         return;
       }
 
-      if (!event.metaKey && !event.ctrlKey) return;
+      if (!isPlatformModifierPressed(event, platformModifier)) return;
       const shortcut = shortcuts.find((item) => item.key === event.key);
       if (!shortcut) return;
 
@@ -91,7 +141,11 @@ export function Header() {
     };
 
     const handleKeyUp = (event: KeyboardEvent) => {
-      if (event.key === "Meta" || event.key === "Control") setShortcutMode(false);
+      const isModifierKey =
+        (platformModifier === "⌘" && event.key === "Meta") ||
+        (platformModifier === "Ctrl" && event.key === "Control") ||
+        (platformModifier === null && (event.key === "Meta" || event.key === "Control"));
+      if (isModifierKey) setShortcutMode(false);
     };
     const handleBlur = () => setShortcutMode(false);
 
@@ -103,7 +157,7 @@ export function Header() {
       window.removeEventListener("keyup", handleKeyUp);
       window.removeEventListener("blur", handleBlur);
     };
-  }, [pathname, router]);
+  }, [pathname, platformModifier, router]);
 
   return (
     <header className="site-header">
@@ -188,71 +242,86 @@ export function Header() {
           </div>
 
           <div className="header-utilities">
-            <InterfaceControls />
-            <details ref={menuRef} className="mobile-menu">
-              <summary aria-label="Open navigation">Menu</summary>
-              <nav aria-label="Mobile navigation" onClick={closeMenu}>
-              {links.map((link) => {
-                const isActive = pathname === "/" && activeSection === link.id;
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    data-active={isActive}
-                    aria-current={isActive ? "location" : undefined}
-                    onClick={() => setActiveSection(link.id)}
-                  >
-                    <span>{link.index}</span> {link.label}
-                  </Link>
-                );
-              })}
-              <button
-                className="mobile-game-button"
-                type="button"
-                onClick={() => document.dispatchEvent(new Event("open-bug-hunt"))}
-              >
-                Bug hunt <span>⇧ B</span>
-              </button>
-              <Link
-                href="/ai"
-                data-active={pathname === "/ai"}
-                aria-current={pathname === "/ai" ? "page" : undefined}
-              >
-                AI workflow ↗
-              </Link>
-              <Link
-                href="/github"
-                data-active={pathname === "/github"}
-                aria-current={pathname === "/github" ? "page" : undefined}
-              >
-                GitHub stats ↗
-              </Link>
-              <Link
-                href="/design"
-                data-active={pathname === "/design"}
-                aria-current={pathname === "/design" ? "page" : undefined}
-              >
-                Design system ↗
-              </Link>
-              <Link
-                href="/gear"
-                data-active={pathname === "/gear"}
-                aria-current={pathname === "/gear" ? "page" : undefined}
-              >
-                Gear ↗
-              </Link>
-              <Link
-                href="/resume"
-                data-active={pathname === "/resume"}
-                aria-current={pathname === "/resume" ? "page" : undefined}
-              >
-                Résumé ↗
-              </Link>
-              <a href={profile.github} target="_blank" rel="noreferrer">
-                GitHub ↗
-              </a>
-              </nav>
+            <details
+              ref={menuRef}
+              className="mobile-menu"
+              onToggle={handleMenuToggle}
+            >
+              <summary aria-label="Open navigation menu">
+                <span>Menu</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M5 8h14M5 16h14" />
+                </svg>
+              </summary>
+
+              <div className="mobile-menu-panel" data-lenis-prevent>
+                <header>
+                  <Link href="/" onClick={closeMenu}>Van AJ Vanguardia</Link>
+                  <button type="button" onClick={closeMenu} aria-label="Close navigation menu">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="m6 6 12 12M18 6 6 18" />
+                    </svg>
+                  </button>
+                </header>
+
+                <div className="mobile-menu-content">
+                  <p className="mobile-menu-label">Portfolio index</p>
+                  <nav className="mobile-primary-nav" aria-label="Mobile navigation">
+                    {links.map((link) => {
+                      const isActive = pathname === "/" && activeSection === link.id;
+                      return (
+                        <Link
+                          key={link.href}
+                          href={link.href}
+                          data-active={isActive}
+                          aria-current={isActive ? "location" : undefined}
+                          onClick={() => {
+                            setActiveSection(link.id);
+                            closeMenu();
+                          }}
+                        >
+                          <span>{link.index}</span>
+                          <strong>{link.label}</strong>
+                          <i aria-hidden="true">→</i>
+                        </Link>
+                      );
+                    })}
+                  </nav>
+
+                  <div className="mobile-menu-explore">
+                    <p className="mobile-menu-label">Explore</p>
+                    <nav aria-label="Additional pages">
+                      <Link href="/ai" onClick={closeMenu} data-active={pathname === "/ai"} aria-current={pathname === "/ai" ? "page" : undefined}>AI workflow <span>↗</span></Link>
+                      <Link href="/github" onClick={closeMenu} data-active={pathname === "/github"} aria-current={pathname === "/github" ? "page" : undefined}>GitHub stats <span>↗</span></Link>
+                      <Link href="/design" onClick={closeMenu} data-active={pathname === "/design"} aria-current={pathname === "/design" ? "page" : undefined}>Design system <span>↗</span></Link>
+                      <Link href="/gear" onClick={closeMenu} data-active={pathname === "/gear"} aria-current={pathname === "/gear" ? "page" : undefined}>Gear <span>↗</span></Link>
+                      <Link href="/resume" onClick={closeMenu} data-active={pathname === "/resume"} aria-current={pathname === "/resume" ? "page" : undefined}>Résumé <span>↗</span></Link>
+                      <a href={profile.github} target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+                    </nav>
+                  </div>
+
+                  <div className="mobile-menu-contact">
+                    <button
+                      className="mobile-game-button"
+                      type="button"
+                      onClick={() => {
+                        closeMenu();
+                        document.dispatchEvent(new Event("open-bug-hunt"));
+                      }}
+                    >
+                      <span>Play Bug Hunt</span>
+                      <kbd>{platformModifier ? `${platformModifier} B` : "B"}</kbd>
+                    </button>
+                    <a href={`mailto:${profile.email}`}>{profile.email}</a>
+                  </div>
+                </div>
+              </div>
             </details>
+
+            <div className="interface-controls-shell">
+              <span>Interface</span>
+              <InterfaceControls />
+            </div>
           </div>
 
           <div className="sidebar-bottom">
@@ -277,7 +346,7 @@ export function Header() {
       >
         <header>
           <span>Quick navigation</span>
-          <kbd>⌘ / Ctrl</kbd>
+          <kbd>{platformModifier ?? "Modifier"}</kbd>
         </header>
         <div>
           {shortcuts.map((shortcut) => (
@@ -287,7 +356,7 @@ export function Header() {
             </span>
           ))}
         </div>
-        <p>Keep the modifier held, then press a number.</p>
+        <p>Keep {platformModifier ?? "the modifier"} held, then press a number.</p>
       </aside>
     </header>
   );

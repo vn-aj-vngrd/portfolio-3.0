@@ -39,7 +39,7 @@ export default function GearPage() {
 
   return (
     <main id="main-content" className="gear-page">
-      <section className="gear-hero" aria-labelledby="gear-title">
+      <section className="gear-hero" aria-labelledby="gear-title" data-reveal>
         <Link className="page-back-link" href="/">
           <span aria-hidden="true">←</span> Back to portfolio
         </Link>
@@ -55,7 +55,7 @@ export default function GearPage() {
         </div>
       </section>
 
-      <section className="gear-primary" aria-labelledby="primary-gear-title">
+      <section className="gear-primary" aria-labelledby="primary-gear-title" data-reveal>
         <div className="gear-primary-visual">
           <GearIllustration kind={primary.kind} />
         </div>
@@ -70,7 +70,7 @@ export default function GearPage() {
 
       <div className="gear-groups">
         {groups.map((group, groupIndex) => (
-          <section className="gear-group" key={group.title}>
+          <section className="gear-group" key={group.title} data-reveal>
             <header>
               <p>0{groupIndex + 1}</p>
               <div>
@@ -97,7 +97,7 @@ export default function GearPage() {
         ))}
       </div>
 
-      <footer className="gear-footer">
+      <footer className="gear-footer" data-reveal>
         <p>Tools matter when they remove friction—not when they become the work.</p>
         <Link href="/#work">See what I build →</Link>
       </footer>

@@ -10,7 +10,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
 
   return (
     <main id="main-content" className="case-study">
-      <header className="case-hero">
+      <header className="case-hero" data-reveal>
         <Link className="back-link" href="/#work">
           ← Selected products
         </Link>
@@ -46,6 +46,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       <section
         className={`case-media case-media-${project.slug}`}
         aria-label={`${project.name} product screens`}
+        data-reveal
       >
         {project.images.map((image) => (
           <figure key={image.src}>
@@ -61,7 +62,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         ))}
       </section>
 
-      <section className="case-context" aria-labelledby="context-title">
+      <section className="case-context" aria-labelledby="context-title" data-reveal>
         <h2 id="context-title">What needed to change</h2>
         <div>
           <h3>The problem</h3>
@@ -76,6 +77,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       <section
         className="case-architecture"
         aria-labelledby="architecture-title"
+        data-reveal
       >
         <div className="section-heading">
           <h2 id="architecture-title">How the system is shaped</h2>
@@ -91,7 +93,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         </ol>
       </section>
 
-      <section className="case-decisions" aria-labelledby="decisions-title">
+      <section className="case-decisions" aria-labelledby="decisions-title" data-reveal>
         <div className="section-heading">
           <h2 id="decisions-title">Trade-offs that mattered</h2>
           <p>
@@ -109,7 +111,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         </div>
       </section>
 
-      <section className="case-evidence" aria-labelledby="evidence-title">
+      <section className="case-evidence" aria-labelledby="evidence-title" data-reveal>
         <div>
           <h2 id="evidence-title">Evidence in the public build</h2>
           <p>
@@ -124,7 +126,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         </ul>
       </section>
 
-      <footer className="case-footer">
+      <footer className="case-footer" data-reveal>
         <p>Next product</p>
         <Link href={`/work/${nextProject.slug}`}>
           <strong>{nextProject.name}</strong>

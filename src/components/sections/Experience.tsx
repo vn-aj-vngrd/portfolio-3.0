@@ -6,6 +6,7 @@ export function Experience() {
       className="section experience-section"
       id="experience"
       aria-labelledby="experience-title"
+      data-reveal
     >
       <div className="section-heading section-heading-wide">
         <div className="section-index">

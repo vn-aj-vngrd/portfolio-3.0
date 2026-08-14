@@ -21,7 +21,7 @@ export default function AiWorkflowPage() {
 
   return (
     <main id="main-content" className="ai-page">
-      <section className="ai-hero" aria-labelledby="ai-title">
+      <section className="ai-hero" aria-labelledby="ai-title" data-reveal>
         <Link className="page-back-link" href="/">
           <span aria-hidden="true">←</span> Back to portfolio
         </Link>
@@ -61,7 +61,7 @@ export default function AiWorkflowPage() {
         </dl>
       </section>
 
-      <section className="ai-section ai-models" aria-labelledby="models-title">
+      <section className="ai-section ai-models" aria-labelledby="models-title" data-reveal>
         <header className="ai-section-heading">
           <p>01 · Models</p>
           <div>
@@ -81,7 +81,7 @@ export default function AiWorkflowPage() {
         </div>
       </section>
 
-      <section className="ai-section" aria-labelledby="workflow-title">
+      <section className="ai-section" aria-labelledby="workflow-title" data-reveal>
         <header className="ai-section-heading">
           <p>02 · Workflow</p>
           <div>
@@ -103,7 +103,7 @@ export default function AiWorkflowPage() {
         </ol>
       </section>
 
-      <section className="ai-section" aria-labelledby="surfaces-title">
+      <section className="ai-section" aria-labelledby="surfaces-title" data-reveal>
         <header className="ai-section-heading">
           <p>03 · Setup</p>
           <div>
@@ -127,7 +127,7 @@ export default function AiWorkflowPage() {
         </div>
       </section>
 
-      <section className="ai-section" aria-labelledby="skills-title">
+      <section className="ai-section" aria-labelledby="skills-title" data-reveal>
         <header className="ai-section-heading">
           <p>04 · Skills</p>
           <div>
@@ -155,7 +155,7 @@ export default function AiWorkflowPage() {
         </div>
       </section>
 
-      <section className="ai-guardrails" aria-labelledby="guardrails-title">
+      <section className="ai-guardrails" aria-labelledby="guardrails-title" data-reveal>
         <div>
           <p>05 · Guardrails</p>
           <h2 id="guardrails-title">Agent-driven does not mean autopilot.</h2>
@@ -170,7 +170,7 @@ export default function AiWorkflowPage() {
         </ol>
       </section>
 
-      <footer className="ai-footer">
+      <footer className="ai-footer" data-reveal>
         <p>The workflow is only useful if the shipped product is useful.</p>
         <Link href="/#work">See selected work →</Link>
       </footer>

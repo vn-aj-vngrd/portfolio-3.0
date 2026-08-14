@@ -9,6 +9,7 @@ export function Certifications() {
       className="section certifications-section"
       id="certifications"
       aria-labelledby="certifications-title"
+      data-reveal
     >
       <div className="section-heading section-heading-wide">
         <div className="section-index">

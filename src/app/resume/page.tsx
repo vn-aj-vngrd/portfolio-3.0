@@ -25,7 +25,7 @@ export default async function ResumePage() {
         </Link>
         <PrintButton />
       </div>
-      <article className="resume-sheet">
+      <article className="resume-sheet" data-reveal>
         <header>
           <div>
             <h1>{profile.name}</h1>

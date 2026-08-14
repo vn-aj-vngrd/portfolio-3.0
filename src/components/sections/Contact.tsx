@@ -7,6 +7,7 @@ export function Contact() {
       className="section contact-section"
       id="contact"
       aria-labelledby="contact-title"
+      data-reveal
     >
       <div className="section-index"><span>06</span><span>Contact</span></div>
       <h2 id="contact-title">Let’s build something useful.</h2>

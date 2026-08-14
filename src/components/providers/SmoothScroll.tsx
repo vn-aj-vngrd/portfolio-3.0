@@ -1,9 +1,13 @@
 "use client";
 
 import type Lenis from "lenis";
-import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef } from "react";
 
 export function SmoothScroll() {
+  const pathname = usePathname();
+  const previousPathname = useRef(pathname);
+
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let lenis: Lenis | null = null;
@@ -53,11 +57,17 @@ export function SmoothScroll() {
       }
     };
 
+    const handleRouteScrollTop = () => {
+      if (lenis) lenis.scrollTo(0, { immediate: true, force: true });
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    };
+
     void setup();
     const handlePreferenceChange = () => void setup();
     reducedMotion.addEventListener("change", handlePreferenceChange);
     document.addEventListener("click", handleAnchorClick);
     document.addEventListener("portfolio-scroll-to", handleScrollRequest);
+    document.addEventListener("portfolio-route-top", handleRouteScrollTop);
 
     return () => {
       generation += 1;
@@ -65,8 +75,15 @@ export function SmoothScroll() {
       reducedMotion.removeEventListener("change", handlePreferenceChange);
       document.removeEventListener("click", handleAnchorClick);
       document.removeEventListener("portfolio-scroll-to", handleScrollRequest);
+      document.removeEventListener("portfolio-route-top", handleRouteScrollTop);
     };
   }, []);
+
+  useEffect(() => {
+    if (previousPathname.current === pathname) return;
+    previousPathname.current = pathname;
+    document.dispatchEvent(new Event("portfolio-route-top"));
+  }, [pathname]);
 
   return null;
 }

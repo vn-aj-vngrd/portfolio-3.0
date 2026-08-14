@@ -2,6 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 
+import {
+  isPlatformModifierPressed,
+  usePlatformModifier,
+} from "@/hooks/usePlatformModifier";
+
 type Challenge = {
   title: string;
   code: readonly string[];
@@ -92,6 +97,7 @@ export function BugHunt() {
   const [score, setScore] = useState(0);
   const [selectedLine, setSelectedLine] = useState<number | null>(null);
   const [elapsed, setElapsed] = useState(0);
+  const platformModifier = usePlatformModifier();
 
   const open = () => {
     if (!dialogRef.current?.open) dialogRef.current?.showModal();
@@ -150,7 +156,11 @@ export function BugHunt() {
     const openFromShortcut = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement | null;
       const isTyping = target?.matches("input, textarea, select, [contenteditable='true']");
-      if (!isTyping && event.shiftKey && event.key.toLowerCase() === "b") {
+      if (
+        !isTyping &&
+        isPlatformModifierPressed(event, platformModifier) &&
+        event.key.toLowerCase() === "b"
+      ) {
         event.preventDefault();
         open();
       }
@@ -163,7 +173,7 @@ export function BugHunt() {
       document.removeEventListener("keydown", openFromShortcut);
       document.removeEventListener("open-bug-hunt", openFromEvent);
     };
-  }, []);
+  }, [platformModifier]);
 
   const challenge = challenges[round];
   const correct = selectedLine === challenge.bugLine;
@@ -178,7 +188,7 @@ export function BugHunt() {
     <div className="bug-hunt">
       <button className="bug-hunt-trigger" type="button" onClick={open}>
         <span>Bug hunt</span>
-        <kbd>⇧ B</kbd>
+        <kbd>{platformModifier ? `${platformModifier} B` : "B"}</kbd>
       </button>
 
       <dialog
