@@ -12,5 +12,6 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/van-aj-vanguardia-a0654a223/",
   philosophy:
     "I prefer useful software over unnecessary complexity. I invest in architecture when it protects the product, keep interfaces understandable, and use AI as leverage while keeping validation and engineering judgment in the loop.",
-  education: "BS Information Technology, University of San Carlos",
+  education:
+    "BS Information Technology, University of San Carlos — Talamban Campus, 2024",
 } as const;
