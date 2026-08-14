@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import { InterfaceControls } from "@/components/ui/InterfaceControls";
+import { LivePresence } from "@/components/ui/LivePresence";
 import { profile } from "@/content/profile";
 
 const links = [
@@ -88,6 +89,10 @@ export function Header() {
             Résumé
           </Link>
         </nav>
+
+        <div className="sidebar-presence">
+          <LivePresence />
+        </div>
 
         <div className="header-utilities">
           <InterfaceControls />
