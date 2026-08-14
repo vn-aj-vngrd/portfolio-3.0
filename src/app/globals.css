@@ -46,6 +46,16 @@ a { color: inherit; text-decoration: none; }
 a, button, summary { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 button, summary { font: inherit; }
 button { color: inherit; }
+a[href],
+button:not(:disabled),
+summary,
+[role="button"],
+select,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] { cursor: pointer; }
+button:disabled,
+[aria-disabled="true"] { cursor: not-allowed; }
 img { display: block; max-width: 100%; height: auto; }
 figure { margin: 0; }
 ::selection { background: var(--signal); color: #fff; }
@@ -349,6 +359,13 @@ main, .site-footer { margin-left: var(--rail); }
 /* Résumé */
 .resume-page { padding-block: 3rem 6rem; }
 .resume-controls { max-width: 52rem; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+.resume-print-button { min-height: 3.25rem; display: inline-flex; align-items: center; gap: .75rem; padding: .6rem .75rem .6rem 1rem; border: 1px solid var(--ink); background: var(--ink); color: var(--canvas); font-family: var(--font-geist-mono), monospace; transition: transform .18s ease, background-color .18s ease, color .18s ease; }
+.resume-print-button:hover { transform: translateY(-2px); }
+.resume-print-button svg { width: 1.15rem; height: 1.15rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.resume-print-button > span:nth-child(2) { display: grid; text-align: left; }
+.resume-print-button strong { font-size: .72rem; font-weight: 580; line-height: 1.2; }
+.resume-print-button small { margin-top: .15rem; color: color-mix(in srgb, var(--canvas) 65%, transparent); font-size: .57rem; line-height: 1.2; }
+.resume-print-button > span:last-child { display: grid; width: 1.7rem; height: 1.7rem; place-items: center; border-left: 1px solid color-mix(in srgb, var(--canvas) 22%, transparent); }
 .resume-sheet { max-width: 52rem; margin-inline: auto; padding: clamp(2rem, 6vw, 5rem); background: #fff; color: #111214; border: 1px solid #e1e4e8; }
 .resume-sheet > header { display: flex; justify-content: space-between; gap: 2rem; padding-bottom: 2rem; border-bottom: 2px solid #111214; }
 .resume-sheet h1 { margin: 0; font-size: 2.6rem; line-height: 1; letter-spacing: -.04em; }

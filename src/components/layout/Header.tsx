@@ -57,7 +57,7 @@ export function Header() {
 
         <nav className="desktop-nav" aria-label="Primary navigation">
           {links.map((link) => {
-            const isActive = activeSection === link.id;
+            const isActive = pathname === "/" && activeSection === link.id;
             return (
               <Link
                 key={link.href}
@@ -71,7 +71,11 @@ export function Header() {
               </Link>
             );
           })}
-          <Link href="/resume">
+          <Link
+            href="/resume"
+            data-active={pathname === "/resume"}
+            aria-current={pathname === "/resume" ? "page" : undefined}
+          >
             <span>↗</span>
             Résumé
           </Link>
@@ -83,7 +87,7 @@ export function Header() {
             <summary aria-label="Open navigation">Menu</summary>
             <nav aria-label="Mobile navigation" onClick={closeMenu}>
               {links.map((link) => {
-                const isActive = activeSection === link.id;
+                const isActive = pathname === "/" && activeSection === link.id;
                 return (
                   <Link
                     key={link.href}
@@ -96,7 +100,13 @@ export function Header() {
                   </Link>
                 );
               })}
-              <Link href="/resume">Résumé ↗</Link>
+              <Link
+                href="/resume"
+                data-active={pathname === "/resume"}
+                aria-current={pathname === "/resume" ? "page" : undefined}
+              >
+                Résumé ↗
+              </Link>
               <a href={profile.github} target="_blank" rel="noreferrer">
                 GitHub ↗
               </a>
