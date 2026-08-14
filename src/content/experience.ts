@@ -3,7 +3,7 @@ import type { Experience } from "@/types/content";
 export const experience = [
   {
     company: "Full Scale Teams PH",
-    role: "Software Developer",
+    role: "Full-Stack Developer",
     period: "Jul 2024 — Present",
     kind: "Professional",
     current: true,
