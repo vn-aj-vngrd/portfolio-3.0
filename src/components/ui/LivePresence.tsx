@@ -74,7 +74,7 @@ export function LivePresence() {
         <p>
           <strong>{count}</strong> {count === 1 ? "person" : "people"} viewing now
         </p>
-        <span>Anonymous · active within 75 seconds</span>
+        <span>Anonymous · active in last 75s</span>
       </div>
     </section>
   );
