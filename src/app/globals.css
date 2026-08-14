@@ -318,6 +318,10 @@ main, .site-footer { margin-left: var(--rail); }
 .case-hero { padding-block: clamp(5rem, 9vw, 8rem); }
 .back-link { display: inline-flex; min-height: 2.75rem; align-items: center; margin-bottom: 3.5rem; color: var(--muted); font: 450 .7rem/1.4 var(--font-geist-mono), monospace; }
 .back-link:hover { color: var(--signal); }
+.page-back-link { display: inline-flex; min-height: 2.75rem; align-items: center; gap: .55rem; border-bottom: 1px solid var(--border); color: var(--muted); font: 500 .7rem/1.4 var(--font-geist-mono), monospace; transition: color .18s ease, border-color .18s ease, transform .18s ease; }
+.page-back-link span { color: var(--signal); font-size: .9rem; transition: transform .18s ease; }
+.page-back-link:hover { border-color: var(--signal); color: var(--ink); transform: translateX(-2px); }
+.page-back-link:hover span { transform: translateX(-2px); }
 .case-hero h1 { margin: 0; max-width: 11ch; font-size: clamp(3.3rem, 7vw, 6.4rem); font-weight: 570; letter-spacing: -.06em; line-height: .94; }
 .case-hero .case-summary { max-width: 42ch; margin: 1.8rem 0 0; color: var(--muted); font-size: clamp(1.2rem, 2.2vw, 1.6rem); }
 .case-meta { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 2rem; margin: 3.5rem 0 0; padding-block: 1.3rem; border-block: 1px solid var(--border); }
@@ -363,7 +367,7 @@ main, .site-footer { margin-left: var(--rail); }
 .gear-groups,
 .gear-footer { width: min(calc(100% - 5rem), var(--max)); margin-inline: auto; }
 .gear-hero { padding-block: clamp(4rem, 9vw, 8rem); }
-.gear-hero .back-link { margin-bottom: clamp(3rem, 7vw, 5.5rem); }
+.gear-hero .page-back-link { margin-bottom: clamp(3rem, 7vw, 5.5rem); }
 .gear-hero-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: clamp(3rem, 9vw, 8rem); align-items: end; }
 .gear-kicker { margin: 0 0 1rem; color: var(--signal); font: 500 .7rem/1.4 var(--font-geist-mono), monospace; }
 .gear-hero h1 { max-width: 11ch; margin: 0; font-size: clamp(3.4rem, 7vw, 6.4rem); font-weight: 560; line-height: .94; letter-spacing: -.06em; text-wrap: balance; }

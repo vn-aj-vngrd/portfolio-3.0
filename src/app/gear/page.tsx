@@ -40,8 +40,8 @@ export default function GearPage() {
   return (
     <main id="main-content" className="gear-page">
       <section className="gear-hero" aria-labelledby="gear-title">
-        <Link className="back-link" href="/">
-          ← Portfolio
+        <Link className="page-back-link" href="/">
+          <span aria-hidden="true">←</span> Back to portfolio
         </Link>
         <div className="gear-hero-grid">
           <div>

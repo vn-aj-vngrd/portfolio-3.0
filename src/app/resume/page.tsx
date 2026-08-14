@@ -17,8 +17,8 @@ export default function ResumePage() {
   return (
     <main id="main-content" className="resume-page">
       <div className="resume-controls print-hidden">
-        <Link className="text-link" href="/">
-          ← Portfolio
+        <Link className="page-back-link" href="/">
+          <span aria-hidden="true">←</span> Back to portfolio
         </Link>
         <PrintButton />
       </div>
