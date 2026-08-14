@@ -152,6 +152,14 @@ export function Header() {
             GitHub stats
           </Link>
           <Link
+            href="/design"
+            data-active={pathname === "/design"}
+            aria-current={pathname === "/design" ? "page" : undefined}
+          >
+            <span>↗</span>
+            Design system
+          </Link>
+          <Link
             href="/gear"
             data-active={pathname === "/gear"}
             aria-current={pathname === "/gear" ? "page" : undefined}
@@ -219,6 +227,13 @@ export function Header() {
                 aria-current={pathname === "/github" ? "page" : undefined}
               >
                 GitHub stats ↗
+              </Link>
+              <Link
+                href="/design"
+                data-active={pathname === "/design"}
+                aria-current={pathname === "/design" ? "page" : undefined}
+              >
+                Design system ↗
               </Link>
               <Link
                 href="/gear"

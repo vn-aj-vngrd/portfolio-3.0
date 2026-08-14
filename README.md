@@ -10,7 +10,7 @@ Product-driven portfolio for Van AJ Vanguardia, a product-minded full-stack soft
 - Tailwind CSS 4
 - `next-themes`
 
-The homepage, AI workflow, gear catalog, résumé, GitHub engineering activity, and project case studies use statically generated or revalidated server content. Client JavaScript supports theme selection, smooth scrolling, keyboard navigation, live anonymous presence, Bug Hunt, email copying, and résumé printing.
+The homepage, living design system, AI workflow, gear catalog, résumé, GitHub engineering activity, and project case studies use statically generated or revalidated server content. Client JavaScript supports theme selection, smooth scrolling, keyboard navigation, live anonymous presence, Bug Hunt, email copying, and résumé printing.
 
 ## Content
 
@@ -35,6 +35,8 @@ Project media lives in `public/images/projects/`.
 /
 /ai
 /github
+/design
+/design.md
 /gear
 /resume
 /work/viya
@@ -42,7 +44,7 @@ Project media lives in `public/images/projects/`.
 /work/watchbox
 ```
 
-Metadata routes provide `/sitemap.xml`, `/robots.txt`, and `/opengraph-image`.
+Metadata routes provide `/sitemap.xml`, `/robots.txt`, and `/opengraph-image`. The `/design` route presents the portfolio system as live specimens with copyable tokens and components; `/design.md` exposes the portable Markdown specification.
 
 ## GitHub activity
 
