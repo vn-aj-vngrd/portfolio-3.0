@@ -14,7 +14,7 @@ export function SelectedWork() {
       aria-labelledby="work-title"
     >
       <div className="section-heading">
-        <div className="section-index"><span>01</span><span>Selected work</span></div>
+        <div className="section-index"><span>01</span><span>My work</span></div>
         <h2 id="work-title">Products, not just repositories.</h2>
         <p>
           Personal builds selected for the product decisions, architecture, and

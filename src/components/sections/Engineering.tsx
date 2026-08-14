@@ -10,7 +10,7 @@ export function Engineering() {
       <div className="section-heading section-heading-wide">
         <div className="section-index">
           <span>02</span>
-          <span>How I build</span>
+          <span>Tech stack</span>
         </div>
         <h2 id="engineering-title">TypeScript at the center. Product delivery end to end.</h2>
         <p>

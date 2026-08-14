@@ -10,8 +10,8 @@ import { LivePresence } from "@/components/ui/LivePresence";
 import { profile } from "@/content/profile";
 
 const links = [
-  { href: "/#work", id: "work", label: "Selected work", index: "01" },
-  { href: "/#engineering", id: "engineering", label: "How I build", index: "02" },
+  { href: "/#work", id: "work", label: "My work", index: "01" },
+  { href: "/#engineering", id: "engineering", label: "Tech stack", index: "02" },
   { href: "/#experience", id: "experience", label: "Experience", index: "03" },
   { href: "/#certifications", id: "certifications", label: "Credentials", index: "04" },
   { href: "/#about", id: "about", label: "About", index: "05" },
