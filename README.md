@@ -10,7 +10,7 @@ Product-driven portfolio for Van AJ Vanguardia, a product-minded full-stack soft
 - Tailwind CSS 4
 - `next-themes`
 
-The homepage, AI workflow, gear catalog, résumé, and project case studies use statically generated content. Client JavaScript supports theme selection, smooth scrolling, keyboard navigation, live anonymous presence, Bug Hunt, email copying, and résumé printing.
+The homepage, AI workflow, gear catalog, résumé, GitHub engineering activity, and project case studies use statically generated or revalidated server content. Client JavaScript supports theme selection, smooth scrolling, keyboard navigation, live anonymous presence, Bug Hunt, email copying, and résumé printing.
 
 ## Content
 
@@ -34,6 +34,7 @@ Project media lives in `public/images/projects/`.
 ```text
 /
 /ai
+/github
 /gear
 /resume
 /work/viya
@@ -42,6 +43,12 @@ Project media lives in `public/images/projects/`.
 ```
 
 Metadata routes provide `/sitemap.xml`, `/robots.txt`, and `/opengraph-image`.
+
+## GitHub activity
+
+`/github` uses the GitHub GraphQL API to show hourly-revalidated contribution, repository, and GitHub Linguist aggregates. Set `GITHUB_STATS_TOKEN` in the server environment to include private activity. Private repository names and source code are never rendered; private data appears only in aggregate counts and language totals.
+
+Language figures are repository bytes reported by GitHub Linguist, not lines of code.
 
 ## Development
 

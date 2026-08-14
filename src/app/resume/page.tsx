@@ -5,6 +5,7 @@ import { PrintButton } from "@/components/ui/PrintButton";
 import { experience } from "@/content/experience";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
+import { getGitHubStats } from "@/lib/github-stats";
 
 export const metadata: Metadata = {
   title: "Résumé",
@@ -13,7 +14,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/resume" },
 };
 
-export default function ResumePage() {
+export default async function ResumePage() {
+  const github = await getGitHubStats();
+
   return (
     <main id="main-content" className="resume-page">
       <div className="resume-controls print-hidden">
@@ -44,6 +47,27 @@ export default function ResumePage() {
             {profile.statement} {profile.introduction}
           </p>
         </section>
+
+        {github ? (
+          <section>
+            <h2>GitHub engineering activity · last 12 months</h2>
+            <div className="resume-github">
+              <p>
+                <strong>{github.contributions.total.toLocaleString("en-US")}</strong>
+                Contributions
+              </p>
+              <p>
+                <strong>{github.contributions.private.toLocaleString("en-US")}</strong>
+                Private contributions included
+              </p>
+              <p>
+                <strong>{github.repositories.total}</strong>
+                Owned repositories
+              </p>
+              <Link href="/github">Full GitHub activity →</Link>
+            </div>
+          </section>
+        ) : null}
 
         <section>
           <h2>Experience</h2>

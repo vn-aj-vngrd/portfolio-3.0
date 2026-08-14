@@ -26,9 +26,9 @@ const shortcuts = [
     section: link.id,
   })),
   { key: "7", label: "AI workflow", href: "/ai" },
-  { key: "8", label: "Gear", href: "/gear" },
-  { key: "9", label: "Résumé", href: "/resume" },
-  { key: "0", label: "Bug hunt", action: "game" },
+  { key: "8", label: "GitHub stats", href: "/github" },
+  { key: "9", label: "Gear", href: "/gear" },
+  { key: "0", label: "Résumé", href: "/resume" },
 ] as const;
 
 export function Header() {
@@ -74,11 +74,6 @@ export function Header() {
       if (!shortcut) return;
 
       event.preventDefault();
-      if ("action" in shortcut) {
-        document.dispatchEvent(new Event("open-bug-hunt"));
-        return;
-      }
-
       if ("section" in shortcut) {
         setActiveSection(shortcut.section);
         if (pathname === "/") {
@@ -149,6 +144,14 @@ export function Header() {
             AI workflow
           </Link>
           <Link
+            href="/github"
+            data-active={pathname === "/github"}
+            aria-current={pathname === "/github" ? "page" : undefined}
+          >
+            <span>↗</span>
+            GitHub stats
+          </Link>
+          <Link
             href="/gear"
             data-active={pathname === "/gear"}
             aria-current={pathname === "/gear" ? "page" : undefined}
@@ -209,6 +212,13 @@ export function Header() {
                 aria-current={pathname === "/ai" ? "page" : undefined}
               >
                 AI workflow ↗
+              </Link>
+              <Link
+                href="/github"
+                data-active={pathname === "/github"}
+                aria-current={pathname === "/github" ? "page" : undefined}
+              >
+                GitHub stats ↗
               </Link>
               <Link
                 href="/gear"
