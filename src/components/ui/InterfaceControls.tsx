@@ -2,6 +2,7 @@
 
 import { useTheme } from "next-themes";
 import {
+  type MouseEvent as ReactMouseEvent,
   type ReactNode,
   useEffect,
   useRef,
@@ -11,6 +12,9 @@ import {
 
 type ThemeChoice = "system" | "light" | "dark";
 type InterfaceSound = "hover" | "focus" | "click" | "enable";
+type TransitionDocument = Document & {
+  startViewTransition?: (update: () => void) => { ready: Promise<void> };
+};
 
 const soundFiles: Record<InterfaceSound, string> = {
   hover: "/sounds/hover.wav",
@@ -67,6 +71,63 @@ export function InterfaceControls() {
     audio.volume = volume;
     audio.currentTime = 0;
     void audio.play().catch(() => undefined);
+  };
+
+  const changeTheme = (
+    choice: ThemeChoice,
+    event: ReactMouseEvent<HTMLButtonElement>,
+  ) => {
+    const root = document.documentElement;
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const nextIsDark = choice === "dark" || (choice === "system" && prefersDark);
+    const alreadyShowingTheme = root.classList.contains("dark") === nextIsDark;
+
+    const applyTheme = () => {
+      root.classList.toggle("dark", nextIsDark);
+      setTheme(choice);
+    };
+
+    if (alreadyShowingTheme) {
+      applyTheme();
+      return;
+    }
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const transitionDocument = document as TransitionDocument;
+
+    if (reducedMotion || !transitionDocument.startViewTransition) {
+      root.classList.add("theme-transition-fallback");
+      applyTheme();
+      window.setTimeout(() => root.classList.remove("theme-transition-fallback"), 500);
+      return;
+    }
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = event.clientX || rect.left + rect.width / 2;
+    const y = event.clientY || rect.top + rect.height / 2;
+    const radius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y),
+    );
+    const transition = transitionDocument.startViewTransition(applyTheme);
+
+    void transition.ready
+      .then(() => {
+        root.animate(
+          {
+            clipPath: [
+              `circle(0px at ${x}px ${y}px)`,
+              `circle(${radius}px at ${x}px ${y}px)`,
+            ],
+          },
+          {
+            duration: 560,
+            easing: "cubic-bezier(.32,.08,.24,1)",
+            pseudoElement: "::view-transition-new(root)",
+          },
+        );
+      })
+      .catch(() => undefined);
   };
 
   useEffect(() => {
@@ -152,7 +213,7 @@ export function InterfaceControls() {
           <button
             key={choice.value}
             type="button"
-            onClick={() => setTheme(choice.value)}
+            onClick={(event) => changeTheme(choice.value, event)}
             aria-label={choice.label}
             aria-pressed={mounted && theme === choice.value}
             title={choice.label}

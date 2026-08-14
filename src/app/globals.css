@@ -29,6 +29,15 @@
   --signal-soft: #14213c;
 }
 
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 999; }
+.theme-transition-fallback,
+.theme-transition-fallback *,
+.theme-transition-fallback *::before,
+.theme-transition-fallback *::after { transition: background-color .45s ease, border-color .45s ease, color .45s ease, fill .45s ease, stroke .45s ease; }
+
 * { box-sizing: border-box; }
 html { background: var(--canvas); color-scheme: light; scroll-behavior: smooth; }
 html.dark { color-scheme: dark; }
