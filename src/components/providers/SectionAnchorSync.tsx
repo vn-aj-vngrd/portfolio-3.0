@@ -36,6 +36,7 @@ export function SectionAnchorSync() {
       stopped = true;
       window.clearInterval(interval);
       window.clearTimeout(timeout);
+      window.removeEventListener("click", stopTracking);
       window.removeEventListener("wheel", stopTracking);
       window.removeEventListener("touchstart", stopTracking);
       window.removeEventListener("keydown", stopTracking);
@@ -43,6 +44,7 @@ export function SectionAnchorSync() {
 
     const interval = window.setInterval(alignToSection, 100);
     const timeout = window.setTimeout(stopTracking, 10_000);
+    window.addEventListener("click", stopTracking);
     window.addEventListener("wheel", stopTracking, { passive: true });
     window.addEventListener("touchstart", stopTracking, { passive: true });
     window.addEventListener("keydown", stopTracking);
