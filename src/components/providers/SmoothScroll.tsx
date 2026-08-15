@@ -45,15 +45,17 @@ export function SmoothScroll() {
     };
 
     const handleScrollRequest = (event: Event) => {
-      const id = (event as CustomEvent<{ id?: string }>).detail?.id;
-      if (!id) return;
-      const target = document.getElementById(id);
+      const detail = (event as CustomEvent<{ id?: string; immediate?: boolean }>).detail;
+      if (!detail?.id) return;
+      const target = document.getElementById(detail.id);
       if (!target) return;
 
       if (lenis) {
-        lenis.scrollTo(target, { lerp: 0.08 });
+        lenis.scrollTo(target, detail.immediate ? { immediate: true } : { lerp: 0.08 });
       } else {
-        target.scrollIntoView({ behavior: reducedMotion.matches ? "auto" : "smooth" });
+        target.scrollIntoView({
+          behavior: detail.immediate || reducedMotion.matches ? "auto" : "smooth",
+        });
       }
     };
 
@@ -82,7 +84,22 @@ export function SmoothScroll() {
   useEffect(() => {
     if (previousPathname.current === pathname) return;
     previousPathname.current = pathname;
-    document.dispatchEvent(new Event("portfolio-route-top"));
+
+    const hash = decodeURIComponent(window.location.hash.slice(1));
+    if (!hash) {
+      document.dispatchEvent(new Event("portfolio-route-top"));
+      return;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      document.dispatchEvent(
+        new CustomEvent("portfolio-scroll-to", {
+          detail: { id: hash, immediate: true },
+        }),
+      );
+    });
+
+    return () => window.cancelAnimationFrame(frame);
   }, [pathname]);
 
   return null;
