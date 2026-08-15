@@ -54,7 +54,25 @@ export function LivePresence() {
     };
   }, []);
 
-  if (count === null) return null;
+  if (count === null) {
+    return (
+      <section
+        className="live-presence live-presence-loading"
+        aria-label="Loading live portfolio visitors"
+        aria-busy="true"
+      >
+        <div className="presence-avatars" aria-hidden="true">
+          {avatarPatterns.map((pattern) => (
+            <span className="presence-avatar presence-avatar-loading" key={pattern} />
+          ))}
+        </div>
+        <div className="presence-copy">
+          <p>Checking who&apos;s here</p>
+          <span>Connecting to live presence…</span>
+        </div>
+      </section>
+    );
+  }
 
   const shown = Math.min(count, 3);
 
