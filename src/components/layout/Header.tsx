@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-import { BugHunt } from "@/components/game/BugHunt";
+import { ProductLab } from "@/components/game/ProductLab";
 import { InterfaceControls } from "@/components/ui/InterfaceControls";
 import { LivePresence } from "@/components/ui/LivePresence";
 import { profile } from "@/content/profile";
@@ -230,13 +230,12 @@ export function Header() {
             <span>↗</span>
             Résumé
           </Link>
+          <span className="nav-divider" aria-hidden="true" />
         </nav>
 
-        <div className="sidebar-dock">
-          <div className="sidebar-game">
-            <BugHunt />
-          </div>
+        <ProductLab />
 
+        <div className="sidebar-dock">
           <div className="sidebar-presence">
             <LivePresence />
           </div>
@@ -288,6 +287,20 @@ export function Header() {
                     })}
                   </nav>
 
+                  <div className="mobile-menu-play">
+                    <button
+                      className="mobile-game-button"
+                      type="button"
+                      onClick={() => {
+                        closeMenu();
+                        document.dispatchEvent(new Event("open-product-lab"));
+                      }}
+                    >
+                      <span>Open Product Lab</span>
+                      <kbd>{platformModifier ? `${platformModifier} K` : "K"}</kbd>
+                    </button>
+                  </div>
+
                   <div className="mobile-menu-explore">
                     <p className="mobile-menu-label">Explore</p>
                     <nav aria-label="Additional pages">
@@ -301,17 +314,6 @@ export function Header() {
                   </div>
 
                   <div className="mobile-menu-contact">
-                    <button
-                      className="mobile-game-button"
-                      type="button"
-                      onClick={() => {
-                        closeMenu();
-                        document.dispatchEvent(new Event("open-bug-hunt"));
-                      }}
-                    >
-                      <span>Play Bug Hunt</span>
-                      <kbd>{platformModifier ? `${platformModifier} B` : "B"}</kbd>
-                    </button>
                     <a href={`mailto:${profile.email}`}>{profile.email}</a>
                   </div>
                 </div>
