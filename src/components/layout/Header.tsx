@@ -14,10 +14,10 @@ import {
 } from "@/hooks/usePlatformModifier";
 
 const links = [
-  { href: "/#work", id: "work", label: "My work", index: "01" },
-  { href: "/#engineering", id: "engineering", label: "Tech stack", index: "02" },
+  { href: "/#my-work", id: "my-work", label: "My work", index: "01" },
+  { href: "/#tech-stack", id: "tech-stack", label: "Tech stack", index: "02" },
   { href: "/#experience", id: "experience", label: "Experience", index: "03" },
-  { href: "/#certifications", id: "certifications", label: "Credentials", index: "04" },
+  { href: "/#credentials", id: "credentials", label: "Credentials", index: "04" },
   { href: "/#about", id: "about", label: "About", index: "05" },
   { href: "/#contact", id: "contact", label: "Contact", index: "06" },
 ] as const;

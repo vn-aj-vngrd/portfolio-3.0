@@ -11,7 +11,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
   return (
     <main id="main-content" className="case-study">
       <header className="case-hero" data-reveal>
-        <Link className="back-link" href="/#work">
+        <Link className="back-link" href="/#my-work">
           ← Selected products
         </Link>
         <p className="project-category">{project.category}</p>

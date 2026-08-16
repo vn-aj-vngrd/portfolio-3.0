@@ -99,7 +99,7 @@ export default function GearPage() {
 
       <footer className="gear-footer" data-reveal>
         <p>Tools matter when they remove friction—not when they become the work.</p>
-        <Link href="/#work">See what I build →</Link>
+        <Link href="/#my-work">See what I build →</Link>
       </footer>
     </main>
   );

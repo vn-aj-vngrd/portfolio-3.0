@@ -278,7 +278,7 @@ export default async function GitHubPage() {
 
       <footer className="github-footer" data-reveal>
         <p>Activity adds context. The product and engineering decisions still matter more.</p>
-        <Link href="/#work">See selected work →</Link>
+        <Link href="/#my-work">See selected work →</Link>
       </footer>
     </main>
   );

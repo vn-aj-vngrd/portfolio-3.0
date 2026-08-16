@@ -172,7 +172,7 @@ export default function AiWorkflowPage() {
 
       <footer className="ai-footer" data-reveal>
         <p>The workflow is only useful if the shipped product is useful.</p>
-        <Link href="/#work">See selected work →</Link>
+        <Link href="/#my-work">See selected work →</Link>
       </footer>
     </main>
   );

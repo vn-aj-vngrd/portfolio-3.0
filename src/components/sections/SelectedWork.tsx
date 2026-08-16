@@ -10,7 +10,7 @@ export function SelectedWork() {
   return (
     <section
       className="section work-section"
-      id="work"
+      id="my-work"
       aria-labelledby="work-title"
       data-reveal
     >

@@ -2,10 +2,19 @@
 
 import { useEffect } from "react";
 
+const legacySectionIds: Record<string, string> = {
+  work: "my-work",
+  engineering: "tech-stack",
+  certifications: "credentials",
+};
+
 export function SectionAnchorSync() {
   useEffect(() => {
-    const id = decodeURIComponent(window.location.hash.slice(1));
-    if (!id) return;
+    const requestedId = decodeURIComponent(window.location.hash.slice(1));
+    if (!requestedId) return;
+
+    const id = legacySectionIds[requestedId] ?? requestedId;
+    if (id !== requestedId) window.history.replaceState(null, "", `#${id}`);
 
     let lastPageHeight = 0;
     let stableSince = performance.now();

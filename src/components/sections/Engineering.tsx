@@ -4,7 +4,7 @@ export function Engineering() {
   return (
     <section
       className="section engineering-section"
-      id="engineering"
+      id="tech-stack"
       aria-labelledby="engineering-title"
       data-reveal
     >
