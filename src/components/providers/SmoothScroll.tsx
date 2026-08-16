@@ -29,7 +29,6 @@ export function SmoothScroll() {
         smoothWheel: true,
         syncTouch: false,
         wheelMultiplier: 0.88,
-        anchors: { lerp: 0.08 },
         prevent: (node) => Boolean(node.closest("[data-lenis-prevent]")),
       });
     };
@@ -41,7 +40,20 @@ export function SmoothScroll() {
 
       const url = new URL(anchor.href, window.location.href);
       if (url.origin !== window.location.origin || url.pathname !== window.location.pathname) return;
-      if (url.hash) window.history.replaceState(null, "", url.hash);
+
+      const id = decodeURIComponent(url.hash.slice(1));
+      const scrollTarget = id ? document.getElementById(id) : document.documentElement;
+      if (!scrollTarget) return;
+
+      event.preventDefault();
+      window.history.replaceState(null, "", url.hash || window.location.pathname);
+      if (lenis) {
+        lenis.scrollTo(scrollTarget, { lerp: 0.08 });
+      } else {
+        scrollTarget.scrollIntoView({
+          behavior: reducedMotion.matches ? "auto" : "smooth",
+        });
+      }
     };
 
     const handleScrollRequest = (event: Event) => {
