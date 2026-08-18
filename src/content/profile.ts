@@ -4,7 +4,7 @@ export const profile = {
   statement:
     "For 3+ years, I’ve shipped web and mobile products across TypeScript and ASP.NET Core—from product requirements to interfaces, APIs, data, and release.",
   introduction:
-    "Based in Cebu, Philippines. Claude Code, Codex, and agent workflows accelerate the work; validation and engineering judgment stay mine.",
+    "Based in Cebu, Philippines. I adapt quickly, use agent-driven workflows to accelerate delivery, and keep validation and engineering judgment firmly in the loop.",
   location: "Cebu, Philippines",
   availability: "Open to opportunities",
   email: "vanajvanguardia@gmail.com",

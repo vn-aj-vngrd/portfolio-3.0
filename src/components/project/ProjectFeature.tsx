@@ -11,6 +11,8 @@ export function ProjectFeature({
   index: number;
 }) {
   const usesPhoneScreens = project.slug === "viya";
+  const featureImage =
+    project.coverImage ?? project.images[project.coverImageIndex ?? 0];
 
   return (
     <article className={`project-feature project-${project.slug}`}>
@@ -52,27 +54,43 @@ export function ProjectFeature({
       <div
         className={`project-media ${usesPhoneScreens ? "project-media-phones" : ""}`}
       >
-        {project.images
-          .slice(0, usesPhoneScreens ? 2 : 1)
-          .map((image, imageIndex) => (
-            <figure
-              key={image.src}
-              className={imageIndex === 1 ? "media-secondary" : ""}
-            >
+        {project.slug === "relay" ? (
+          <figure className="relay-laptop-mockup">
+            <div>
               <Image
-                src={image.src}
-                alt={image.alt}
-                width={image.width}
-                height={image.height}
-                sizes={
-                  usesPhoneScreens
-                    ? "(max-width: 700px) 52vw, 360px"
-                    : "(max-width: 900px) 86vw, 620px"
-                }
-                priority={index === 0 && imageIndex === 0}
+                src={featureImage.src}
+                alt={featureImage.alt}
+                width={featureImage.width}
+                height={featureImage.height}
+                sizes="(max-width: 700px) 90vw, 720px"
+                priority={index === 0}
+                unoptimized
               />
-            </figure>
-          ))}
+            </div>
+          </figure>
+        ) : (
+          project.images
+            .slice(0, usesPhoneScreens ? 2 : 1)
+            .map((image, imageIndex) => (
+              <figure
+                key={image.src}
+                className={imageIndex === 1 ? "media-secondary" : ""}
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  width={image.width}
+                  height={image.height}
+                  sizes={
+                    usesPhoneScreens
+                      ? "(max-width: 700px) 52vw, 360px"
+                      : "(max-width: 900px) 86vw, 620px"
+                  }
+                  priority={index === 0 && imageIndex === 0}
+                />
+              </figure>
+            ))
+        )}
       </div>
     </article>
   );

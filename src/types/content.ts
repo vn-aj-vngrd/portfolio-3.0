@@ -8,6 +8,7 @@ export type ProjectImage = {
   alt: string;
   width: number;
   height: number;
+  label?: string;
 };
 
 export type Project = {
@@ -26,6 +27,8 @@ export type Project = {
   architecture: readonly ProjectStage[];
   evidence: readonly string[];
   images: readonly ProjectImage[];
+  coverImage?: ProjectImage;
+  coverImageIndex?: number;
   repository: string;
   liveUrl?: string;
 };

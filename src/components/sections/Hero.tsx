@@ -7,7 +7,7 @@ const signals = [
   { value: "3+ years", label: "Shipping products" },
   { value: "TypeScript", label: "Primary ecosystem" },
   { value: "ASP.NET Core", label: "Backend systems" },
-  { value: "Claude + Codex", label: "Agent-assisted delivery" },
+  { value: "Agent-driven", label: "Adaptive delivery" },
 ] as const;
 
 export function Hero() {

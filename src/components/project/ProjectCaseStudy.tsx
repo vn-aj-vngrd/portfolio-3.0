@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 
+import { ProjectGallery } from "@/components/project/ProjectGallery";
 import { projects } from "@/content/projects";
 import type { Project } from "@/types/content";
 
@@ -12,7 +12,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
     <main id="main-content" className="case-study">
       <header className="case-hero" data-reveal>
         <Link className="back-link" href="/#my-work">
-          ← Selected products
+          ← My work
         </Link>
         <p className="project-category">{project.category}</p>
         <h1>{project.name}</h1>
@@ -43,24 +43,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         </div>
       </header>
 
-      <section
-        className={`case-media case-media-${project.slug}`}
-        aria-label={`${project.name} product screens`}
-        data-reveal
-      >
-        {project.images.map((image) => (
-          <figure key={image.src}>
-            <Image
-              src={image.src}
-              alt={image.alt}
-              width={image.width}
-              height={image.height}
-              sizes="(max-width: 700px) 88vw, 460px"
-              priority={image === project.images[0]}
-            />
-          </figure>
-        ))}
-      </section>
+      <ProjectGallery project={project} />
 
       <section className="case-context" aria-labelledby="context-title" data-reveal>
         <h2 id="context-title">What needed to change</h2>
