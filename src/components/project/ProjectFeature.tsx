@@ -10,8 +10,7 @@ export function ProjectFeature({
   project: Project;
   index: number;
 }) {
-  const usesPhoneScreens =
-    project.slug === "viya" || project.slug === "crave-roulette";
+  const usesPhoneScreens = project.slug === "viya";
 
   return (
     <article className={`project-feature project-${project.slug}`}>

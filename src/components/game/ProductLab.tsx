@@ -208,29 +208,22 @@ const games: readonly {
 ] as const;
 
 const products = [
+  { name: "Relay", href: "/work/relay" },
   { name: "Viya", href: "/work/viya" },
-  { name: "Crave Roulette", href: "/work/crave-roulette" },
-  { name: "WatchBox", href: "/work/watchbox" },
 ] as const;
 
 const productProblems = [
   {
     answer: 0,
-    title: "Travel plans are fragmented across bookings, budgets, documents, and messages.",
-    clue: "Look for the mobile AI workspace built around one trip.",
-    result: "Viya keeps the itinerary, budget, documents, bookings, readiness, and reviewable AI updates in one trip workspace.",
+    title: "A pickleball group coordinates the plan, roster, costs, courts, and scores across disconnected tools.",
+    clue: "Look for the product built around one shared game link.",
+    result: "Relay carries one pickleball session from invitation and RSVP through repayment, rotations, scoring, and the shared memory afterward.",
   },
   {
     answer: 1,
-    title: "A group spends longer comparing restaurants than enjoying the meal.",
-    clue: "Look for a product that turns nearby choices into one playful decision.",
-    result: "Crave Roulette combines nearby restaurant data, AI vibe curation, a roulette interaction, and a veto path.",
-  },
-  {
-    answer: 2,
-    title: "Viewing lists, ratings, recommendations, and notes live in different places.",
-    clue: "Look for authenticated, shareable media collections.",
-    result: "WatchBox organizes media entries, ratings, notes, and flexible content inside shareable collections.",
+    title: "Travel plans are fragmented across bookings, budgets, documents, and messages.",
+    clue: "Look for the mobile AI workspace built around one trip.",
+    result: "Viya keeps the itinerary, budget, documents, bookings, readiness, and reviewable AI updates in one trip workspace.",
   },
 ] as const;
 

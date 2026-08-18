@@ -8,7 +8,7 @@ type ProductMatchSceneProps = {
   onSelect: (index: number) => void;
 };
 
-const productNames = ["VIYA", "CRAVE ROULETTE", "WATCHBOX"] as const;
+const productNames = ["RELAY", "VIYA"] as const;
 
 function labelSprite(text: string, accent: string) {
   const canvas = document.createElement("canvas");
@@ -57,7 +57,7 @@ export function ProductMatchScene({ correctAnswer, onSelect }: ProductMatchScene
     const world = new THREE.Color("#090b0f");
     const signal = new THREE.Color("#155eef");
     const muted = new THREE.Color("#556071");
-    const colors = ["#155eef", "#eef2f8", "#8baefc"];
+    const colors = ["#b8df24", "#eef2f8"];
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
@@ -96,16 +96,16 @@ export function ProductMatchScene({ correctAnswer, onSelect }: ProductMatchScene
 
     const devices: THREE.Group[] = [];
     const selectable: THREE.Object3D[] = [];
-    const positions = [-3.2, 0, 3.2];
+    const positions = [-2.25, 2.25];
 
     positions.forEach((x, index) => {
       const group = new THREE.Group();
-      group.position.set(x, index === 1 ? 0.7 : 0.45, 0);
-      group.rotation.y = (index - 1) * -0.18;
+      group.position.set(x, index === 1 ? 0.45 : 0.7, 0);
+      group.rotation.y = (index - 0.5) * -0.18;
       group.userData.productIndex = index;
 
       const body = new THREE.Mesh(
-        new THREE.BoxGeometry(index === 0 ? 1.55 : 1.85, index === 0 ? 3.05 : 2.6, 0.24),
+        new THREE.BoxGeometry(index === 1 ? 1.55 : 1.85, index === 1 ? 3.05 : 2.6, 0.24),
         new THREE.MeshStandardMaterial({ color: colors[index], roughness: 0.42, metalness: 0.2 }),
       );
       body.castShadow = true;
@@ -114,7 +114,7 @@ export function ProductMatchScene({ correctAnswer, onSelect }: ProductMatchScene
       selectable.push(body);
 
       const screen = new THREE.Mesh(
-        new THREE.PlaneGeometry(index === 0 ? 1.28 : 1.55, index === 0 ? 2.35 : 1.9),
+        new THREE.PlaneGeometry(index === 1 ? 1.28 : 1.55, index === 1 ? 2.35 : 1.9),
         new THREE.MeshStandardMaterial({ color: 0x0f1217, roughness: 0.6, emissive: index === correctAnswer ? signal : world, emissiveIntensity: index === correctAnswer ? 0.08 : 0 }),
       );
       screen.position.z = 0.126;
@@ -193,8 +193,8 @@ export function ProductMatchScene({ correctAnswer, onSelect }: ProductMatchScene
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
       const portrait = camera.aspect < 0.75;
-      positions[0] = portrait ? -1.9 : -3.2;
-      positions[2] = portrait ? 1.9 : 3.2;
+      positions[0] = portrait ? -1.55 : -2.25;
+      positions[1] = portrait ? 1.55 : 2.25;
       camera.position.z = portrait ? 14.2 : 9.5;
       camera.position.y = portrait ? 5.2 : 4.4;
       camera.lookAt(0, 1, 0);
@@ -206,7 +206,7 @@ export function ProductMatchScene({ correctAnswer, onSelect }: ProductMatchScene
       lastTime = time;
 
       devices.forEach((device, index) => {
-        const baseY = index === 1 ? 0.7 : 0.45;
+        const baseY = index === 1 ? 0.45 : 0.7;
         if (!reducedMotion && selected !== index) {
           device.position.y = baseY + Math.sin(time * 0.0015 + index) * 0.08;
           device.rotation.y += delta * (hovered === index ? 0.35 : 0.08);
