@@ -6,11 +6,11 @@ export const projects = [
     name: "Relay",
     category: "Full-stack web product · Social sports",
     summary:
-      "A mobile-first pickleball session product that carries one game from invitation and RSVP through repayment tracking, court rotations, scoring, and the shared memory afterward.",
+      "Relay gives recreational pickleball groups one place to plan a session, invite players, split court costs, manage rotations, score matches, and save a recap.",
     problem:
       "Recreational pickleball groups coordinate the plan, roster, venue cost, court order, and scores across group chats, spreadsheets, and whoever happens to remember what comes next.",
     solution:
-      "Relay makes the session the shared product surface: a host creates one game, sends one public link, coordinates the roster and costs, then runs courts and scoring from the same workspace.",
+      "A host creates one session and shares a public link. The same workspace holds the plan, roster, venue costs, court queue, match scores, chat, and recap, so the group does not need to reconstruct the night across separate tools.",
     role: "Designed and built independently",
     status: "Live web product · Source available",
     featured: true,
@@ -27,11 +27,11 @@ export const projects = [
     decisions: [
       {
         title: "Make the session the product boundary",
-        body: "The plan, roster, expenses, courts, queue, matches, chat, and memories all return to one understandable session instead of separate management screens.",
+        body: "The session owns the plan, roster, expenses, courts, queue, matches, chat, and recap. Users can move through one game without learning separate management areas.",
       },
       {
         title: "Let the shared link carry the plan",
-        body: "Invitees can understand time, place, capacity, cost, and booking status—and RSVP by name—before creating an account.",
+        body: "Invitees can check the time, venue, capacity, estimated cost, and booking status, then RSVP by name without creating an account.",
       },
       {
         title: "Design for courtside use",
@@ -39,30 +39,30 @@ export const projects = [
       },
     ],
     architectureSummary:
-      "A server-first Next.js application keeps authorization and product rules near feature-owned data boundaries while narrow client components handle RSVP, scoring, and other immediate interactions.",
+      "Next.js Server Components load the initial session state. Server actions and queries enforce authorization and product rules, while small client components handle RSVP, scoring, forms, and live court updates.",
     architecture: [
       {
-        title: "Feature-owned domain",
-        body: "Session, roster, payment, match, queue, group, and notification rules live beside their schemas, actions, queries, and focused UI.",
+        title: "Feature-based modules",
+        body: "Session, roster, payment, match, queue, group, and notification code is organized with its schemas, actions, queries, and interface components.",
       },
       {
-        title: "Server-authorized workflows",
-        body: "Server Components render initial product state; mutations validate identity, role, lifecycle, and Zod input before writing.",
+        title: "Authorization on every write",
+        body: "Mutations validate the signed-in user, session role, lifecycle state, and Zod input before changing data.",
       },
       {
         title: "Typed relational model",
         body: "Drizzle and PostgreSQL model sessions, players, courts, matches, queues, expenses, chat, and memories with explicit constraints.",
       },
       {
-        title: "Selective live interaction",
-        body: "Small client boundaries own public RSVP, progressive forms, court controls, scoring, and realtime reconciliation rather than turning the application into one client bundle.",
+        title: "Small client boundaries",
+        body: "Public RSVP, progressive forms, court controls, scoring, and realtime reconciliation run on the client. The rest of the page remains server-rendered.",
       },
     ],
     evidence: [
-      "The deployed product exposes a complete product story from creation and public invitation through play formats, scoring, repayment coordination, and session memory.",
-      "Database-backed workflows cover authentication, session creation, guest RSVP and waitlisting, rosters, queue setup, matches, persistent scoring, standings, chat, and profiles.",
+      "The deployed application supports session creation, public invitations, five play formats, court scoring, repayment tracking, chat, and recap stories.",
+      "The database model covers users, sessions, guests, rosters, queues, matches, scores, expenses, messages, groups, and memories.",
       "Automated tests cover RSVP and waitlist rules, expense splitting, queue assignment, standings, permissions, rotation formats, and accessible interface behavior.",
-      "The public repository documents product principles, authorization, domain modeling, architecture, accessibility targets, integration boundaries, and quality commands.",
+      "The public repository documents authorization rules, domain structure, accessibility targets, integration boundaries, local setup, and quality commands.",
     ],
     images: [
       {
@@ -108,11 +108,11 @@ export const projects = [
     name: "Viya",
     category: "Mobile product · AI workspace",
     summary:
-      "A mobile AI travel workspace that brings itineraries, budgets, documents, bookings, and readiness into one trip-scoped product.",
+      "Viya is a mobile travel workspace for itineraries, budgets, documents, bookings, and trip readiness, with AI-assisted changes that travelers review before saving.",
     problem:
       "Travel plans are fragmented across messages, booking apps, receipts, maps, notes, and spreadsheets. Most AI travel tools stop after generating an itinerary.",
     solution:
-      "Viya models each trip as a structured workspace and lets AI propose reviewable updates across itinerary, budget, Vault, bookings, readiness, and risks.",
+      "Each trip has structured records for itinerary, budget, documents, bookings, readiness, and risks. The assistant can draft changes across those records, explain them, and wait for the traveler to approve them.",
     role: "Designed and built independently",
     status: "Mobile prototype · Source available",
     featured: true,
@@ -132,7 +132,7 @@ export const projects = [
       },
       {
         title: "AI proposes; the traveler decides",
-        body: "Generated changes are validated, explained, and presented as drafts before they touch workspace records.",
+        body: "Generated changes are checked against shared schemas, explained to the traveler, and saved only after approval.",
       },
       {
         title: "Demo reliability without fake success",
@@ -140,23 +140,23 @@ export const projects = [
       },
     ],
     architectureSummary:
-      "Trip data, mobile UI, and AI generation share contracts while remaining separate enough to test and change independently.",
+      "The mobile app, Convex backend, and AI provider layer share TypeScript and Zod contracts. Each layer can be tested or replaced without moving product rules into the interface.",
     architecture: [
       {
-        title: "Native product",
+        title: "Mobile application",
         body: "Expo Router and React Native organize authentication, trip workspaces, Vault, budget, and readiness flows.",
       },
       {
-        title: "Shared domain",
-        body: "Pure TypeScript logic and Zod schemas keep mobile, backend, and AI contracts aligned.",
+        title: "Shared TypeScript contracts",
+        body: "Pure TypeScript logic and Zod schemas keep the mobile application, backend functions, and generated output aligned.",
       },
       {
         title: "Convex backend",
         body: "Queries, mutations, storage, and user-owned trip records sit behind Clerk-backed identity checks.",
       },
       {
-        title: "AI provider layer",
-        body: "Provider selection, structured generation, trip context, and deterministic fallbacks stay behind one boundary.",
+        title: "AI provider boundary",
+        body: "Provider selection, structured generation, trip context, and deterministic fallbacks are kept behind one interface.",
       },
     ],
     evidence: [

@@ -2,12 +2,12 @@ export const favoriteModels = [
   {
     name: "GPT-5.6 Sol",
     role: "Daily driver",
-    use: "Implementation, code reasoning, review passes, and structured execution across a repository.",
+    use: "Repository implementation, code analysis, debugging, test planning, and review.",
   },
   {
     name: "Sonnet 5.0",
     role: "Daily driver",
-    use: "Product thinking, architecture, writing, interface critique, and long-context collaboration.",
+    use: "Product requirements, architecture discussions, technical writing, and interface review.",
   },
 ] as const;
 
@@ -15,50 +15,50 @@ export const agentSurfaces = [
   {
     title: "Orchestration",
     tools: ["cmux", "HERDR"],
-    description: "Coordinate parallel agent work while keeping sessions and responsibilities visible.",
+    description: "Run parallel agent sessions and keep each task, terminal, and result visible.",
   },
   {
     title: "Terminal agents",
     tools: ["Claude Code", "Codex CLI", "Pi"],
-    description: "Repository-native planning, implementation, diagnosis, review, and validation.",
+    description: "Inspect repositories, edit code, run commands, diagnose failures, and review changes from the terminal.",
   },
   {
     title: "Desktop agents",
     tools: ["Claude app", "Codex app"],
-    description: "Focused reasoning, research, review, and cross-project conversations.",
+    description: "Research documentation, compare approaches, review plans, and work through decisions outside the editor.",
   },
   {
     title: "Editors",
     tools: ["Cursor", "VS Code", "GitHub Copilot"],
-    description: "Direct code editing, navigation, completion, and human-in-the-loop refinement.",
+    description: "Edit and navigate code directly, use completions where they help, and inspect every change in context.",
   },
 ] as const;
 
 export const workflowStages = [
   {
     title: "Frame",
-    description: "Turn the request into constraints, evidence, acceptance criteria, and a reviewable plan.",
-    output: "Problem definition",
+    description: "Write down the user need, constraints, existing evidence, open questions, and acceptance criteria before editing code.",
+    output: "Scope and acceptance criteria",
   },
   {
     title: "Challenge",
-    description: "Stress-test assumptions, terminology, architecture, scope, and hidden failure modes.",
-    output: "Sharper decisions",
+    description: "Check assumptions against the repository and documentation, then identify edge cases, failure modes, and unnecessary scope.",
+    output: "Reviewed approach",
   },
   {
     title: "Build",
-    description: "Delegate bounded work, preserve module seams, and keep each change easy to inspect.",
-    output: "Small coherent diffs",
+    description: "Break the plan into bounded changes, keep responsibilities clear, and review each diff before moving to the next step.",
+    output: "Reviewable changes",
   },
   {
     title: "Verify",
-    description: "Run tests, builds, browser checks, accessibility review, and evidence-based critique.",
-    output: "Validated behavior",
+    description: "Run the relevant tests, type checks, browser flows, accessibility checks, and production-like scenarios.",
+    output: "Verification evidence",
   },
   {
     title: "Ship",
-    description: "Review the final diff, document trade-offs, commit intentionally, and verify production.",
-    output: "Released software",
+    description: "Review the complete diff, record important decisions, commit the change, and check the deployed result.",
+    output: "Verified release",
   },
 ] as const;
 
@@ -150,9 +150,9 @@ export const skillGroups = [
 ] as const;
 
 export const agentGuardrails = [
-  "Start with the product requirement, not the model.",
-  "Give agents bounded responsibilities and inspectable outputs.",
-  "Prefer repository evidence over confident-sounding assumptions.",
-  "Keep tests, builds, browser checks, and human review in the loop.",
-  "Never use confidential employer or client code as portfolio material.",
+  "Define the requirement and acceptance criteria before choosing a model or agent.",
+  "Give each agent a bounded task with an output that can be reviewed.",
+  "Check repository code and primary documentation before accepting a claim.",
+  "Run tests, type checks, browser checks, and direct code review before release.",
+  "Keep employer, client, credential, and private repository data out of prompts and portfolio material.",
 ] as const;

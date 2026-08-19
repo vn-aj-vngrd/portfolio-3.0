@@ -47,13 +47,13 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       <ProjectGallery project={project} />
 
       <section className="case-context" aria-labelledby="context-title" data-reveal>
-        <h2 id="context-title">What needed to change</h2>
+        <h2 id="context-title">Problem and response</h2>
         <div>
           <h3>The problem</h3>
           <p>{project.problem}</p>
         </div>
         <div>
-          <h3>The product response</h3>
+          <h3>The approach</h3>
           <p>{project.solution}</p>
         </div>
       </section>
@@ -66,7 +66,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         data-reveal
       >
         <div className="section-heading">
-          <h2 id="architecture-title">How the system is shaped</h2>
+          <h2 id="architecture-title">Architecture</h2>
           <p>{project.architectureSummary}</p>
         </div>
         <ol className="architecture-list">
@@ -81,10 +81,10 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
 
       <section className="case-decisions" aria-labelledby="decisions-title" data-reveal>
         <div className="section-heading">
-          <h2 id="decisions-title">Trade-offs that mattered</h2>
+          <h2 id="decisions-title">Key product and engineering decisions</h2>
           <p>
-            These choices changed how the product behaves—not just how the code
-            is organized.
+            These decisions affect what users can do, where product rules live,
+            and how the system handles failure or change.
           </p>
         </div>
         <div className="decision-list">
@@ -99,10 +99,10 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
 
       <section className="case-evidence" aria-labelledby="evidence-title" data-reveal>
         <div>
-          <h2 id="evidence-title">Evidence in the public build</h2>
+          <h2 id="evidence-title">What you can inspect</h2>
           <p>
-            Concrete signals across source, documentation, tests, and the
-            running product.
+            The live product and public repository provide concrete evidence of
+            the implemented features, architecture, tests, and documentation.
           </p>
         </div>
         <ul>

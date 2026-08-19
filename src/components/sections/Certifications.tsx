@@ -16,10 +16,11 @@ export function Certifications() {
           <span>04</span>
           <span>Credentials</span>
         </div>
-        <h2 id="certifications-title">Education, recognition, and continued learning.</h2>
+        <h2 id="certifications-title">Education, awards, and technical training.</h2>
         <p>
-          My BSIT degree and complete credential history across product delivery,
-          engineering quality, professional growth, and technical community work.
+          I graduated with a BS in Information Technology from the University of
+          San Carlos in 2024. This section also includes my Hackfest finalist
+          recognition, internship awards, and completed technical programs.
         </p>
       </div>
 

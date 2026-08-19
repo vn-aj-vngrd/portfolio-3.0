@@ -31,18 +31,18 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://vanajvanguardia.vercel.app"),
   title: {
-    default: "Van AJ Vanguardia — Product-minded Full-Stack Software Engineer",
-    template: "%s — Van AJ Vanguardia",
+    default: "Van AJ Vanguardia | Full-Stack Software Developer",
+    template: "%s | Van AJ Vanguardia",
   },
   description:
-    "Full-stack software engineer in Cebu building TypeScript web, mobile, backend, and AI-powered products from idea to release.",
+    "Full-stack software developer in Cebu working with TypeScript, React, Next.js, React Native, ASP.NET Core, Node.js, and coding-agent workflows.",
   authors: [{ name: "Van AJ Vanguardia" }],
   creator: "Van AJ Vanguardia",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Van AJ Vanguardia — Product-minded Full-Stack Software Engineer",
+    title: "Van AJ Vanguardia | Full-Stack Software Developer",
     description:
-      "Selected web, mobile, backend, and AI-powered product engineering work.",
+      "Selected web and mobile products, professional experience, technical stack, and software development workflow.",
     url: "/",
     siteName: "Van AJ Vanguardia",
     locale: "en_PH",
@@ -50,9 +50,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Van AJ Vanguardia — Product-minded Full-Stack Software Engineer",
+    title: "Van AJ Vanguardia | Full-Stack Software Developer",
     description:
-      "Selected web, mobile, backend, and AI-powered product engineering work.",
+      "Selected web and mobile products, professional experience, technical stack, and software development workflow.",
   },
 };
 

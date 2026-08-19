@@ -170,7 +170,7 @@ export function Header() {
           >
             {profile.name}
           </Link>
-          <p>Full-stack software engineer</p>
+          <p>Full-stack software developer</p>
         </div>
 
         <nav className="desktop-nav" aria-label="Primary navigation">

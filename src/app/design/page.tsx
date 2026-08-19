@@ -136,7 +136,7 @@ export default function DesignPage() {
             <h2 id="type-title">Two voices, each with a specific job.</h2>
             <p>
               Geist handles editorial clarity. Geist Mono carries identity, technical
-              metadata, and measured data—not decorative programmer costume.
+              metadata, and measured data. Decorative code and terminal styling are excluded.
             </p>
           </div>
         </header>

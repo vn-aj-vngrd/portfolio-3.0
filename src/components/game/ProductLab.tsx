@@ -342,7 +342,7 @@ export function ProductLab() {
 
   const copyStack = async () => {
     const summary = [
-      `${brief.label} — assembled in Van's Product Lab`,
+      `${brief.label}, assembled in Van's Product Lab`,
       ...stackModules.map((module, index) => `${brief.layers[index].label}: ${module}`),
     ].join("\n");
     await navigator.clipboard.writeText(summary);

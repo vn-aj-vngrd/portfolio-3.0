@@ -11,7 +11,7 @@ const highlights = [
   {
     label: "Invite",
     title: "One link answers every question.",
-    description: "Guest RSVP, host approval, capacity, and an automatic waitlist—no account required.",
+    description: "Guest RSVP, host approval, capacity, and an automatic waitlist. Guests do not need an account.",
   },
   {
     label: "Organize",

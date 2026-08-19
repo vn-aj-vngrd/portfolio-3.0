@@ -59,7 +59,7 @@ export const componentSnippet = `<section className="section" aria-labelledby="s
 
 export const designMarkdown = `---
 name: Portfolio 3.0
-description: A calm product release narrative for a product-minded full-stack engineer.
+description: The visual and interaction system for a full-stack software developer portfolio.
 fonts:
   sans: Geist
   mono: Geist Mono
@@ -81,7 +81,7 @@ layout:
 
 ## Creative north star
 
-The Product Release Narrative. Present the problem, the product in use, and the decisions that make it dependable. The interface should feel engineered, not decorated.
+Show the problem, the working product, and the implementation decisions. Use typography, spacing, and product imagery to make the evidence easy to inspect.
 
 ## Typography
 
@@ -98,7 +98,7 @@ The system is neutral and light-led. Signal Blue is reserved for links, focus, s
 
 ## Layout
 
-A 15.5rem studio rail frames a 74rem editorial canvas on desktop. Mobile replaces the rail with a compact sticky header. Sections use generous vertical rhythm, readable copy widths, deliberate asymmetry, and structural hairlines. Content is not wrapped in cards by default.
+A 15.5rem studio rail frames a 74rem content area on desktop. Mobile replaces the rail with a compact sticky header. Sections use generous spacing, readable line lengths, selective asymmetry, and thin structural borders. Cards are used only when content needs a contained surface.
 
 ## Components
 
@@ -129,7 +129,7 @@ Use semantic landmarks, one h1 per page, ordered heading levels, visible focus, 
 
 1. Products and evidence lead; technology supports the story.
 2. Typography and spacing create hierarchy before containers do.
-3. Signal Blue communicates state—it does not decorate empty space.
+3. Signal Blue marks links, focus, selection, and status.
 4. Prefer flat structure, real screenshots, and thin separators.
 5. Every motion has a static and reduced-motion equivalent.
 6. Do not use glowing or decorative gradients, glassmorphism, giant pills, logo walls, or decorative code.

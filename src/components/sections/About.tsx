@@ -10,7 +10,7 @@ export function About() {
     >
       <div className="about-copy">
         <div className="section-index"><span>05</span><span>About</span></div>
-        <h2 id="about-title">Engineering for the product after launch.</h2>
+        <h2 id="about-title">I care about what happens after the first release.</h2>
         <p className="about-lead">{profile.philosophy}</p>
         <div className="about-details">
           <p>
@@ -33,10 +33,10 @@ export function About() {
       <aside className="about-note" aria-label="Working principles">
         <p>Working principles</p>
         <ol>
-          <li>User value before unnecessary complexity.</li>
-          <li>Architecture should protect the product.</li>
-          <li>AI accelerates judgment; it does not replace it.</li>
-          <li>Quality is part of delivery, not a final pass.</li>
+          <li>Understand the user’s task before choosing the implementation.</li>
+          <li>Add architectural complexity only when it solves a real constraint.</li>
+          <li>Review and test agent-generated work before it ships.</li>
+          <li>Include accessibility, performance, and maintainability in the definition of done.</li>
         </ol>
       </aside>
     </section>

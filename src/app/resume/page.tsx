@@ -10,7 +10,7 @@ import { getGitHubStats } from "@/lib/github-stats";
 export const metadata: Metadata = {
   title: "Résumé",
   description:
-    "Résumé for Van AJ Vanguardia, product-minded full-stack software engineer.",
+    "Résumé for Van AJ Vanguardia, a full-stack software developer working across TypeScript, React, Next.js, ASP.NET Core, Node.js, and databases.",
   alternates: { canonical: "/resume" },
 };
 

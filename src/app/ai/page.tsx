@@ -10,9 +10,9 @@ import {
 } from "@/content/ai-workflow";
 
 export const metadata: Metadata = {
-  title: "Agentic Workflow",
+  title: "AI Engineering Workflow",
   description:
-    "How Van AJ Vanguardia uses AI models, coding agents, reusable skills, and engineering guardrails to build and validate software.",
+    "The models, coding agents, reusable skills, review steps, and validation practices Van AJ Vanguardia uses during software development.",
   alternates: { canonical: "/ai" },
 };
 
@@ -27,17 +27,18 @@ export default function AiWorkflowPage() {
         </Link>
         <div className="ai-hero-grid">
           <div>
-            <p className="ai-kicker">Agentic engineering</p>
-            <h1 id="ai-title">AI is leverage. Judgment stays human.</h1>
+            <p className="ai-kicker">AI engineering workflow</p>
+            <h1 id="ai-title">How I use coding agents in day-to-day development.</h1>
           </div>
           <div className="ai-hero-copy">
             <p>
-              I use models, coding agents, and reusable skills as an engineering
-              system—from framing the problem to validating production.
+              I use Claude Code, Codex CLI, Pi, Cursor, and supporting orchestration
+              tools for repository research, implementation, debugging, and review.
             </p>
             <p>
-              The goal is not more generated code. It is faster feedback, clearer
-              decisions, smaller diffs, and software that still holds up after review.
+              I remain responsible for the requirement, architecture, final diff,
+              tests, browser behavior, and deployed result. Agents shorten parts of
+              the work; they do not approve their own output.
             </p>
           </div>
         </div>
@@ -65,8 +66,8 @@ export default function AiWorkflowPage() {
         <header className="ai-section-heading">
           <p>01 · Models</p>
           <div>
-            <h2 id="models-title">A deliberate pair of daily drivers.</h2>
-            <p>Different models for different kinds of thinking—not a leaderboard.</p>
+            <h2 id="models-title">The models I use most.</h2>
+            <p>I choose between them based on the task, repository context, and quality of the result.</p>
           </div>
         </header>
         <div className="model-pair">
@@ -85,8 +86,8 @@ export default function AiWorkflowPage() {
         <header className="ai-section-heading">
           <p>02 · Workflow</p>
           <div>
-            <h2 id="workflow-title">From an ambiguous request to verified software.</h2>
-            <p>Agents move the work forward; explicit gates keep the work trustworthy.</p>
+            <h2 id="workflow-title">A five-step path from request to production.</h2>
+            <p>Each stage produces something concrete that I can inspect before the work continues.</p>
           </div>
         </header>
         <ol className="agent-workflow">
@@ -107,8 +108,8 @@ export default function AiWorkflowPage() {
         <header className="ai-section-heading">
           <p>03 · Setup</p>
           <div>
-            <h2 id="surfaces-title">One workflow across terminal, desktop, and editor.</h2>
-            <p>cmux and HERDR sit alongside focused agents and familiar development tools.</p>
+            <h2 id="surfaces-title">Where the work happens.</h2>
+            <p>Terminal agents handle repository work, desktop tools support research, and editors keep direct code inspection close.</p>
           </div>
         </header>
         <div className="agent-surfaces">
@@ -131,10 +132,10 @@ export default function AiWorkflowPage() {
         <header className="ai-section-heading">
           <p>04 · Skills</p>
           <div>
-            <h2 id="skills-title">Reusable expertise, loaded only when the task calls for it.</h2>
+            <h2 id="skills-title">Reusable instructions for recurring engineering tasks.</h2>
             <p>
-              Skills turn broad agent capability into repeatable workflows with a clear
-              purpose and definition of done.
+              Each skill defines when it should run, the steps it follows, and the
+              evidence required before the task is complete.
             </p>
           </div>
         </header>
@@ -158,7 +159,7 @@ export default function AiWorkflowPage() {
       <section className="ai-guardrails" aria-labelledby="guardrails-title" data-reveal>
         <div>
           <p>05 · Guardrails</p>
-          <h2 id="guardrails-title">Agent-driven does not mean autopilot.</h2>
+          <h2 id="guardrails-title">What I verify myself.</h2>
         </div>
         <ol>
           {agentGuardrails.map((guardrail, index) => (
@@ -171,7 +172,7 @@ export default function AiWorkflowPage() {
       </section>
 
       <footer className="ai-footer" data-reveal>
-        <p>The workflow is only useful if the shipped product is useful.</p>
+        <p>The selected projects show how this workflow is applied in public repositories.</p>
         <Link href="/#my-work">See selected work →</Link>
       </footer>
     </main>

@@ -14,22 +14,22 @@ export const metadata: Metadata = {
 const groups: { title: string; description: string; items: readonly GearItem[] }[] = [
   {
     title: "Displays",
-    description: "A wide working canvas with a dedicated secondary context.",
+    description: "The ultrawide holds the main editor and browser; the second display keeps documentation, terminals, and communication visible.",
     items: gear.slice(1, 3),
   },
   {
     title: "Input",
-    description: "Daily controls chosen for long implementation and review sessions.",
+    description: "The keyboard and mouse I use for daily development, navigation, and review.",
     items: gear.slice(3, 5),
   },
   {
     title: "Everyday devices",
-    description: "Communication, focus, and real-device product validation.",
+    description: "Audio, communication, and real-device checks for responsive web and mobile work.",
     items: gear.slice(5, 7),
   },
   {
     title: "Desk and power",
-    description: "A flexible workspace with fewer cables and less friction.",
+    description: "A sit-stand desk and shared charging point keep the workspace easy to reset between tasks.",
     items: gear.slice(7),
   },
 ];
@@ -46,11 +46,11 @@ export default function GearPage() {
         <div className="gear-hero-grid">
           <div>
             <p className="gear-kicker">Development setup</p>
-            <h1 id="gear-title">The tools around the work.</h1>
+            <h1 id="gear-title">My development setup.</h1>
           </div>
           <p>
-            A practical setup for full-stack development, mobile QA, local
-            infrastructure, AI-assisted workflows, and focused product delivery.
+            I use this setup for full-stack development, mobile testing, local
+            containers, coding-agent sessions, database work, and interface review.
           </p>
         </div>
       </section>
@@ -98,7 +98,7 @@ export default function GearPage() {
       </div>
 
       <footer className="gear-footer" data-reveal>
-        <p>Tools matter when they remove friction—not when they become the work.</p>
+        <p>This equipment supports the work; the selected projects show the result.</p>
         <Link href="/#my-work">See what I build →</Link>
       </footer>
     </main>

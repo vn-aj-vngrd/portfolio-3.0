@@ -4,36 +4,36 @@ export const experience = [
   {
     company: "Full Scale Teams PH",
     role: "Full-Stack Developer",
-    period: "Jul 2024 — Present",
+    period: "Jul 2024 – Present",
     kind: "Professional",
     current: true,
     summary:
-      "Owns work across frontend, backend, data, integrations, accessibility, and deployment for production full-stack applications.",
+      "Build and maintain production applications across React interfaces, ASP.NET Core services, MSSQL databases, third-party integrations, accessibility, and deployment.",
     highlights: [
       {
-        action: "Build across the stack.",
+        action: "Develop features across React and ASP.NET Core.",
         detail:
-          "Develop and maintain React interfaces, ASP.NET Core services, MSSQL data flows, and external API integrations.",
+          "The work spans user interfaces, API services, MSSQL data flows, and external integrations.",
       },
       {
-        action: "Turn operations into software.",
+        action: "Delivered a custom Salesforce application.",
         detail:
-          "Delivered a custom Salesforce application that streamlined critical business workflows and improved data accuracy.",
+          "Translated operational requirements into software that simplified business workflows and improved the consistency of stored data.",
       },
       {
-        action: "Improve system behavior.",
+        action: "Improved database and integration performance.",
         detail:
           "Optimized database queries and integration paths to reduce latency and make application flows more reliable.",
       },
       {
-        action: "Make delivery repeatable.",
+        action: "Supported repeatable delivery.",
         detail:
           "Containerized applications with Docker and worked within Agile delivery practices across planning, review, and release.",
       },
       {
-        action: "Build for more users.",
+        action: "Applied accessibility and review practices.",
         detail:
-          "Applied WCAG accessibility practices and used AI-assisted workflows while keeping engineering review in the loop.",
+          "Used WCAG guidance for interface work and reviewed AI-assisted changes before integrating them.",
       },
     ],
     stack: ["React", "ASP.NET Core", "MSSQL", "Salesforce", "Docker"],
@@ -41,30 +41,30 @@ export const experience = [
   {
     company: "NextDevs Software Development Services",
     role: "Full-Stack Developer",
-    period: "Apr 2023 — Apr 2024",
+    period: "Apr 2023 – Apr 2024",
     kind: "Professional",
     summary:
-      "Worked on crew-management products spanning backend architecture, typed APIs, databases, Next.js interfaces, and local deployment environments.",
+      "Worked on crew management systems across backend architecture, typed APIs, databases, Next.js interfaces, and Docker-based local environments.",
     highlights: [
       {
-        action: "Designed the backend foundation.",
+        action: "Structured the backend and database.",
         detail:
-          "Structured database and service architecture for Crew Management and Crew Portal systems.",
+          "Defined service and data boundaries for Crew Management and Crew Portal systems.",
       },
       {
-        action: "Built typed, high-performance APIs.",
+        action: "Built typed APIs with NestJS and Fastify.",
         detail:
           "Used NestJS with Fastify and Prisma to connect product workflows to type-safe data access.",
       },
       {
-        action: "Closed delivery gaps.",
+        action: "Worked across implementation and QA.",
         detail:
           "Collaborated with frontend and QA contributors through Swagger and Postman, then resolved Next.js interface and performance issues.",
       },
       {
-        action: "Reproduced production locally.",
+        action: "Configured local integration environments.",
         detail:
-          "Configured Docker and NGINX environments for dependable integration testing and release review.",
+          "Used Docker and NGINX to reproduce the application stack for integration testing and release review.",
       },
     ],
     stack: ["NestJS", "Fastify", "Prisma", "Next.js", "Docker", "NGINX"],
@@ -72,23 +72,23 @@ export const experience = [
   {
     company: "Full Scale",
     role: "Developer Intern",
-    period: "Sep 2023 — Jan 2024",
+    period: "Sep 2023 – Jan 2024",
     kind: "Internship",
     summary:
-      "Applied a structured full-stack training program to assessment products built with Microsoft and TypeScript technologies.",
+      "Completed a full-stack internship program and built assessment projects with Next.js, ASP.NET Core, MSSQL, and Docker.",
     highlights: [
       {
-        action: "Shipped an event workflow.",
+        action: "Built an event registration workflow.",
         detail:
           "Collaborated on an event registration system using ASP.NET Core Web API, Next.js, MSSQL, and Docker.",
       },
       {
-        action: "Automated attendee tracking.",
+        action: "Implemented attendee tracking.",
         detail:
-          "Implemented QR-based attendance flows and real-time event statistics for organizers.",
+          "Added QR-based attendance flows and real-time event statistics for organizers.",
       },
       {
-        action: "Owned an assessment product.",
+        action: "Built an independent assessment project.",
         detail:
           "Independently developed a contact-management system across interface, API, database, and containerized environment.",
       },
@@ -97,24 +97,24 @@ export const experience = [
   },
   {
     company: "University of San Carlos",
-    role: "Full-Stack Developer — NextGig",
-    period: "Aug 2023 — Nov 2023",
+    role: "Full-Stack Developer, NextGig",
+    period: "Aug 2023 – Nov 2023",
     kind: "Capstone",
     summary:
-      "Co-developed a mobile talent marketplace connecting student freelancers with clients across native, web, backend, and authentication surfaces.",
+      "Co-developed a mobile marketplace that connected student freelancers with clients through a React Native app, web administration, backend data, and authentication.",
     highlights: [
       {
-        action: "Built cross-platform product surfaces.",
+        action: "Built the mobile and web interfaces.",
         detail:
           "Implemented the mobile application with Expo, React Native, and TypeScript, plus the admin interface and landing page with Next.js.",
       },
       {
-        action: "Connected product and identity.",
+        action: "Connected shared data and authentication.",
         detail:
           "Integrated Convex as the shared backend and Clerk for secure passwordless authentication.",
       },
       {
-        action: "Prepared a multi-platform release.",
+        action: "Prepared the capstone release.",
         detail:
           "Deployed the product across mobile distribution channels and Vercel as part of the capstone delivery.",
       },
@@ -124,23 +124,23 @@ export const experience = [
   {
     company: "MYT SoftDev Solutions Inc.",
     role: "Developer Intern",
-    period: "Sep 2022 — Dec 2022",
+    period: "Sep 2022 – Dec 2022",
     kind: "Internship",
     summary:
       "Contributed to backend, documentation, QA, and frontend maintenance across internal business systems.",
     highlights: [
       {
-        action: "Made APIs understandable.",
+        action: "Documented and implemented APIs.",
         detail:
           "Created API documentation and implemented CodeIgniter backend endpoints for an Alumni Portal.",
       },
       {
-        action: "Validated behavior before release.",
+        action: "Tested API and production behavior.",
         detail:
           "Used Postman for manual API testing and worked with senior developers to resolve visible production issues.",
       },
       {
-        action: "Improved an existing interface.",
+        action: "Maintained an existing ERP interface.",
         detail:
           "Refined jQuery and JavaScript frontend code for an enterprise resource-planning system.",
       },
@@ -150,20 +150,20 @@ export const experience = [
   {
     company: "Astro Shipping Management Inc.",
     role: "IT Intern",
-    period: "Jun 2022 — Jul 2022",
+    period: "Jun 2022 – Jul 2022",
     kind: "Internship",
     summary:
       "Used Python automation to prepare legacy operational data for a new planned-maintenance system.",
     highlights: [
       {
-        action: "Replaced repetitive data entry.",
+        action: "Automated legacy data preparation.",
         detail:
           "Developed a Python workflow with Pandas and NumPy to migrate and format legacy Excel records.",
       },
       {
-        action: "Protected data quality.",
+        action: "Standardized records for import.",
         detail:
-          "Standardized source records for database import, reducing manual handling during system implementation.",
+          "Prepared consistent source records for database import and reduced manual handling during system implementation.",
       },
     ],
     stack: ["Python", "Pandas", "NumPy", "Excel"],

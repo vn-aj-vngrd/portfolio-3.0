@@ -15,10 +15,10 @@ export async function GitHubSnapshot() {
     <section className="section github-snapshot" aria-labelledby="github-snapshot-title" data-reveal>
       <div className="github-snapshot-copy">
         <p>GitHub activity · private included</p>
-        <h2 id="github-snapshot-title">A year of work beyond the public repository list.</h2>
+        <h2 id="github-snapshot-title">GitHub activity from the last twelve months.</h2>
         <p>
-          Private contributions count toward the activity summary without exposing
-          private repository names, employers, clients, or source code.
+          The summary includes private contribution and repository counts. It does
+          not request or display private repository names, organizations, or source code.
         </p>
         <Link href="/github">Explore GitHub activity →</Link>
       </div>
@@ -37,7 +37,7 @@ export async function GitHubSnapshot() {
             <dd>Repositories</dd>
           </div>
           <div>
-            <dt>{stats.languages[0]?.name ?? "—"}</dt>
+            <dt>{stats.languages[0]?.name ?? "N/A"}</dt>
             <dd>Top language</dd>
           </div>
         </dl>

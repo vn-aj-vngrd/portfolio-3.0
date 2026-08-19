@@ -13,11 +13,11 @@ export function Engineering() {
           <span>02</span>
           <span>Tech stack</span>
         </div>
-        <h2 id="engineering-title">TypeScript at the center. Product delivery end to end.</h2>
+        <h2 id="engineering-title">TypeScript for the product. Backend systems around it.</h2>
         <p>
-          TypeScript is my default ecosystem, supported by backend, data,
-          infrastructure, quality, and AI tooling selected for the problem—not
-          for the trend.
+          I use TypeScript across web, mobile, and Node.js services. ASP.NET Core,
+          relational databases, cloud platforms, testing tools, and deployment
+          automation support the rest of the system when the work requires them.
         </p>
       </div>
 
@@ -33,11 +33,11 @@ export function Engineering() {
 
       <div className="stack-introduction">
         <p>Working stack</p>
-        <h3>A grouped view of the technologies and tools I use or have worked with.</h3>
+        <h3>The technologies I use, grouped by the work they support.</h3>
         <p>
-          The hierarchy is intentional: TypeScript product engineering is the
-          core; the remaining tools support particular systems, teams, and
-          delivery constraints.
+          TypeScript is the stack I use most often. The remaining tools reflect
+          backend systems, databases, infrastructure, testing, design, and team
+          environments I have worked with.
         </p>
       </div>
 

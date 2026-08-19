@@ -15,17 +15,17 @@ export const certifications: readonly Certification[] = [
   },
   {
     title: "Bachelor of Science in Information Technology",
-    issuer: "University of San Carlos — Talamban Campus",
+    issuer: "University of San Carlos, Talamban Campus",
     kind: "Degree · Graduated 2024",
   },
   {
-    title: "Full Scale Internship — Certificate of Completion",
+    title: "Full Scale Internship - Certificate of Completion",
     issuer: "GigaBook Inc.",
     kind: "Professional training",
     href: "/certificates/fs-coc.pdf",
   },
   {
-    title: "GDSC San Carlos — Certificate of Membership",
+    title: "GDSC San Carlos - Certificate of Membership",
     issuer: "GDSC San Carlos",
     kind: "Community",
     href: "/certificates/gdsc-san-carlos.pdf",
@@ -49,13 +49,13 @@ export const certifications: readonly Certification[] = [
     href: "/certificates/sumo-mBot-robotics.jpg",
   },
   {
-    title: "MYT Internship — Certificate of Completion",
+    title: "MYT Internship - Certificate of Completion",
     issuer: "MYT SoftDev Solutions Inc.",
     kind: "Internship",
     href: "/certificates/myt-certificate-of-completion.jpg",
   },
   {
-    title: "MYT Internship — Outstanding Intern Award",
+    title: "MYT Internship - Outstanding Intern Award",
     issuer: "MYT SoftDev Solutions Inc.",
     kind: "Award",
     href: "/certificates/myt-outstanding-intern-award.jpg",

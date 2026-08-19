@@ -22,7 +22,7 @@ export const gear: readonly GearItem[] = [
   {
     name: "MacBook Pro",
     detail: "M1 Pro · 16GB unified memory",
-    use: "Primary development machine for full-stack, mobile, AI-assisted, and local container workflows.",
+    use: "Primary machine for web and mobile development, coding-agent sessions, database tools, and local containers.",
     kind: "laptop",
     featured: true,
   },
@@ -69,7 +69,7 @@ export const gear: readonly GearItem[] = [
     kind: "phone",
   },
   {
-    name: "Sit–stand desk",
+    name: "Sit-stand desk",
     detail: "Height-adjustable workspace",
     color: "Black",
     use: "Supports posture changes during long implementation, debugging, and review sessions.",

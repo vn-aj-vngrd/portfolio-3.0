@@ -7,7 +7,7 @@ import { getGitHubStats } from "@/lib/github-stats";
 export const metadata: Metadata = {
   title: "GitHub Activity",
   description:
-    "A private-inclusive view of Van AJ Vanguardia’s GitHub contributions, repositories, language footprint, and recent public work.",
+    "Van AJ Vanguardia’s GitHub contributions, owned repositories, detected languages, and recent public work, with private activity included only in aggregate.",
   alternates: { canonical: "/github" },
 };
 
@@ -15,7 +15,7 @@ export const revalidate = 3600;
 
 const stackContext = [
   {
-    title: "Product surfaces",
+    title: "Web and mobile interfaces",
     tools: "TypeScript · React · Next.js · React Native · Expo · Tailwind CSS",
   },
   {
@@ -60,14 +60,14 @@ export default async function GitHubPage() {
         </Link>
         <div className="github-hero-grid">
           <div>
-            <p className="github-kicker">Engineering activity</p>
-            <h1 id="github-title">GitHub, with the private work counted.</h1>
+            <p className="github-kicker">GitHub activity</p>
+            <h1 id="github-title">A year of public and private repository work.</h1>
           </div>
           <div>
             <p>
-              A one-year view of consistent repository work—not a score for code
-              volume. Private activity is included as aggregate contribution and
-              repository counts; private names and source remain private.
+              This page reports contributions, owned repositories, detected
+              languages, and recent public work. Private activity appears only in
+              aggregate counts. Repository names and source remain private.
             </p>
             <a href="https://github.com/vn-aj-vngrd" target="_blank" rel="noreferrer">
               @vn-aj-vngrd ↗
@@ -99,7 +99,7 @@ export default async function GitHubPage() {
             </dl>
             <ContributionGraph calendar={stats.contributions.calendar} />
             <div className="github-period">
-              <span>{formatDate(stats.period.from)} — {formatDate(stats.period.to)}</span>
+              <span>{formatDate(stats.period.from)} – {formatDate(stats.period.to)}</span>
               <span>Updated hourly</span>
             </div>
           </section>
@@ -108,10 +108,10 @@ export default async function GitHubPage() {
             <header className="github-section-heading">
               <p>01 · Rhythm</p>
               <div>
-                <h2 id="rhythm-title">Consistency across public and private work.</h2>
+                <h2 id="rhythm-title">Contribution activity over the last twelve months.</h2>
                 <p>
-                  Private contributions affect totals and rhythm without exposing
-                  employers, clients, repository names, or source code.
+                  The calendar combines public and private contribution counts.
+                  Private repository names, organizations, and source code are not requested or displayed.
                 </p>
               </div>
             </header>
@@ -152,10 +152,10 @@ export default async function GitHubPage() {
             <header className="github-section-heading">
               <p>02 · Languages</p>
               <div>
-                <h2 id="languages-title">The repository language footprint.</h2>
+                <h2 id="languages-title">Languages detected across owned repositories.</h2>
                 <p>
-                  GitHub Linguist bytes across owned repositories available to this
-                  portfolio, including private repositories and excluding forks.
+                  Percentages use GitHub Linguist byte counts from repositories available
+                  to this portfolio. Forks are excluded; public and private repositories are included.
                 </p>
               </div>
             </header>
@@ -198,10 +198,10 @@ export default async function GitHubPage() {
             <header className="github-section-heading">
               <p>03 · Repositories</p>
               <div>
-                <h2 id="repositories-title">Recent public work, with private boundaries intact.</h2>
+                <h2 id="repositories-title">Recently updated public repositories.</h2>
                 <p>
-                  Only public repository names appear here. Private work contributes to
-                  aggregate counts and nothing more.
+                  Public repositories are listed with their primary language and most
+                  recent push date. Private repositories contribute only to the summary counts.
                 </p>
               </div>
             </header>
@@ -252,10 +252,10 @@ export default async function GitHubPage() {
             <header className="github-section-heading">
               <p>04 · Stack context</p>
               <div>
-                <h2 id="stack-context-title">Languages are only one layer of the system.</h2>
+                <h2 id="stack-context-title">Framework and infrastructure context.</h2>
                 <p>
-                  Framework and infrastructure context comes from documented project and
-                  professional work—not unreliable filename guesses.
+                  Language statistics do not identify frameworks, hosting, databases, or
+                  delivery tools. Those details come from the documented projects and experience on this site.
                 </p>
               </div>
             </header>
@@ -277,7 +277,7 @@ export default async function GitHubPage() {
       )}
 
       <footer className="github-footer" data-reveal>
-        <p>Activity adds context. The product and engineering decisions still matter more.</p>
+        <p>For implementation details, architecture, and tests, continue to the selected projects.</p>
         <Link href="/#my-work">See selected work →</Link>
       </footer>
     </main>

@@ -13,10 +13,11 @@ export function Experience() {
           <span>03</span>
           <span>Experience</span>
         </div>
-        <h2 id="experience-title">From requirements to release.</h2>
+        <h2 id="experience-title">Work across frontend, backend, data, and delivery.</h2>
         <p>
-          A working history of turning operational needs into maintainable
-          software—across interfaces, APIs, data, quality, and delivery.
+          My professional work includes React interfaces, ASP.NET Core and Node.js
+          services, relational databases, third-party integrations, accessibility,
+          testing, containers, and release support.
         </p>
       </div>
 

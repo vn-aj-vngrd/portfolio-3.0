@@ -10,10 +10,11 @@ export function Contact() {
       data-reveal
     >
       <div className="section-index"><span>06</span><span>Contact</span></div>
-      <h2 id="contact-title">Let’s build something useful.</h2>
+      <h2 id="contact-title">Interested in working together?</h2>
       <p>
-        I’m open to product engineering opportunities and conversations about
-        web, mobile, backend, and AI-powered software.
+        I am open to full-stack and product engineering roles involving web,
+        mobile, backend, or AI-enabled applications. Email is the best way to
+        reach me.
       </p>
       <div className="contact-email">
         <a href={`mailto:${profile.email}`}>{profile.email}</a>

@@ -1,26 +1,26 @@
 export const engineeringPillars = [
   {
-    title: "Product delivery",
+    title: "Product development",
     description:
-      "Turn a rough problem into flows, interfaces, implementation decisions, and a releaseable product.",
+      "Clarify the requirement, map the user flow, build the interface and supporting system, then revise it against real behavior.",
     evidence: "Requirements · UX · implementation · iteration",
   },
   {
-    title: "Full-stack systems",
+    title: "Full-stack implementation",
     description:
-      "Build typed interfaces, authenticated APIs, domain models, integrations, and data-backed workflows.",
+      "Connect typed interfaces to authenticated APIs, domain rules, databases, background work, and external services.",
     evidence: "Web · mobile · backend · data",
   },
   {
-    title: "AI with guardrails",
+    title: "AI integration",
     description:
-      "Use structured outputs, provider boundaries, deterministic fallbacks, and reviewable changes instead of opaque AI features.",
+      "Validate model output, isolate providers, provide deterministic fallbacks, and require user review before generated changes affect stored data.",
     evidence: "LLM integration · agents · validation",
   },
   {
-    title: "Quality and release",
+    title: "Testing and release",
     description:
-      "Treat testing, accessibility, performance, documentation, and repeatable delivery as product requirements.",
+      "Use automated tests, accessibility checks, performance review, documentation, and repeatable deployment steps before release.",
     evidence: "Test · review · automate · ship",
   },
 ] as const;
@@ -36,7 +36,7 @@ export const stackGroups: readonly StackGroup[] = [
   {
     title: "TypeScript product engineering",
     description:
-      "My primary ecosystem for building polished web and mobile product surfaces.",
+      "The ecosystem I use most for browser applications, mobile applications, and shared product code.",
     primary: true,
     technologies: [
       "TypeScript",
@@ -54,7 +54,7 @@ export const stackGroups: readonly StackGroup[] = [
   {
     title: "TypeScript backend and architecture",
     description:
-      "Typed services, authentication, payments, APIs, monorepos, and application boundaries.",
+      "Server runtimes, API frameworks, data access, authentication, payments, and monorepo tooling.",
     technologies: [
       "Node.js",
       "Bun",
@@ -76,13 +76,13 @@ export const stackGroups: readonly StackGroup[] = [
   {
     title: "Additional backend ecosystems",
     description:
-      "Backend work outside TypeScript when the product or existing system calls for it.",
+      "Frameworks I have used for production APIs and existing business systems outside Node.js.",
     technologies: ["ASP.NET Core", "Laravel"],
   },
   {
     title: "Data, cloud, and infrastructure",
     description:
-      "Relational and document data, managed backends, deployment platforms, and reproducible environments.",
+      "Relational databases, document storage, managed backends, cloud deployment, caching, and containers.",
     technologies: [
       "PostgreSQL",
       "MSSQL",
@@ -100,7 +100,7 @@ export const stackGroups: readonly StackGroup[] = [
   {
     title: "Quality and delivery tooling",
     description:
-      "Testing, formatting, hooks, API validation, and source-control practices that protect delivery.",
+      "Automated testing, code quality, Git hooks, API inspection, and source control used during delivery.",
     technologies: [
       "Vitest",
       "Jest",
@@ -116,9 +116,9 @@ export const stackGroups: readonly StackGroup[] = [
     ],
   },
   {
-    title: "AI and agentic engineering",
+    title: "Coding agents",
     description:
-      "Coding agents and orchestration tools used to accelerate implementation while keeping review and validation explicit.",
+      "Tools I use for repository research, implementation, debugging, code review, and browser-based validation.",
     technologies: [
       "Claude Code",
       "Codex",
@@ -132,7 +132,7 @@ export const stackGroups: readonly StackGroup[] = [
   {
     title: "Design, collaboration, and workspace",
     description:
-      "The practical environment around product planning, interface work, debugging, and team delivery.",
+      "Design, editing, database, container, documentation, and planning tools used in daily work.",
     technologies: [
       "Figma",
       "VS Code",
