@@ -156,6 +156,7 @@ export async function getGitHubStats(): Promise<GitHubStats | null> {
   if (!token) return null;
 
   const to = new Date();
+  to.setUTCMinutes(0, 0, 0);
   const from = new Date(to);
   from.setUTCFullYear(from.getUTCFullYear() - 1);
 

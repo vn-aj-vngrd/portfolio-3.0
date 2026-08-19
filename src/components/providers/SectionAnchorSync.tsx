@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { useLayoutEffect } from "react";
 
 const legacySectionIds: Record<string, string> = {
   work: "my-work",
@@ -9,41 +10,38 @@ const legacySectionIds: Record<string, string> = {
 };
 
 export function SectionAnchorSync() {
-  useEffect(() => {
+  const pathname = usePathname();
+
+  useLayoutEffect(() => {
+    if (pathname !== "/") return;
     const requestedId = decodeURIComponent(window.location.hash.slice(1));
     if (!requestedId) return;
 
     const id = legacySectionIds[requestedId] ?? requestedId;
     if (id !== requestedId) window.history.replaceState(null, "", `#${id}`);
 
-    let lastPageHeight = 0;
-    let stableSince = performance.now();
+    const target = document.getElementById(id);
+    const main = document.getElementById("main-content");
+    if (!target || !main) return;
+
+    const expectedTop = Number.parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
     let stopped = false;
+    let timeout = 0;
 
     const alignToSection = () => {
-      if (stopped) return;
-      const target = document.getElementById(id);
-      if (!target) return;
-
-      const pageHeight = document.documentElement.scrollHeight;
-      const isMisaligned = Math.abs(target.getBoundingClientRect().top) > 2;
-      if (pageHeight !== lastPageHeight || isMisaligned) {
-        lastPageHeight = pageHeight;
-        stableSince = performance.now();
-        document.dispatchEvent(
-          new CustomEvent("portfolio-scroll-to", {
-            detail: { id, immediate: true },
-          }),
-        );
-      }
-
-      if (performance.now() - stableSince > 2_000) stopTracking();
+      if (stopped || Math.abs(target.getBoundingClientRect().top - expectedTop) <= 2) return;
+      document.dispatchEvent(
+        new CustomEvent("portfolio-scroll-to", {
+          detail: { id, immediate: true },
+        }),
+      );
     };
 
+    const observer = new ResizeObserver(alignToSection);
     const stopTracking = () => {
       if (stopped) return;
       stopped = true;
-      window.clearInterval(interval);
+      observer.disconnect();
       window.clearTimeout(timeout);
       window.removeEventListener("click", stopTracking);
       window.removeEventListener("wheel", stopTracking);
@@ -51,16 +49,18 @@ export function SectionAnchorSync() {
       window.removeEventListener("keydown", stopTracking);
     };
 
-    const interval = window.setInterval(alignToSection, 100);
-    const timeout = window.setTimeout(stopTracking, 10_000);
+    alignToSection();
+    observer.observe(main);
+    void document.fonts.ready.then(alignToSection);
+
+    timeout = window.setTimeout(stopTracking, 4_000);
     window.addEventListener("click", stopTracking);
     window.addEventListener("wheel", stopTracking, { passive: true });
     window.addEventListener("touchstart", stopTracking, { passive: true });
     window.addEventListener("keydown", stopTracking);
-    alignToSection();
 
     return stopTracking;
-  }, []);
+  }, [pathname]);
 
   return null;
 }

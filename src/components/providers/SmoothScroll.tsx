@@ -2,7 +2,7 @@
 
 import type Lenis from "lenis";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 
 export function SmoothScroll() {
   const pathname = usePathname();
@@ -63,7 +63,11 @@ export function SmoothScroll() {
       if (!target) return;
 
       if (lenis) {
-        lenis.scrollTo(target, detail.immediate ? { immediate: true } : { lerp: 0.08 });
+        if (detail.immediate) lenis.resize();
+        lenis.scrollTo(
+          target,
+          detail.immediate ? { immediate: true, force: true } : { lerp: 0.08 },
+        );
       } else {
         target.scrollIntoView({
           behavior: detail.immediate || reducedMotion.matches ? "auto" : "smooth",
@@ -93,7 +97,7 @@ export function SmoothScroll() {
     };
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (previousPathname.current === pathname) return;
     previousPathname.current = pathname;
 
@@ -103,15 +107,11 @@ export function SmoothScroll() {
       return;
     }
 
-    const frame = window.requestAnimationFrame(() => {
-      document.dispatchEvent(
-        new CustomEvent("portfolio-scroll-to", {
-          detail: { id: hash, immediate: true },
-        }),
-      );
-    });
-
-    return () => window.cancelAnimationFrame(frame);
+    document.dispatchEvent(
+      new CustomEvent("portfolio-scroll-to", {
+        detail: { id: hash, immediate: true },
+      }),
+    );
   }, [pathname]);
 
   return null;

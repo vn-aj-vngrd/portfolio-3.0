@@ -39,7 +39,7 @@
 .theme-transition-fallback *::after { transition: background-color .45s ease, border-color .45s ease, color .45s ease, fill .45s ease, stroke .45s ease; }
 
 * { box-sizing: border-box; }
-html { background: var(--canvas); color-scheme: light; scroll-behavior: smooth; }
+html { background: var(--canvas); color-scheme: light; scroll-behavior: auto; }
 html.dark { color-scheme: dark; }
 html.lenis,
 html.lenis body { height: auto; }
@@ -958,8 +958,7 @@ main, .site-footer { margin-left: var(--rail); }
 .github-overview dd { margin: .55rem 0 0; color: var(--faint); font: 450 .62rem/1.4 var(--font-geist-mono), monospace; text-transform: uppercase; letter-spacing: .03em; }
 .github-period { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1rem; color: var(--faint); font: 450 .6rem/1.4 var(--font-geist-mono), monospace; }
 .contribution-scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: thin; }
-.contribution-weeks { width: max-content; min-width: 100%; display: flex; justify-content: space-between; gap: 3px; }
-.contribution-week { display: grid; grid-template-rows: repeat(7, 11px); gap: 3px; }
+.contribution-weeks { width: max-content; min-width: 100%; display: grid; grid-template-rows: repeat(7, 11px); grid-auto-columns: 11px; grid-auto-flow: column; justify-content: space-between; gap: 3px; }
 .contribution-day,
 .contribution-legend i { width: 11px; height: 11px; display: block; background: color-mix(in srgb, var(--ink) 7%, transparent); }
 .contribution-day[data-level="1"], .contribution-legend i[data-level="1"] { background: color-mix(in srgb, var(--signal) 28%, var(--canvas)); }
@@ -1030,8 +1029,7 @@ main, .site-footer { margin-left: var(--rail); }
 .github-snapshot-data dl > div:nth-child(-n + 2) { border-bottom: 1px solid var(--border); }
 .github-snapshot-data dt { white-space: nowrap; font: 540 clamp(1.1rem, 2vw, 1.65rem)/1 var(--font-geist-mono), monospace; letter-spacing: -.05em; }
 .github-snapshot-data dd { margin: .5rem 0 0; color: var(--faint); font: 450 .56rem/1.3 var(--font-geist-mono), monospace; text-transform: uppercase; }
-.contribution-graph[data-compact="true"] .contribution-weeks { justify-content: space-between; }
-.contribution-graph[data-compact="true"] .contribution-week { grid-template-rows: repeat(7, 9px); }
+.contribution-graph[data-compact="true"] .contribution-weeks { grid-template-rows: repeat(7, 9px); grid-auto-columns: 9px; }
 .contribution-graph[data-compact="true"] .contribution-day { width: 9px; height: 9px; }
 @media (max-width: 800px) {
   .github-hero,

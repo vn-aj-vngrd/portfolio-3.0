@@ -13,18 +13,17 @@ export function ContributionGraph({
     <div className="contribution-graph" data-compact={compact}>
       <div className="contribution-scroll" data-lenis-prevent>
         <div className="contribution-weeks" role="img" aria-label="GitHub contribution activity">
-          {weeks.map((week, weekIndex) => (
-            <div className="contribution-week" key={`${week[0]?.date ?? "week"}-${weekIndex}`}>
-              {week.map((day) => (
-                <span
-                  className="contribution-day"
-                  data-level={day.level}
-                  key={day.date}
-                  title={`${day.date}: ${day.count} ${day.count === 1 ? "contribution" : "contributions"}`}
-                />
-              ))}
-            </div>
-          ))}
+          {weeks.flatMap((week, weekIndex) =>
+            week.map((day, dayIndex) => (
+              <span
+                className="contribution-day"
+                data-level={day.level}
+                key={day.date}
+                style={{ gridColumn: weekIndex + 1, gridRow: dayIndex + 1 }}
+                title={`${day.date}: ${day.count} ${day.count === 1 ? "contribution" : "contributions"}`}
+              />
+            )),
+          )}
         </div>
       </div>
       {!compact ? (
