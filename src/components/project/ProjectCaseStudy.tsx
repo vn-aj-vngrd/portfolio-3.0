@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { ProjectGallery } from "@/components/project/ProjectGallery";
+import { RelayHighlights } from "@/components/project/RelayHighlights";
 import { projects } from "@/content/projects";
 import type { Project } from "@/types/content";
 
@@ -56,6 +57,8 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
           <p>{project.solution}</p>
         </div>
       </section>
+
+      {project.slug === "relay" ? <RelayHighlights /> : null}
 
       <section
         className="case-architecture"
