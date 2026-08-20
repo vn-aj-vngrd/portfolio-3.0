@@ -2,6 +2,100 @@ import type { Project } from "@/types/content";
 
 export const projects = [
   {
+    slug: "roleway",
+    name: "Roleway",
+    category: "Full-stack web product · Job search",
+    summary:
+      "Roleway keeps jobs, applications, next actions, tasks, interviews, documents, and follow-ups in one private workspace, with optional AI drafts that remain under the user's control.",
+    problem:
+      "A serious job search spreads across browser tabs, spreadsheets, calendars, documents, and notes. As the number of applications grows, follow-ups are missed, preparation loses context, and it becomes difficult to decide what needs attention next.",
+    solution:
+      "Roleway separates jobs being reviewed from opportunities being actively pursued. Each opportunity holds its stage, next action, due date, tasks, notes, interviews, documents, and activity history. A Today view collects current work, while Assist prepares reviewable drafts only when the user requests them.",
+    role: "Designed and built independently",
+    status: "Live web product · Source available",
+    featured: true,
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "PostgreSQL",
+      "Turborepo",
+      "Zod",
+      "Vitest",
+      "Playwright",
+    ],
+    decisions: [
+      {
+        title: "Separate discovery from active work",
+        body: "A saved Job contains listing data. It becomes an Opportunity only when the user decides to pursue it, preventing the pipeline from becoming a second bookmarks folder.",
+      },
+      {
+        title: "Make the next action explicit",
+        body: "Every active opportunity can carry one concrete next action and due date. Today brings those actions together with interviews, tasks, follow-ups, and jobs waiting for review.",
+      },
+      {
+        title: "Keep AI optional and approval-gated",
+        body: "Tracking works without an AI provider. When a user connects one, Roleway sends only selected context, records the run, validates structured output, and leaves consequential changes for the user to approve.",
+      },
+      {
+        title: "Protect workspace data at two boundaries",
+        body: "PostgreSQL row-level security restricts records to their owner, while server actions authenticate the caller and constrain every mutation by user ID.",
+      },
+    ],
+    architectureSummary:
+      "Roleway is a TypeScript monorepo with a Next.js application and packages for domain rules, schemas, data, AI providers, configuration, and shared interface code. Supabase provides PostgreSQL, authentication, and row-level security.",
+    architecture: [
+      {
+        title: "Next.js application",
+        body: "Server Components load authenticated workspace data. Server Actions handle forms and mutations, while client components are limited to interactive controls, onboarding, tours, and local interface state.",
+      },
+      {
+        title: "Domain and schema packages",
+        body: "Opportunity stage transitions, tool permissions, and Zod schemas live outside route components so product rules can be tested without rendering the interface.",
+      },
+      {
+        title: "Owned PostgreSQL records",
+        body: "Jobs, opportunities, tasks, notes, interviews, documents, notifications, preferences, and AI runs are scoped to the authenticated workspace through row-level security and server-side checks.",
+      },
+      {
+        title: "Provider-neutral AI boundary",
+        body: "OpenAI, Anthropic, Gemini, OpenRouter, and compatible providers sit behind one structured-generation interface. User-supplied credentials are encrypted before storage and never enter browser code.",
+      },
+    ],
+    evidence: [
+      "The deployed product includes onboarding, job capture, a seven-stage opportunity pipeline, next actions, tasks, notes, interviews, documents, notifications, insights, settings, and account deletion.",
+      "Assist supports user-selected providers and validates structured responses while keeping the rest of the workspace available without AI.",
+      "Unit tests cover stage transitions, AI tool permissions, provider response parsing, credential encryption, URL validation, and job input validation.",
+      "Playwright covers the public landing page, keyboard and mobile behavior, onboarding, opportunity creation, session protection, and typed confirmation for account deletion.",
+      "The application is installable as a PWA. Its service worker caches versioned static assets but keeps authenticated pages and API responses on the network.",
+    ],
+    images: [
+      {
+        src: "/images/projects/roleway/pipeline.png",
+        alt: "Roleway opportunity pipeline showing roles by stage with a next action on each application",
+        width: 1180,
+        height: 539,
+        label: "Opportunity pipeline",
+      },
+      {
+        src: "/images/projects/roleway/workspace.png",
+        alt: "Roleway opportunity workspace with role details, tasks, application context, and the next action",
+        width: 1180,
+        height: 586,
+        label: "Opportunity workspace",
+      },
+      {
+        src: "/images/projects/roleway/preparation.png",
+        alt: "Roleway interview preparation view with preparation tasks, documents, and an optional Assist action",
+        width: 660,
+        height: 441,
+        label: "Interview preparation",
+      },
+    ],
+    repository: "https://github.com/vn-aj-vngrd/roleway",
+    liveUrl: "https://roleway.vercel.app/",
+  },
+  {
     slug: "relay",
     name: "Relay",
     category: "Full-stack web product · Social sports",

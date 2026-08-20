@@ -208,6 +208,7 @@ const games: readonly {
 ] as const;
 
 const products = [
+  { name: "Roleway", href: "/work/roleway" },
   { name: "Relay", href: "/work/relay" },
   { name: "Viya", href: "/work/viya" },
 ] as const;
@@ -215,14 +216,20 @@ const products = [
 const productProblems = [
   {
     answer: 0,
+    title: "A job seeker is losing next actions, interview notes, and follow-ups across spreadsheets, documents, and browser tabs.",
+    clue: "Look for the product organized around opportunities and their next action.",
+    result: "Roleway keeps each application, task, interview, document, and follow-up in one private workspace, with optional AI drafts that require user review.",
+  },
+  {
+    answer: 1,
     title: "A pickleball group coordinates the plan, roster, costs, courts, and scores across disconnected tools.",
     clue: "Look for the product built around one shared game link.",
     result: "Relay carries one pickleball session from invitation and RSVP through repayment, rotations, scoring, and the shared memory afterward.",
   },
   {
-    answer: 1,
+    answer: 2,
     title: "Travel plans are fragmented across bookings, budgets, documents, and messages.",
-    clue: "Look for the mobile AI workspace built around one trip.",
+    clue: "Look for the mobile workspace built around one trip.",
     result: "Viya keeps the itinerary, budget, documents, bookings, readiness, and reviewable AI updates in one trip workspace.",
   },
 ] as const;
@@ -590,7 +597,7 @@ export function ProductLab() {
               {game === "match" ? (
                 <div className="lab-game lab-product-match-game">
                   <div className="product-match-hud">
-                    <p>3D case-study challenge · {Math.min(matchRound + 1, 3)} / 3</p>
+                    <p>3D case-study challenge · {Math.min(matchRound + 1, productProblems.length)} / {productProblems.length}</p>
                     <h2>{matchState === "complete" ? "Portfolio unlocked." : productProblems[matchRound].title}</h2>
                     <span>{matchState === "complete" ? "Three products matched to the problems they solve." : "Select the product in the 3D scene that solves this problem."}</span>
                   </div>
@@ -612,13 +619,13 @@ export function ProductLab() {
                       <span>Matched · {products[matchSelection].name}</span>
                       <h3>Problem met product.</h3>
                       <p>{productProblems[matchRound].result}</p>
-                      <button type="button" onClick={nextMatch}>{matchRound === 2 ? "Complete the set" : "Next problem"}</button>
+                      <button type="button" onClick={nextMatch}>{matchRound === productProblems.length - 1 ? "Complete the set" : "Next problem"}</button>
                     </div>
                   ) : null}
 
                   {matchState === "complete" ? (
                     <div className="product-match-result product-match-complete" role="status">
-                      <span>03 / 03 · Portfolio unlocked</span>
+                      <span>{String(products.length).padStart(2, "0")} / {String(products.length).padStart(2, "0")} · Portfolio unlocked</span>
                       <h3>Explore the evidence.</h3>
                       <div>{products.map((product) => <a key={product.name} href={product.href}>{product.name}<span aria-hidden="true">↗</span></a>)}</div>
                       <button type="button" onClick={resetMatch}>Play again</button>

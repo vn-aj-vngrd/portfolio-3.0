@@ -11,6 +11,7 @@ export function ProjectFeature({
   index: number;
 }) {
   const usesPhoneScreens = project.slug === "viya";
+  const usesLaptopFrame = project.slug === "relay" || project.slug === "roleway";
   const featureImage =
     project.coverImage ?? project.images[project.coverImageIndex ?? 0];
 
@@ -54,8 +55,8 @@ export function ProjectFeature({
       <div
         className={`project-media ${usesPhoneScreens ? "project-media-phones" : ""}`}
       >
-        {project.slug === "relay" ? (
-          <figure className="relay-laptop-mockup">
+        {usesLaptopFrame ? (
+          <figure className="project-laptop-mockup">
             <div>
               <Image
                 src={featureImage.src}
