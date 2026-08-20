@@ -208,23 +208,23 @@ const games: readonly {
 ] as const;
 
 const products = [
-  { name: "Roleway", href: "/work/roleway" },
   { name: "Relay", href: "/work/relay" },
+  { name: "Roleway", href: "/work/roleway" },
   { name: "Viya", href: "/work/viya" },
 ] as const;
 
 const productProblems = [
   {
     answer: 0,
-    title: "A job seeker is losing next actions, interview notes, and follow-ups across spreadsheets, documents, and browser tabs.",
-    clue: "Look for the product organized around opportunities and their next action.",
-    result: "Roleway keeps each application, task, interview, document, and follow-up in one private workspace, with optional AI drafts that require user review.",
-  },
-  {
-    answer: 1,
     title: "A pickleball group coordinates the plan, roster, costs, courts, and scores across disconnected tools.",
     clue: "Look for the product built around one shared game link.",
     result: "Relay carries one pickleball session from invitation and RSVP through repayment, rotations, scoring, and the shared memory afterward.",
+  },
+  {
+    answer: 1,
+    title: "A job seeker is losing next actions, interview notes, and follow-ups across spreadsheets, documents, and browser tabs.",
+    clue: "Look for the product organized around opportunities and their next action.",
+    result: "Roleway keeps each application, task, interview, document, and follow-up in one private workspace, with optional AI drafts that require user review.",
   },
   {
     answer: 2,
@@ -257,7 +257,7 @@ export function ProductLab() {
   const [shipRunKey, setShipRunKey] = useState(0);
   const [shipReady, setShipReady] = useState(false);
   const [matchRound, setMatchRound] = useState(0);
-  const [matchSelection, setMatchSelection] = useState(1);
+  const [matchSelection, setMatchSelection] = useState(0);
   const [matchState, setMatchState] = useState<"choosing" | "wrong" | "matched" | "complete">("choosing");
   const [copied, setCopied] = useState(false);
   const platformModifier = usePlatformModifier();
@@ -307,7 +307,7 @@ export function ProductLab() {
 
   const resetMatch = () => {
     setMatchRound(0);
-    setMatchSelection(1);
+    setMatchSelection(0);
     setMatchState("choosing");
   };
 

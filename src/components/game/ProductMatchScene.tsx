@@ -10,15 +10,15 @@ type ProductMatchSceneProps = {
 
 const productDevices = [
   {
-    name: "ROLEWAY",
-    color: "#155eef",
+    name: "RELAY",
+    color: "#b8df24",
     body: [1.9, 2.55] as const,
     screen: [1.62, 1.86] as const,
     baseY: 0.7,
   },
   {
-    name: "RELAY",
-    color: "#b8df24",
+    name: "ROLEWAY",
+    color: "#155eef",
     body: [1.9, 2.55] as const,
     screen: [1.62, 1.86] as const,
     baseY: 0.7,
