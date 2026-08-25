@@ -284,6 +284,100 @@ export const projects = [
     ],
     repository: "https://github.com/vn-aj-vngrd/viya-app",
   },
+  {
+    slug: "acsfi",
+    name: "ACSFI",
+    category: "Full-stack nonprofit website · Headless CMS",
+    summary:
+      "ACSFI gives the Astro Charitable and Scholarship Foundation a public website for its mission, programs, activity reports, upcoming events, and contact information, backed by a CMS for ongoing updates.",
+    problem:
+      "The foundation needed one public source for its programs and community work. New activity reports, event details, statistics, and media also needed to be published without editing the website source for every update.",
+    solution:
+      "The website presents the foundation's mission, programs, stories, and contact details through a responsive Next.js frontend. A separate Strapi CMS stores hero media, programs, activities, statistics, quotes, and upcoming events for the public pages to retrieve through a typed API client.",
+    role: "Designed and built the public website and CMS",
+    status: "Live organization website · Source available",
+    featured: true,
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Strapi",
+      "MySQL",
+      "Cloudinary",
+      "Turborepo",
+      "Bun",
+      "Docker",
+    ],
+    decisions: [
+      {
+        title: "Separate presentation from content management",
+        body: "The public website and Strapi administration run as separate applications. Foundation content can change through the CMS while the frontend keeps control of layout, interaction, and accessibility.",
+      },
+      {
+        title: "Model activities as structured reports",
+        body: "Each activity can store its title, date, venue, participants, objectives, purpose, narrative, authors, program relation, featured state, and media instead of reducing the work to a generic blog post.",
+      },
+      {
+        title: "Pre-render public content",
+        body: "Core pages are statically generated from the CMS. The stories index uses incremental regeneration so published activity reports can appear without rebuilding every request on the server.",
+      },
+      {
+        title: "Keep deployments independent",
+        body: "Turborepo manages the frontend and CMS in one repository, while Vercel, Docker, and the production API configuration allow each application to be built and deployed for its own runtime needs.",
+      },
+    ],
+    architectureSummary:
+      "A Bun and Turborepo monorepo contains a typed Next.js frontend and a Strapi backend. The frontend retrieves CMS content through authenticated server-side requests, while MySQL stores production content and Cloudinary serves managed media.",
+    architecture: [
+      {
+        title: "Next.js public frontend",
+        body: "The Pages Router provides the homepage, About, Programs, Stories, individual activity reports, Contact, and a custom not-found page. Static generation and incremental regeneration keep public pages fast to serve.",
+      },
+      {
+        title: "Typed content boundary",
+        body: "TypeScript models mirror Strapi entities for activities, programs, media, statistics, quotes, and upcoming events. One server-only fetch wrapper centralizes the API URL, bearer token, and response handling.",
+      },
+      {
+        title: "Strapi content service",
+        body: "Strapi collection and single types give administrators structured fields and program relationships. MySQL stores production records and Cloudinary handles uploaded images and files.",
+      },
+      {
+        title: "Monorepo delivery",
+        body: "Bun installs the workspaces, Turborepo coordinates tasks, Biome and Lefthook check staged code, and separate Docker configurations support the frontend and CMS runtimes.",
+      },
+    ],
+    evidence: [
+      "The live website includes Home, About, Programs, Stories, individual activity reports, Contact, responsive navigation, and the foundation brochure.",
+      "The CMS defines structured content types for hero media, activities, programs, statistics, quotes, and upcoming events.",
+      "Activity pages render program context, dates, venues, objectives, narratives, photo galleries, reading time, and share controls from CMS records.",
+      "The homepage retrieves independent CMS resources in parallel, while the Stories route uses a 60-second incremental regeneration window.",
+      "The repository documents local development, Vercel deployment, standalone Docker builds, MySQL production storage, Cloudinary media, and Biome checks.",
+    ],
+    images: [
+      {
+        src: "/images/projects/acsfi/home.png",
+        alt: "ACSFI homepage with a community outreach photograph and the message Empowering communities, inspiring change",
+        width: 1920,
+        height: 1200,
+        label: "Foundation homepage",
+      },
+      {
+        src: "/images/projects/acsfi/programs.png",
+        alt: "ACSFI programs page introducing charitable, educational, and social welfare programs",
+        width: 1920,
+        height: 1200,
+        label: "Programs directory",
+      },
+      {
+        src: "/images/projects/acsfi/story.png",
+        alt: "ACSFI activity report showing the title, date, venue, photograph, and objectives of a relief activity",
+        width: 1920,
+        height: 1200,
+        label: "Activity report",
+      },
+    ],
+    repository: "https://github.com/vn-aj-vngrd/acsfi-app",
+    liveUrl: "https://www.astro-foundation.com/",
+  },
 ] satisfies readonly Project[];
 
 export function getProject(slug: string) {

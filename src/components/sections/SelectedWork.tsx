@@ -18,10 +18,11 @@ export function SelectedWork() {
         <div className="section-index"><span>01</span><span>My work</span></div>
         <h2 id="work-title">Products I designed and built.</h2>
         <p>
-          Relay, Roleway, and Viya cover social sports, job-search operations,
-          and mobile travel. Together they show how I handle product scope,
-          interface design, domain modeling, backend architecture, testing, and
-          release. Each case study links to the public source where it is available.
+          Relay, Roleway, Viya, and ACSFI cover social sports, job-search
+          operations, mobile travel, and nonprofit publishing. Together they show
+          how I handle product scope, interface design, domain modeling, backend
+          architecture, content systems, testing, and release. Each case study
+          links to the public source where it is available.
         </p>
       </div>
       <div className="project-list">

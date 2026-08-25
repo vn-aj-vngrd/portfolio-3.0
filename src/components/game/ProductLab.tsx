@@ -202,7 +202,7 @@ const games: readonly {
     id: "match",
     index: "03",
     title: "Product Match",
-    duration: "40 sec",
+    duration: "55 sec",
     description: "Match real products to the problems they were designed to solve.",
   },
 ] as const;
@@ -211,6 +211,7 @@ const products = [
   { name: "Relay", href: "/work/relay" },
   { name: "Roleway", href: "/work/roleway" },
   { name: "Viya", href: "/work/viya" },
+  { name: "ACSFI", href: "/work/acsfi" },
 ] as const;
 
 const productProblems = [
@@ -231,6 +232,12 @@ const productProblems = [
     title: "Travel plans are fragmented across bookings, budgets, documents, and messages.",
     clue: "Look for the mobile workspace built around one trip.",
     result: "Viya keeps the itinerary, budget, documents, bookings, readiness, and reviewable AI updates in one trip workspace.",
+  },
+  {
+    answer: 3,
+    title: "A nonprofit needs to publish its programs, activity reports, events, and media without changing website code for every update.",
+    clue: "Look for the public organization website backed by a headless CMS.",
+    result: "ACSFI presents the foundation's work through a Next.js website while Strapi manages programs, stories, statistics, events, and media behind it.",
   },
 ] as const;
 
@@ -599,7 +606,7 @@ export function ProductLab() {
                   <div className="product-match-hud">
                     <p>3D case-study challenge · {Math.min(matchRound + 1, productProblems.length)} / {productProblems.length}</p>
                     <h2>{matchState === "complete" ? "Portfolio unlocked." : productProblems[matchRound].title}</h2>
-                    <span>{matchState === "complete" ? "Three products matched to the problems they solve." : "Select the product in the 3D scene that solves this problem."}</span>
+                    <span>{matchState === "complete" ? "Four products matched to the problems they solve." : "Select the product in the 3D scene that solves this problem."}</span>
                   </div>
 
                   <ol className="product-match-progress" aria-label="Product Match progress">

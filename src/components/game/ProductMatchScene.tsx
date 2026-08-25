@@ -30,6 +30,13 @@ const productDevices = [
     screen: [1.23, 2.36] as const,
     baseY: 0.45,
   },
+  {
+    name: "ACSFI",
+    color: "#6f65a8",
+    body: [1.9, 2.55] as const,
+    screen: [1.62, 1.86] as const,
+    baseY: 0.7,
+  },
 ] as const;
 
 function labelSprite(text: string, accent: string) {
@@ -90,7 +97,7 @@ export function ProductMatchScene({ correctAnswer, onSelect }: ProductMatchScene
     const scene = new THREE.Scene();
     scene.fog = new THREE.Fog(world, 9, 25);
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 50);
-    camera.position.set(0, 4.4, 10.5);
+    camera.position.set(0, 4.4, 12.2);
     camera.lookAt(0, 1, 0);
 
     scene.add(new THREE.HemisphereLight(0xc7d5ff, 0x050608, 2.2));
@@ -117,12 +124,12 @@ export function ProductMatchScene({ correctAnswer, onSelect }: ProductMatchScene
 
     const devices: THREE.Group[] = [];
     const selectable: THREE.Object3D[] = [];
-    const positions = [-3, 0, 3];
+    const positions = [-3.6, -1.2, 1.2, 3.6];
 
     productDevices.forEach((product, index) => {
       const group = new THREE.Group();
       group.position.set(positions[index], product.baseY, 0);
-      group.rotation.y = (index - 1) * -0.16;
+      group.rotation.y = (index - 1.5) * -0.13;
       group.userData.productIndex = index;
 
       const body = new THREE.Mesh(
@@ -206,10 +213,11 @@ export function ProductMatchScene({ correctAnswer, onSelect }: ProductMatchScene
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
       const portrait = camera.aspect < 0.75;
-      positions[0] = portrait ? -2.4 : -3;
-      positions[1] = 0;
-      positions[2] = portrait ? 2.4 : 3;
-      camera.position.z = portrait ? 16.5 : 10.5;
+      positions[0] = portrait ? -3.45 : -3.6;
+      positions[1] = portrait ? -1.15 : -1.2;
+      positions[2] = portrait ? 1.15 : 1.2;
+      positions[3] = portrait ? 3.45 : 3.6;
+      camera.position.z = portrait ? 18.5 : 12.2;
       camera.position.y = portrait ? 5.2 : 4.4;
       camera.lookAt(0, 1, 0);
       camera.updateProjectionMatrix();
