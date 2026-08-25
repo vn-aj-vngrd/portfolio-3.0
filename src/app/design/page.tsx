@@ -51,7 +51,7 @@ export default function DesignPage() {
             </div>
           </div>
         </div>
-        <div className="design-blueprint" aria-label="Portfolio interface anatomy">
+        <div className="design-blueprint" role="img" aria-label="Portfolio interface anatomy">
           <div className="design-blueprint-rail">
             <span>15.5rem</span>
             <strong>Studio rail</strong>
@@ -101,7 +101,7 @@ export default function DesignPage() {
                 <strong>{token.name}</strong>
                 <code>{token.variable}</code>
               </div>
-              <div className="color-pair" aria-label={`${token.name}: ${token.light} in light mode and ${token.dark} in dark mode`}>
+              <div className="color-pair" role="img" aria-label={`${token.name}: ${token.light} in light mode and ${token.dark} in dark mode`}>
                 <i style={{ backgroundColor: token.light }} />
                 <i style={{ backgroundColor: token.dark }} />
               </div>
@@ -221,11 +221,11 @@ export default function DesignPage() {
         <div className="code-specimens">
           <article>
             <header><div><span>CSS</span><strong>Semantic tokens</strong></div><CopyControl value={cssTokenSnippet} label="Copy tokens" /></header>
-            <pre data-lenis-prevent><code>{cssTokenSnippet}</code></pre>
+            <pre data-lenis-prevent tabIndex={0}><code>{cssTokenSnippet}</code></pre>
           </article>
           <article>
             <header><div><span>TSX</span><strong>Editorial section</strong></div><CopyControl value={componentSnippet} label="Copy component" /></header>
-            <pre data-lenis-prevent><code>{componentSnippet}</code></pre>
+            <pre data-lenis-prevent tabIndex={0}><code>{componentSnippet}</code></pre>
           </article>
         </div>
 

@@ -207,7 +207,7 @@ export function InterfaceControls() {
   };
 
   return (
-    <div className="interface-controls" aria-label="Interface preferences">
+    <div className="interface-controls" role="group" aria-label="Interface preferences">
       <div className="theme-control">
         <span className="preference-label">Theme</span>
         <div className="theme-options" role="group" aria-label="Color theme">

@@ -4,10 +4,11 @@ export const colorTokens = [
   { name: "Strong surface", variable: "--surface-strong", light: "#E7E9EA", dark: "#1C1F23", use: "Raised tonal separation" },
   { name: "Ink", variable: "--ink", light: "#121416", dark: "#F1F3F4", use: "Primary text and controls" },
   { name: "Muted ink", variable: "--muted", light: "#62686F", dark: "#A3A9B0", use: "Supporting copy" },
-  { name: "Faint ink", variable: "--faint", light: "#91979D", dark: "#6F767E", use: "Metadata and tertiary labels" },
+  { name: "Faint ink", variable: "--faint", light: "#686E75", dark: "#7B828A", use: "AA-compliant metadata and tertiary labels" },
   { name: "Border", variable: "--border", light: "#DFE2E4", dark: "#292D32", use: "Structural hairlines" },
   { name: "Signal", variable: "--signal", light: "#155EEF", dark: "#77A6FF", use: "Links, focus, and active state" },
   { name: "Signal soft", variable: "--signal-soft", light: "#E9EFFF", dark: "#14213C", use: "Selected-state background" },
+  { name: "Signal inverse", variable: "--signal-inverse", light: "#77A6FF", dark: "#155EEF", use: "Small accent text on inverted ink surfaces" },
 ] as const;
 
 export const spacingTokens = [
@@ -38,10 +39,11 @@ export const cssTokenSnippet = `:root {
   --surface-strong: #e7e9ea;
   --ink: #121416;
   --muted: #62686f;
-  --faint: #91979d;
+  --faint: #686e75;
   --border: #dfe2e4;
   --signal: #155eef;
   --signal-soft: #e9efff;
+  --signal-inverse: #77a6ff;
   --rail: 15.5rem;
   --max: 74rem;
   --text-max: 42rem;
@@ -70,6 +72,7 @@ colors:
   muted: "#62686F"
   border: "#DFE2E4"
   signal: "#155EEF"
+  signalInverse: "#77A6FF"
 layout:
   rail: "15.5rem"
   maxContent: "74rem"
@@ -94,7 +97,7 @@ Show the problem, the working product, and the implementation decisions. Use typ
 
 ## Color
 
-The system is neutral and light-led. Signal Blue is reserved for links, focus, selected state, and technical markers. Keep it below ten percent of a page. Dark mode uses tuned tokens rather than inversion.
+The system is neutral and light-led. Signal Blue is reserved for links, focus, selected state, and technical markers. Keep it below ten percent of a page. Inverted ink surfaces use a separate signal token so small blue labels retain AA contrast in both themes. Dark mode uses tuned tokens rather than mechanical inversion.
 
 ## Layout
 
