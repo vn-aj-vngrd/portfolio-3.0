@@ -11,7 +11,7 @@ export function ProjectFeature({
   index: number;
 }) {
   const usesPhoneScreens = project.slug === "viya";
-  const usesLaptopFrame = ["relay", "roleway", "acsfi"].includes(project.slug);
+  const usesLaptopFrame = project.slug === "acsfi";
   const featureImage =
     project.coverImage ?? project.images[project.coverImageIndex ?? 0];
 
@@ -70,9 +70,8 @@ export function ProjectFeature({
             </div>
           </figure>
         ) : (
-          project.images
-            .slice(0, usesPhoneScreens ? 2 : 1)
-            .map((image, imageIndex) => (
+          (usesPhoneScreens ? project.images.slice(0, 2) : [featureImage]).map(
+            (image, imageIndex) => (
               <figure
                 key={image.src}
                 className={imageIndex === 1 ? "media-secondary" : ""}
@@ -90,7 +89,8 @@ export function ProjectFeature({
                   priority={index === 0 && imageIndex === 0}
                 />
               </figure>
-            ))
+            ),
+          )
         )}
       </div>
     </article>

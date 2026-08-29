@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { ProjectGallery } from "@/components/project/ProjectGallery";
+import { ProjectShowcase } from "@/components/project/ProjectShowcase";
 import { RelayHighlights } from "@/components/project/RelayHighlights";
 import { projects } from "@/content/projects";
 import type { Project } from "@/types/content";
@@ -44,7 +44,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         </div>
       </header>
 
-      <ProjectGallery project={project} />
+      <ProjectShowcase project={project} />
 
       <section className="case-context" aria-labelledby="context-title" data-reveal>
         <h2 id="context-title">Problem and response</h2>

@@ -223,9 +223,9 @@ const productProblems = [
   },
   {
     answer: 1,
-    title: "A job seeker is losing next actions, interview notes, and follow-ups across spreadsheets, documents, and browser tabs.",
-    clue: "Look for the product organized around opportunities and their next action.",
-    result: "Roleway keeps each application, task, interview, document, and follow-up in one private workspace, with optional AI drafts that require user review.",
+    title: "A job seeker is mixing career targets, next actions, interview notes, and follow-ups across spreadsheets, documents, and browser tabs.",
+    clue: "Look for the product organized around focused Workspaces, Opportunities, and one clear Next Action.",
+    result: "Roleway gives each focused search its own Workspace, keeps complete Opportunity context together, and lets an optional Agent prepare changes that the user must approve.",
   },
   {
     answer: 2,
