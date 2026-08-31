@@ -45,7 +45,7 @@ export default async function ProjectPage({
     name: project.name,
     description: project.summary,
     creator: { "@type": "Person", name: "Van AJ Vanguardia" },
-    url: `https://vanajvanguardia.vercel.app/work/${project.slug}`,
+    url: `https://vanajvanguardia.tech/work/${project.slug}`,
     codeRepository: project.repository,
   };
 

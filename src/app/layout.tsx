@@ -29,7 +29,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vanajvanguardia.vercel.app"),
+  metadataBase: new URL("https://vanajvanguardia.tech"),
   title: {
     default: "Van AJ Vanguardia | Full-Stack Software Developer",
     template: "%s | Van AJ Vanguardia",

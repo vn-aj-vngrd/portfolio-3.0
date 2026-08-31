@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 import { projects } from "@/content/projects";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://vanajvanguardia.vercel.app";
+  const base = "https://vanajvanguardia.tech";
   return [
     { url: base, changeFrequency: "monthly", priority: 1 },
     { url: `${base}/ai`, changeFrequency: "monthly", priority: 0.7 },
