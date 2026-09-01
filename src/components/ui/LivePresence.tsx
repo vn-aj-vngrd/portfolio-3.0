@@ -53,33 +53,23 @@ export function LivePresence() {
     };
   }, []);
 
-  if (count === null) {
-    return (
-      <section
-        className="live-presence live-presence-loading"
-        aria-label="Loading live portfolio visitors"
-        aria-busy="true"
-      >
-        <div className="presence-status">
-          <span className="presence-live-mark" aria-hidden="true" />
-          <span>Live presence</span>
-        </div>
-        <p className="presence-primary">Checking who&apos;s here</p>
-        <span className="presence-detail">Connecting…</span>
-      </section>
-    );
-  }
-
   return (
-    <section className="live-presence" aria-label="Live portfolio visitors" aria-live="polite">
-      <div className="presence-status">
-        <span className="presence-live-mark" aria-hidden="true" />
-        <span>Live presence</span>
-      </div>
-      <p className="presence-primary">
-        <strong>{count}</strong> {count === 1 ? "person" : "people"} viewing now
-      </p>
-      <span className="presence-detail">Anonymous · active in last 75s</span>
+    <section
+      className="live-presence"
+      aria-label="Current portfolio viewers"
+      aria-busy={count === null}
+      aria-live="polite"
+    >
+      {count === null ? (
+        <p className="presence-primary">Checking viewers…</p>
+      ) : (
+        <>
+          <p className="presence-primary">
+            <strong>{count}</strong> {count === 1 ? "person" : "people"} viewing now
+          </p>
+          <span className="presence-detail">Anonymous · active in last 75s</span>
+        </>
+      )}
     </section>
   );
 }

@@ -211,7 +211,7 @@ const projectEntries = [
       height: 2000,
     },
     repository: "https://github.com/vn-aj-vngrd/roleway",
-    liveUrl: "https://roleway.vercel.app/",
+    liveUrl: "https://roleway.vanajvanguardia.tech/",
   },
   {
     slug: "viya",

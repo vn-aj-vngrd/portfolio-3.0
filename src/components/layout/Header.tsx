@@ -295,19 +295,6 @@ export function Header({
               <InterfaceControls />
             </div>
           </div>
-
-          <div className="sidebar-bottom">
-            <div className="sidebar-contact">
-              <p>Contact</p>
-              <a className="sidebar-email" href={`mailto:${profile.email}`}>
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <rect x="3" y="5.5" width="18" height="13" rx="1.5" />
-                  <path d="m4 7 8 6 8-6" />
-                </svg>
-                <span>{profile.email}</span>
-              </a>
-            </div>
-          </div>
         </div>
       </div>
 
