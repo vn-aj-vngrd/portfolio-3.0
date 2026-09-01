@@ -7,7 +7,7 @@ import { GitHubSnapshot } from "@/components/sections/GitHubSnapshot";
 import { Hero } from "@/components/sections/Hero";
 import { SelectedWork } from "@/components/sections/SelectedWork";
 import { profile } from "@/content/profile";
-import { projects } from "@/content/projects";
+import { projectCatalog } from "@/content/projects";
 import { absoluteUrl, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 export default function Home() {
@@ -61,7 +61,7 @@ export default function Home() {
         inLanguage: "en-PH",
         isPartOf: { "@id": `${SITE_URL}/#website` },
         mainEntity: { "@id": `${SITE_URL}/#person` },
-        hasPart: projects.map((project) => ({
+        hasPart: projectCatalog.list().map((project) => ({
           "@type": "CreativeWork",
           name: project.name,
           url: absoluteUrl(`/work/${project.slug}`),

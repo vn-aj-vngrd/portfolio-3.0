@@ -2,12 +2,11 @@ import Link from "next/link";
 
 import { ProjectShowcase } from "@/components/project/ProjectShowcase";
 import { RelayHighlights } from "@/components/project/RelayHighlights";
-import { projects } from "@/content/projects";
+import { projectCatalog } from "@/content/projects";
 import type { Project } from "@/types/content";
 
 export function ProjectCaseStudy({ project }: { project: Project }) {
-  const currentIndex = projects.findIndex((item) => item.slug === project.slug);
-  const nextProject = projects[(currentIndex + 1) % projects.length];
+  const nextProject = projectCatalog.next(project.slug);
 
   return (
     <main id="main-content" className="case-study">

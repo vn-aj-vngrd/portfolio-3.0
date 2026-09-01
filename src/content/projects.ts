@@ -1,12 +1,17 @@
-import type { Project } from "@/types/content";
+import type { ProductMatchEntry, Project } from "@/types/content";
 
-export const projects = [
+const projectEntries = [
   {
     slug: "relay",
     name: "Relay",
     category: "Full-stack web product · Social sports",
     summary:
       "Relay gives recreational pickleball groups one place to plan a session, invite players, split court costs, manage rotations, score matches, and save a recap.",
+    match: {
+      prompt: "A pickleball group coordinates the plan, roster, costs, courts, and scores across disconnected tools.",
+      clue: "Look for the product built around one shared game link.",
+      result: "Relay carries one pickleball session from invitation and RSVP through repayment, rotations, scoring, and the shared memory afterward.",
+    },
     problem:
       "Recreational pickleball groups coordinate the plan, roster, venue cost, court order, and scores across group chats, spreadsheets, and whoever happens to remember what comes next.",
     solution:
@@ -109,6 +114,11 @@ export const projects = [
     category: "Full-stack web product · Job-search operating system",
     summary:
       "Roleway gives each focused job search its own Workspace, connecting Jobs, Opportunities, next actions, interviews, contacts, documents, and outcomes while an optional Agent prepares work that users approve.",
+    match: {
+      prompt: "A job seeker is mixing career targets, next actions, interview notes, and follow-ups across spreadsheets, documents, and browser tabs.",
+      clue: "Look for the product organized around focused Workspaces, Opportunities, and one clear Next Action.",
+      result: "Roleway gives each focused search its own Workspace, keeps complete Opportunity context together, and lets an optional Agent prepare changes that the user must approve.",
+    },
     problem:
       "A serious job search spreads across browser tabs, spreadsheets, calendars, documents, and notes. Different career targets blur together, follow-ups are missed, preparation loses context, and it becomes difficult to decide what deserves attention next.",
     solution:
@@ -209,6 +219,11 @@ export const projects = [
     category: "Mobile product · AI workspace",
     summary:
       "Viya is a mobile travel workspace for itineraries, budgets, documents, bookings, and trip readiness, with AI-assisted changes that travelers review before saving.",
+    match: {
+      prompt: "Travel plans are fragmented across bookings, budgets, documents, and messages.",
+      clue: "Look for the mobile workspace built around one trip.",
+      result: "Viya keeps the itinerary, budget, documents, bookings, readiness, and reviewable AI updates in one trip workspace.",
+    },
     problem:
       "Travel plans are fragmented across messages, booking apps, receipts, maps, notes, and spreadsheets. Most AI travel tools stop after generating an itinerary.",
     solution:
@@ -296,6 +311,11 @@ export const projects = [
     category: "Full-stack nonprofit website · Headless CMS",
     summary:
       "ACSFI gives the Astro Charitable and Scholarship Foundation a public website for its mission, programs, activity reports, upcoming events, and contact information, backed by a CMS for ongoing updates.",
+    match: {
+      prompt: "A nonprofit needs to publish its programs, activity reports, events, and media without changing website code for every update.",
+      clue: "Look for the public organization website backed by a headless CMS.",
+      result: "ACSFI presents the foundation's work through a Next.js website while Strapi manages programs, stories, statistics, events, and media behind it.",
+    },
     problem:
       "The foundation needed one public source for its programs and community work. New activity reports, event details, statistics, and media also needed to be published without editing the website source for every update.",
     solution:
@@ -386,6 +406,26 @@ export const projects = [
   },
 ] satisfies readonly Project[];
 
-export function getProject(slug: string) {
-  return projects.find((project) => project.slug === slug);
-}
+type ProjectFilter = { featured?: boolean };
+
+export const projectCatalog = {
+  list(filter: ProjectFilter = {}) {
+    if (filter.featured === undefined) return projectEntries;
+    return projectEntries.filter((project) => project.featured === filter.featured);
+  },
+  find(slug: string) {
+    return projectEntries.find((project) => project.slug === slug);
+  },
+  next(slug: string) {
+    const currentIndex = projectEntries.findIndex((project) => project.slug === slug);
+    return projectEntries[(currentIndex + 1) % projectEntries.length];
+  },
+  productMatches(): readonly ProductMatchEntry[] {
+    return projectEntries.map((project) => ({
+      slug: project.slug,
+      name: project.name,
+      href: `/work/${project.slug}`,
+      ...project.match,
+    }));
+  },
+};

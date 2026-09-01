@@ -1,11 +1,11 @@
 import Link from "next/link";
 
 import { ProjectFeature } from "@/components/project/ProjectFeature";
-import { projects } from "@/content/projects";
+import { projectCatalog } from "@/content/projects";
 
 export function SelectedWork() {
-  const featured = projects.filter((project) => project.featured);
-  const supporting = projects.filter((project) => !project.featured);
+  const featured = projectCatalog.list({ featured: true });
+  const supporting = projectCatalog.list({ featured: false });
 
   return (
     <section

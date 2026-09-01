@@ -3,7 +3,7 @@ import Link from "next/link";
 import { PrintButton } from "@/components/ui/PrintButton";
 import { experience } from "@/content/experience";
 import { profile } from "@/content/profile";
-import { projects } from "@/content/projects";
+import { projectCatalog } from "@/content/projects";
 import { getGitHubStats } from "@/lib/github-stats";
 import { createPageMetadata } from "@/lib/seo";
 
@@ -92,7 +92,7 @@ export default async function ResumePage() {
 
         <section>
           <h2>Selected products</h2>
-          {projects.map((project) => (
+          {projectCatalog.list().map((project) => (
             <div className="resume-entry" key={project.slug}>
               <h3>{project.name}</h3>
               <p>{project.summary}</p>

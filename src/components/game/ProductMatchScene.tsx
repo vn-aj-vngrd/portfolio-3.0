@@ -3,8 +3,11 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
+import type { ProductMatchEntry } from "@/types/content";
+
 type ProductMatchSceneProps = {
   correctAnswer: number;
+  products: readonly ProductMatchEntry[];
   onSelect: (index: number) => void;
 };
 
@@ -63,7 +66,11 @@ function labelSprite(text: string, accent: string) {
   return sprite;
 }
 
-export function ProductMatchScene({ correctAnswer, onSelect }: ProductMatchSceneProps) {
+export function ProductMatchScene({
+  correctAnswer,
+  products,
+  onSelect,
+}: ProductMatchSceneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const selectCallback = useRef(onSelect);
 
@@ -161,7 +168,7 @@ export function ProductMatchScene({ correctAnswer, onSelect }: ProductMatchScene
         selectable.push(detail);
       }
 
-      const label = labelSprite(product.name, "#155eef");
+      const label = labelSprite(products[index]?.name ?? product.name, "#155eef");
       label.position.y = -1.9;
       group.add(label);
       devices.push(group);
@@ -277,7 +284,7 @@ export function ProductMatchScene({ correctAnswer, onSelect }: ProductMatchScene
       });
       renderer.dispose();
     };
-  }, [correctAnswer]);
+  }, [correctAnswer, products]);
 
   return <canvas ref={canvasRef} className="product-match-canvas" aria-label="Product Match 3D selection game" />;
 }

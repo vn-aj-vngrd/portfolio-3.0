@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { projects } from "@/content/projects";
+import { projectCatalog } from "@/content/projects";
 import { SITE_URL } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/design`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/gear`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/resume`, changeFrequency: "monthly", priority: 0.7 },
-    ...projects.map((project) => ({
+    ...projectCatalog.list().map((project) => ({
       url: `${SITE_URL}/work/${project.slug}`,
       changeFrequency: "monthly" as const,
       priority: 0.8,

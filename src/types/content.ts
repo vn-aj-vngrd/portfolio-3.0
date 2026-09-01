@@ -11,11 +11,21 @@ export type ProjectImage = {
   label?: string;
 };
 
+export type ProductMatchEntry = {
+  slug: string;
+  name: string;
+  href: string;
+  prompt: string;
+  clue: string;
+  result: string;
+};
+
 export type Project = {
   slug: string;
   name: string;
   category: string;
   summary: string;
+  match: Omit<ProductMatchEntry, "slug" | "name" | "href">;
   problem: string;
   solution: string;
   role: string;

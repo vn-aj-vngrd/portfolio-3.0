@@ -16,6 +16,7 @@ import {
   isPlatformModifierPressed,
   usePlatformModifier,
 } from "@/hooks/usePlatformModifier";
+import type { ProductMatchEntry } from "@/types/content";
 
 function setMobileMenuIsolation(open: boolean) {
   for (const element of document.querySelectorAll<HTMLElement>(
@@ -38,7 +39,11 @@ const shortcuts = [
   { key: "0", label: "Résumé", href: "/resume" },
 ] as const;
 
-export function Header() {
+export function Header({
+  productMatches,
+}: {
+  productMatches: readonly ProductMatchEntry[];
+}) {
   const pathname = usePathname();
   const router = useRouter();
   const menuRef = useRef<HTMLDetailsElement>(null);
@@ -201,7 +206,7 @@ export function Header() {
           <span className="nav-divider" aria-hidden="true" />
         </nav>
 
-        <ProductLab ref={productLabRef} />
+        <ProductLab ref={productLabRef} productMatches={productMatches} />
 
         <div className="sidebar-dock">
           <div className="sidebar-presence">

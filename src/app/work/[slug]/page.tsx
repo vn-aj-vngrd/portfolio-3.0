@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { ProjectCaseStudy } from "@/components/project/ProjectCaseStudy";
-import { getProject, projects } from "@/content/projects";
+import { projectCatalog } from "@/content/projects";
 import { absoluteUrl, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
+  return projectCatalog.list().map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({
@@ -15,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProject(slug);
+  const project = projectCatalog.find(slug);
   if (!project) return {};
 
   const socialImage = project.coverImage ?? project.images[0];
@@ -56,7 +56,7 @@ export default async function ProjectPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const project = getProject(slug);
+  const project = projectCatalog.find(slug);
   if (!project) notFound();
 
   const projectUrl = absoluteUrl(`/work/${project.slug}`);

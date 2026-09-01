@@ -7,6 +7,7 @@ import {
   isPlatformModifierPressed,
   usePlatformModifier,
 } from "@/hooks/usePlatformModifier";
+import type { ProductMatchEntry } from "@/types/content";
 
 const sceneLoading = (
   <div className="product-lab-scene-loading" role="status">
@@ -40,6 +41,7 @@ export type ProductLabHandle = {
 
 type ProductLabProps = {
   ref?: React.Ref<ProductLabHandle>;
+  productMatches: readonly ProductMatchEntry[];
 };
 
 const games: readonly {
@@ -54,7 +56,7 @@ const games: readonly {
   { id: "match", index: "03", title: "Product Match", duration: "55 sec", description: "Match real products to the problems they were designed to solve." },
 ];
 
-export function ProductLab({ ref }: ProductLabProps) {
+export function ProductLab({ ref, productMatches }: ProductLabProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [game, setGame] = useState<LabGame | null>(null);
@@ -127,7 +129,7 @@ export function ProductLab({ ref }: ProductLabProps) {
           <div className="product-lab-stage" data-game={game ?? "home"}>
             {isOpen && game === "stack" ? <StackBuilderGame /> : null}
             {isOpen && game === "ship" ? <ReleaseRunGame /> : null}
-            {isOpen && game === "match" ? <ProductMatchGame /> : null}
+            {isOpen && game === "match" ? <ProductMatchGame entries={productMatches} /> : null}
             {isOpen && game === null ? (
               <>
                 <div className="product-lab-visual">
