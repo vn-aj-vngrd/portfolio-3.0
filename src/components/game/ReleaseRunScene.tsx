@@ -1,13 +1,18 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useImperativeHandle, useRef } from "react";
 import * as THREE from "three";
 
 const stages = ["Plan", "Build", "Test", "Ship"] as const;
-type ControlAction = "forward" | "back" | "left" | "right" | "turnLeft" | "turnRight";
-type ControlEvent = CustomEvent<{ action: ControlAction; pressed: boolean }>;
+export type ReleaseControl = "forward" | "back" | "left" | "right" | "turnLeft" | "turnRight";
+
+export type ReleaseRunSceneHandle = {
+  activate: () => void;
+  setControl: (action: ReleaseControl, pressed: boolean) => void;
+};
 
 type ReleaseRunSceneProps = {
+  ref?: React.Ref<ReleaseRunSceneHandle>;
   onProgress: (progress: number) => void;
   onReady: () => void;
 };
@@ -37,10 +42,17 @@ function makeLabel(text: string, color: string) {
   return sprite;
 }
 
-export function ReleaseRunScene({ onProgress, onReady }: ReleaseRunSceneProps) {
+export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunSceneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const progressCallback = useRef(onProgress);
   const readyCallback = useRef(onReady);
+  const activateAction = useRef(() => {});
+  const controlAction = useRef((_action: ReleaseControl, _pressed: boolean) => {});
+
+  useImperativeHandle(ref, () => ({
+    activate: () => activateAction.current(),
+    setControl: (action, pressed) => controlAction.current(action, pressed),
+  }), []);
 
   useEffect(() => {
     progressCallback.current = onProgress;
@@ -89,7 +101,7 @@ export function ReleaseRunScene({ onProgress, onReady }: ReleaseRunSceneProps) {
     let frame = 0;
     let running = true;
     const keys = new Set<string>();
-    const controls = new Set<ControlAction>();
+    const controls = new Set<ReleaseControl>();
     const targets: THREE.Group[] = [];
     const targetMeshes: THREE.Object3D[] = [];
     const raycaster = new THREE.Raycaster();
@@ -246,12 +258,11 @@ export function ReleaseRunScene({ onProgress, onReady }: ReleaseRunSceneProps) {
       }
       activateTarget();
     };
-    const onControl = (event: Event) => {
-      const { action, pressed } = (event as ControlEvent).detail;
+    activateAction.current = activateTarget;
+    controlAction.current = (action, pressed) => {
       if (pressed) controls.add(action);
       else controls.delete(action);
     };
-    const onFire = () => activateTarget();
 
     const resize = () => {
       const width = Math.max(1, canvas.clientWidth);
@@ -305,8 +316,6 @@ export function ReleaseRunScene({ onProgress, onReady }: ReleaseRunSceneProps) {
     document.addEventListener("keydown", onKeyDown);
     document.addEventListener("keyup", onKeyUp);
     document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("release-run-control", onControl);
-    document.addEventListener("release-run-fire", onFire);
     canvas.addEventListener("click", onCanvasClick);
     updateTargetState();
     resize();
@@ -321,9 +330,9 @@ export function ReleaseRunScene({ onProgress, onReady }: ReleaseRunSceneProps) {
       resizeObserver.disconnect();
       document.removeEventListener("keydown", onKeyDown);
       document.removeEventListener("keyup", onKeyUp);
+      activateAction.current = () => {};
+      controlAction.current = () => {};
       document.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("release-run-control", onControl);
-      document.removeEventListener("release-run-fire", onFire);
       canvas.removeEventListener("click", onCanvasClick);
       scene.traverse((object) => {
         if (!(object instanceof THREE.Mesh || object instanceof THREE.LineSegments || object instanceof THREE.Sprite)) return;

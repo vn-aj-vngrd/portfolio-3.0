@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-import { ProductLab } from "@/components/game/ProductLab";
+import { ProductLab, type ProductLabHandle } from "@/components/game/ProductLab";
 import {
   portfolioSections,
   usePortfolioNavigation,
@@ -42,6 +42,7 @@ export function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const menuRef = useRef<HTMLDetailsElement>(null);
+  const productLabRef = useRef<ProductLabHandle>(null);
   const menuCloseTimer = useRef<number | null>(null);
   const [shortcutMode, setShortcutMode] = useState(false);
   const platformModifier = usePlatformModifier();
@@ -200,7 +201,7 @@ export function Header() {
           <span className="nav-divider" aria-hidden="true" />
         </nav>
 
-        <ProductLab />
+        <ProductLab ref={productLabRef} />
 
         <div className="sidebar-dock">
           <div className="sidebar-presence">
@@ -257,7 +258,7 @@ export function Header() {
                       type="button"
                       onClick={() => {
                         closeMenu();
-                        document.dispatchEvent(new Event("open-product-lab"));
+                        productLabRef.current?.open();
                       }}
                     >
                       <span>Open Product Lab</span>

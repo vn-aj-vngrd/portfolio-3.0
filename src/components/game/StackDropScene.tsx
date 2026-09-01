@@ -1,9 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useImperativeHandle, useRef } from "react";
 import * as THREE from "three";
 
+export type StackDropSceneHandle = {
+  drop: () => void;
+};
+
 type StackDropSceneProps = {
+  ref?: React.Ref<StackDropSceneHandle>;
   running: boolean;
   layers: readonly string[];
   onDrop: (progress: number, accuracy: number) => void;
@@ -18,6 +23,7 @@ type Block = {
 };
 
 export function StackDropScene({
+  ref,
   running,
   layers,
   onDrop,
@@ -26,6 +32,11 @@ export function StackDropScene({
 }: StackDropSceneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const callbacks = useRef({ onDrop, onFail, onComplete });
+  const dropAction = useRef(() => {});
+
+  useImperativeHandle(ref, () => ({
+    drop: () => dropAction.current(),
+  }), []);
 
   useEffect(() => {
     callbacks.current = { onDrop, onFail, onComplete };
@@ -216,7 +227,7 @@ export function StackDropScene({
       event.preventDefault();
       finishDrop();
     };
-    const onDropEvent = () => finishDrop();
+    dropAction.current = finishDrop;
     const onCanvasPointer = () => finishDrop();
 
     const resize = () => {
@@ -257,7 +268,6 @@ export function StackDropScene({
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(canvas);
     document.addEventListener("keydown", onKeyDown);
-    document.addEventListener("stack-drop", onDropEvent);
     canvas.addEventListener("pointerdown", onCanvasPointer);
     resize();
     if (running) spawn();
@@ -266,8 +276,8 @@ export function StackDropScene({
     return () => {
       cancelAnimationFrame(frame);
       resizeObserver.disconnect();
+      dropAction.current = () => {};
       document.removeEventListener("keydown", onKeyDown);
-      document.removeEventListener("stack-drop", onDropEvent);
       canvas.removeEventListener("pointerdown", onCanvasPointer);
       scene.traverse((object) => {
         if (!(object instanceof THREE.Mesh || object instanceof THREE.LineSegments)) return;
