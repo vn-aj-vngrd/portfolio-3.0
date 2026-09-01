@@ -8,6 +8,13 @@ import { Header } from "@/components/layout/Header";
 import { ScrollReveal } from "@/components/providers/ScrollReveal";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import {
+  DEFAULT_SOCIAL_IMAGE,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TITLE,
+  SITE_URL,
+} from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,30 +36,63 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vanajvanguardia.tech"),
+  metadataBase: new URL(SITE_URL),
+  applicationName: SITE_NAME,
   title: {
-    default: "Van AJ Vanguardia | Full-Stack Software Developer",
-    template: "%s | Van AJ Vanguardia",
+    default: SITE_TITLE,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    "Full-stack software developer in Cebu working with TypeScript, React, Next.js, React Native, ASP.NET Core, Node.js, and coding-agent workflows.",
-  authors: [{ name: "Van AJ Vanguardia" }],
-  creator: "Van AJ Vanguardia",
+  description: SITE_DESCRIPTION,
+  keywords: [
+    "Van AJ Vanguardia",
+    "full-stack software developer",
+    "software developer Cebu",
+    "TypeScript developer",
+    "React developer",
+    "Next.js developer",
+    "ASP.NET Core developer",
+    "product engineer",
+  ],
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  category: "technology",
+  referrer: "origin-when-cross-origin",
+  formatDetection: { email: false, address: false, telephone: false },
   alternates: { canonical: "/" },
+  manifest: "/favicon/site.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [{ url: "/favicon/apple-touch-icon.png", sizes: "180x180" }],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
-    title: "Van AJ Vanguardia | Full-Stack Software Developer",
-    description:
-      "Selected web and mobile products, professional experience, technical stack, and software development workflow.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     url: "/",
-    siteName: "Van AJ Vanguardia",
+    siteName: SITE_NAME,
     locale: "en_PH",
     type: "website",
+    images: [DEFAULT_SOCIAL_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Van AJ Vanguardia | Full-Stack Software Developer",
-    description:
-      "Selected web and mobile products, professional experience, technical stack, and software development workflow.",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [DEFAULT_SOCIAL_IMAGE],
   },
 };
 

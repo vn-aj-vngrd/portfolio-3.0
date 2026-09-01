@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import { ProjectCaseStudy } from "@/components/project/ProjectCaseStudy";
 import { getProject, projects } from "@/content/projects";
+import { absoluteUrl, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -17,15 +18,34 @@ export async function generateMetadata({
   const project = getProject(slug);
   if (!project) return {};
 
+  const socialImage = project.coverImage ?? project.images[0];
+  const title = `${project.name} Case Study | ${SITE_NAME}`;
+
   return {
-    title: project.name,
+    title: `${project.name} Case Study`,
     description: project.summary,
     alternates: { canonical: `/work/${project.slug}` },
     openGraph: {
-      title: `${project.name} | Van AJ Vanguardia`,
+      title,
       description: project.summary,
       url: `/work/${project.slug}`,
-      images: [{ url: project.images[0].src, alt: project.images[0].alt }],
+      siteName: SITE_NAME,
+      locale: "en_PH",
+      type: "article",
+      images: [
+        {
+          url: socialImage.src,
+          width: socialImage.width,
+          height: socialImage.height,
+          alt: socialImage.alt,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: project.summary,
+      images: [{ url: socialImage.src, alt: socialImage.alt }],
     },
   };
 }
@@ -39,14 +59,48 @@ export default async function ProjectPage({
   const project = getProject(slug);
   if (!project) notFound();
 
+  const projectUrl = absoluteUrl(`/work/${project.slug}`);
+  const socialImage = project.coverImage ?? project.images[0];
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: project.name,
-    description: project.summary,
-    creator: { "@type": "Person", name: "Van AJ Vanguardia" },
-    url: `https://vanajvanguardia.tech/work/${project.slug}`,
-    codeRepository: project.repository,
+    "@graph": [
+      {
+        "@type": "CreativeWork",
+        "@id": `${projectUrl}#case-study`,
+        name: `${project.name} case study`,
+        headline: project.summary,
+        description: `${project.problem} ${project.solution}`,
+        url: projectUrl,
+        image: absoluteUrl(socialImage.src),
+        inLanguage: "en-PH",
+        author: { "@id": `${SITE_URL}/#person` },
+        creator: { "@id": `${SITE_URL}/#person` },
+        mainEntityOfPage: projectUrl,
+        keywords: project.stack.join(", "),
+        sameAs: [
+          project.repository,
+          ...(project.liveUrl ? [project.liveUrl] : []),
+        ],
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${projectUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Portfolio",
+            item: SITE_URL,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: project.name,
+            item: projectUrl,
+          },
+        ],
+      },
+    ],
   };
 
   return (

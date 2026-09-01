@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import { GearIllustration } from "@/components/gear/GearIllustration";
 import { gear, type GearItem } from "@/content/gear";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Gear",
   description:
     "The hardware and desk setup Van AJ Vanguardia uses for full-stack, mobile, and AI-assisted product engineering.",
-  alternates: { canonical: "/gear" },
-};
+  path: "/gear",
+});
 
 const groups: { title: string; description: string; items: readonly GearItem[] }[] = [
   {

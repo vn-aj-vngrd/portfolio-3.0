@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 const STORAGE_KEY = "portfolio-presence-id";
-const avatarPatterns = ["orbit", "split", "grid"] as const;
 
 function visitorId() {
   const stored = localStorage.getItem(STORAGE_KEY);
@@ -61,39 +60,26 @@ export function LivePresence() {
         aria-label="Loading live portfolio visitors"
         aria-busy="true"
       >
-        <div className="presence-avatars" aria-hidden="true">
-          {avatarPatterns.map((pattern) => (
-            <span className="presence-avatar presence-avatar-loading" key={pattern} />
-          ))}
+        <div className="presence-status">
+          <span className="presence-live-mark" aria-hidden="true" />
+          <span>Live presence</span>
         </div>
-        <div className="presence-copy">
-          <p>Checking who&apos;s here</p>
-          <span>Connecting to live presence…</span>
-        </div>
+        <p className="presence-primary">Checking who&apos;s here</p>
+        <span className="presence-detail">Connecting…</span>
       </section>
     );
   }
 
-  const shown = Math.min(count, 3);
-
   return (
     <section className="live-presence" aria-label="Live portfolio visitors" aria-live="polite">
-      <div className="presence-avatars" aria-hidden="true">
-        {Array.from({ length: shown }, (_, index) => (
-          <span
-            className="presence-avatar"
-            data-pattern={avatarPatterns[index]}
-            key={avatarPatterns[index]}
-          />
-        ))}
-        {count > 3 ? <span className="presence-more">+{count - 3}</span> : null}
+      <div className="presence-status">
+        <span className="presence-live-mark" aria-hidden="true" />
+        <span>Live presence</span>
       </div>
-      <div className="presence-copy">
-        <p>
-          <strong>{count}</strong> {count === 1 ? "person" : "people"} viewing now
-        </p>
-        <span>Anonymous · active in last 75s</span>
-      </div>
+      <p className="presence-primary">
+        <strong>{count}</strong> {count === 1 ? "person" : "people"} viewing now
+      </p>
+      <span className="presence-detail">Anonymous · active in last 75s</span>
     </section>
   );
 }

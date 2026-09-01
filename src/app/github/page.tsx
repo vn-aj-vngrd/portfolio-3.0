@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import { ContributionGraph } from "@/components/github/ContributionGraph";
 import { getGitHubStats } from "@/lib/github-stats";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "GitHub Activity",
   description:
     "Van AJ Vanguardia’s GitHub contributions, owned repositories, detected languages, and recent public work, with private activity included only in aggregate.",
-  alternates: { canonical: "/github" },
-};
+  path: "/github",
+});
 
 export const revalidate = 3600;
 

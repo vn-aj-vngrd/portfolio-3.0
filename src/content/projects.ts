@@ -101,7 +101,7 @@ export const projects = [
       height: 2000,
     },
     repository: "https://github.com/vn-aj-vngrd/relay",
-    liveUrl: "https://relay-pickleball.vercel.app/",
+    liveUrl: "https://relay.vanajvanguardia.tech/",
   },
   {
     slug: "roleway",

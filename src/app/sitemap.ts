@@ -1,18 +1,18 @@
 import type { MetadataRoute } from "next";
 
 import { projects } from "@/content/projects";
+import { SITE_URL } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://vanajvanguardia.tech";
   return [
-    { url: base, changeFrequency: "monthly", priority: 1 },
-    { url: `${base}/ai`, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${base}/github`, changeFrequency: "weekly", priority: 0.7 },
-    { url: `${base}/design`, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${base}/gear`, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${base}/resume`, changeFrequency: "monthly", priority: 0.7 },
+    { url: SITE_URL, changeFrequency: "monthly", priority: 1 },
+    { url: `${SITE_URL}/ai`, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE_URL}/github`, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${SITE_URL}/design`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${SITE_URL}/gear`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${SITE_URL}/resume`, changeFrequency: "monthly", priority: 0.7 },
     ...projects.map((project) => ({
-      url: `${base}/work/${project.slug}`,
+      url: `${SITE_URL}/work/${project.slug}`,
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),

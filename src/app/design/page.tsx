@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import { CopyControl } from "@/components/design/CopyControl";
@@ -10,13 +9,14 @@ import {
   designMarkdown,
   spacingTokens,
 } from "@/content/design-system";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Design System",
   description:
     "The documented visual language, tokens, components, accessibility rules, and responsive structure behind Portfolio 3.0.",
-  alternates: { canonical: "/design" },
-};
+  path: "/design",
+});
 
 const principles = [
   "Products and evidence lead; technology supports the story.",

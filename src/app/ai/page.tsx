@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import {
@@ -8,13 +7,14 @@ import {
   skillGroups,
   workflowStages,
 } from "@/content/ai-workflow";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "AI Engineering Workflow",
   description:
     "The models, coding agents, reusable skills, review steps, and validation practices Van AJ Vanguardia uses during software development.",
-  alternates: { canonical: "/ai" },
-};
+  path: "/ai",
+});
 
 export default function AiWorkflowPage() {
   const skillCount = skillGroups.reduce((total, group) => total + group.skills.length, 0);

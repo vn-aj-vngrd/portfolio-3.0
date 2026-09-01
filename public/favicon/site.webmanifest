@@ -1,5 +1,5 @@
 {
-  "name": "Van AJ Vanguardia - Software Developer",
+  "name": "Van AJ Vanguardia - Full-Stack Software Developer",
   "short_name": "Van AJ Vanguardia",
   "icons": [
     {
@@ -13,8 +13,8 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#FFFFFF",
-  "background_color": "#000000",
+  "theme_color": "#FBFBFA",
+  "background_color": "#FBFBFA",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait"

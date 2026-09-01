@@ -5,6 +5,7 @@ export function GET() {
     headers: {
       "Cache-Control": "public, max-age=3600, stale-while-revalidate=86400",
       "Content-Type": "text/markdown; charset=utf-8",
+      "X-Robots-Tag": "noindex, follow",
     },
   });
 }

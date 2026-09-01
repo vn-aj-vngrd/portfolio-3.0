@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
 import { PrintButton } from "@/components/ui/PrintButton";
@@ -6,13 +5,14 @@ import { experience } from "@/content/experience";
 import { profile } from "@/content/profile";
 import { projects } from "@/content/projects";
 import { getGitHubStats } from "@/lib/github-stats";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Résumé",
   description:
     "Résumé for Van AJ Vanguardia, a full-stack software developer working across TypeScript, React, Next.js, ASP.NET Core, Node.js, and databases.",
-  alternates: { canonical: "/resume" },
-};
+  path: "/resume",
+});
 
 export default async function ResumePage() {
   const github = await getGitHubStats();
