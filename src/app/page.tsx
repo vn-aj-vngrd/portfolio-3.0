@@ -1,4 +1,3 @@
-import { SectionAnchorSync } from "@/components/providers/SectionAnchorSync";
 import { About } from "@/components/sections/About";
 import { Certifications } from "@/components/sections/Certifications";
 import { Contact } from "@/components/sections/Contact";
@@ -88,7 +87,6 @@ export default function Home() {
         <Certifications />
         <About />
         <Contact />
-        <SectionAnchorSync />
       </main>
     </>
   );

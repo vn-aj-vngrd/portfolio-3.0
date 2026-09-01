@@ -5,8 +5,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { PortfolioNavigation } from "@/components/providers/PortfolioNavigation";
 import { ScrollReveal } from "@/components/providers/ScrollReveal";
-import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import {
   DEFAULT_SOCIAL_IMAGE,
@@ -108,15 +108,16 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SmoothScroll />
-          <ScrollReveal />
-          <a className="skip-link" href="#main-content">
-            Skip to content
-          </a>
-          <div id="top" />
-          <Header />
-          {children}
-          <Footer />
+          <PortfolioNavigation>
+            <ScrollReveal />
+            <a className="skip-link" href="#main-content">
+              Skip to content
+            </a>
+            <div id="top" />
+            <Header />
+            {children}
+            <Footer />
+          </PortfolioNavigation>
         </ThemeProvider>
       </body>
     </html>

@@ -5,6 +5,10 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import { ProductLab } from "@/components/game/ProductLab";
+import {
+  portfolioSections,
+  usePortfolioNavigation,
+} from "@/components/providers/PortfolioNavigation";
 import { InterfaceControls } from "@/components/ui/InterfaceControls";
 import { LivePresence } from "@/components/ui/LivePresence";
 import { profile } from "@/content/profile";
@@ -12,15 +16,6 @@ import {
   isPlatformModifierPressed,
   usePlatformModifier,
 } from "@/hooks/usePlatformModifier";
-
-const links = [
-  { href: "/#my-work", id: "my-work", label: "My work", index: "01" },
-  { href: "/#tech-stack", id: "tech-stack", label: "Tech stack", index: "02" },
-  { href: "/#experience", id: "experience", label: "Experience", index: "03" },
-  { href: "/#credentials", id: "credentials", label: "Credentials", index: "04" },
-  { href: "/#about", id: "about", label: "About", index: "05" },
-  { href: "/#contact", id: "contact", label: "Contact", index: "06" },
-] as const;
 
 function setMobileMenuIsolation(open: boolean) {
   for (const element of document.querySelectorAll<HTMLElement>(
@@ -31,7 +26,7 @@ function setMobileMenuIsolation(open: boolean) {
 }
 
 const shortcuts = [
-  ...links.map((link, index) => ({
+  ...portfolioSections.map((link, index) => ({
     key: String(index + 1),
     label: link.label,
     href: link.href,
@@ -48,9 +43,9 @@ export function Header() {
   const router = useRouter();
   const menuRef = useRef<HTMLDetailsElement>(null);
   const menuCloseTimer = useRef<number | null>(null);
-  const [activeSection, setActiveSection] = useState<string | null>(null);
   const [shortcutMode, setShortcutMode] = useState(false);
   const platformModifier = usePlatformModifier();
+  const { activeSection, navigateToSection } = usePortfolioNavigation();
 
   const closeMenu = () => {
     const menu = menuRef.current;
@@ -86,25 +81,6 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    if (pathname !== "/") return;
-
-    const sections = links
-      .map((link) => document.getElementById(link.id))
-      .filter((section): section is HTMLElement => section !== null);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.find((entry) => entry.isIntersecting);
-        if (visible) setActiveSection(visible.target.id);
-      },
-      { rootMargin: "-28% 0px -62% 0px", threshold: 0 },
-    );
-
-    for (const section of sections) observer.observe(section);
-    return () => observer.disconnect();
-  }, [pathname]);
-
-  useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement | null;
       const isTyping = target?.matches("input, textarea, select, [contenteditable='true']");
@@ -125,15 +101,7 @@ export function Header() {
 
       event.preventDefault();
       if ("section" in shortcut) {
-        setActiveSection(shortcut.section);
-        if (pathname === "/") {
-          window.history.replaceState(null, "", `#${shortcut.section}`);
-          document.dispatchEvent(
-            new CustomEvent("portfolio-scroll-to", { detail: { id: shortcut.section } }),
-          );
-        } else {
-          router.push(shortcut.href);
-        }
+        navigateToSection(shortcut.section);
         return;
       }
 
@@ -157,7 +125,7 @@ export function Header() {
       window.removeEventListener("keyup", handleKeyUp);
       window.removeEventListener("blur", handleBlur);
     };
-  }, [pathname, platformModifier, router]);
+  }, [navigateToSection, platformModifier, router]);
 
   return (
     <header className="site-header">
@@ -174,7 +142,7 @@ export function Header() {
         </div>
 
         <nav className="desktop-nav" aria-label="Primary navigation">
-          {links.map((link) => {
+          {portfolioSections.map((link) => {
             const isActive = pathname === "/" && activeSection === link.id;
             return (
               <Link
@@ -182,7 +150,6 @@ export function Header() {
                 href={link.href}
                 data-active={isActive}
                 aria-current={isActive ? "location" : undefined}
-                onClick={() => setActiveSection(link.id)}
               >
                 <span>{link.index}</span>
                 {link.label}
@@ -266,7 +233,7 @@ export function Header() {
                 <div className="mobile-menu-content">
                   <p className="mobile-menu-label">Portfolio index</p>
                   <nav className="mobile-primary-nav" aria-label="Mobile navigation">
-                    {links.map((link) => {
+                    {portfolioSections.map((link) => {
                       const isActive = pathname === "/" && activeSection === link.id;
                       return (
                         <Link
@@ -274,10 +241,7 @@ export function Header() {
                           href={link.href}
                           data-active={isActive}
                           aria-current={isActive ? "location" : undefined}
-                          onClick={() => {
-                            setActiveSection(link.id);
-                            closeMenu();
-                          }}
+                          onClick={closeMenu}
                         >
                           <span>{link.index}</span>
                           <strong>{link.label}</strong>
