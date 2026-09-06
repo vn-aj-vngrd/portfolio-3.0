@@ -1,3 +1,4 @@
+import { aiWorkflow, resumeAiTools, resumeWorkflowTools } from "@/content/ai-workflow";
 import { experience } from "@/content/experience";
 import { projectCatalog } from "@/content/projects";
 import type { Experience } from "@/types/content";
@@ -20,6 +21,8 @@ export const resume = {
     { label: "Additional stack", detail: "Next.js, Node.js, NestJS, PostgreSQL, React Native, Expo, Blazor, Angular" },
     { label: "Cloud & delivery", detail: "AWS, ECS Fargate, Lambda, Microsoft Azure, Docker, GitHub Actions, CI/CD" },
     { label: "Testing", detail: "Vitest, Playwright, Postman" },
+    { label: "AI tools", detail: resumeAiTools.join(", ") },
+    { label: "Workflow tooling", detail: resumeWorkflowTools.join(", ") },
   ],
   professional: [
     experienceEntry("Full Scale Teams PH"),
@@ -30,9 +33,7 @@ export const resume = {
     ]),
   ],
   aiWorkflow: {
-    tools: ["Claude Code", "Codex CLI", "Pi", "Cursor", "GitHub Copilot"],
-    summary:
-      "Define acceptance criteria and bounded tasks for research, implementation, and debugging. Verify changes through direct code review, tests, type checks, and browser checks before release.",
+    summary: aiWorkflow.resumeSummary,
   },
   internships: [
     experienceEntry("Full Scale", [

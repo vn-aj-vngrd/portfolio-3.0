@@ -1,180 +1,106 @@
 import Link from "next/link";
 
+import { WorkflowSteps } from "@/components/ai/WorkflowSteps";
 import {
-  agentGuardrails,
-  agentSurfaces,
-  favoriteModels,
-  skillGroups,
-  workflowStages,
+  agentGuardrails, aiToolNames, aiWorkflow, executionContexts,
+  modelPreferences, skillGroups, supportingContexts, workflowEvidence,
 } from "@/content/ai-workflow";
+import { projectCatalog } from "@/content/projects";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
   title: "AI Engineering Workflow",
-  description:
-    "The models, coding agents, reusable skills, review steps, and validation practices Van AJ Vanguardia uses during software development.",
-  path: "/ai",
+  description: "How Van AJ Vanguardia uses coding agents: product questions, focused specifications, vertical slices, implementation, and independent code review.",
+  path: aiWorkflow.path,
 });
 
 export default function AiWorkflowPage() {
-  const skillCount = skillGroups.reduce((total, group) => total + group.skills.length, 0);
-
   return (
     <main id="main-content" className="ai-page">
-      <section className="ai-hero" aria-labelledby="ai-title" data-reveal>
-        <Link className="page-back-link" href="/">
-          <span aria-hidden="true">←</span> Back to portfolio
-        </Link>
-        <div className="ai-hero-grid">
-          <div>
-            <p className="ai-kicker">AI engineering workflow</p>
-            <h1 id="ai-title">How I use coding agents in day-to-day development.</h1>
-          </div>
-          <div className="ai-hero-copy">
-            <p>
-              I use Claude Code, Codex CLI, Pi, Cursor, and supporting orchestration
-              tools for repository research, implementation, debugging, and review.
-            </p>
-            <p>
-              I remain responsible for the requirement, architecture, final diff,
-              tests, browser behavior, and deployed result. Agents shorten parts of
-              the work; they do not approve their own output.
-            </p>
-          </div>
-        </div>
-        <dl className="ai-signals">
-          <div>
-            <dt>{favoriteModels.length}</dt>
-            <dd>Daily-driver models</dd>
-          </div>
-          <div>
-            <dt>{workflowStages.length}</dt>
-            <dd>Workflow stages</dd>
-          </div>
-          <div>
-            <dt>{skillCount}</dt>
-            <dd>Reusable agent skills</dd>
-          </div>
-          <div>
-            <dt>{agentSurfaces.length}</dt>
-            <dd>Working surfaces</dd>
-          </div>
-        </dl>
+      <section className="ai-hero" aria-labelledby="ai-title">
+        <Link className="page-back-link" href="/">← Back to portfolio</Link>
+        <p className="ai-kicker">AI-assisted engineering</p>
+        <h1 id="ai-title">{aiWorkflow.title}</h1>
+        <p className="ai-introduction">{aiWorkflow.introduction}</p>
+        <nav className="ai-links" aria-label="Workflow sections">
+          <a href="#workflow">The workflow ↓</a>
+          <a href="#evidence">Public evidence ↓</a>
+        </nav>
       </section>
 
-      <section className="ai-section ai-models" aria-labelledby="models-title" data-reveal>
+      <section className="ai-section" id="workflow" aria-labelledby="workflow-title">
         <header className="ai-section-heading">
-          <p>01 · Models</p>
-          <div>
-            <h2 id="models-title">The models I use most.</h2>
-            <p>I choose between them based on the task, repository context, and quality of the result.</p>
-          </div>
+          <h2 id="workflow-title">Decisions before implementation.</h2>
+          <p>{aiWorkflow.attribution.text} <a href={aiWorkflow.attribution.href}>Explore the source skills ↗</a></p>
         </header>
-        <div className="model-pair">
-          {favoriteModels.map((model, index) => (
-            <article key={model.name}>
-              <span>0{index + 1}</span>
-              <p>{model.role}</p>
-              <h3>{model.name}</h3>
-              <strong>{model.use}</strong>
+        <WorkflowSteps />
+        <div className="ai-notes"><p>{aiWorkflow.flexibility}</p><p>{aiWorkflow.releaseResponsibility}</p></div>
+      </section>
+
+      <section className="ai-section" aria-labelledby="setup-title">
+        <header className="ai-section-heading">
+          <h2 id="setup-title">A lightweight daily setup.</h2>
+          <p>{aiWorkflow.workspace}</p>
+        </header>
+        <div className="ai-ledger">
+          {executionContexts.map((context) => (
+            <article key={context.title}>
+              <h3>{context.title}</h3>
+              <div><p>{context.description}</p><p className="ai-tool-list">{aiToolNames(context.tools).join(" · ")}</p></div>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="ai-section" aria-labelledby="workflow-title" data-reveal>
+      <section className="ai-section" id="evidence" aria-labelledby="evidence-title">
         <header className="ai-section-heading">
-          <p>02 · Workflow</p>
-          <div>
-            <h2 id="workflow-title">A five-step path from request to production.</h2>
-            <p>Each stage produces something concrete that I can inspect before the work continues.</p>
-          </div>
+          <h2 id="evidence-title">Inspect the work, not just the tools.</h2>
+          <p>Public projects show the engineering practices and product decisions I value. These artifacts are not a claim that every change followed the same agent workflow.</p>
         </header>
-        <ol className="agent-workflow">
-          {workflowStages.map((stage, index) => (
-            <li key={stage.title}>
-              <span>0{index + 1}</span>
-              <div>
-                <h3>{stage.title}</h3>
-                <p>{stage.description}</p>
-              </div>
-              <strong>{stage.output}</strong>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section className="ai-section" aria-labelledby="surfaces-title" data-reveal>
-        <header className="ai-section-heading">
-          <p>03 · Setup</p>
-          <div>
-            <h2 id="surfaces-title">Where the work happens.</h2>
-            <p>Terminal agents handle repository work, desktop tools support research, and editors keep direct code inspection close.</p>
-          </div>
-        </header>
-        <div className="agent-surfaces">
-          {agentSurfaces.map((surface, index) => (
-            <article key={surface.title}>
-              <span>0{index + 1}</span>
-              <h3>{surface.title}</h3>
-              <p>{surface.description}</p>
-              <ul aria-label={`${surface.title} tools`}>
-                {surface.tools.map((tool) => (
-                  <li key={tool}>{tool}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
+        <div className="ai-ledger">
+          {workflowEvidence.map((evidence) => {
+            const project = projectCatalog.find(evidence.slug);
+            if (!project) throw new Error(`Missing workflow evidence: ${evidence.slug}`);
+            return (
+              <article key={evidence.slug}>
+                <div><p className="ai-kicker">{project.name}</p><h3>{evidence.title}</h3></div>
+                <div><p>{evidence.description}</p><div className="ai-links"><Link href={`/work/${project.slug}`}>Read the case study →</Link><a href={evidence.artifact.href}>{evidence.artifact.label} ↗</a></div></div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
-      <section className="ai-section" aria-labelledby="skills-title" data-reveal>
+      <section className="ai-section" aria-labelledby="skills-title">
         <header className="ai-section-heading">
-          <p>04 · Skills</p>
-          <div>
-            <h2 id="skills-title">Reusable instructions for recurring engineering tasks.</h2>
-            <p>
-              Each skill defines when it should run, the steps it follows, and the
-              evidence required before the task is complete.
-            </p>
-          </div>
+          <h2 id="skills-title">Reusable skills. Human judgment.</h2>
+          <p>I adapt shared skills and custom instructions across agents. They make recurring tasks consistent without replacing product questions or learning through the work.</p>
         </header>
         <div className="agent-skills">
           {skillGroups.map((group) => (
-            <section key={group.title}>
-              <h3>{group.title}</h3>
-              <ul>
-                {group.skills.map((skill) => (
-                  <li key={skill.name}>
-                    <code>{skill.name}</code>
-                    <p>{skill.description}</p>
-                  </li>
-                ))}
-              </ul>
-            </section>
+            <details key={group.title}>
+              <summary><strong>{group.title}</strong><span>{group.description}</span></summary>
+              <ul>{group.skills.map((skill) => <li key={skill.name}><code>{skill.name}</code><p>{skill.description}</p></li>)}</ul>
+            </details>
           ))}
+        </div>
+        <div className="ai-guardrails">
+          <h3>What I remain accountable for</h3>
+          <ul>{agentGuardrails.map((guardrail) => <li key={guardrail}>{guardrail}</li>)}</ul>
         </div>
       </section>
 
-      <section className="ai-guardrails" aria-labelledby="guardrails-title" data-reveal>
-        <div>
-          <p>05 · Guardrails</p>
-          <h2 id="guardrails-title">What I verify myself.</h2>
+      <section className="ai-section" aria-labelledby="tools-title">
+        <header className="ai-section-heading">
+          <h2 id="tools-title">Models and supporting tools.</h2>
+          <p>The model, agent harness, and workspace serve different purposes. I choose each for the context rather than treating one setup as universal.</p>
+        </header>
+        <div className="ai-ledger">
+          {Object.values(modelPreferences).map((model) => <article key={model.name}><div><p className="ai-kicker">{model.context}</p><h3>{model.name}</h3></div><div><p>{model.use}</p><a className="ai-source-link" href={model.source}>Model information ↗</a></div></article>)}
+          {supportingContexts.map((context) => <article key={context.title}><h3>{context.title}</h3><div><p>{context.description}</p><p className="ai-tool-list">{aiToolNames(context.tools).join(" · ")}</p></div></article>)}
         </div>
-        <ol>
-          {agentGuardrails.map((guardrail, index) => (
-            <li key={guardrail}>
-              <span>0{index + 1}</span>
-              {guardrail}
-            </li>
-          ))}
-        </ol>
       </section>
-
-      <footer className="ai-footer" data-reveal>
-        <p>The selected projects show how this workflow is applied in public repositories.</p>
-        <Link href="/#my-work">See selected work →</Link>
-      </footer>
+      <footer className="ai-footer"><p>Tools support the work. The products show the result.</p><Link href="/#my-work">Explore my products →</Link></footer>
     </main>
   );
 }

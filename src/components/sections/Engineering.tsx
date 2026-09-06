@@ -1,3 +1,7 @@
+import Link from "next/link";
+
+import { WorkflowSteps } from "@/components/ai/WorkflowSteps";
+import { aiWorkflow } from "@/content/ai-workflow";
 import { engineeringPillars, stackGroups } from "@/content/engineering";
 
 export function Engineering() {
@@ -30,6 +34,16 @@ export function Engineering() {
           </article>
         ))}
       </div>
+
+      <section className="ai-workflow-preview" aria-labelledby="workflow-preview-title">
+        <h3 id="workflow-preview-title">{aiWorkflow.home.title}</h3>
+        <p>{aiWorkflow.home.description}</p>
+        <WorkflowSteps compact />
+        <div className="ai-links">
+          <Link href={aiWorkflow.path}>Explore my AI workflow →</Link>
+          <Link href="/work/roleway">See Roleway’s approval-gated agent →</Link>
+        </div>
+      </section>
 
       <div className="stack-introduction">
         <p>Working stack</p>

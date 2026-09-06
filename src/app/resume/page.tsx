@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { PrintButton } from "@/components/ui/PrintButton";
+import { aiWorkflow } from "@/content/ai-workflow";
 import { profile } from "@/content/profile";
 import { resume, resumeProducts } from "@/content/resume";
 import { createPageMetadata, SITE_URL } from "@/lib/seo";
@@ -53,6 +54,10 @@ export default function ResumePage() {
               </div>
             ))}
           </dl>
+          <div className="resume-workflow">
+            <p><strong>AI-assisted development:</strong> {resume.aiWorkflow.summary}</p>
+            <p><a href={`${SITE_URL}${aiWorkflow.path}`}>Workflow: {displayUrl(SITE_URL)}{aiWorkflow.path}</a></p>
+          </div>
         </section>
 
         <section>
@@ -97,15 +102,6 @@ export default function ResumePage() {
               </p>
             </div>
           ))}
-        </section>
-
-        <section className="resume-workflow">
-          <h2>AI-Assisted Development</h2>
-          <p><strong>Tools:</strong> {resume.aiWorkflow.tools.join(" · ")}</p>
-          <p>{resume.aiWorkflow.summary}</p>
-          <p>
-            <a href={`${SITE_URL}/ai`}>Workflow: {displayUrl(SITE_URL)}/ai</a>
-          </p>
         </section>
 
         <section className="resume-internships">

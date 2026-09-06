@@ -1,3 +1,5 @@
+import { engineeringAgentTools } from "@/content/ai-workflow";
+
 export const engineeringPillars = [
   {
     title: "Product development",
@@ -120,19 +122,10 @@ export const stackGroups: readonly StackGroup[] = [
     ],
   },
   {
-    title: "Coding agents",
+    title: "AI tools and agent workspace",
     description:
-      "Tools I use for repository research, implementation, debugging, code review, and browser-based validation.",
-    technologies: [
-      "Claude Code",
-      "Codex",
-      "Cursor",
-      "GitHub Copilot",
-      "Pi Agent",
-      "OpenCode",
-      "cmux",
-      "HERDR",
-    ],
+      "Coding agents, research assistants, dictation, and workspace tools that support implementation, review, and validation.",
+    technologies: engineeringAgentTools,
   },
   {
     title: "Design, collaboration, and workspace",

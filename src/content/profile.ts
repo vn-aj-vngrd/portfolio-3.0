@@ -1,10 +1,12 @@
+import { aiWorkflow } from "@/content/ai-workflow";
+
 export const profile = {
   name: "Van AJ Vanguardia",
   title: "Full-stack software developer.",
   statement:
     "For more than three years, I have built and maintained web and mobile applications. My professional work centers on React and C# / ASP.NET Core; my personal products use TypeScript, Next.js, React Native, and Expo.",
   introduction:
-    "I am based in Cebu, Philippines. I use coding agents for research, implementation, and review, then verify the result with tests, browser checks, and direct code review.",
+    `I am based in Cebu, Philippines. ${aiWorkflow.profileSummary}`,
   location: "Cebu, Philippines",
   availability: "Open to opportunities",
   email: "vanajvanguardia@gmail.com",

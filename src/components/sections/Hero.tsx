@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { aiWorkflow } from "@/content/ai-workflow";
 import { profile } from "@/content/profile";
 
 const signals = [
@@ -38,6 +39,7 @@ export function Hero() {
             LinkedIn ↗
           </a>
           <Link href="/resume">Résumé ↗</Link>
+          <Link href={aiWorkflow.path}>{aiWorkflow.navigationLabel} →</Link>
         </nav>
       </div>
 
