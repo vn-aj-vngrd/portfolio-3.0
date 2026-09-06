@@ -39,7 +39,7 @@ export type Project = {
   images: readonly ProjectImage[];
   coverImage?: ProjectImage;
   coverImageIndex?: number;
-  repository: string;
+  repository?: string;
   liveUrl?: string;
 };
 

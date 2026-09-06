@@ -78,7 +78,7 @@ export default async function ProjectPage({
         mainEntityOfPage: projectUrl,
         keywords: project.stack.join(", "),
         sameAs: [
-          project.repository,
+          ...(project.repository ? [project.repository] : []),
           ...(project.liveUrl ? [project.liveUrl] : []),
         ],
       },

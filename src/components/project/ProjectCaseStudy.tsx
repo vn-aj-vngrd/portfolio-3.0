@@ -32,9 +32,11 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
           </div>
         </dl>
         <div className="project-links">
-          <a href={project.repository} target="_blank" rel="noreferrer">
-            View source ↗
-          </a>
+          {project.repository ? (
+            <a href={project.repository} target="_blank" rel="noreferrer">
+              View source ↗
+            </a>
+          ) : null}
           {project.liveUrl ? (
             <a href={project.liveUrl} target="_blank" rel="noreferrer">
               Open live product ↗

@@ -43,9 +43,11 @@ export function SelectedWork() {
               <p className="supporting-stack">{project.stack.join(" · ")}</p>
               <div className="supporting-links">
                 <Link href={`/work/${project.slug}`}>Details →</Link>
-                <a href={project.repository} target="_blank" rel="noreferrer">
-                  Source ↗
-                </a>
+                {project.repository ? (
+                  <a href={project.repository} target="_blank" rel="noreferrer">
+                    Source ↗
+                  </a>
+                ) : null}
               </div>
             </article>
           ))}

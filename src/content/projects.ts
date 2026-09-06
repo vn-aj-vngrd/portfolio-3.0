@@ -321,7 +321,7 @@ const projectEntries = [
     solution:
       "The website presents the foundation's mission, programs, stories, and contact details through a responsive Next.js frontend. A separate Strapi CMS stores hero media, programs, activities, statistics, quotes, and upcoming events for the public pages to retrieve through a typed API client.",
     role: "Designed and built the public website and CMS",
-    status: "Live organization website · Source available",
+    status: "Live organization website",
     featured: true,
     stack: [
       "Next.js",
@@ -401,7 +401,7 @@ const projectEntries = [
         label: "Activity report",
       },
     ],
-    repository: "https://github.com/vn-aj-vngrd/acsfi-app",
+    repository: undefined,
     liveUrl: "https://www.astro-foundation.com/",
   },
 ] satisfies readonly Project[];

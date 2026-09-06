@@ -1,22 +1,22 @@
 import Link from "next/link";
 
 import { PrintButton } from "@/components/ui/PrintButton";
-import { experience } from "@/content/experience";
 import { profile } from "@/content/profile";
-import { projectCatalog } from "@/content/projects";
-import { getGitHubStats } from "@/lib/github-stats";
-import { createPageMetadata } from "@/lib/seo";
+import { resume, resumeProducts } from "@/content/resume";
+import { createPageMetadata, SITE_URL } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
   title: "Résumé",
   description:
-    "Résumé for Van AJ Vanguardia, a full-stack software developer working across TypeScript, React, Next.js, ASP.NET Core, Node.js, and databases.",
+    "Résumé for Van AJ Vanguardia, a full-stack software developer building ASP.NET Core backends in C# and React frontends with TypeScript.",
   path: "/resume",
 });
 
-export default async function ResumePage() {
-  const github = await getGitHubStats();
+function displayUrl(url: string) {
+  return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+}
 
+export default function ResumePage() {
   return (
     <main id="main-content" className="resume-page">
       <div className="resume-controls print-hidden">
@@ -27,91 +27,99 @@ export default async function ResumePage() {
       </div>
       <article className="resume-sheet" data-reveal>
         <header>
-          <div>
-            <h1>{profile.name}</h1>
-            <p>{profile.title}</p>
-          </div>
+          <h1>{profile.name}</h1>
+          <p>{resume.title}</p>
           <address>
+            <span>{profile.location}</span>
             <a href={`mailto:${profile.email}`}>{profile.email}</a>
-            <br />
-            {profile.location}
-            <br />
-            <a href={profile.github}>GitHub</a> ·{" "}
-            <a href={profile.linkedin}>LinkedIn</a>
+            <a href={SITE_URL}>{displayUrl(SITE_URL)}</a>
+            <a href={profile.github}>{displayUrl(profile.github)}</a>
+            <a href={profile.linkedin}>{displayUrl(profile.linkedin)}</a>
           </address>
         </header>
 
         <section>
-          <h2>Profile</h2>
-          <p>
-            {profile.statement} {profile.introduction}
-          </p>
+          <h2>Summary</h2>
+          <p>{resume.summary}</p>
         </section>
 
-        {github ? (
-          <section>
-            <h2>GitHub engineering activity · last 12 months</h2>
-            <div className="resume-github">
-              <p>
-                <strong>{github.contributions.total.toLocaleString("en-US")}</strong>
-                Contributions
-              </p>
-              <p>
-                <strong>{github.contributions.private.toLocaleString("en-US")}</strong>
-                Private contributions included
-              </p>
-              <p>
-                <strong>{github.repositories.total}</strong>
-                Owned repositories
-              </p>
-              <Link href="/github">Full GitHub activity →</Link>
-            </div>
-          </section>
-        ) : null}
+        <section>
+          <h2>Technical Skills</h2>
+          <dl className="resume-skills">
+            {resume.skills.map((skill) => (
+              <div key={skill.label}>
+                <dt>{skill.label}</dt>
+                <dd>{skill.detail}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
 
         <section>
-          <h2>Experience</h2>
-          {experience.map((item) => (
+          <h2>Professional Experience</h2>
+          {resume.professional.map((item) => (
             <div className="resume-entry" key={item.company}>
               <div>
                 <h3>{item.role}</h3>
                 <p>{item.company}</p>
               </div>
-              <time>{item.period}</time>
-              <p>{item.summary}</p>
+              <p className="resume-period">{item.period}</p>
               <ul>
-                {item.highlights.slice(0, 3).map((highlight) => (
-                  <li key={highlight.action}>
-                    <strong>{highlight.action}</strong> {highlight.detail}
-                  </li>
+                {item.bullets.map((bullet) => (
+                  <li key={bullet}>{bullet}</li>
                 ))}
               </ul>
             </div>
           ))}
         </section>
 
-        <section>
-          <h2>Selected products</h2>
-          {projectCatalog.list().map((project) => (
-            <div className="resume-entry" key={project.slug}>
-              <h3>{project.name}</h3>
-              <p>{project.summary}</p>
+        <section className="resume-products">
+          <h2>Products</h2>
+          {resumeProducts.map((project) => (
+            <div className="resume-entry resume-product" key={project.slug}>
+              <div>
+                <h3>{project.name}</h3>
+                <p className="resume-ownership">{project.role}</p>
+              </div>
+              <p>{project.description}</p>
               <p className="resume-stack">{project.stack.join(" · ")}</p>
+              <p className="resume-product-links">
+                {project.repository ? (
+                  <a href={project.repository}>
+                    Source: {displayUrl(project.repository)}
+                  </a>
+                ) : null}
+                {project.liveUrl ? (
+                  <a href={project.liveUrl}>
+                    Live: {displayUrl(project.liveUrl)}
+                  </a>
+                ) : null}
+              </p>
             </div>
           ))}
         </section>
 
-        <section className="resume-two-column">
-          <div>
-            <h2>Core stack</h2>
-            <p>
-              TypeScript, React, Next.js, React Native, Node.js, ASP.NET Core,
-              PostgreSQL, MSSQL, Docker, Git, CI/CD
-            </p>
-          </div>
-          <div>
-            <h2>Education</h2>
-            <p>{profile.education}</p>
+        <section className="resume-internships">
+          <h2>Internships</h2>
+          {resume.internships.map((item) => (
+            <div className="resume-entry resume-entry-compact" key={item.company}>
+              <div>
+                <h3>{item.role}</h3>
+                <p>{item.company}</p>
+              </div>
+              <p className="resume-period">{item.period}</p>
+              <p>{item.bullets[0]}</p>
+            </div>
+          ))}
+        </section>
+
+        <section className="resume-education">
+          <h2>Education</h2>
+          <p>{profile.education}</p>
+          <div className="resume-entry resume-entry-compact">
+            <h3>NextGig · University capstone</h3>
+            <p className="resume-period">{resume.capstone.period}</p>
+            <p>{resume.capstone.bullets[0]}</p>
           </div>
         </section>
       </article>
