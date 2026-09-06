@@ -99,6 +99,15 @@ export default function ResumePage() {
           ))}
         </section>
 
+        <section className="resume-workflow">
+          <h2>AI-Assisted Development</h2>
+          <p><strong>Tools:</strong> {resume.aiWorkflow.tools.join(" · ")}</p>
+          <p>{resume.aiWorkflow.summary}</p>
+          <p>
+            <a href={`${SITE_URL}/ai`}>Workflow: {displayUrl(SITE_URL)}/ai</a>
+          </p>
+        </section>
+
         <section className="resume-internships">
           <h2>Internships</h2>
           {resume.internships.map((item) => (

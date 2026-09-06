@@ -1,36 +1,39 @@
 import { experience } from "@/content/experience";
 import { projectCatalog } from "@/content/projects";
+import type { Experience } from "@/types/content";
 
-// Résumé-specific selections; shared portfolio history and case studies stay complete.
-function experienceEntry(company: string, bullets: readonly string[]) {
-  const entry = experience.find((item) => item.company === company);
+// Shared facts stay in experience.ts; compact selections keep the résumé focused.
+function experienceEntry(company: string, bullets?: readonly string[]) {
+  const entry: Experience | undefined = experience.find((item) => item.company === company);
   if (!entry) throw new Error(`Missing résumé experience: ${company}`);
-  return { ...entry, bullets };
+  const selectedBullets = bullets ?? entry.resumeBullets;
+  if (!selectedBullets) throw new Error(`Missing résumé bullets: ${company}`);
+  return { ...entry, bullets: selectedBullets };
 }
 
 export const resume = {
   title: "Full-Stack Software Developer",
   summary:
-    "Full-stack developer focused on ASP.NET Core backends with C# and React frontends with TypeScript. Translate operational requirements into production features across APIs, SQL databases, and integrations. Independently built products demonstrate authorization, automated testing, and user-approved AI workflows.",
+    "Product-minded full-stack developer building and maintaining web applications with React, C# / ASP.NET Core, and Microsoft SQL Server. Work spans AI features, accessibility, cloud services, integrations, and continuous delivery across AWS and Microsoft Azure.",
   skills: [
     { label: "Primary stack", detail: "C#, ASP.NET Core, React, TypeScript, JavaScript, SQL Server (MSSQL)" },
-    { label: "Additional stack", detail: "Next.js, Node.js, NestJS, PostgreSQL, React Native" },
-    { label: "Delivery", detail: "Docker, Git, CI/CD, REST APIs" },
+    { label: "Additional stack", detail: "Next.js, Node.js, NestJS, PostgreSQL, React Native, Expo, Blazor, Angular" },
+    { label: "Cloud & delivery", detail: "AWS, ECS Fargate, Lambda, Microsoft Azure, Docker, GitHub Actions, CI/CD" },
     { label: "Testing", detail: "Vitest, Playwright, Postman" },
   ],
   professional: [
-    experienceEntry("Full Scale Teams PH", [
-      "Delivered a custom Salesforce application from operational requirements, implementing workflows to simplify business processes and improve stored-data consistency.",
-      "Build production features across React interfaces, ASP.NET Core APIs in C#, SQL Server data flows, and third-party integrations.",
-      "Optimized database queries and integration paths to address latency and reliability; containerized applications with Docker for repeatable delivery.",
-      "Participate in planning, review, and release; apply WCAG guidance to interfaces and review AI-assisted changes before integration.",
-    ]),
+    experienceEntry("Full Scale Teams PH"),
     experienceEntry("NextDevs Software Development Services", [
       "Defined service and database boundaries for crew-management workflows, implementing typed APIs with NestJS, Fastify, and Prisma.",
       "Worked with frontend and QA contributors to integrate APIs using Swagger and Postman, and resolved Next.js interface and performance issues.",
       "Configured Docker and NGINX environments for integration testing and release review.",
     ]),
   ],
+  aiWorkflow: {
+    tools: ["Claude Code", "Codex CLI", "Pi", "Cursor", "GitHub Copilot"],
+    summary:
+      "Define acceptance criteria and bounded tasks for research, implementation, and debugging. Verify changes through direct code review, tests, type checks, and browser checks before release.",
+  },
   internships: [
     experienceEntry("Full Scale", [
       "Collaborated on event registration and QR attendance workflows with Next.js, ASP.NET Core, and MSSQL; independently built a contact-management assessment project.",

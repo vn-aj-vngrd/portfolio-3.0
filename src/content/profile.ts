@@ -2,7 +2,7 @@ export const profile = {
   name: "Van AJ Vanguardia",
   title: "Full-stack software developer.",
   statement:
-    "For more than three years, I have built web and mobile applications with TypeScript, React, Next.js, and ASP.NET Core. My work covers requirements, interface development, APIs, databases, testing, and deployment.",
+    "For more than three years, I have built and maintained web and mobile applications. My professional work centers on React and C# / ASP.NET Core; my personal products use TypeScript, Next.js, React Native, and Expo.",
   introduction:
     "I am based in Cebu, Philippines. I use coding agents for research, implementation, and review, then verify the result with tests, browser checks, and direct code review.",
   location: "Cebu, Philippines",

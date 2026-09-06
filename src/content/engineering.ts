@@ -36,7 +36,7 @@ export const stackGroups: readonly StackGroup[] = [
   {
     title: "TypeScript product engineering",
     description:
-      "The ecosystem I use most for browser applications, mobile applications, and shared product code.",
+      "The ecosystem I use for my personal web and mobile products, from interfaces to shared application code.",
     primary: true,
     technologies: [
       "TypeScript",
@@ -74,10 +74,10 @@ export const stackGroups: readonly StackGroup[] = [
     ],
   },
   {
-    title: "Additional backend ecosystems",
+    title: "Professional application frameworks",
     description:
-      "Frameworks I have used for production APIs and existing business systems outside Node.js.",
-    technologies: ["ASP.NET Core", "Laravel"],
+      "C# and ASP.NET Core power my core professional backend work, alongside React frontends. Other engagements include Blazor, Angular, and additional backend frameworks.",
+    technologies: ["C#", "ASP.NET Core", "Blazor", "Angular", "Laravel"],
   },
   {
     title: "Data, cloud, and infrastructure",
@@ -93,6 +93,9 @@ export const stackGroups: readonly StackGroup[] = [
       "Convex",
       "Supabase",
       "AWS",
+      "ECS Fargate",
+      "AWS Lambda",
+      "Microsoft Azure",
       "Vercel",
       "Docker",
     ],
@@ -100,7 +103,7 @@ export const stackGroups: readonly StackGroup[] = [
   {
     title: "Quality and delivery tooling",
     description:
-      "Automated testing, code quality, Git hooks, API inspection, and source control used during delivery.",
+      "Testing, code review, and CI/CD tooling used with trunk-based development and sprint-based Agile delivery.",
     technologies: [
       "Vitest",
       "Jest",
@@ -113,6 +116,7 @@ export const stackGroups: readonly StackGroup[] = [
       "Postman",
       "Git",
       "GitHub",
+      "GitHub Actions",
     ],
   },
   {
@@ -123,6 +127,7 @@ export const stackGroups: readonly StackGroup[] = [
       "Claude Code",
       "Codex",
       "Cursor",
+      "GitHub Copilot",
       "Pi Agent",
       "OpenCode",
       "cmux",

@@ -56,5 +56,6 @@ export type Experience = {
   current?: boolean;
   summary: string;
   highlights: readonly ExperienceHighlight[];
+  resumeBullets?: readonly string[];
   stack: readonly string[];
 };

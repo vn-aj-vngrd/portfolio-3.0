@@ -1,5 +1,8 @@
 import type { Experience } from "@/types/content";
 
+export const experienceIntroduction =
+  "My work spans product maintenance, new features, AI capabilities, accessibility, integrations, and cloud delivery. I connect React frontends with C# / ASP.NET Core services and SQL Server, with AWS and Microsoft Azure across current and earlier engagements.";
+
 export const experience = [
   {
     company: "Full Scale Teams PH",
@@ -8,35 +11,54 @@ export const experience = [
     kind: "Professional",
     current: true,
     summary:
-      "Build and maintain production applications across React interfaces, ASP.NET Core services, MSSQL databases, third-party integrations, accessibility, and deployment.",
+      "Deliver full-stack product development through Full Scale’s offshore development teams. Currently maintain and extend Lytho, a creative operations platform for marketing workflows and digital assets, using React, C# / ASP.NET Core microservices, Microsoft SQL Server, and AWS. Earlier engagements include internal billing and client applications using Microsoft Azure, Blazor, Angular, and Salesforce.",
     highlights: [
       {
-        action: "Develop features across React and ASP.NET Core.",
+        action: "Maintain and evolve Lytho.",
         detail:
-          "The work spans user interfaces, API services, MSSQL data flows, and external integrations.",
+          "Build new features across React interfaces and ASP.NET Core services, fix production bugs, and improve frontend, backend, and database performance as part of ongoing product development.",
       },
       {
-        action: "Delivered a custom Salesforce application.",
+        action: "Add AI features and improve accessibility.",
         detail:
-          "Translated operational requirements into software that simplified business workflows and improved the consistency of stored data.",
+          "Implement AI-powered product features and WCAG-guided accessibility improvements alongside regular frontend development and maintenance.",
       },
       {
-        action: "Improved database and integration performance.",
+        action: "Move Windows services to Linux containers.",
         detail:
-          "Optimized database queries and integration paths to reduce latency and make application flows more reliable.",
+          "Adapted and containerized Windows services to run in Linux Docker containers on AWS ECS Fargate. Also worked on AWS Lambda file-processing functions.",
       },
       {
-        action: "Supported repeatable delivery.",
+        action: "Deliver internal billing capabilities.",
         detail:
-          "Containerized applications with Docker and worked within Agile delivery practices across planning, review, and release.",
+          "Built features across an ASP.NET Core backend and Blazor frontend, optimized database and backend performance, and integrated QuickBooks, Zoho, and other internal tools. Set up CI/CD with GitHub Actions and Microsoft Azure.",
       },
       {
-        action: "Applied accessibility and review practices.",
+        action: "Build event-booking and payment features.",
         detail:
-          "Used WCAG guidance for interface work and reviewed AI-assisted changes before integrating them.",
+          "Delivered a Salesforce event-booking dashboard for an earlier client, then developed ASP.NET Core and Angular features and integrated Stripe payments.",
+      },
+      {
+        action: "Work in a continuous delivery cycle.",
+        detail:
+          "Contribute within sprint-based Agile teams using trunk-based development, connecting feature work, bug fixes, review, and release to product needs.",
+      },
+      {
+        action: "Integrate AI-assisted engineering workflows.",
+        detail:
+          "Use Claude Code, Cursor, Codex, and GitHub Copilot for development tasks, with direct code review and verification of generated changes.",
       },
     ],
-    stack: ["React", "ASP.NET Core", "MSSQL", "Salesforce", "Docker"],
+    // Compact wording for the résumé, maintained alongside the full account above.
+    resumeBullets: [
+      "Maintain and extend Lytho’s creative operations platform across React, C# / ASP.NET Core microservices, Microsoft SQL Server, and AWS.",
+      "Add AI features, improve frontend accessibility against WCAG guidance, fix bugs, and optimize UI, backend, and database performance.",
+      "Adapted Windows services for Linux Docker containers on AWS ECS Fargate; worked on AWS Lambda file processors.",
+      "Built and optimized internal billing features with ASP.NET Core and Blazor; integrated QuickBooks and Zoho and set up GitHub Actions CI/CD with Microsoft Azure.",
+      "Delivered a Salesforce event-booking dashboard, then added ASP.NET Core and Angular features and Stripe payment integration for that client.",
+      "Use sprint-based Agile, trunk-based development, and continuous delivery, with AI-assisted workflows, direct code review, and verification.",
+    ],
+    stack: ["React", "C#", "ASP.NET Core", "Microservices", "SQL Server", "AWS", "ECS Fargate", "AWS Lambda", "Docker", "Microsoft Azure", "GitHub Actions"],
   },
   {
     company: "NextDevs Software Development Services",

@@ -1,4 +1,4 @@
-import { experience } from "@/content/experience";
+import { experience, experienceIntroduction } from "@/content/experience";
 
 export function Experience() {
   return (
@@ -14,11 +14,7 @@ export function Experience() {
           <span>Experience</span>
         </div>
         <h2 id="experience-title">Work across frontend, backend, data, and delivery.</h2>
-        <p>
-          My professional work includes React interfaces, ASP.NET Core and Node.js
-          services, relational databases, third-party integrations, accessibility,
-          testing, containers, and release support.
-        </p>
+        <p>{experienceIntroduction}</p>
       </div>
 
       <ol className="experience-timeline">
