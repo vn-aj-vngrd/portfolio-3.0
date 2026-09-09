@@ -54,14 +54,14 @@ export const aiWorkflow = {
   introduction:
     "I start with the product question: who needs this, what should change, and what could go wrong? Agents help me investigate, implement, and review. I remain responsible for the decisions and the result.",
   profileSummary:
-    "I use coding agents to explore product decisions, implement focused changes, and check them through tests and review.",
+    "I use AI-assisted workflows to turn product needs into customer-facing features, staying hands-on with coding agents from planning through delivery. I guide the decisions, review the code, and verify the results.",
   home: {
     title: "How I build with agents",
     description:
       "Question the idea first. Capture the decisions, slice the work into small end-to-end tasks, and use tests and review to challenge the implementation—not just produce more code.",
   },
   resumeSummary:
-    "Use coding agents for product discovery, implementation, and review; adapt the workflow to each task and verify results with tests and direct inspection.",
+    "Direct coding agents through product discovery, implementation, and review; retain ownership of technical decisions and verify changes with tests and direct inspection.",
   attribution: {
     text: "My workflow adapts Matt Pocock’s agent skills to the size of the change.",
     label: "Matt Pocock’s agent skills",

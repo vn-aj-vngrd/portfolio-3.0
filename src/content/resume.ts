@@ -15,7 +15,7 @@ function experienceEntry(company: string, bullets?: readonly string[]) {
 export const resume = {
   title: "Full-Stack Software Developer",
   summary:
-    "Product-driven full-stack developer building customer-facing applications with React, C# / ASP.NET Core, SQL Server, and AWS, alongside personal web and mobile products in the TypeScript ecosystem. Founded NextDevs and led client-facing product delivery. Prioritizes user experience, adapts technology choices to product needs, and uses AI-assisted workflows to move from requirements to working features.",
+    "Product-driven full-stack developer building customer-facing applications with React, C# / ASP.NET Core, SQL Server, and AWS, alongside personal web and mobile products in the TypeScript ecosystem. Founded NextDevs and led client-facing product delivery. Prioritizes user experience and adapts technology choices to product needs. Uses AI-assisted workflows while staying hands-on from planning through delivery, guiding decisions, reviewing code, and verifying results.",
   skills: [
     { label: "Frontend & mobile", detail: "TypeScript, React, Next.js, Angular, Blazor, React Native, Expo, PWAs" },
     { label: "Backend & APIs", detail: "C#, ASP.NET Core, Microservices, Node.js, NestJS, Fastify, Hono" },
