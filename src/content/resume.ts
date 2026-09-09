@@ -1,4 +1,4 @@
-import { aiWorkflow, resumeAiTools, resumeWorkflowTools } from "@/content/ai-workflow";
+import { aiWorkflow } from "@/content/ai-workflow";
 import { experience } from "@/content/experience";
 import { projectCatalog } from "@/content/projects";
 import type { Experience } from "@/types/content";
@@ -15,15 +15,15 @@ function experienceEntry(company: string, bullets?: readonly string[]) {
 export const resume = {
   title: "Full-Stack Software Developer",
   summary:
-    "Product-driven full-stack developer with 3+ years of professional experience building React applications backed by C# / ASP.NET Core microservices, Microsoft SQL Server, and AWS. Develops personal web and mobile products in the TypeScript ecosystem and uses adaptable, AI-assisted workflows to turn product requirements into tested, reviewed features.",
+    "Product-driven full-stack developer building customer-facing applications with React, C# / ASP.NET Core, SQL Server, and AWS, alongside personal web and mobile products in the TypeScript ecosystem. Founded NextDevs and led client-facing product delivery. Prioritizes user experience, adapts technology choices to product needs, and uses AI-assisted workflows to move from requirements to working features.",
   skills: [
-    { label: "Professional stack", detail: "React, C#, ASP.NET Core, Microservices, SQL Server (MSSQL), AWS" },
-    { label: "Personal products", detail: "TypeScript, Next.js, Supabase, Hono, PostgreSQL, React Native, Expo, Vercel" },
-    { label: "Additional stack", detail: "Node.js, NestJS, Blazor, Angular" },
-    { label: "Cloud & delivery", detail: "AWS, Microsoft Azure, Docker, GitHub Actions, CI/CD, Vercel, Terraform" },
-    { label: "AI tools", detail: resumeAiTools.join(", ") },
-    { label: "Workflow tooling", detail: resumeWorkflowTools.join(", ") },
+    { label: "Frontend & mobile", detail: "TypeScript, React, Next.js, Angular, Blazor, React Native, Expo, PWAs" },
+    { label: "Backend & APIs", detail: "C#, ASP.NET Core, Microservices, Node.js, NestJS, Fastify, Hono" },
+    { label: "Data & backend services", detail: "SQL Server (MSSQL), PostgreSQL, Prisma, Drizzle ORM, Supabase, Convex" },
+    { label: "Cloud & delivery", detail: "AWS, Microsoft Azure, Docker, Terraform, Vercel; CI/CD with GitHub Actions and Zoho" },
+    { label: "Testing & quality", detail: "Vitest, Playwright, Postman, WCAG-guided accessibility" },
   ],
+  engagementLabels: ["Lytho (current client)", "Ticket Booth (earlier client)", "Internal Billing System"],
   professional: [
     experienceEntry("Full Scale Teams PH"),
     experienceEntry("NextDevs Software Development Services"),
@@ -43,19 +43,19 @@ const productSelections = [
   {
     slug: "relay",
     description:
-      "Built a pickleball session app for RSVPs, court rotations, scoring, and shared expenses. Enforced authorization on server-side writes and added automated tests for permissions and session workflows.",
-    stack: ["Next.js", "TypeScript", "Tailwind", "Supabase", "Resend", "PostgreSQL", "Drizzle ORM", "Vitest", "Playwright", "Vercel"],
+      "Built Relay so pickleball groups can coordinate RSVPs, court rotations, scores, and shared expenses in one app. Enforced authorization on server-side writes and tested permissions and session workflows with Vitest and Playwright.",
+    stack: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Drizzle ORM", "Vitest", "Playwright"],
   },
   {
     slug: "roleway",
     description:
-      "Built a job-search workspace with opportunity tracking and an optional AI agent. Implemented approval-gated changes, row-level access control, and encrypted provider credentials.",
-    stack: ["Next.js", "TypeScript", "Tailwind", "Supabase", "Resend", "PostgreSQL", "Drizzle ORM", "Playwright", "Vercel"],
+      "Built Roleway to track job opportunities with optional AI assistance. Required approval for agent-driven changes, enforced row-level access control, and encrypted provider credentials to keep users in control of their data and actions.",
+    stack: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Drizzle ORM", "Playwright"],
   },
   {
     slug: "acsfi",
     description:
-      "Built the foundation’s public website and Strapi CMS so programs, reports, and events can be updated without editing site code. Separated content management from presentation and used static generation with incremental regeneration.",
+      "Built the Astro Charitable and Scholarship Foundation’s website and Strapi CMS so editors can update programs, reports, and events without changing code. Used Next.js static generation with incremental regeneration to serve pages and refresh published content.",
     stack: ["Next.js", "TypeScript", "Strapi", "MySQL", "Docker"],
   },
 ] as const;

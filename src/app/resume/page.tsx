@@ -45,27 +45,6 @@ export default function ResumePage() {
         </section>
 
         <section>
-          <h2>Technical Skills</h2>
-          <dl className="resume-skills">
-            {resume.skills.map((skill) => (
-              <div key={skill.label}>
-                <dt>{skill.label}: </dt>
-                <dd>{skill.detail}</dd>
-              </div>
-            ))}
-            <div className="resume-workflow">
-              <dt>AI-assisted development: </dt>
-              <dd>
-                {resume.aiWorkflow.summary}
-                <span className="resume-product-links">
-                  <span><strong>AI workflow:</strong> <a href={`${SITE_URL}${aiWorkflow.path}`}>{displayUrl(SITE_URL)}{aiWorkflow.path}</a></span>
-                </span>
-              </dd>
-            </div>
-          </dl>
-        </section>
-
-        <section>
           <h2>Professional Experience</h2>
           {resume.professional.map((item) => (
             <div className="resume-entry" key={item.company}>
@@ -75,16 +54,21 @@ export default function ResumePage() {
               </div>
               <p className="resume-period">{item.period}</p>
               <ul>
-                {item.bullets.map((bullet) => (
-                  <li key={bullet}>{bullet}</li>
-                ))}
+                {item.bullets.map((bullet) => {
+                  const label = resume.engagementLabels.find((value) => bullet.startsWith(`${value}: `));
+                  return (
+                    <li key={bullet}>
+                      {label ? <><strong>{label}:</strong>{bullet.slice(label.length + 1)}</> : bullet}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
         </section>
 
         <section className="resume-products">
-          <h2>Products</h2>
+          <h2>Personal Products</h2>
           {resumeProducts.map((project) => (
             <div className="resume-entry resume-product" key={project.slug}>
               <div>
@@ -107,6 +91,27 @@ export default function ResumePage() {
               </p>
             </div>
           ))}
+        </section>
+
+        <section>
+          <h2>Technical Skills</h2>
+          <dl className="resume-skills">
+            {resume.skills.map((skill) => (
+              <div key={skill.label}>
+                <dt>{skill.label}: </dt>
+                <dd>{skill.detail}</dd>
+              </div>
+            ))}
+            <div className="resume-workflow">
+              <dt>AI-assisted development: </dt>
+              <dd>
+                {resume.aiWorkflow.summary}
+                <span className="resume-product-links">
+                  <span><strong>AI workflow:</strong> <a href={`${SITE_URL}${aiWorkflow.path}`}>{displayUrl(SITE_URL)}{aiWorkflow.path}</a></span>
+                </span>
+              </dd>
+            </div>
+          </dl>
         </section>
 
         <section className="resume-internships">
