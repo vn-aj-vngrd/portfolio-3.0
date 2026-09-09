@@ -44,7 +44,7 @@ const productSelections = [
     slug: "relay",
     description:
       "Built a pickleball session app for RSVPs, court rotations, scoring, and shared expenses. Enforced authorization on server-side writes and added automated tests for permissions and session workflows.",
-    stack: ["Next.js", "TypeScript", "PostgreSQL", "Vitest", "Playwright"],
+    stack: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Vitest", "Playwright"],
   },
   {
     slug: "roleway",
