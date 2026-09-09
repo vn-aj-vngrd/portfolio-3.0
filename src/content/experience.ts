@@ -51,7 +51,7 @@ export const experience = [
     ],
     // Compact wording for the résumé, maintained alongside the full account above.
     resumeBullets: [
-      "Maintain and extend Lytho’s creative operations platform across React, C# / ASP.NET Core microservices, Microsoft SQL Server, and AWS.",
+      "Maintain and extend Lytho’s creative operations platform across React, C# / ASP.NET Core microservices, Microsoft SQL Server, AWS, and Terraform.",
       "Add AI features, improve frontend accessibility against WCAG guidance, fix bugs, and optimize UI, backend, and database performance.",
       "Adapted Windows services for Linux Docker containers on AWS ECS Fargate; worked on AWS Lambda file processors.",
       "Built and optimized internal billing features with ASP.NET Core and Blazor; integrated QuickBooks and Zoho and set up GitHub Actions CI/CD with Microsoft Azure.",

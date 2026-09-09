@@ -22,7 +22,9 @@ const projectEntries = [
     stack: [
       "Next.js",
       "TypeScript",
+      "Tailwind",
       "Supabase",
+      "Resend",
       "PostgreSQL",
       "Drizzle ORM",
       "Zod",
@@ -129,8 +131,11 @@ const projectEntries = [
     stack: [
       "Next.js",
       "TypeScript",
+      "Tailwind",
       "Supabase",
+      "Resend",
       "PostgreSQL",
+      "Drizzle ORM",
       "Turborepo",
       "Zod",
       "Vitest",
