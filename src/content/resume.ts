@@ -15,40 +15,28 @@ function experienceEntry(company: string, bullets?: readonly string[]) {
 export const resume = {
   title: "Full-Stack Software Developer",
   summary:
-    "Product-minded full-stack developer building and maintaining web applications with React, C# / ASP.NET Core, and Microsoft SQL Server. Work spans AI features, accessibility, cloud services, integrations, and continuous delivery across AWS and Microsoft Azure.",
+    "Product-driven full-stack developer with 3+ years of professional experience building React applications backed by C# / ASP.NET Core microservices, Microsoft SQL Server, and AWS. Develops personal web and mobile products in the TypeScript ecosystem and uses adaptable, AI-assisted workflows to turn product requirements into tested, reviewed features.",
   skills: [
-    { label: "Primary stack", detail: "C#, ASP.NET Core, React, TypeScript, JavaScript, SQL Server (MSSQL)" },
-    { label: "Additional stack", detail: "Next.js, Node.js, NestJS, PostgreSQL, React Native, Expo, Blazor, Angular" },
-    { label: "Cloud & delivery", detail: "AWS, ECS Fargate, Lambda, Microsoft Azure, Docker, GitHub Actions, CI/CD" },
-    { label: "Testing", detail: "Vitest, Playwright, Postman" },
+    { label: "Professional stack", detail: "React, C#, ASP.NET Core, Microservices, SQL Server (MSSQL), AWS" },
+    { label: "Personal products", detail: "TypeScript, Next.js, Supabase, Hono, PostgreSQL, React Native, Expo, Vercel" },
+    { label: "Additional stack", detail: "Node.js, NestJS, Blazor, Angular" },
+    { label: "Cloud & delivery", detail: "AWS, Microsoft Azure, Docker, GitHub Actions, CI/CD, Vercel, Terraform" },
     { label: "AI tools", detail: resumeAiTools.join(", ") },
     { label: "Workflow tooling", detail: resumeWorkflowTools.join(", ") },
   ],
   professional: [
     experienceEntry("Full Scale Teams PH"),
-    experienceEntry("NextDevs Software Development Services", [
-      "Defined service and database boundaries for crew-management workflows, implementing typed APIs with NestJS, Fastify, and Prisma.",
-      "Worked with frontend and QA contributors to integrate APIs using Swagger and Postman, and resolved Next.js interface and performance issues.",
-      "Configured Docker and NGINX environments for integration testing and release review.",
-    ]),
+    experienceEntry("NextDevs Software Development Services"),
   ],
   aiWorkflow: {
     summary: aiWorkflow.resumeSummary,
   },
   internships: [
-    experienceEntry("Full Scale", [
-      "Collaborated on event registration and QR attendance workflows with Next.js, ASP.NET Core, and MSSQL; independently built a contact-management assessment project.",
-    ]),
-    experienceEntry("MYT SoftDev Solutions Inc.", [
-      "Implemented CodeIgniter API endpoints, tested APIs with Postman, and maintained JavaScript interfaces for internal business systems.",
-    ]),
-    experienceEntry("Astro Shipping Management Inc.", [
-      "Automated legacy Excel data preparation with Python, Pandas, and NumPy for import into a planned-maintenance system.",
-    ]),
+    experienceEntry("Full Scale"),
+    experienceEntry("MYT SoftDev Solutions Inc."),
+    experienceEntry("Astro Shipping Management Inc."),
   ],
-  capstone: experienceEntry("University of San Carlos", [
-    "Co-developed NextGig, a student freelance marketplace, using Expo, React Native, and Next.js with Convex-backed data and Clerk authentication.",
-  ]),
+  capstone: experienceEntry("University of San Carlos"),
 } as const;
 
 const productSelections = [
@@ -69,12 +57,6 @@ const productSelections = [
     description:
       "Built the foundation’s public website and Strapi CMS so programs, reports, and events can be updated without editing site code. Separated content management from presentation and used static generation with incremental regeneration.",
     stack: ["Next.js", "TypeScript", "Strapi", "MySQL", "Docker"],
-  },
-  {
-    slug: "viya",
-    description:
-      "Built a mobile travel-workspace prototype for itineraries, budgets, and bookings. Shared TypeScript and Zod contracts validate AI-proposed changes before travelers approve them.",
-    stack: ["React Native", "Expo", "Convex", "Clerk", "Zod"],
   },
 ] as const;
 

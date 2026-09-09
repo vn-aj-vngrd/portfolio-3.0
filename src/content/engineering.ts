@@ -100,6 +100,7 @@ export const stackGroups: readonly StackGroup[] = [
       "Microsoft Azure",
       "Vercel",
       "Docker",
+      "Terraform",
     ],
   },
   {

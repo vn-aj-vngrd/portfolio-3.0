@@ -1185,14 +1185,13 @@ main, .site-footer { margin-left: var(--rail); }
 .resume-sheet header p { margin: .5rem 0 .8rem; color: #5d6673; }
 .resume-sheet address { display: flex; flex-wrap: wrap; gap: .25rem 1rem; font-style: normal; font-size: .8rem; }
 .resume-sheet address > * { min-width: 0; overflow-wrap: anywhere; }
-.resume-sheet address a { text-decoration: underline; text-underline-offset: .2em; }
+.resume-sheet address a { color: #1559d6; text-decoration: underline; text-underline-offset: .2em; }
 .resume-sheet section { padding-top: 1.5rem; }
 .resume-sheet h2 { margin: 0 0 .75rem; font-size: .9rem; font-weight: 650; line-height: 1.4; }
 .resume-sheet section > p { margin: 0; }
-.resume-skills { margin: 0; font-size: .9rem; }
+.resume-skills { margin: 0; padding-top: 1rem; border-top: 1px solid #e1e4e8; font-size: .9rem; }
 .resume-skills > div { margin-top: .2rem; }
 .resume-skills dt { display: inline; font-weight: 600; }
-.resume-skills dt::after { content: ": "; }
 .resume-skills dd { display: inline; margin: 0; color: #5d6673; }
 .resume-entry { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .3rem 1rem; padding: 1rem 0; border-top: 1px solid #e1e4e8; }
 .resume-entry h3, .resume-entry p { margin: 0; }
@@ -1210,9 +1209,8 @@ main, .site-footer { margin-left: var(--rail); }
 .resume-product-links { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; }
 .resume-product-links a { min-width: 0; overflow-wrap: anywhere; color: #1559d6; font-size: .8rem; text-decoration: underline; text-underline-offset: .2em; }
 .resume-education > .resume-entry { margin-top: .75rem; }
-.resume-workflow > p { font-size: .9rem; color: #5d6673; }
-.resume-workflow > p + p { margin-top: .3rem; }
-.resume-workflow a { display: inline-flex; align-items: center; min-height: 2.75rem; overflow-wrap: anywhere; color: #1559d6; text-decoration: underline; text-underline-offset: .2em; }
+.resume-workflow .resume-product-links strong { color: #111214; font-weight: 600; }
+.resume-workflow .resume-product-links a { display: inline-flex; align-items: center; }
 
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
   [data-reveal] {
@@ -1476,10 +1474,10 @@ main, .site-footer { margin-left: var(--rail); }
   .resume-sheet h1 { font-size: 24pt; }
   .resume-sheet header p { margin: 3pt 0 5pt; font-size: 11pt; }
   .resume-sheet address { flex-direction: row; gap: 2pt 10pt; font-size: 10pt; }
-  .resume-sheet address a { display: inline; min-height: 0; }
+  .resume-sheet address a { display: inline; min-height: 0; color: inherit; }
   .resume-sheet section { padding-top: 7pt; }
   .resume-sheet h2 { margin-bottom: 5pt; font-size: 11pt; break-after: avoid; }
-  .resume-skills { font-size: 10pt; }
+  .resume-skills { padding-top: 8pt; font-size: 10pt; }
   .resume-entry { grid-template-columns: minmax(0, 1fr) auto; gap: 3pt 10pt; padding-block: 8pt; break-inside: avoid; }
   .resume-entry h3 { font-size: 10.5pt; }
   .resume-entry > p, .resume-entry > div > p, .resume-entry li { font-size: 10pt; }
@@ -1497,8 +1495,5 @@ main, .site-footer { margin-left: var(--rail); }
   .resume-product-links { gap: 2pt 12pt; }
   .resume-product-links a { display: inline; min-height: 0; color: inherit; font-size: 10pt; }
   .resume-education, .resume-workflow { break-inside: avoid; }
-  .resume-workflow { margin-top: 5pt; }
-  .resume-workflow > p { font-size: 10pt; }
-  .resume-workflow a { display: inline; min-height: 0; color: inherit; }
   a { color: inherit; }
 }

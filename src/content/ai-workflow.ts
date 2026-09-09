@@ -61,7 +61,7 @@ export const aiWorkflow = {
       "Question the idea first. Capture the decisions, slice the work into small end-to-end tasks, and use tests and review to challenge the implementation—not just produce more code.",
   },
   resumeSummary:
-    "Clarify product decisions, build small vertical slices, and verify agent-assisted changes through tests and code review.",
+    "Use coding agents for product discovery, implementation, and review; adapt the workflow to each task and verify results with tests and direct inspection.",
   attribution: {
     text: "My workflow adapts Matt Pocock’s agent skills to the size of the change.",
     label: "Matt Pocock’s agent skills",

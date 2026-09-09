@@ -66,30 +66,41 @@ export const experience = [
     period: "Apr 2023 – Apr 2024",
     kind: "Professional",
     summary:
-      "Worked on crew management systems across backend architecture, typed APIs, databases, Next.js interfaces, and Docker-based local environments.",
+      "Founded NextDevs, a software development startup, and led the team building Crew Management Software. Combined hands-on full-stack development with direct client collaboration and application support, focusing on API endpoints, infrastructure, and Next.js interfaces.",
     highlights: [
       {
-        action: "Structured the backend and database.",
+        action: "Led product development with clients.",
         detail:
-          "Defined service and data boundaries for Crew Management and Crew Portal systems.",
+          "Worked directly with clients to clarify crew-management requirements and prioritize features, then coordinated implementation across frontend and QA contributors.",
       },
       {
-        action: "Built typed APIs with NestJS and Fastify.",
+        action: "Built the APIs behind crew-management workflows.",
         detail:
-          "Used NestJS with Fastify and Prisma to connect product workflows to type-safe data access.",
+          "Developed endpoints with NestJS and Fastify, structured service and database boundaries, and used Prisma for typed data access connecting the application’s interfaces to backend operations.",
       },
       {
-        action: "Worked across implementation and QA.",
+        action: "Developed and refined the frontend.",
         detail:
-          "Collaborated with frontend and QA contributors through Swagger and Postman, then resolved Next.js interface and performance issues.",
+          "Built Next.js features, integrated backend APIs, and resolved interface and performance issues in the crew-management application.",
       },
       {
-        action: "Configured local integration environments.",
+        action: "Made the application stack testable together.",
         detail:
-          "Used Docker and NGINX to reproduce the application stack for integration testing and release review.",
+          "Configured Docker and NGINX environments for integration testing and release review. Used Swagger and Postman to document and validate API behavior with the team.",
+      },
+      {
+        action: "Supported clients beyond feature development.",
+        detail:
+          "Provided direct application support, investigated client-reported issues, and coordinated fixes with the development team.",
       },
     ],
-    stack: ["NestJS", "Fastify", "Prisma", "Next.js", "Docker", "NGINX"],
+    resumeBullets: [
+      "Founded NextDevs, a software development startup, and led the team building Crew Management Software; worked directly with clients to clarify requirements and prioritize features.",
+      "Built API endpoints and the data layer with NestJS, Fastify, and Prisma, connecting crew-management workflows to Next.js interfaces.",
+      "Developed frontend features, resolved interface and performance issues, and configured Docker/NGINX integration environments; validated APIs with Swagger and Postman.",
+      "Provided direct client support, investigated application issues, and coordinated fixes with frontend and QA contributors.",
+    ],
+    stack: ["Next.js", "NestJS", "Fastify", "Prisma", "Docker", "NGINX", "Swagger", "Postman"],
   },
   {
     company: "Full Scale",
@@ -114,6 +125,11 @@ export const experience = [
         detail:
           "Independently developed a contact-management system across interface, API, database, and containerized environment.",
       },
+    ],
+    resumeBullets: [
+      "Co-developed an event registration system with Next.js, ASP.NET Core Web API, and MSSQL, connecting registration interfaces to backend services.",
+      "Implemented QR-based attendance tracking and real-time event statistics so organizers could monitor check-ins and participation.",
+      "Independently built a contact-management assessment application across the frontend, API, database, and Docker environment.",
     ],
     stack: ["Next.js", "ASP.NET Core", "MSSQL", "Docker"],
   },
@@ -141,7 +157,11 @@ export const experience = [
           "Deployed the product across mobile distribution channels and Vercel as part of the capstone delivery.",
       },
     ],
-    stack: ["React Native", "Expo", "Next.js", "Convex", "Clerk"],
+    resumeBullets: [
+      "Co-developed a student freelance marketplace in TypeScript; built the React Native/Expo mobile app and Next.js web administration and landing page.",
+      "Integrated Convex data and Clerk passwordless authentication; prepared mobile distribution and deployed web interfaces on Vercel.",
+    ],
+    stack: ["TypeScript", "React Native", "Expo", "Next.js", "Convex", "Clerk", "Vercel"],
   },
   {
     company: "MYT SoftDev Solutions Inc.",
@@ -167,6 +187,11 @@ export const experience = [
           "Refined jQuery and JavaScript frontend code for an enterprise resource-planning system.",
       },
     ],
+    resumeBullets: [
+      "Built CodeIgniter API endpoints for an Alumni Portal and documented their behavior to support integration and testing.",
+      "Tested APIs with Postman and worked with senior developers to investigate and resolve production issues.",
+      "Refined JavaScript and jQuery interfaces in an existing ERP system, supporting ongoing maintenance of business workflows.",
+    ],
     stack: ["PHP", "CodeIgniter", "JavaScript", "jQuery", "Postman"],
   },
   {
@@ -187,6 +212,10 @@ export const experience = [
         detail:
           "Prepared consistent source records for database import and reduced manual handling during system implementation.",
       },
+    ],
+    resumeBullets: [
+      "Built a Python workflow with Pandas and NumPy to transform legacy Excel records for a planned-maintenance system.",
+      "Standardized records for database import, reducing manual data preparation during system implementation.",
     ],
     stack: ["Python", "Pandas", "NumPy", "Excel"],
   },

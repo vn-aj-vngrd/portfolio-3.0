@@ -49,15 +49,20 @@ export default function ResumePage() {
           <dl className="resume-skills">
             {resume.skills.map((skill) => (
               <div key={skill.label}>
-                <dt>{skill.label}</dt>
+                <dt>{skill.label}: </dt>
                 <dd>{skill.detail}</dd>
               </div>
             ))}
+            <div className="resume-workflow">
+              <dt>AI-assisted development: </dt>
+              <dd>
+                {resume.aiWorkflow.summary}
+                <span className="resume-product-links">
+                  <span><strong>AI workflow:</strong> <a href={`${SITE_URL}${aiWorkflow.path}`}>{displayUrl(SITE_URL)}{aiWorkflow.path}</a></span>
+                </span>
+              </dd>
+            </div>
           </dl>
-          <div className="resume-workflow">
-            <p><strong>AI-assisted development:</strong> {resume.aiWorkflow.summary}</p>
-            <p><a href={`${SITE_URL}${aiWorkflow.path}`}>Workflow: {displayUrl(SITE_URL)}{aiWorkflow.path}</a></p>
-          </div>
         </section>
 
         <section>
@@ -113,7 +118,11 @@ export default function ResumePage() {
                 <p>{item.company}</p>
               </div>
               <p className="resume-period">{item.period}</p>
-              <p>{item.bullets[0]}</p>
+              <ul>
+                {item.bullets.map((bullet) => (
+                  <li key={bullet}>{bullet}</li>
+                ))}
+              </ul>
             </div>
           ))}
         </section>
@@ -122,9 +131,16 @@ export default function ResumePage() {
           <h2>Education</h2>
           <p>{profile.education}</p>
           <div className="resume-entry resume-entry-compact">
-            <h3>NextGig · University capstone</h3>
+            <div>
+              <h3>{resume.capstone.role}</h3>
+              <p>Team capstone</p>
+            </div>
             <p className="resume-period">{resume.capstone.period}</p>
-            <p>{resume.capstone.bullets[0]}</p>
+            <ul>
+              {resume.capstone.bullets.map((bullet) => (
+                <li key={bullet}>{bullet}</li>
+              ))}
+            </ul>
           </div>
         </section>
       </article>
