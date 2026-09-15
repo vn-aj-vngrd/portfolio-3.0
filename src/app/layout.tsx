@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
@@ -120,6 +121,7 @@ export default function RootLayout({
             <Footer />
           </PortfolioNavigation>
         </ThemeProvider>
+        {process.env.VERCEL_ENV !== "preview" && <Analytics />}
       </body>
     </html>
   );
