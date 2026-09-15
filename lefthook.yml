@@ -1,0 +1,19 @@
+pre-commit:
+  commands:
+    branch:
+      run: node scripts/validate-workflow.mjs --branch
+    format:
+      run: node scripts/check-format.mjs --staged
+    quality:
+      run: corepack yarn check:quality
+
+commit-msg:
+  commands:
+    subject:
+      run: node scripts/validate-workflow.mjs --commit-message "{1}"
+
+pre-push:
+  commands:
+    protected-branch:
+      use_stdin: true
+      run: node scripts/validate-workflow.mjs --push

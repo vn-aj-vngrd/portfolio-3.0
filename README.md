@@ -54,6 +54,8 @@ Language figures are repository bytes reported by GitHub Linguist, not lines of 
 
 ## Development
 
+Use Node from `.nvmrc` and the Yarn version pinned in `package.json`. Local installation sets up Lefthook. Follow [Development workflow](docs/DEVELOPMENT_WORKFLOW.md) for branches, commit messages, PRs, review resolution, and automated releases.
+
 ```bash
 yarn install
 yarn dev
@@ -62,9 +64,10 @@ yarn dev
 ## Validation
 
 ```bash
-yarn lint
-yarn build
+yarn check:quality
 ```
+
+Commit hooks also check staged formatting. GitHub CI performs the production build and CodeQL scan. Releases use the squash commit after successful main CI; Git tags and GitHub Releases carry the version.
 
 ## Design context
 
