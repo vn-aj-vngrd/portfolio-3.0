@@ -52,7 +52,8 @@ export function validatePullRequest(pr) {
     ...validateBranch(pr.head?.ref ?? "", { bot: pr.user?.type === "Bot" }),
   ];
   if (pr.base?.ref !== "main") errors.push("Target main.");
-  const body = (pr.body ?? "").replace(/<!--[\s\S]*?-->/gu, "");
+  // Keep adjacent text separated when excluding template hints from validation.
+  const body = (pr.body ?? "").replace(/<!--[\s\S]*?-->/gu, " ");
   const headings = [...body.matchAll(/^## (.+)\s*$/gmu)];
   if (
     headings.map((match) => match[1].trim()).join("|") !== prSections.join("|")

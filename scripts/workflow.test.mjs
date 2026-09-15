@@ -76,6 +76,7 @@ test("PR metadata requires the complete template and breaking impact", () => {
   for (const invalid of [
     { ...pr, title: "Update code" },
     { ...pr, body: "## Summary\n\nDone" },
+    { ...pr, body: body.replace("## Summary", "## Sum<!-- hint -->mary") },
     {
       ...pr,
       body: body.replace(

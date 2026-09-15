@@ -26,6 +26,10 @@
         {
           "context": "Vercel",
           "app_id": 8329
+        },
+        {
+          "context": "CodeQL",
+          "app_id": 57789
         }
       ]
     },
