@@ -8,7 +8,13 @@
     "start": "next start -p 3001",
     "lint": "eslint",
     "format": "prettier --write . && eslint . --fix",
-    "preinstall": "npx only-allow yarn"
+    "preinstall": "npx only-allow yarn",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "node --test scripts/*.test.mjs",
+    "setup:hooks": "lefthook install",
+    "prepare": "node scripts/install-git-hooks.mjs",
+    "release": "semantic-release",
+    "check:quality": "yarn lint && yarn typecheck && yarn test"
   },
   "dependencies": {
     "lenis": "^1.3.26",
@@ -26,14 +32,18 @@
     "@types/three": "^0.185.4",
     "babel-plugin-react-compiler": "1.0.0",
     "baseline-browser-mapping": "^2.11.20",
+    "conventional-changelog-conventionalcommits": "9.3.1",
     "eslint": "^9",
     "eslint-config-next": "16.0.7",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unused-imports": "^4.3.0",
+    "lefthook": "2.1.12",
     "prettier": "^3.7.3",
+    "semantic-release": "25.0.9",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }
