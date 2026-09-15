@@ -1,0 +1,49 @@
+{
+  "repository": {
+    "allow_squash_merge": true,
+    "allow_merge_commit": false,
+    "allow_rebase_merge": false,
+    "squash_merge_commit_title": "PR_TITLE",
+    "squash_merge_commit_message": "PR_BODY",
+    "delete_branch_on_merge": true
+  },
+  "mainProtection": {
+    "required_status_checks": {
+      "strict": true,
+      "checks": [
+        {
+          "context": "PR conventions",
+          "app_id": 15368
+        },
+        {
+          "context": "Lint, types, tests, and build",
+          "app_id": 15368
+        },
+        {
+          "context": "Analyze JavaScript and TypeScript",
+          "app_id": 15368
+        },
+        {
+          "context": "Vercel",
+          "app_id": 8329
+        },
+        {
+          "context": "CodeQL",
+          "app_id": 57789
+        }
+      ]
+    },
+    "enforce_admins": true,
+    "required_pull_request_reviews": {
+      "dismiss_stale_reviews": true,
+      "require_code_owner_reviews": false,
+      "required_approving_review_count": 0,
+      "require_last_push_approval": false
+    },
+    "restrictions": null,
+    "required_linear_history": true,
+    "allow_force_pushes": false,
+    "allow_deletions": false,
+    "required_conversation_resolution": true
+  }
+}

@@ -10,6 +10,8 @@ Run this workflow only after an explicit user request to deploy or release to Ve
 
 ## 1. Preflight
 
+Read `docs/DEVELOPMENT_WORKFLOW.md` and verify the intended revision has reached `main` through its reviewed PR, with required checks and review conversations resolved. Deploy that revision from a clean checkout; stop if the checkout contains unmerged work. Merge authorization is separate from deployment authorization.
+
 From the repository root:
 
 1. Read `.vercel/project.json` and confirm it links to the `portfolio` project.
@@ -17,7 +19,7 @@ From the repository root:
 3. Run `corepack yarn lint`.
 4. Confirm required server environment variables by name only. Never print secret values.
 
-Do not run a local production build. Vercel performs the production build once during deployment.
+Do not run a local production build. CI already validates the build; Vercel builds the production deployment. Inspect the existing Git-triggered deployment for this main SHA first. If it is already Ready, verify it instead of creating a duplicate. Use the command below only when a new manual deployment is needed.
 
 If lint or diff checks fail, stop. Fix the cause and rerun the failed check before continuing.
 
@@ -46,7 +48,7 @@ Do not expose deployment tokens, environment values, private URLs, or GitHub cre
 Return:
 
 - canonical production URL
-- deployed commit hash, or state clearly that the working tree was deployed
+- deployed main commit hash
 - verified routes
 - validation result
 - Vercel inspector URL only when useful for a failure

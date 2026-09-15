@@ -12,15 +12,17 @@ Read the relevant source of truth before changing behavior:
 
 ## Workflow
 
+Before creating a branch, committing, opening or reviewing a PR, merging, or releasing, read `docs/DEVELOPMENT_WORKFLOW.md`. It owns contribution conventions, review gates, and automated versioning. Changes reach `main` through squash-merged PRs, including hotfixes; keep hooks and required checks enabled.
+
 Use a **dev-first loop**:
 
 1. Inspect the affected code and its surrounding pattern.
 2. Make the smallest coherent change.
 3. Review it in the running development server.
 4. Test the changed interaction and responsive states.
-5. Keep the work local until the user asks to commit, push, or release.
+5. Prepare requested implementation work on a feature branch and open a PR after validation. Merge and production deployment require explicit user authorization.
 
-Routine iteration ends after targeted validation. Run `corepack yarn lint` when a batch is ready for review. Reserve a production build for an explicit release-validation request.
+Routine iteration ends after targeted validation. Lefthook runs the local quality gate at commit time; CI also checks metadata, formatting, security analysis, and the production build. Run local production builds only for build diagnosis or explicit release validation.
 
 Deployment is an explicit release operation. Load `.agents/skills/deploy-vercel/SKILL.md` only when the user asks to deploy or release to Vercel.
 
