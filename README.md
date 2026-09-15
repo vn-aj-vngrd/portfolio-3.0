@@ -52,6 +52,19 @@ Metadata routes provide `/sitemap.xml`, `/robots.txt`, and `/opengraph-image`. T
 
 Language figures are repository bytes reported by GitHub Linguist, not lines of code.
 
+## Traffic analytics
+
+Vercel Web Analytics is enabled for the `portfolio` project on the Hobby plan.
+Open the private [portfolio analytics dashboard](https://vercel.com/van-aj-vanguardias-projects/portfolio/analytics) to see visitors, page views, popular pages, referrers, countries, devices, browsers, and operating systems.
+
+The root layout loads the official Next.js tracker on every page. Local development uses the SDK's debug mode without sending analytics; Vercel preview deployments omit the tracker. No API key is needed.
+
+The integration must be deployed before it can collect production visits. After release, visit the canonical site, navigate to a case study, and confirm the requests to `/_vercel/insights/` succeed and visits appear in the dashboard. Earlier visits cannot be backfilled. Dashboard enablement alone does not verify collection.
+
+Hobby includes 50,000 events/month shared across the team's projects and a one-month reporting window. Country data is approximate; reports do not identify people. Custom click events and UTM reports are not included on Hobby. See [official pricing](https://vercel.com/docs/analytics/limits-and-pricing) and the [provider comparison](docs/analytics-research.md).
+
+Review the last seven days weekly: visitor trend, which project pages attract attention, where visitors come from, and desktop/mobile mix. A résumé page view indicates interest, not a verified download or contact.
+
 ## Development
 
 Use Node from `.nvmrc` and the Yarn version pinned in `package.json`. Local installation sets up Lefthook. Follow [Development workflow](docs/DEVELOPMENT_WORKFLOW.md) for branches, commit messages, PRs, review resolution, and automated releases.

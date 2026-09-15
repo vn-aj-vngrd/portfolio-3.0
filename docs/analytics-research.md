@@ -1,0 +1,30 @@
+# Portfolio analytics options
+
+Researched September 15, 2026 against official vendor sources. Limits may change.
+
+## Recommendation
+
+**Vercel Web Analytics is the simplest starting point for this Vercel-hosted portfolio**, provided its team is on Hobby and country-level location is enough. It keeps insights in the existing hosting dashboard with a small Next.js integration. It covers visitors, page views, popular pages, referrers, country, device, browser, operating system, and bounce rate. Its visitor identifier resets daily; totals across days are not a count of identifiable people. [Vercel overview](https://vercel.com/docs/analytics)
+
+**Umami Cloud Hobby is the stronger free option for city-level location, longer history, and measuring résumé/contact clicks.** It requires another account and a website ID, but includes custom events and campaign reports. Use one analytics provider initially to keep setup and interpretation simple. This is a product recommendation based on the feature comparison below.
+
+## Comparison
+
+| Service                     | Free allowance and history                                                                                                                                  | Location and useful insights                                                                  | Setup and tradeoff                                                                                                                                                                 |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Vercel Web Analytics Hobby  | 50,000 events/month shared across the team's projects; one-month reporting window                                                                           | Country, pages, referrers, device/browser/OS, visitors, bounce rate                           | Enable the project dashboard and add the Next.js SDK. Custom events and UTM reporting are unavailable on Hobby. Pro analytics is metered, so verify the team plan before enabling. |
+| Umami Cloud Hobby           | 100,000 events/month; one website; six-month retention                                                                                                      | Country, region, city; pages, referrers, device/browser/OS; custom events, goals, UTM reports | Create a free account and website, then add its script. No free API/MCP access, email reports, session replays, or heatmaps.                                                       |
+| Cloudflare Web Analytics    | Free; up to 10 sites not proxied through Cloudflare; six months of accessible data                                                                          | Country, referrers, device/browser/OS, page views/visits, performance metrics                 | A JavaScript beacon works without changing hosting or DNS. No UTM support; documented dimensions do not include city.                                                              |
+| Google Analytics 4 standard | Free service; user/event data retention selectable at two or 14 months for normal properties; standard aggregate reports are outside that retention setting | Country and city, acquisition, engagement, events and conversion analysis                     | Create a property/data stream and configure the tag and data controls. Broad marketing reporting adds setup and dashboard complexity for a personal portfolio.                     |
+
+Sources: [Vercel pricing](https://vercel.com/docs/analytics/limits-and-pricing), [Umami pricing](https://umami.is/pricing), [Umami platform](https://umami.is/platform), [Cloudflare limits](https://developers.cloudflare.com/web-analytics/limits/), [Cloudflare FAQ](https://developers.cloudflare.com/web-analytics/faq/), [Cloudflare dimensions](https://developers.cloudflare.com/web-analytics/data-metrics/dimensions/), [Google Analytics overview](https://marketingplatform.google.com/about/analytics/), [Google retention](https://support.google.com/analytics/answer/7667196?hl=en), [Google regional collection](https://support.google.com/analytics/answer/11598602?hl=en).
+
+Umami's pricing page renders its plan details client-side. Its current public pricing bundle was checked directly to verify the 100K/one-site/six-month Hobby allowance and the feature gates; older comparisons listing 10K events or three websites do not match the current page.
+
+## How to interpret results
+
+- Start with weekly visitors, popular project pages, referring sites, country/device mix, and changes following portfolio updates or applications.
+- If using Umami, track a small set of useful actions such as résumé downloads, contact-link clicks, and project outbound clicks. Page views, events, and saved event properties count toward its allowance. [Umami Cloud FAQ](https://docs.umami.is/docs/cloud/faq)
+- Location is inferred from the network request, not precise GPS or a visitor's home address. Umami derives country/region/city without retaining the IP address; Google similarly derives location and then discards IP addresses. These reports do not provide a visitor's name, email, employer, or identity. [Umami metric definitions](https://docs.umami.is/docs/metric-definitions), [Google regional collection](https://support.google.com/analytics/answer/11598602?hl=en)
+- Keep analytics private in the vendor dashboard. Historical traffic cannot be reconstructed from a tracker added today.
+- Verify collection after activation and deployment with an ordinary browser visit and the dashboard. A local integration alone does not prove that production traffic is being captured.
