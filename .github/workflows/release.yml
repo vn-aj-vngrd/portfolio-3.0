@@ -58,4 +58,12 @@ jobs:
         if: steps.current.outputs.release == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: corepack yarn release
+        shell: bash
+        run: |
+          head="$(git rev-parse HEAD)"
+          remote="$(git ls-remote origin refs/heads/main | cut -f1)"
+          if [[ "$head" != "$remote" ]]; then
+            echo "Main advanced during setup; its release will include these commits." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          corepack yarn release
