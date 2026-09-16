@@ -4,6 +4,8 @@ import Link from "next/link";
 import { aiWorkflow } from "@/content/ai-workflow";
 import { profile } from "@/content/profile";
 
+import styles from "./Hero.module.css";
+
 const signals = [
   { value: "3+ years", label: "Full-stack work" },
   { value: "TypeScript", label: "Web and mobile" },
@@ -13,8 +15,8 @@ const signals = [
 
 export function Hero() {
   return (
-    <section className="hero" aria-labelledby="hero-title">
-      <div className="hero-portrait" aria-hidden="true">
+    <section className={`hero ${styles.hero}`} aria-labelledby="hero-title">
+      <div className={`hero-portrait ${styles.portrait}`} aria-hidden="true">
         <Image
           src="/images/profile.jpg"
           alt=""
@@ -31,14 +33,20 @@ export function Hero() {
         <p className="hero-role">{profile.title}</p>
         <p className="hero-statement">{profile.statement}</p>
         <p className="hero-intro">{profile.introduction}</p>
-        <nav className="hero-links" aria-label="Profile links">
+        <nav
+          className={`hero-links ${styles.links}`}
+          aria-label="Profile links"
+        >
+          <Link href="/#my-work" className={styles.workLink}>
+            Explore my work →
+          </Link>
+          <Link href="/resume">Résumé ↗</Link>
           <a href={profile.github} target="_blank" rel="noreferrer">
             GitHub ↗
           </a>
           <a href={profile.linkedin} target="_blank" rel="noreferrer">
             LinkedIn ↗
           </a>
-          <Link href="/resume">Résumé ↗</Link>
           <Link href={aiWorkflow.path}>{aiWorkflow.navigationLabel} →</Link>
         </nav>
       </div>

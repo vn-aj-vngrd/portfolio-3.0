@@ -1,7 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt =
-  "Van AJ Vanguardia, Full-Stack Software Developer";
+export const alt = "Van AJ Vanguardia, Full-Stack Software Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -28,21 +27,21 @@ export default function OpenGraphImage() {
         }}
       >
         <span>Van AJ Vanguardia</span>
-        <span style={{ color: "#1768E5" }}>Cebu, Philippines</span>
+        <span style={{ color: "#1768E5" }}>Full-stack developer</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 26 }}>
         <div
           style={{
-            fontSize: 78,
+            fontSize: 70,
             lineHeight: 0.98,
             letterSpacing: "-0.04em",
             maxWidth: 960,
           }}
         >
-          Full-Stack Software Developer
+          Useful products, from idea to implementation.
         </div>
         <div style={{ fontSize: 30, color: "#5D6673" }}>
-          TypeScript · React · Next.js · ASP.NET Core
+          Relay · Roleway · Viya · ACSFI
         </div>
       </div>
     </div>,

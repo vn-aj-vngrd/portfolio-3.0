@@ -4,6 +4,8 @@ import { WorkflowSteps } from "@/components/ai/WorkflowSteps";
 import { aiWorkflow } from "@/content/ai-workflow";
 import { engineeringPillars, stackGroups } from "@/content/engineering";
 
+import styles from "./Engineering.module.css";
+
 export function Engineering() {
   return (
     <section
@@ -17,11 +19,14 @@ export function Engineering() {
           <span>02</span>
           <span>Tech stack</span>
         </div>
-        <h2 id="engineering-title">TypeScript for the product. Backend systems around it.</h2>
+        <h2 id="engineering-title">
+          TypeScript for the product. Backend systems around it.
+        </h2>
         <p>
-          I use TypeScript across web, mobile, and Node.js services. ASP.NET Core,
-          relational databases, cloud platforms, testing tools, and deployment
-          automation support the rest of the system when the work requires them.
+          I use TypeScript across web, mobile, and Node.js services. ASP.NET
+          Core, relational databases, cloud platforms, testing tools, and
+          deployment automation support the rest of the system when the work
+          requires them.
         </p>
       </div>
 
@@ -35,7 +40,10 @@ export function Engineering() {
         ))}
       </div>
 
-      <section className="ai-workflow-preview" aria-labelledby="workflow-preview-title">
+      <section
+        className="ai-workflow-preview"
+        aria-labelledby="workflow-preview-title"
+      >
         <h3 id="workflow-preview-title">{aiWorkflow.home.title}</h3>
         <p>{aiWorkflow.home.description}</p>
         <WorkflowSteps compact />
@@ -47,32 +55,39 @@ export function Engineering() {
 
       <div className="stack-introduction">
         <p>Working stack</p>
-        <h3>The technologies I use, grouped by the work they support.</h3>
+        <h3>The core of my day-to-day work.</h3>
         <p>
-          TypeScript is the stack I use most often. The remaining tools reflect
-          backend systems, databases, infrastructure, testing, design, and team
-          environments I have worked with.
+          React and TypeScript for interfaces. C# / ASP.NET Core, SQL Server,
+          and AWS for my professional backend work. Next.js and React Native for
+          personal web and mobile products.
         </p>
       </div>
 
-      <div className="stack-groups">
-        {stackGroups.map((group) => (
-          <article
-            className={group.primary ? "stack-group stack-group-primary" : "stack-group"}
-            key={group.title}
-          >
-            <div>
-              <h4>{group.title}</h4>
-              <p>{group.description}</p>
-            </div>
-            <ul aria-label={`${group.title} technologies`}>
-              {group.technologies.map((technology) => (
-                <li key={technology}>{technology}</li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </div>
+      <details className={styles.inventory}>
+        <summary>Explore the full technology and tools inventory</summary>
+        <div className="stack-groups">
+          {stackGroups.map((group) => (
+            <article
+              className={
+                group.primary
+                  ? "stack-group stack-group-primary"
+                  : "stack-group"
+              }
+              key={group.title}
+            >
+              <div>
+                <h4>{group.title}</h4>
+                <p>{group.description}</p>
+              </div>
+              <ul aria-label={`${group.title} technologies`}>
+                {group.technologies.map((technology) => (
+                  <li key={technology}>{technology}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </details>
     </section>
   );
 }

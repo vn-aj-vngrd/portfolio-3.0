@@ -1,0 +1,14 @@
+.inventory {
+  border-block: 1px solid var(--border);
+}
+
+.inventory summary {
+  padding: 1.3rem 0.25rem;
+  cursor: pointer;
+  color: var(--signal);
+}
+
+.inventory summary:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
