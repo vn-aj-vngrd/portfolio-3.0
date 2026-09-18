@@ -52,6 +52,7 @@ export const experience = [
     // Compact wording for the résumé, maintained alongside the full account above.
     resumeBullets: [
       "Lytho (current client): Continuously deliver full-stack features and enhancements for Lytho’s customer base using React, C# / ASP.NET Core microservices, SQL Server, and AWS. Completed multiple feature epics released to customers, expanding how teams manage content, customize data, and coordinate approvals.",
+      "Contribute to implementing AI agents and AI-enabled product features at Lytho, such as AI Insights, AI Reviewer, AI Skills, and AI Teammates.",
       "Improved UI/UX and accessibility, including form-rendering fixes, contributing to a successful WCAG 2.2 AA audit conducted by Ramp Accessible.",
       "Addressed performance bottlenecks and defects across exports, complex data queries, and AWS Lambda file processing; QA and customers verified successful exports after the fixes.",
       "Contributed to backend modernization through EC2-to-ECS migration and ECR container images; adapted Windows services to run in Linux containers on ECS Fargate and built new AWS Lambda file processors to handle work without legacy Windows dependencies.",
@@ -60,7 +61,19 @@ export const experience = [
       "Expanded ASP.NET Core and Blazor billing workflows and exports; integrated QuickBooks employee data so internal staff could access information without switching tools.",
       "Configured billing CI/CD and development workflows using GitHub Actions and Zoho for Microsoft Azure deployment.",
     ],
-    stack: ["React", "C#", "ASP.NET Core", "Microservices", "SQL Server", "AWS", "ECS Fargate", "AWS Lambda", "Docker", "Microsoft Azure", "GitHub Actions"],
+    stack: [
+      "React",
+      "C#",
+      "ASP.NET Core",
+      "Microservices",
+      "SQL Server",
+      "AWS",
+      "ECS Fargate",
+      "AWS Lambda",
+      "Docker",
+      "Microsoft Azure",
+      "GitHub Actions",
+    ],
   },
   {
     company: "NextDevs Software Development Services",
@@ -104,7 +117,16 @@ export const experience = [
       "Implemented in-app generation and export of crew contracts and other documents using crew- and admin-supplied information, enabling staff to prepare documents directly in the system.",
       "Configured Docker and NGINX environments for full-stack integration testing before release; documented and validated APIs with Swagger and Postman.",
     ],
-    stack: ["Next.js", "NestJS", "Fastify", "Prisma", "Docker", "NGINX", "Swagger", "Postman"],
+    stack: [
+      "Next.js",
+      "NestJS",
+      "Fastify",
+      "Prisma",
+      "Docker",
+      "NGINX",
+      "Swagger",
+      "Postman",
+    ],
   },
   {
     company: "Full Scale",
@@ -164,7 +186,15 @@ export const experience = [
       "Co-developed NextGig, a marketplace connecting student freelancers with clients, building the React Native/Expo app and Next.js administration interface and landing page in TypeScript.",
       "Connected web and mobile interfaces to a shared Convex backend and Clerk passwordless authentication; deployed web interfaces on Vercel and prepared mobile distribution.",
     ],
-    stack: ["TypeScript", "React Native", "Expo", "Next.js", "Convex", "Clerk", "Vercel"],
+    stack: [
+      "TypeScript",
+      "React Native",
+      "Expo",
+      "Next.js",
+      "Convex",
+      "Clerk",
+      "Vercel",
+    ],
   },
   {
     company: "MYT SoftDev Solutions Inc.",

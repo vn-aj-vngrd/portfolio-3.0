@@ -55,10 +55,19 @@ export default function ResumePage() {
               <p className="resume-period">{item.period}</p>
               <ul>
                 {item.bullets.map((bullet) => {
-                  const label = resume.engagementLabels.find((value) => bullet.startsWith(`${value}: `));
+                  const label = resume.engagementLabels.find((value) =>
+                    bullet.startsWith(`${value}: `)
+                  );
                   return (
                     <li key={bullet}>
-                      {label ? <><strong>{label}:</strong>{bullet.slice(label.length + 1)}</> : bullet}
+                      {label ? (
+                        <>
+                          <strong>{label}:</strong>
+                          {bullet.slice(label.length + 1)}
+                        </>
+                      ) : (
+                        bullet
+                      )}
                     </li>
                   );
                 })}
@@ -103,12 +112,12 @@ export default function ResumePage() {
               </div>
             ))}
             <div className="resume-workflow">
-              <dt>AI-assisted development: </dt>
-              <dd>
-                {resume.aiWorkflow.summary}
-                <span className="resume-product-links">
-                  <span><strong>AI workflow:</strong> <a href={`${SITE_URL}${aiWorkflow.path}`}>{displayUrl(SITE_URL)}{aiWorkflow.path}</a></span>
-                </span>
+              <dt>AI workflow: </dt>
+              <dd className="resume-product-links">
+                <a href={`${SITE_URL}${aiWorkflow.path}`}>
+                  {displayUrl(SITE_URL)}
+                  {aiWorkflow.path}
+                </a>
               </dd>
             </div>
           </dl>
@@ -117,7 +126,10 @@ export default function ResumePage() {
         <section className="resume-internships">
           <h2>Internships</h2>
           {resume.internships.map((item) => (
-            <div className="resume-entry resume-entry-compact" key={item.company}>
+            <div
+              className="resume-entry resume-entry-compact"
+              key={item.company}
+            >
               <div>
                 <h3>{item.role}</h3>
                 <p>{item.company}</p>
