@@ -3704,18 +3704,15 @@ main,
 .architecture-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 1.5rem;
   margin: 2.5rem 0 0;
   padding: 0;
   list-style: none;
-  border-block: 1px solid var(--border);
 }
 .architecture-list li {
   min-width: 0;
-  padding: 1.5rem;
-  border-right: 1px solid var(--border);
-}
-.architecture-list li:last-child {
-  border-right: 0;
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--border);
 }
 .architecture-list h3,
 .architecture-list p,
@@ -6947,12 +6944,10 @@ main,
   .case-evidence {
     grid-template-columns: 1fr;
   }
-  .architecture-list li,
   .decision-list article {
     border-right: 0;
     border-bottom: 1px solid var(--border);
   }
-  .architecture-list li:last-child,
   .decision-list article:last-child {
     border-bottom: 0;
   }
