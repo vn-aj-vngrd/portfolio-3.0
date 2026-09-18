@@ -1,11 +1,12 @@
-import { aiWorkflow } from "@/content/ai-workflow";
 import { experience } from "@/content/experience";
 import { projectCatalog } from "@/content/projects";
 import type { Experience } from "@/types/content";
 
 // Shared facts stay in experience.ts; compact selections keep the résumé focused.
 function experienceEntry(company: string, bullets?: readonly string[]) {
-  const entry: Experience | undefined = experience.find((item) => item.company === company);
+  const entry: Experience | undefined = experience.find(
+    (item) => item.company === company
+  );
   if (!entry) throw new Error(`Missing résumé experience: ${company}`);
   const selectedBullets = bullets ?? entry.resumeBullets;
   if (!selectedBullets) throw new Error(`Missing résumé bullets: ${company}`);
@@ -17,20 +18,49 @@ export const resume = {
   summary:
     "Product-driven full-stack developer building customer-facing applications with React, C# / ASP.NET Core, SQL Server, and AWS, alongside personal web and mobile products in the TypeScript ecosystem. Founded NextDevs and led client-facing product delivery. Prioritizes user experience and adapts technology choices to product needs. Uses AI-assisted workflows while staying hands-on from planning through delivery, guiding decisions, reviewing code, and verifying results.",
   skills: [
-    { label: "Frontend & mobile", detail: "TypeScript, React, Next.js, Angular, Blazor, React Native, Expo, PWAs" },
-    { label: "Backend & APIs", detail: "C#, ASP.NET Core, Microservices, Node.js, NestJS, Fastify, Hono" },
-    { label: "Data & backend services", detail: "SQL Server (MSSQL), PostgreSQL, Prisma, Drizzle ORM, Supabase, Convex" },
-    { label: "Cloud & delivery", detail: "AWS, Microsoft Azure, Docker, Terraform, Vercel; CI/CD with GitHub Actions and Zoho" },
-    { label: "Testing & quality", detail: "Vitest, Playwright, Postman, WCAG-guided accessibility" },
+    {
+      label: "Frontend & mobile",
+      detail:
+        "TypeScript, React, Next.js, Angular, Blazor, React Native, Expo, PWAs",
+    },
+    {
+      label: "Backend & APIs",
+      detail: "C#, ASP.NET Core, Microservices, Node.js, NestJS, Fastify, Hono",
+    },
+    {
+      label: "Data & backend services",
+      detail:
+        "SQL Server (MSSQL), PostgreSQL, Prisma, Drizzle ORM, Supabase, Convex",
+    },
+    {
+      label: "Cloud & delivery",
+      detail:
+        "AWS, Microsoft Azure, Docker, Terraform, Vercel; CI/CD with GitHub Actions and Zoho",
+    },
+    {
+      label: "Testing & quality",
+      detail: "Vitest, Playwright, Postman, WCAG-guided accessibility",
+    },
+    {
+      label: "AI engineering",
+      detail:
+        "Vercel AI SDK, OpenRouter, OpenAI / Anthropic / Gemini APIs, tool calling, streaming, Zod-validated structured output, approval-gated actions",
+    },
+    {
+      label: "AI agent setup",
+      detail:
+        "Claude Code, Codex, PI Agent, Cursor, Herdr, MCPs, custom skills, multi-agent orchestration, agent loops",
+    },
   ],
-  engagementLabels: ["Lytho (current client)", "Ticket Booth (earlier client)", "Internal Billing System"],
+  engagementLabels: [
+    "Lytho (current client)",
+    "Ticket Booth (earlier client)",
+    "Internal Billing System",
+  ],
   professional: [
     experienceEntry("Full Scale Teams PH"),
     experienceEntry("NextDevs Software Development Services"),
   ],
-  aiWorkflow: {
-    summary: aiWorkflow.resumeSummary,
-  },
   internships: [
     experienceEntry("Full Scale"),
     experienceEntry("MYT SoftDev Solutions Inc."),
@@ -43,14 +73,34 @@ const productSelections = [
   {
     slug: "relay",
     description:
-      "Built Relay so pickleball groups can coordinate RSVPs, court rotations, scores, and shared expenses in one app. Enforced authorization on server-side writes and tested permissions and session workflows with Vitest and Playwright.",
-    stack: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Drizzle ORM", "Vitest", "Playwright"],
+      "Built Relay for pickleball RSVPs, rotations, scores, and shared expenses. Implemented a Vercel AI SDK / OpenRouter agent with streamed answers, authorized game, group, court, and Help Center tools, and approval-gated creation. Enforced server-side authorization; tested permissions and session workflows with Vitest and Playwright.",
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "PostgreSQL",
+      "Drizzle ORM",
+      "Vercel AI SDK",
+      "OpenRouter",
+      "Zod",
+      "Vitest",
+      "Playwright",
+    ],
   },
   {
     slug: "roleway",
     description:
-      "Built Roleway to track job opportunities with optional AI assistance. Required approval for agent-driven changes, enforced row-level access control, and encrypted provider credentials to keep users in control of their data and actions.",
-    stack: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Drizzle ORM", "Playwright"],
+      "Built a job-search workspace with custom AI provider adapters, bounded account context, and Zod-validated structured output. Agent proposes workspaces, tasks, notes, and next actions for user approval; PostgreSQL functions authorize execution. Protected data with row-level security and encrypted provider credentials.",
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "PostgreSQL",
+      "OpenAI, Anthropic, Gemini, OpenRouter",
+      "Zod",
+      "Vitest",
+      "Playwright",
+    ],
   },
   {
     slug: "acsfi",
