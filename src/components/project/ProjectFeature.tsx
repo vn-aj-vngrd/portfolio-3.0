@@ -88,10 +88,12 @@ export function ProjectFeature({
                       ? "(max-width: 700px) 52vw, 360px"
                       : "(max-width: 900px) 86vw, 620px"
                   }
+                  // Preserve fine UI text in the already-compressed WebP covers.
+                  unoptimized={Boolean(project.coverImage)}
                   priority={index === 0 && imageIndex === 0}
                 />
               </figure>
-            ),
+            )
           )
         )}
       </div>
