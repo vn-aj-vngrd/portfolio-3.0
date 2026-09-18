@@ -14,8 +14,8 @@ export function ProjectShowcase({ project }: { project: Project }) {
           <h2 id={`${project.slug}-showcase-title`}>Inside {project.name}</h2>
         </div>
         <p>
-          Selected product surfaces from the live experience, presented without
-          simulated chrome or scroll-driven effects.
+          Selected product surfaces and public demonstrations. Demo images use
+          illustrative records; captions identify those examples.
         </p>
       </header>
 

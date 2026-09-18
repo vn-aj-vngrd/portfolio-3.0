@@ -33,6 +33,12 @@ export type Project = {
   featured: boolean;
   stack: readonly string[];
   decisions: readonly ProjectStage[];
+  features?: readonly ProjectStage[];
+  agent?: {
+    summary: string;
+    steps: readonly ProjectStage[];
+    guideUrl: string;
+  };
   architectureSummary: string;
   architecture: readonly ProjectStage[];
   evidence: readonly string[];

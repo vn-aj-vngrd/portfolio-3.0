@@ -45,9 +45,39 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         </div>
       </header>
 
+      {project.agent ? (
+        <section
+          className="case-decisions"
+          aria-labelledby="agent-title"
+          data-reveal
+        >
+          <div className="section-heading">
+            <h2 id="agent-title">AI Agent</h2>
+            <p>{project.agent.summary}</p>
+          </div>
+          <div className="decision-list">
+            {project.agent.steps.map((step) => (
+              <article key={step.title}>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
+              </article>
+            ))}
+          </div>
+          <div className="project-links">
+            <a href={project.agent.guideUrl} target="_blank" rel="noreferrer">
+              Read the Agent capability guide ↗
+            </a>
+          </div>
+        </section>
+      ) : null}
+
       <ProjectShowcase project={project} />
 
-      <section className="case-context" aria-labelledby="context-title" data-reveal>
+      <section
+        className="case-context"
+        aria-labelledby="context-title"
+        data-reveal
+      >
         <h2 id="context-title">Problem and response</h2>
         <div>
           <h3>The problem</h3>
@@ -60,6 +90,25 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       </section>
 
       {project.slug === "relay" ? <RelayHighlights /> : null}
+      {project.features ? (
+        <section
+          className="case-decisions"
+          aria-labelledby="features-title"
+          data-reveal
+        >
+          <div className="section-heading">
+            <h2 id="features-title">The workflow</h2>
+          </div>
+          <div className="decision-list">
+            {project.features.map((feature) => (
+              <article key={feature.title}>
+                <h3>{feature.title}</h3>
+                <p>{feature.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section
         className="case-architecture"
@@ -80,7 +129,11 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         </ol>
       </section>
 
-      <section className="case-decisions" aria-labelledby="decisions-title" data-reveal>
+      <section
+        className="case-decisions"
+        aria-labelledby="decisions-title"
+        data-reveal
+      >
         <div className="section-heading">
           <h2 id="decisions-title">Key product and engineering decisions</h2>
           <p>
@@ -98,7 +151,11 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         </div>
       </section>
 
-      <section className="case-evidence" aria-labelledby="evidence-title" data-reveal>
+      <section
+        className="case-evidence"
+        aria-labelledby="evidence-title"
+        data-reveal
+      >
         <div>
           <h2 id="evidence-title">What you can inspect</h2>
           <p>
