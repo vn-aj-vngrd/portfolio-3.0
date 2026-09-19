@@ -5149,10 +5149,21 @@ main,
   margin-inline: auto;
 }
 .ai-hero {
-  padding-block: clamp(3rem, 6vw, 5rem);
+  padding-block: clamp(4rem, 9vw, 8rem);
 }
 .ai-hero .page-back-link {
-  margin-bottom: 3rem;
+  margin-bottom: clamp(3rem, 7vw, 5.5rem);
+}
+.ai-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(3rem, 9vw, 8rem);
+  align-items: end;
+}
+.ai-hero .ai-kicker {
+  margin-bottom: 1rem;
+  color: var(--signal);
+  line-height: 1.4;
 }
 .ai-kicker {
   margin: 0 0 0.8rem;
@@ -5162,19 +5173,19 @@ main,
     monospace;
 }
 .ai-hero h1 {
-  max-width: 15ch;
+  max-width: 12ch;
   margin: 0;
-  font-size: clamp(3rem, 5vw, 4.8rem);
+  font-size: clamp(3.4rem, 7vw, 6.3rem);
   font-weight: 560;
-  line-height: 1;
-  letter-spacing: -0.055em;
+  line-height: 0.94;
+  letter-spacing: -0.06em;
   text-wrap: balance;
 }
 .ai-introduction {
-  max-width: 62ch;
-  margin: 1.75rem 0 1rem;
+  max-width: 44ch;
+  margin: 0 0 1.5rem;
   color: var(--muted);
-  font-size: 1.05rem;
+  font-size: 1.03rem;
 }
 .ai-section {
   padding-block: clamp(3rem, 5vw, 5rem);
@@ -5433,8 +5444,9 @@ main,
   .ai-ledger article {
     padding-block: 1.5rem;
   }
-  .ai-hero .page-back-link {
-    margin-bottom: 2rem;
+  .ai-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
   }
   .ai-workflow-preview {
     margin-block: 3rem;
