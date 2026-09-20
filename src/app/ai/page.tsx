@@ -59,6 +59,20 @@ export default function AiWorkflowPage() {
           </p>
         </header>
         <WorkflowSteps />
+        <p className="workflow-feedback">
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="m7 5-4 4 4 4M3 9h12a5 5 0 0 1 0 10h-3" />
+          </svg>
+          {aiWorkflow.feedbackLoop}
+        </p>
         <div className="ai-notes">
           <p>{aiWorkflow.flexibility}</p>
           <p>{aiWorkflow.releaseResponsibility}</p>

@@ -22,14 +22,30 @@ export function aiToolNames(ids: readonly AiToolId[]) {
 }
 
 export const resumeAiTools = aiToolNames([
-  "claudeCode", "codex", "pi", "cursor", "copilot", "chatgpt", "claude",
+  "claudeCode",
+  "codex",
+  "pi",
+  "cursor",
+  "copilot",
+  "chatgpt",
+  "claude",
 ]);
 export const resumeWorkflowTools = aiToolNames(["cmux", "herdr", "wispr"]);
 
 // Preserve the wider working inventory, not just the highlighted daily setup.
 export const engineeringAgentTools = aiToolNames([
-  "claudeCode", "codex", "cursor", "copilot", "pi", "opencode", "cmux", "herdr",
-  "chatgpt", "claude", "wispr", "termius",
+  "claudeCode",
+  "codex",
+  "cursor",
+  "copilot",
+  "pi",
+  "opencode",
+  "cmux",
+  "herdr",
+  "chatgpt",
+  "claude",
+  "wispr",
+  "termius",
 ]);
 
 export const modelPreferences = {
@@ -69,6 +85,7 @@ export const aiWorkflow = {
   },
   flexibility:
     "This is a working loop, not a documentation ceremony. A small fix may need only a clear decision and acceptance criteria; larger changes deserve a spec and tickets. Research and prototypes help when the answer is still uncertain.",
+  feedbackLoop: "Review, refine, repeat. Findings inform the next pass.",
   releaseResponsibility:
     "Planning and verification happen throughout. I approve what is committed or released and check the deployed result; shipping is not an unattended agent decision.",
   workspace:
@@ -79,31 +96,36 @@ export const workflowStages = [
   {
     id: "grill",
     title: "Grill",
-    description: "Question the user need, inspect the codebase, and challenge assumptions. Research or prototype when an answer is not yet clear.",
+    description:
+      "Question the user need, inspect the codebase, and challenge assumptions. Research or prototype when an answer is not yet clear.",
     output: "Agreed decisions and constraints",
   },
   {
     id: "spec",
     title: "Spec",
-    description: "Record the resolved behavior, boundaries, and acceptance criteria. Preserve the reasoning without restarting discovery.",
+    description:
+      "Record the resolved behavior, boundaries, and acceptance criteria. Preserve the reasoning without restarting discovery.",
     output: "A durable specification",
   },
   {
     id: "tickets",
     title: "Tickets",
-    description: "Split larger work into small vertical slices across the relevant layers, with dependencies and a way to verify each result.",
+    description:
+      "Split larger work into small vertical slices across the relevant layers, with dependencies and a way to verify each result.",
     output: "Verifiable end-to-end tasks",
   },
   {
     id: "implement",
     title: "Implement",
-    description: "Give agents bounded tasks and focused context. Build incrementally with tests, type checks, runtime feedback, and direct inspection.",
+    description:
+      "Give agents bounded tasks and focused context. Build incrementally with tests, type checks, runtime feedback, and direct inspection.",
     output: "Reviewable changes and checks",
   },
   {
     id: "review",
     title: "Code Review",
-    description: "Check engineering standards and requirement fidelity separately. Review the findings, exercise the result, and iterate before acceptance.",
+    description:
+      "Check engineering standards and requirement fidelity separately. Review the findings, exercise the result, and iterate before acceptance.",
     output: "Reviewed implementation",
   },
 ] as const;
@@ -117,7 +139,8 @@ type ToolContext = {
 export const executionContexts = [
   {
     title: "Professional CLI work",
-    description: "Claude Code with Claude models is my usual work setup. HERDR keeps sessions and tasks visible while I move between implementation and review.",
+    description:
+      "Claude Code with Claude models is my usual work setup. HERDR keeps sessions and tasks visible while I move between implementation and review.",
     tools: ["claudeCode", "cmux", "herdr"],
   },
   {
@@ -127,7 +150,8 @@ export const executionContexts = [
   },
   {
     title: "Complex desktop tasks",
-    description: "I use the Codex app, Claude Code on desktop, and Claude’s Cowork for tasks involving other apps, files, or supported computer interactions. I choose the environment and permissions for the task, rather than treating every chat as computer access.",
+    description:
+      "I use the Codex app, Claude Code on desktop, and Claude’s Cowork for tasks involving other apps, files, or supported computer interactions. I choose the environment and permissions for the task, rather than treating every chat as computer access.",
     tools: ["codex", "claudeCode", "claude", "cowork"],
   },
 ] as const satisfies readonly ToolContext[];
@@ -135,22 +159,26 @@ export const executionContexts = [
 export const supportingContexts = [
   {
     title: "Research and decisions",
-    description: "Question assumptions, compare approaches, and learn enough to make an informed product or engineering decision.",
+    description:
+      "Question assumptions, compare approaches, and learn enough to make an informed product or engineering decision.",
     tools: ["chatgpt", "claude"],
   },
   {
     title: "Editing and inspection",
-    description: "Navigate the code, use assistance where useful, and inspect changes directly in context.",
+    description:
+      "Navigate the code, use assistance where useful, and inspect changes directly in context.",
     tools: ["cursor", "vscode", "copilot"],
   },
   {
     title: "Voice input",
-    description: "Dictate prompts, questions, and notes with Wispr Flow. It is an input layer, not the agent making the decisions.",
+    description:
+      "Dictate prompts, questions, and notes with Wispr Flow. It is an input layer, not the agent making the decisions.",
     tools: ["wispr"],
   },
   {
     title: "Remote access",
-    description: "Use Termius for remote terminal access to my Mac and HERDR workspace. I also continue supported Claude and Codex sessions through their native remote features; terminal access and remote-agent control are different tools.",
+    description:
+      "Use Termius for remote terminal access to my Mac and HERDR workspace. I also continue supported Claude and Codex sessions through their native remote features; terminal access and remote-agent control are different tools.",
     tools: ["termius", "herdr", "claudeCode", "codex"],
   },
 ] as const satisfies readonly ToolContext[];
@@ -183,40 +211,104 @@ export const skillGroups = [
     title: "Research and product decisions",
     description: "Clarify the problem before committing to an implementation.",
     skills: [
-      { name: "grilling", description: "Challenge assumptions, inspect the codebase, and resolve product ambiguity through questions." },
-      { name: "research", description: "Check primary sources and record the findings that inform a decision." },
-      { name: "prototype", description: "Explore uncertain interfaces, behavior, and technical approaches with disposable work." },
-      { name: "domain-modeling", description: "Keep domain terminology and important architectural decisions explicit." },
+      {
+        name: "grilling",
+        description:
+          "Challenge assumptions, inspect the codebase, and resolve product ambiguity through questions.",
+      },
+      {
+        name: "research",
+        description:
+          "Check primary sources and record the findings that inform a decision.",
+      },
+      {
+        name: "prototype",
+        description:
+          "Explore uncertain interfaces, behavior, and technical approaches with disposable work.",
+      },
+      {
+        name: "domain-modeling",
+        description:
+          "Keep domain terminology and important architectural decisions explicit.",
+      },
     ],
   },
   {
     title: "Implementation and quality",
-    description: "Build testable changes, diagnose failures, and review the result.",
+    description:
+      "Build testable changes, diagnose failures, and review the result.",
     skills: [
-      { name: "codebase-design", description: "Define clear module boundaries and testing seams." },
-      { name: "tdd", description: "Use red-green-refactor where the agreed testing seam supports it." },
-      { name: "diagnosing-bugs", description: "Reproduce a failure, investigate the cause, and verify the fix." },
-      { name: "code-review", description: "Review engineering standards and fidelity to the originating issue or specification." },
-      { name: "resolving-merge-conflicts", description: "Resolve conflicts without silently discarding intended behavior." },
+      {
+        name: "codebase-design",
+        description: "Define clear module boundaries and testing seams.",
+      },
+      {
+        name: "tdd",
+        description:
+          "Use red-green-refactor where the agreed testing seam supports it.",
+      },
+      {
+        name: "diagnosing-bugs",
+        description:
+          "Reproduce a failure, investigate the cause, and verify the fix.",
+      },
+      {
+        name: "code-review",
+        description:
+          "Review engineering standards and fidelity to the originating issue or specification.",
+      },
+      {
+        name: "resolving-merge-conflicts",
+        description:
+          "Resolve conflicts without silently discarding intended behavior.",
+      },
     ],
   },
   {
     title: "Product and interface",
     description: "Review the experience people will actually use.",
     skills: [
-      { name: "impeccable", description: "Shape, audit, and refine interface behavior and presentation." },
-      { name: "frontend-design", description: "Make intentional visual decisions for new and existing interfaces." },
-      { name: "web-design-guidelines", description: "Check accessibility, interaction, and web-interface practices." },
-      { name: "vercel-react-best-practices", description: "Review React and Next.js performance patterns." },
+      {
+        name: "impeccable",
+        description:
+          "Shape, audit, and refine interface behavior and presentation.",
+      },
+      {
+        name: "frontend-design",
+        description:
+          "Make intentional visual decisions for new and existing interfaces.",
+      },
+      {
+        name: "web-design-guidelines",
+        description:
+          "Check accessibility, interaction, and web-interface practices.",
+      },
+      {
+        name: "vercel-react-best-practices",
+        description: "Review React and Next.js performance patterns.",
+      },
     ],
   },
   {
     title: "Agent operations",
-    description: "Make instructions reusable and execution inspectable across agents.",
+    description:
+      "Make instructions reusable and execution inspectable across agents.",
     skills: [
-      { name: "writing-for-agents", description: "Maintain agent instructions and custom skills for recurring work." },
-      { name: "agent-browser", description: "Exercise browser flows, inspect interfaces, and capture verification evidence." },
-      { name: "wizard", description: "Guide human-only setup and configuration steps explicitly." },
+      {
+        name: "writing-for-agents",
+        description:
+          "Maintain agent instructions and custom skills for recurring work.",
+      },
+      {
+        name: "agent-browser",
+        description:
+          "Exercise browser flows, inspect interfaces, and capture verification evidence.",
+      },
+      {
+        name: "wizard",
+        description:
+          "Guide human-only setup and configuration steps explicitly.",
+      },
     ],
   },
 ] as const;

@@ -5246,11 +5246,11 @@ main,
   list-style: none;
 }
 .workflow-steps li {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
   padding-block: 1.25rem;
-  border-top: 1px solid var(--border);
 }
 .workflow-number {
   color: var(--faint);
@@ -5273,6 +5273,57 @@ main,
   font:
     450 0.72rem/1.5 var(--font-geist-mono),
     monospace;
+}
+.workflow-symbol {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  margin-bottom: 1rem;
+  color: var(--signal);
+}
+.workflow-symbol svg {
+  position: relative;
+  z-index: 1;
+  width: 4rem;
+  height: 4rem;
+  background: var(--canvas);
+}
+.workflow-steps li:not(:last-child) .workflow-symbol::after {
+  position: absolute;
+  top: 50%;
+  left: 4.75rem;
+  width: calc(100% - 4.75rem + 1.25rem);
+  height: 1px;
+  background: var(--border);
+  content: "";
+}
+.workflow-steps li:not(:last-child) .workflow-symbol::before {
+  position: absolute;
+  top: calc(50% - 3px);
+  right: -1.15rem;
+  width: 7px;
+  height: 7px;
+  border-top: 1px solid var(--muted);
+  border-right: 1px solid var(--muted);
+  transform: rotate(45deg);
+  content: "";
+}
+.workflow-feedback {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0.75rem 0 2rem;
+  padding: 1rem 0;
+  border-top: 1px dashed var(--border);
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.workflow-feedback svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  color: var(--signal);
 }
 .ai-notes {
   display: grid;
@@ -5418,8 +5469,9 @@ main,
   }
   .workflow-steps li {
     display: grid;
-    grid-template-columns: 2rem minmax(0, 1fr);
+    grid-template-columns: 3.5rem minmax(0, 1fr);
     gap: 0.5rem 1rem;
+    padding-block: 0 2rem;
   }
   .workflow-steps p,
   .workflow-output {
@@ -5427,6 +5479,34 @@ main,
   }
   .workflow-output {
     margin-top: 0;
+  }
+  .workflow-symbol {
+    grid-column: 1;
+    grid-row: 1 / 5;
+    align-self: stretch;
+    align-items: flex-start;
+    height: auto;
+    margin: 0;
+  }
+  .workflow-symbol svg {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  .workflow-steps .workflow-number,
+  .workflow-steps strong {
+    grid-column: 2;
+  }
+  .workflow-steps li:not(:last-child) .workflow-symbol::after {
+    top: 4.25rem;
+    left: calc(1.75rem - 0.5px);
+    width: 1px;
+    height: calc(100% - 3rem);
+  }
+  .workflow-steps li:not(:last-child) .workflow-symbol::before {
+    top: auto;
+    bottom: -1.25rem;
+    left: calc(1.75rem - 3.5px);
+    transform: rotate(135deg);
   }
 }
 @media (max-width: 800px) {
