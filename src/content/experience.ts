@@ -52,7 +52,7 @@ export const experience = [
     // Compact wording for the résumé, maintained alongside the full account above.
     resumeBullets: [
       "Lytho (current client): Continuously deliver full-stack features and enhancements for Lytho’s customer base using React, C# / ASP.NET Core microservices, SQL Server, and AWS. Completed multiple feature epics released to customers, expanding how teams manage content, customize data, and coordinate approvals.",
-      "Contribute to implementing AI agents and AI-enabled product features at Lytho, such as AI Insights, AI Reviewer, AI Skills, and AI Teammates.",
+      "Contributed to building AI agents and AI-powered features at Lytho, including AI Insights, AI Reviewer, AI Skills, and AI Teammates, to help customers review content, surface actionable insights, and streamline creative workflows.",
       "Improved UI/UX and accessibility, including form-rendering fixes, contributing to a successful WCAG 2.2 AA audit conducted by Ramp Accessible.",
       "Addressed performance bottlenecks and defects across exports, complex data queries, and AWS Lambda file processing; QA and customers verified successful exports after the fixes.",
       "Contributed to backend modernization through EC2-to-ECS migration and ECR container images; adapted Windows services to run in Linux containers on ECS Fargate and built new AWS Lambda file processors to handle work without legacy Windows dependencies.",
