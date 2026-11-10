@@ -10,7 +10,7 @@ export function ProjectFeature({
   project: Project;
   index: number;
 }) {
-  const usesPhoneScreens = project.slug === "viya";
+  const usesPhoneScreens = project.slug === "viya" || project.slug === "aqd";
   const usesLaptopFrame = project.slug === "acsfi" || project.slug === "balay";
   const featureImage =
     project.coverImage ?? project.images[project.coverImageIndex ?? 0];

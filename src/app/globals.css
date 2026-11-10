@@ -2081,7 +2081,8 @@ main,
 .project-relay .project-media,
 .project-roleway .project-media,
 .project-acsfi .project-media,
-.project-balay .project-media {
+.project-balay .project-media,
+.project-aqd .project-media {
   min-height: 32rem;
   isolation: isolate;
   padding: clamp(1.1rem, 2vw, 2rem);
@@ -2152,6 +2153,22 @@ main,
       0deg,
       transparent 0 4.5rem,
       rgba(160, 108, 58, 0.07) 4.5rem calc(4.5rem + 1px)
+    );
+}
+.project-aqd .project-media {
+  background: #e7e4de;
+}
+.project-aqd .project-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(120deg, rgba(60, 56, 50, 0.1), transparent 48%),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 3.5rem,
+      rgba(60, 56, 50, 0.06) 3.5rem calc(3.5rem + 1px)
     );
 }
 .project-laptop-mockup {
@@ -6853,7 +6870,8 @@ main,
   .project-relay .project-media,
   .project-roleway .project-media,
   .project-acsfi .project-media,
-  .project-balay .project-media {
+  .project-balay .project-media,
+  .project-aqd .project-media {
     min-height: 22rem;
   }
   .project-laptop-mockup {

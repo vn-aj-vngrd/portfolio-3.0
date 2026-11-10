@@ -606,6 +606,136 @@ const projectEntries = [
     repository: undefined,
     liveUrl: "https://balay.vanajvanguardia.tech/",
   },
+  {
+    slug: "aqd",
+    name: "AQD",
+    category: "Native iOS app · Personal wardrobe",
+    summary:
+      "AQD is a private closet for iPhone. Photograph what you own, compose outfits and themes, plan days and trips, record what you actually wear, and ask an on-device Agent for help. Everything stays on the phone: no account, no backend, no cloud AI.",
+    match: {
+      prompt:
+        "Someone wants to know what they own and decide what to wear, without handing a library of wardrobe photos to a cloud service.",
+      clue: "Look for the iPhone app built around a private closet and an on-device Agent.",
+      result:
+        "AQD keeps pieces, outfits, plans, trips, and wear history on the phone, and its Agent drafts changes that the owner reviews before anything is saved.",
+    },
+    problem:
+      "A wardrobe is hard to see. Pieces live in drawers and camera rolls, outfits get rebuilt every morning, and nobody remembers what they actually wore. A closet is also personal, so an account and a cloud copy of every photo is a heavy price for knowing what you own.",
+    solution:
+      "AQD stores pieces, outfits, themes, plans, trips, and wear on the device with SwiftData. Today, Closet, Planner, and Profile cover every manual path without the model. On iPhones that support Apple Intelligence, an on-device Agent answers from the closet and drafts changes as reviewed change sets that the owner ticks, applies, and can undo.",
+    role: "Designed and built independently",
+    status: "Personal iOS app · Source available",
+    featured: true,
+    stack: [
+      "Swift",
+      "SwiftUI",
+      "SwiftData",
+      "Foundation Models",
+      "Vision",
+      "WeatherKit",
+      "Swift Testing",
+      "XCUITest",
+    ],
+    decisions: [
+      {
+        title: "Keep the first version on the device",
+        body: "There is no account, backend, sync, or cloud AI. Records and photos use SwiftData with CloudKit off, complete file protection, and backup exclusion. The only network call is the optional WeatherKit lookup for a chosen place and date.",
+      },
+      {
+        title: "Let the Agent draft, never act",
+        body: "Every change is a reviewed change set with a tickable row per record. Nothing applies without approval, there is no standing permission, and a failed apply rolls back. Undo stays available while the records are unchanged; delete is a separate confirmation with no undo.",
+      },
+      {
+        title: "Ground a small model in the closet",
+        body: "Rule-based intent routing allows at most three tools per intent, records are referenced by handle, and each reply is checked against the real closet with one regeneration before the owner sees it. Private notes are off by default and can never authorize a change.",
+      },
+      {
+        title: "Keep every manual path model-free",
+        body: "The Agent needs an Apple Intelligence iPhone on iOS 26 or later. Everyone else gets the full closet, outfits, planner, trips, and wear history on iOS 18 and later, with Liquid Glass behind availability checks and flat fallbacks.",
+      },
+    ],
+    architectureSummary:
+      "A SwiftUI app in layers whose imports point down: Core, then Persistence and Services, then DesignSystem, Features, and App. A repository script enforces the import rules, and pure domain rules live in a separate Swift package with its own tests.",
+    architecture: [
+      {
+        title: "Core package",
+        body: "Pure rules, validation, and value types for the planner calendar, trip packing, wear insights, and Agent budgets and grounding repair. Core imports only Foundation.",
+      },
+      {
+        title: "Versioned local records",
+        body: "SwiftData records carry stable IDs, revisions, and acknowledged-write receipts. Delivered schemas are frozen, and a corrupt or newer store is kept rather than replaced.",
+      },
+      {
+        title: "Media pipeline",
+        body: "Each piece starts from a photo that is cropped, rotated, and cut out with Apple Vision or by hand. The app keeps a metadata-minimized original with an edit recipe and prepares media before committing any reference.",
+      },
+      {
+        title: "Agent services",
+        body: "Foundation Models sits behind a service layer for intent routing, bounded context, tool calls, streaming with Stop, queued messages, and typed failure states with recovery actions.",
+      },
+      {
+        title: "Design system",
+        body: "Shared tokens and components keep charcoal as the only control color, with 44 pt targets, Dynamic Type, and accessibility layouts. A script rejects any color that is not an AppTheme token.",
+      },
+      {
+        title: "Archive and recovery",
+        body: "A versioned export, a reviewed restore, and a local erase let the owner move or remove the whole closet without a server.",
+      },
+    ],
+    evidence: [
+      "The public repository holds the SwiftUI app, the Core package, the unit and UI test targets, and a feature contract for each area in docs/features.",
+      "Import-layer and color-token scripts run in the pre-commit hook, so the architecture rules are checked rather than only documented.",
+      "Persistence tests cover Agent undo for pieces, outfits, themes, plans, wear, profile, and whole trips.",
+      "A deterministic Agent eval gate lives in Core, and a live on-device eval script checks the real model; the live run is manual on the owner’s phone.",
+      "Two decision records explain the device-only first version and the reviewed change-set model for the Agent.",
+      "The screenshots on this page come from the app running on an iPhone 17 Pro Max with its built-in sample closet.",
+    ],
+    images: [
+      {
+        src: "/images/projects/aqd/today.webp",
+        alt: "AQD Today screen showing an Office day look of a blue shirt, grey trousers, oxblood loafers, and a black belt, with Plan details and Record wear actions",
+        width: 1320,
+        height: 2868,
+        label: "Today",
+      },
+      {
+        src: "/images/projects/aqd/agent-answer.webp",
+        alt: "AQD Agent answering Tonight’s look with the planned Office day outfit and its four closet pieces",
+        width: 1320,
+        height: 2868,
+        label: "Agent answer",
+      },
+      {
+        src: "/images/projects/aqd/agent-review.webp",
+        alt: "AQD Review changes sheet for a week plan, marked Draft, not confirmed saved, with a tick on each day, an Apply button, and Reject with a reason",
+        width: 1320,
+        height: 2868,
+        label: "Reviewed change set",
+      },
+      {
+        src: "/images/projects/aqd/closet.webp",
+        alt: "AQD Closet showing twelve pieces in a grid with category chips for shirts, bottoms, dresses, and layers",
+        width: 1320,
+        height: 2868,
+        label: "Closet",
+      },
+      {
+        src: "/images/projects/aqd/planner.webp",
+        alt: "AQD Planner week view for November 10 with an Office day plan and a Record wear action",
+        width: 1320,
+        height: 2868,
+        label: "Planner",
+      },
+      {
+        src: "/images/projects/aqd/agent-suggestion.webp",
+        alt: "AQD Agent suggested look made of a blue shirt, grey trousers, loafers, and a belt, with Save outfit, Try another, and Adjust actions",
+        width: 1320,
+        height: 2868,
+        label: "Suggested look",
+      },
+    ],
+    repository: "https://github.com/vn-aj-vngrd/aqd",
+  },
 ] satisfies readonly Project[];
 
 type ProjectFilter = { featured?: boolean };

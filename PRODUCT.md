@@ -41,7 +41,7 @@ The product is Portfolio 3.0 and represents Van AJ Vanguardia. Its voice is calm
 ## Evidence on Hand
 
 - Typed profile, experience, project, credential, stack, and design-system content under `src/content/`.
-- Public case studies and product links for Relay, Roleway, Viya, ACSFI, and Balay (a closed-source 3D home-design experiment).
+- Public case studies and product links for Relay, Roleway, Viya, ACSFI, Balay (a closed-source 3D home-design experiment), and AQD (a source-available on-device iPhone closet app).
 - Public repository and contribution evidence presented through the GitHub surfaces.
 - A downloadable résumé and confirmed education and certification records.
 - An inspectable design-system route and `design.md` endpoint documenting the portfolio's interface language.

@@ -21,12 +21,13 @@ export function SelectedWork() {
         </div>
         <h2 id="work-title">Products I designed and built.</h2>
         <p>
-          Relay, Roleway, Viya, ACSFI, and Balay cover social sports, job-search
-          operations, mobile travel, nonprofit publishing, and an interactive 3D
-          home-design experiment. Together they show how I handle product scope,
-          interface design, domain modeling, backend architecture, content
-          systems, testing, and release. Each case study links to the public
-          source where it is available; Balay is closed source.
+          Relay, Roleway, Viya, ACSFI, Balay, and AQD cover social sports,
+          job-search operations, mobile travel, nonprofit publishing, an
+          interactive 3D home-design experiment, and a private on-device iPhone
+          closet. Together they show how I handle product scope, interface
+          design, domain modeling, backend architecture, content systems,
+          testing, and release. Each case study links to the public source where
+          it is available; Balay is closed source.
         </p>
       </div>
       <div className="project-list">
