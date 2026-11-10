@@ -21,7 +21,7 @@ export const resume = {
     {
       label: "Frontend & mobile",
       detail:
-        "TypeScript, React, Next.js, Angular, Blazor, React Native, Expo, PWAs",
+        "TypeScript, React, Next.js, Angular, Blazor, React Native, Expo, Swift, SwiftUI, PWAs",
     },
     {
       label: "Backend & APIs",
@@ -44,7 +44,7 @@ export const resume = {
     {
       label: "AI engineering",
       detail:
-        "Vercel AI SDK, OpenRouter, OpenAI / Anthropic / Gemini APIs, tool calling, streaming, Zod-validated structured output, approval-gated actions",
+        "Vercel AI SDK, OpenRouter, OpenAI / Anthropic / Gemini APIs, Apple Foundation Models (on-device), tool calling, streaming, Zod-validated structured output, approval-gated actions",
     },
     {
       label: "AI agent setup",
@@ -107,6 +107,20 @@ const productSelections = [
     description:
       "Built the Astro Charitable and Scholarship Foundation’s website and Strapi CMS so editors can update programs, reports, and events without changing code. Used Next.js static generation with incremental regeneration to serve pages and refresh published content.",
     stack: ["Next.js", "TypeScript", "Strapi", "MySQL", "Docker"],
+  },
+  {
+    slug: "aqd",
+    description:
+      "Built AQD, a private on-device closet app for iPhone, in SwiftUI and SwiftData with no account or backend. Implemented an Apple Foundation Models Agent that answers from the closet, drafts changes as tickable reviewed change sets with undo, and checks replies against real records. Enforced layered architecture and design tokens with scripts and tests.",
+    stack: [
+      "Swift",
+      "SwiftUI",
+      "SwiftData",
+      "Foundation Models",
+      "WeatherKit",
+      "Swift Testing",
+      "XCUITest",
+    ],
   },
 ] as const;
 
