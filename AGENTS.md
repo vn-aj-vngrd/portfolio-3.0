@@ -10,6 +10,13 @@ Read the relevant source of truth before changing behavior:
 - `DESIGN.md` — visual language, tokens, components, motion, and responsive rules.
 - `README.md` — stack, content locations, routes, and runtime features.
 
+## Skills
+
+Each skill lives in `.agents/skills/<name>/` and is also linked from `.claude/skills/` for Claude Code.
+
+- `portfolio-content`: load before adding, updating, or removing any portfolio fact (products, experience, résumé, profile, certifications, gear, copy). It holds the content rules and the touchpoint checklist that `scripts/content.test.mjs` enforces.
+- `deploy-vercel`: load only when the user asks to deploy or release.
+
 ## Workflow
 
 Before creating a branch, committing, opening or reviewing a PR, merging, or releasing, read `docs/DEVELOPMENT_WORKFLOW.md`. It owns contribution conventions, review gates, and automated versioning. Changes reach `main` through squash-merged PRs, including hotfixes; keep hooks and required checks enabled.
