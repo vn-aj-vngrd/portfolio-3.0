@@ -27,7 +27,7 @@ src/content/
 └── gear.ts
 ```
 
-Project media lives in `public/images/projects/`.
+Project media lives in `public/images/projects/`. Add or change portfolio data through the `portfolio-content` skill (`.agents/skills/portfolio-content/SKILL.md`) so every surface stays consistent.
 
 ## Routes
 
