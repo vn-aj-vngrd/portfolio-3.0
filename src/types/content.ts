@@ -20,6 +20,14 @@ export type ProductMatchEntry = {
   result: string;
 };
 
+export type ProjectChapter = {
+  label: string;
+  title: string;
+  lead: string;
+  points: readonly string[];
+  screens: readonly ProjectImage[];
+};
+
 export type Project = {
   slug: string;
   name: string;
@@ -34,6 +42,11 @@ export type Project = {
   stack: readonly string[];
   decisions: readonly ProjectStage[];
   features?: readonly ProjectStage[];
+  journey?: {
+    title: string;
+    summary: string;
+    chapters: readonly ProjectChapter[];
+  };
   agent?: {
     summary: string;
     steps: readonly ProjectStage[];

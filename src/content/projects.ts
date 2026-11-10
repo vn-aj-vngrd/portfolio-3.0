@@ -1,5 +1,15 @@
 import type { ProductMatchEntry, Project } from "@/types/content";
 
+function aqdScreen(file: string, label: string, alt: string) {
+  return {
+    src: `/images/projects/aqd/${file}.webp`,
+    alt,
+    width: 1320,
+    height: 2868,
+    label,
+  } as const;
+}
+
 const projectEntries = [
   {
     slug: "relay",
@@ -734,6 +744,303 @@ const projectEntries = [
         label: "Suggested look",
       },
     ],
+    journey: {
+      title: "From the first photo to the Agent.",
+      summary:
+        "AQD follows the life of a wardrobe: add a piece, build outfits, group themes, plan days and trips, record what you wore, keep fit memories, and ask the Agent. Every screen below comes from the app running on an iPhone 17 Pro Max with its built-in sample closet.",
+      chapters: [
+        {
+          label: "Add pieces",
+          title: "Every piece starts as a photo.",
+          lead: "Saving a piece takes a photo, a name, and a category. Everything else is optional, and unknown stays unknown.",
+          points: [
+            "Take the photo with the camera or pick it from Photos. The camera adds a thirds grid and a centered frame, and the app never alters the original Photos asset.",
+            "One Edit photo sheet covers crop and rotate, plus a Cut out tab that uses Apple Vision, with manual tools where automatic cutout is not available.",
+            "Color, brand, size, fit, material, season, and condition stay blank unless the owner fills them. Fit is never inferred.",
+            "Save stays disabled until the photo, name, and category exist, and a plain hint names what is missing. A failed save keeps the draft and the prepared photo.",
+          ],
+          screens: [
+            aqdScreen(
+              "add-piece",
+              "Add piece",
+              "AQD Add piece sheet with a photo area offering Take photo and Photos, a Name field, category chips, and a More details row"
+            ),
+            aqdScreen(
+              "piece-details",
+              "Optional details",
+              "AQD piece details sheet with optional fields for color, brand, size, fit, material, season, and condition"
+            ),
+          ],
+        },
+        {
+          label: "Browse the closet",
+          title: "A closet you can read at a glance.",
+          lead: "Pieces, outfits, and themes share one place, with filters that combine and clear in one tap.",
+          points: [
+            "Category chips, a status filter for Available, Unavailable, Laundry, and Archived, metadata search, and sorting by recently added, name, or most and least worn.",
+            "Piece detail shows availability, a Style this action, the outfits that use the piece, recorded wears, and the last worn date.",
+            "Select mode moves many pieces to Laundry, Available, or Archive. Each piece is its own acknowledged write, and any stale piece is skipped with a count.",
+            "Archive keeps outfits and history. Delete first previews the affected outfits and future plans, and never rewrites recorded wear.",
+          ],
+          screens: [
+            aqdScreen(
+              "closet",
+              "Closet",
+              "AQD Closet showing twelve pieces in a grid with category chips for shirts, bottoms, dresses, and layers"
+            ),
+            aqdScreen(
+              "piece-detail",
+              "Piece detail",
+              "AQD piece detail for a blue cotton shirt with availability, Style this, color, recorded wears, last worn, and the outfits it appears in"
+            ),
+          ],
+        },
+        {
+          label: "Build outfits",
+          title: "Compose a look on a live canvas.",
+          lead: "An outfit is an ordered set of owned pieces. The builder shows the result while you choose.",
+          points: [
+            "A pinned canvas shows the chosen pieces, and a tap removes one. A resizable picker lists the closet by category, with search at larger sizes.",
+            "The name defaults to a weekday look and stays editable. A partial look is valid and is never called complete.",
+            "Saving is private. It never creates a plan or a wear record, and a retried save creates one outfit.",
+            "Outfit detail links its themes, offers Plan outfit and Record wear, and ends in a reviewed delete that names its theme and plan impact.",
+          ],
+          screens: [
+            aqdScreen(
+              "build-outfit-empty",
+              "Start a look",
+              "AQD Build outfit sheet with an empty canvas reading Tap a piece below to start your look and a picker of closet pieces"
+            ),
+            aqdScreen(
+              "build-outfit",
+              "Pieces on the canvas",
+              "AQD Build outfit sheet titled Tuesday look with a blue shirt and a belt on the canvas and an Add to theme chip"
+            ),
+            aqdScreen(
+              "outfits",
+              "Outfits",
+              "AQD Outfits grid showing six saved looks with piece counts, themes, and favorite hearts"
+            ),
+            aqdScreen(
+              "outfit-detail",
+              "Outfit detail",
+              "AQD outfit detail for Office day with four pieces, a Favorite toggle, Plan outfit, Record wear, and a list of its pieces"
+            ),
+          ],
+        },
+        {
+          label: "Group themes",
+          title: "Collect looks into themes.",
+          lead: "A theme is a named collection of outfits, such as Weekday, Off duty, or Evening.",
+          points: [
+            "The cover is a collage generated from the member outfits. It is drawn on demand and never stored.",
+            "One outfit can belong to many themes. Renaming a theme keeps its members, and deleting a theme never deletes an outfit.",
+            "Names are unique regardless of case, and a theme can start empty, like Ideas to collect.",
+            "The grid filters All, With outfits, or Empty, and sorts by name or by most outfits.",
+          ],
+          screens: [
+            aqdScreen(
+              "create-theme",
+              "Create theme",
+              "AQD Create theme sheet with a collage cover, Name and Description fields, and a picker of outfits to include"
+            ),
+            aqdScreen(
+              "themes",
+              "Themes",
+              "AQD Themes grid with four themes, Evening, Ideas to collect, Off duty, and Weekday, each with a collage cover and outfit count"
+            ),
+          ],
+        },
+        {
+          label: "Home",
+          title: "A home screen you arrange yourself.",
+          lead: "Today is a stack of cards that read the closet and never write to it. The owner chooses which cards appear and in what order.",
+          points: [
+            "Today’s look leads with one action: Record wear for a current plan, Review plan when its outfit changed, Choose outfit when the outfit is gone, or Build outfit with no plan.",
+            "Cards cover the week in wear, wear insights, closet in use, upcoming plans, a piece to wear again, favorite outfits, a theme, the fit journal, weather, quick actions, a note, and a photo.",
+            "Customize Today is a draft editor to add, hide, duplicate, and reorder cards. Save is atomic, and a failed save keeps both the old layout and the draft.",
+            "Personal notes and photos are never uploaded or sent to the Agent. Sample content is never stored as user data.",
+          ],
+          screens: [
+            aqdScreen(
+              "today",
+              "Today’s look",
+              "AQD Today screen showing an Office day look of a blue shirt, grey trousers, oxblood loafers, and a black belt, with Plan details and Record wear actions"
+            ),
+            aqdScreen(
+              "today-upcoming",
+              "Upcoming plans",
+              "AQD Today card listing upcoming plans for the next seven days, from Coffee run to Office day"
+            ),
+            aqdScreen(
+              "today-wear-again",
+              "Wear again",
+              "AQD Today cards for a piece to wear again and favorite outfits"
+            ),
+            aqdScreen(
+              "today-customize",
+              "Customize Today",
+              "AQD Customize Today editor listing every card with a visibility toggle and a reorder handle"
+            ),
+          ],
+        },
+        {
+          label: "Calendar",
+          title: "Plan a day, a week, or a trip.",
+          lead: "The Planner keeps intent separate from history. Planning an outfit never records that it was worn.",
+          points: [
+            "Week is the default view and Month the alternate. Days show their state, such as planned, no outfit yet, worn, or needs review, instead of a count.",
+            "Plan one day, several days, a routine with weekdays and occasions for up to three months, or an event or trip. Destinations and activities stay on the device.",
+            "A trip builds a packing list from its assigned outfits, with each piece listed once and a check state that survives reassignment.",
+            "Editing an outfit flags future entries for review, overlaps offer Keep both or Replace, and bulk saves apply all days or none.",
+            "Dates are calendar dates in the plan’s time zone, so they do not shift when the phone travels.",
+          ],
+          screens: [
+            aqdScreen(
+              "planner",
+              "Week view",
+              "AQD Planner week view for November 10 with an Office day plan and a Record wear action"
+            ),
+            aqdScreen(
+              "plan-day",
+              "Plan a look",
+              "AQD Plan a look sheet with an outfit strip, an Unassigned chip, date, weather context, occasion, and time zone"
+            ),
+            aqdScreen(
+              "plan-trip",
+              "New trip",
+              "AQD New trip sheet with name, start and end dates, time zone, destination, and activities"
+            ),
+            aqdScreen(
+              "plan-routine",
+              "New routine",
+              "AQD New routine sheet with weekday toggles, an occasion field, outfit choices, and a repetition rule"
+            ),
+          ],
+        },
+        {
+          label: "Record wear",
+          title: "Keep an honest record of what you wore.",
+          lead: "Wear history is separate from plans, so insights come from what actually happened.",
+          points: [
+            "Record wear shows the pieces on a canvas with a Worn on date and a time zone, and it says plainly that planning does not record wear.",
+            "One wear is kept per identical set of pieces per day. A stable operation ID prevents retry duplicates, and a record can be backdated, corrected, or undone.",
+            "Each record keeps a minimal snapshot of piece names, so history survives deleting a piece or editing an outfit.",
+            "Monthly utilization is based only on recorded wear. With too little history, AQD says Not enough recorded history instead of showing a percentage.",
+          ],
+          screens: [
+            aqdScreen(
+              "record-wear",
+              "Record wear",
+              "AQD Record wear sheet with four pieces on a canvas, a Worn on date, a piece picker, and a time zone row"
+            ),
+            aqdScreen(
+              "today-insights",
+              "Wear insights",
+              "AQD Today cards for the week in wear and monthly wear insights listing pieces not worn yet"
+            ),
+          ],
+        },
+        {
+          label: "Profile",
+          title: "A private fit journal, not a social feed.",
+          lead: "Profile keeps dated memories of what the owner wore. There is no sign-in, no followers, and no public count.",
+          points: [
+            "A fit is a dated memory with an optional photo, an optional linked outfit, and a caption of up to 500 characters. It needs a photo or an outfit to post.",
+            "Without a photo, the fit shows the real pieces of the linked outfit and never a made-up wearer photo. The link keeps a snapshot that survives outfit edits and deletion.",
+            "If an outfit is planned for that day, one tap links it. Count as worn can record the wear in the same step.",
+            "The header shows Fits, This month, and Day streak. The composer states that only the owner can see a fit and that it stays on the iPhone.",
+            "A seven-step style questionnaire feeds suggestions. Body details are off by default and can be revoked at any time.",
+          ],
+          screens: [
+            aqdScreen(
+              "new-fit",
+              "New fit",
+              "AQD New fit sheet with an optional photo area, a What I wore outfit strip with a planned Office day suggestion, a caption, and a date row"
+            ),
+          ],
+        },
+        {
+          label: "Ask the Agent",
+          title: "Ask in one sentence.",
+          lead: "The Agent is a closet copilot that runs on the phone. One request does a closet chore, such as dress me today, plan my week, or pack my trip.",
+          points: [
+            "Answers show the real pieces as cards, and every reply is checked against the owner’s records before it appears.",
+            "Typing a slash opens the tools, including build outfits, make themes, name and label, and plan your days.",
+            "When something essential is missing, the Agent asks one question at a time with tappable answers.",
+            "The model runs on device through Apple Foundation Models. Everything outside the Agent works without it.",
+          ],
+          screens: [
+            aqdScreen(
+              "agent-answer",
+              "Grounded answer",
+              "AQD Agent answering Tonight’s look with the planned Office day outfit and its four closet pieces"
+            ),
+            aqdScreen(
+              "agent-suggestion",
+              "Suggested look",
+              "AQD Agent suggested look made of a blue shirt, grey trousers, loafers, and a belt, with Save outfit, Try another, and Adjust actions"
+            ),
+            aqdScreen(
+              "agent-tools",
+              "Slash tools",
+              "AQD Agent tool list after typing a slash, with Build outfits, Make themes, Name and label, and Plan your days"
+            ),
+          ],
+        },
+        {
+          label: "Review and undo",
+          title: "Nothing changes until you approve it.",
+          lead: "Every change the Agent proposes is a draft the owner reviews. There is no standing permission to act.",
+          points: [
+            "A request like Plan outfits for 3 days in Boracay becomes one review with a different outfit for each day. The app picks varied available pieces and the model supplies only the labels.",
+            "The owner chooses what saving does: the outfits always, plus an optional theme that groups them.",
+            "Plan reviews have a tickable row per day. Apply uses only the ticked rows, checks each against the revision that was reviewed, and rolls back if any write fails.",
+            "A receipt records when the change was saved. Undo is offered only while every record it touched is unchanged, and a delete is never undoable.",
+          ],
+          screens: [
+            aqdScreen(
+              "agent-trip",
+              "Trip proposal",
+              "AQD Agent proposing a Boracay trip with three daily looks, Outfits and Theme chips, and a note that nothing is saved yet"
+            ),
+            aqdScreen(
+              "agent-trip-review",
+              "Review changes",
+              "AQD Review changes sheet for the Boracay trip listing three days with their pieces, a Draft, not confirmed saved label, and Apply"
+            ),
+            aqdScreen(
+              "agent-review",
+              "Ticked days",
+              "AQD Review changes sheet for a week plan with a tick beside each day, an Apply button, and Reject with a reason"
+            ),
+            aqdScreen(
+              "agent-trip-saved",
+              "Saved receipt",
+              "AQD trip review after applying, marked Saved locally, with a saved receipt time and an Open theme link"
+            ),
+          ],
+        },
+        {
+          label: "Privacy controls",
+          title: "The owner decides what the Agent may read.",
+          lead: "The Agent only sees the sources the owner leaves on, and it never receives photos.",
+          points: [
+            "Switches for pieces, outfits, themes, style preferences, profile, wear history, fit journal, Today cards, plans, past chats, and weather decide what each reply may use.",
+            "Private notes are off by default and are only information. A note can never approve a change.",
+            "The model never sees record IDs. The app gives it short handles, resolves them itself, and checks ownership and revisions again when an action runs.",
+            "Devices without Apple Intelligence get a reason-specific screen and the full manual app, and Device support lists every supported iPhone.",
+          ],
+          screens: [
+            aqdScreen(
+              "agent-settings",
+              "AI sources",
+              "AQD Agent settings with switches for pieces, outfits, themes, style preferences, and profile, and Private notes switched off"
+            ),
+          ],
+        },
+      ],
+    },
     repository: "https://github.com/vn-aj-vngrd/aqd",
   },
 ] satisfies readonly Project[];
