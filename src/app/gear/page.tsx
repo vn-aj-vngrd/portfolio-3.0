@@ -5,31 +5,39 @@ import { gear, type GearItem } from "@/content/gear";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
-  title: "Gear",
+  title: "Developer Gear and Desk Setup",
   description:
     "The hardware and desk setup Van AJ Vanguardia uses for full-stack, mobile, and AI-assisted product engineering.",
   path: "/gear",
 });
 
-const groups: { title: string; description: string; items: readonly GearItem[] }[] = [
+const groups: {
+  title: string;
+  description: string;
+  items: readonly GearItem[];
+}[] = [
   {
     title: "Displays",
-    description: "The ultrawide holds the main editor and browser; the second display keeps documentation, terminals, and communication visible.",
+    description:
+      "The ultrawide holds the main editor and browser; the second display keeps documentation, terminals, and communication visible.",
     items: gear.slice(1, 3),
   },
   {
     title: "Input",
-    description: "The keyboard and mouse I use for daily development, navigation, and review.",
+    description:
+      "The keyboard and mouse I use for daily development, navigation, and review.",
     items: gear.slice(3, 5),
   },
   {
     title: "Everyday devices",
-    description: "Audio, communication, and real-device checks for responsive web and mobile work.",
+    description:
+      "Audio, communication, and real-device checks for responsive web and mobile work.",
     items: gear.slice(5, 7),
   },
   {
     title: "Desk and power",
-    description: "A sit-stand desk and shared charging point keep the workspace easy to reset between tasks.",
+    description:
+      "A sit-stand desk and shared charging point keep the workspace easy to reset between tasks.",
     items: gear.slice(7),
   },
 ];
@@ -50,12 +58,17 @@ export default function GearPage() {
           </div>
           <p>
             I use this setup for full-stack development, mobile testing, local
-            containers, coding-agent sessions, database work, and interface review.
+            containers, coding-agent sessions, database work, and interface
+            review.
           </p>
         </div>
       </section>
 
-      <section className="gear-primary" aria-labelledby="primary-gear-title" data-reveal>
+      <section
+        className="gear-primary"
+        aria-labelledby="primary-gear-title"
+        data-reveal
+      >
         <div className="gear-primary-visual">
           <GearIllustration kind={primary.kind} />
         </div>
@@ -98,7 +111,10 @@ export default function GearPage() {
       </div>
 
       <footer className="gear-footer" data-reveal>
-        <p>This equipment supports the work; the selected projects show the result.</p>
+        <p>
+          This equipment supports the work; the selected projects show the
+          result.
+        </p>
         <Link href="/#my-work">See what I build →</Link>
       </footer>
     </main>

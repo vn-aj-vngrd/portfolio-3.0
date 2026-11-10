@@ -9,6 +9,7 @@ import { Header } from "@/components/layout/Header";
 import { PortfolioNavigation } from "@/components/providers/PortfolioNavigation";
 import { ScrollReveal } from "@/components/providers/ScrollReveal";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { profile } from "@/content/profile";
 import { projectCatalog } from "@/content/projects";
 import {
   DEFAULT_SOCIAL_IMAGE,
@@ -54,6 +55,9 @@ export const metadata: Metadata = {
     "Next.js developer",
     "ASP.NET Core developer",
     "product engineer",
+    "web developer Philippines",
+    "AI-assisted engineering",
+    "portfolio",
   ],
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
@@ -65,6 +69,7 @@ export const metadata: Metadata = {
   manifest: "/favicon/site.webmanifest",
   icons: {
     icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
       { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
@@ -98,12 +103,55 @@ export const metadata: Metadata = {
   },
 };
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${SITE_URL}/#person`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      jobTitle: "Full-Stack Software Developer",
+      description: SITE_DESCRIPTION,
+      image: `${SITE_URL}/images/profile.jpg`,
+      address: {
+        "@type": "PostalAddress",
+        addressRegion: "Cebu",
+        addressCountry: "PH",
+      },
+      sameAs: [profile.github, profile.linkedin],
+      knowsAbout: [
+        "TypeScript",
+        "React",
+        "Next.js",
+        "ASP.NET Core",
+        "Full-stack web development",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: SITE_NAME,
+      description: SITE_DESCRIPTION,
+      inLanguage: "en",
+      publisher: { "@id": `${SITE_URL}/#person` },
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

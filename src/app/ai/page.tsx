@@ -15,7 +15,7 @@ import { projectCatalog } from "@/content/projects";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
-  title: "AI Engineering Workflow",
+  title: "AI Engineering Workflow with Coding Agents",
   description:
     "How Van AJ Vanguardia uses coding agents: product questions, focused specifications, vertical slices, implementation, and independent code review.",
   path: aiWorkflow.path,

@@ -19,10 +19,11 @@ export async function generateMetadata({
   if (!project) return {};
 
   const socialImage = project.coverImage ?? project.images[0];
-  const title = `${project.name} Case Study | ${SITE_NAME}`;
+  const pageTitle = `${project.name} Case Study: ${project.category.split(" · ")[0]}`;
+  const title = `${pageTitle} | ${SITE_NAME}`;
 
   return {
-    title: `${project.name} Case Study`,
+    title: pageTitle,
     description: project.summary,
     alternates: { canonical: `/work/${project.slug}` },
     openGraph: {

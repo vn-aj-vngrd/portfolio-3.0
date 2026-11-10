@@ -7,7 +7,7 @@ import { resume, resumeProducts } from "@/content/resume";
 import { createPageMetadata, SITE_URL } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
-  title: "Résumé",
+  title: "Résumé, Full-Stack Software Developer",
   description:
     "Résumé for Van AJ Vanguardia, a full-stack software developer building ASP.NET Core backends in C# and React frontends with TypeScript.",
   path: "/resume",
