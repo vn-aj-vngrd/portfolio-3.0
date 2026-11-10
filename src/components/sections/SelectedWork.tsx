@@ -15,14 +15,18 @@ export function SelectedWork() {
       data-reveal
     >
       <div className="section-heading">
-        <div className="section-index"><span>01</span><span>My work</span></div>
+        <div className="section-index">
+          <span>01</span>
+          <span>My work</span>
+        </div>
         <h2 id="work-title">Products I designed and built.</h2>
         <p>
-          Relay, Roleway, Viya, and ACSFI cover social sports, job-search
-          operations, mobile travel, and nonprofit publishing. Together they show
-          how I handle product scope, interface design, domain modeling, backend
-          architecture, content systems, testing, and release. Each case study
-          links to the public source where it is available.
+          Relay, Roleway, Viya, ACSFI, and Balay cover social sports, job-search
+          operations, mobile travel, nonprofit publishing, and an interactive 3D
+          home-design experiment. Together they show how I handle product scope,
+          interface design, domain modeling, backend architecture, content
+          systems, testing, and release. Each case study links to the public
+          source where it is available; Balay is closed source.
         </p>
       </div>
       <div className="project-list">

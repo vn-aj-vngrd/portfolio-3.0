@@ -40,6 +40,13 @@ const productDevices = [
     screen: [1.62, 1.86] as const,
     baseY: 0.7,
   },
+  {
+    name: "BALAY",
+    color: "#c58a4e",
+    body: [1.9, 2.55] as const,
+    screen: [1.62, 1.86] as const,
+    baseY: 0.7,
+  },
 ] as const;
 
 function labelSprite(text: string, accent: string) {
@@ -60,7 +67,11 @@ function labelSprite(text: string, accent: string) {
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
   const sprite = new THREE.Sprite(
-    new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false }),
+    new THREE.SpriteMaterial({
+      map: texture,
+      transparent: true,
+      depthWrite: false,
+    })
   );
   sprite.scale.set(2.45, 0.62, 1);
   return sprite;
@@ -84,7 +95,11 @@ export function ProductMatchScene({
 
     let renderer: THREE.WebGLRenderer;
     try {
-      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        alpha: false,
+      });
     } catch {
       canvas.dataset.unavailable = "true";
       return;
@@ -93,7 +108,9 @@ export function ProductMatchScene({
     const world = new THREE.Color("#090b0f");
     const signal = new THREE.Color("#155eef");
     const muted = new THREE.Color("#556071");
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -117,13 +134,17 @@ export function ProductMatchScene({
     scene.add(rim);
 
     const stage = new THREE.Mesh(
-      new THREE.CylinderGeometry(6.2, 6.8, 0.4, 8),
-      new THREE.MeshStandardMaterial({ color: 0x171b22, roughness: 0.82, metalness: 0.18 }),
+      new THREE.CylinderGeometry(7.2, 7.8, 0.4, 8),
+      new THREE.MeshStandardMaterial({
+        color: 0x171b22,
+        roughness: 0.82,
+        metalness: 0.18,
+      })
     );
     stage.position.y = -0.45;
     stage.receiveShadow = true;
     scene.add(stage);
-    const grid = new THREE.GridHelper(16, 16, signal, muted);
+    const grid = new THREE.GridHelper(20, 20, signal, muted);
     grid.position.y = -0.23;
     (grid.material as THREE.Material).transparent = true;
     (grid.material as THREE.Material).opacity = 0.2;
@@ -131,17 +152,24 @@ export function ProductMatchScene({
 
     const devices: THREE.Group[] = [];
     const selectable: THREE.Object3D[] = [];
-    const positions = [-3.6, -1.2, 1.2, 3.6];
+    const spacing = 2.4;
+    const positions = productDevices.map(
+      (_, index) => (index - (productDevices.length - 1) / 2) * spacing
+    );
 
     productDevices.forEach((product, index) => {
       const group = new THREE.Group();
       group.position.set(positions[index], product.baseY, 0);
-      group.rotation.y = (index - 1.5) * -0.13;
+      group.rotation.y = (index - (productDevices.length - 1) / 2) * -0.13;
       group.userData.productIndex = index;
 
       const body = new THREE.Mesh(
         new THREE.BoxGeometry(product.body[0], product.body[1], 0.24),
-        new THREE.MeshStandardMaterial({ color: product.color, roughness: 0.42, metalness: 0.2 }),
+        new THREE.MeshStandardMaterial({
+          color: product.color,
+          roughness: 0.42,
+          metalness: 0.2,
+        })
       );
       body.castShadow = true;
       body.userData.productIndex = index;
@@ -150,7 +178,12 @@ export function ProductMatchScene({
 
       const screen = new THREE.Mesh(
         new THREE.PlaneGeometry(product.screen[0], product.screen[1]),
-        new THREE.MeshStandardMaterial({ color: 0x0f1217, roughness: 0.6, emissive: world, emissiveIntensity: 0 }),
+        new THREE.MeshStandardMaterial({
+          color: 0x0f1217,
+          roughness: 0.6,
+          emissive: world,
+          emissiveIntensity: 0,
+        })
       );
       screen.position.z = 0.126;
       screen.userData.productIndex = index;
@@ -160,7 +193,7 @@ export function ProductMatchScene({
       for (let line = 0; line < index + 2; line += 1) {
         const detail = new THREE.Mesh(
           new THREE.PlaneGeometry(0.82 - line * 0.08, 0.08),
-          new THREE.MeshBasicMaterial({ color: line === 0 ? signal : 0x6f7885 }),
+          new THREE.MeshBasicMaterial({ color: line === 0 ? signal : 0x6f7885 })
         );
         detail.position.set(0, 0.62 - line * 0.33, 0.135);
         detail.userData.productIndex = index;
@@ -168,7 +201,10 @@ export function ProductMatchScene({
         selectable.push(detail);
       }
 
-      const label = labelSprite(products[index]?.name ?? product.name, "#155eef");
+      const label = labelSprite(
+        products[index]?.name ?? product.name,
+        "#155eef"
+      );
       label.position.y = -1.9;
       group.add(label);
       devices.push(group);
@@ -219,13 +255,16 @@ export function ProductMatchScene({
       const height = Math.max(1, canvas.clientHeight);
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
-      const portrait = camera.aspect < 0.75;
-      positions[0] = portrait ? -3.45 : -3.6;
-      positions[1] = portrait ? -1.15 : -1.2;
-      positions[2] = portrait ? 1.15 : 1.2;
-      positions[3] = portrait ? 3.45 : 3.6;
-      camera.position.z = portrait ? 18.5 : 12.2;
-      camera.position.y = portrait ? 5.2 : 4.4;
+      // Pull the camera back until the whole row of products fits the viewport.
+      const halfRow = (positions[positions.length - 1] ?? 0) + 1.5;
+      const fit =
+        halfRow / (Math.tan(THREE.MathUtils.degToRad(21)) * camera.aspect);
+      camera.position.z = Math.max(12.2, fit);
+      camera.position.y = 4.4 + (camera.position.z - 12.2) * 0.12;
+      if (scene.fog instanceof THREE.Fog) {
+        scene.fog.near = camera.position.z - 3;
+        scene.fog.far = camera.position.z + 13;
+      }
       camera.lookAt(0, 1, 0);
       camera.updateProjectionMatrix();
     };
@@ -243,7 +282,8 @@ export function ProductMatchScene({
         if (device.userData.shakeUntil > time) {
           device.position.x = positions[index] + Math.sin(time * 0.08) * 0.12;
         } else if (selected !== index) {
-          device.position.x += (positions[index] - device.position.x) * Math.min(1, delta * 12);
+          device.position.x +=
+            (positions[index] - device.position.x) * Math.min(1, delta * 12);
         }
       });
 
@@ -274,9 +314,18 @@ export function ProductMatchScene({
       canvas.removeEventListener("pointerdown", pick);
       canvas.removeEventListener("pointermove", hover);
       scene.traverse((object) => {
-        if (!(object instanceof THREE.Mesh || object instanceof THREE.LineSegments || object instanceof THREE.Sprite)) return;
+        if (
+          !(
+            object instanceof THREE.Mesh ||
+            object instanceof THREE.LineSegments ||
+            object instanceof THREE.Sprite
+          )
+        )
+          return;
         if ("geometry" in object && object.geometry) object.geometry.dispose();
-        const materials = Array.isArray(object.material) ? object.material : [object.material];
+        const materials = Array.isArray(object.material)
+          ? object.material
+          : [object.material];
         for (const entry of materials) {
           if (entry instanceof THREE.SpriteMaterial) entry.map?.dispose();
           entry.dispose();
@@ -286,5 +335,11 @@ export function ProductMatchScene({
     };
   }, [correctAnswer, products]);
 
-  return <canvas ref={canvasRef} className="product-match-canvas" aria-label="Product Match 3D selection game" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="product-match-canvas"
+      aria-label="Product Match 3D selection game"
+    />
+  );
 }
