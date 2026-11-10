@@ -505,6 +505,107 @@ const projectEntries = [
     repository: undefined,
     liveUrl: "https://www.astro-foundation.com/",
   },
+  {
+    slug: "balay",
+    name: "Balay",
+    category: "Interactive 3D web experiment · Home design",
+    summary:
+      "Balay is a fun experiment: a two-storey tropical-modern house you can walk through in the browser. Take a narrated tour, switch between Overview, Walk, and Fly, open doors and cabinets, and peel back the walls to see wiring, plumbing, and structure.",
+    match: {
+      prompt:
+        "A homeowner wants to judge a house design, its rooms, lighting, and wiring, before anything is built.",
+      clue: "Look for the product that lets you walk through the house in 3D.",
+      result:
+        "Balay turns one typed layout into a walkable 3D house, a narrated tour, and a floor plan, so design decisions can be felt before construction starts.",
+    },
+    problem:
+      "Plans and sketches make it hard to judge how a house will feel: how wide the stair is, where light falls at 6 PM, whether a desk fits beside a bed. Every change meant redrawing several documents by hand.",
+    solution:
+      "One typed data module describes the rooms, openings, furniture, finishes, and electrical points. A three.js engine and a floor-plan page both redraw from it, so a design change shows up in the walkthrough, the tour, and the plan together.",
+    role: "Designed and built independently",
+    status: "Live experiment · Closed source",
+    featured: true,
+    stack: [
+      "React",
+      "TypeScript",
+      "three.js",
+      "Vite",
+      "Zustand",
+      "React Router",
+      "Vitest",
+      "Vercel",
+    ],
+    decisions: [
+      {
+        title: "Make the layout the single source of truth",
+        body: "Geometry, furniture, finishes, and electrical points live in typed data files. The 3D scene and the floor plan are drawn from them, so the two views cannot disagree.",
+      },
+      {
+        title: "Keep the engine outside React",
+        body: "A framework-agnostic three.js engine owns the scene and exposes a small viewer API. React renders the chrome around it and never touches scene objects directly.",
+      },
+      {
+        title: "Let visitors explore at their own pace",
+        body: "Overview orbits the house, Walk moves at eye height, and Fly roams freely. Doors, cabinets, and curtains respond to a switch, and room shortcuts jump straight to a view.",
+      },
+      {
+        title: "Show what is behind the walls",
+        body: "X-ray layers reveal wiring and smart-home points, plumbing and drainage, and structure. Lighting presets and a Cebu-time sun show the house in morning light or evening glow.",
+      },
+    ],
+    architectureSummary:
+      "A Vite single-page app with a three.js engine behind a typed viewer API. Zustand holds interface state, React Router serves the 3D viewer and the floor plan, and the whole site deploys as static files on Vercel.",
+    architecture: [
+      {
+        title: "Typed layout data",
+        body: "Rooms, openings, heights, furniture, and the site are described in TypeScript. Materials and electrical points sit in their own modules so each concern has one home.",
+      },
+      {
+        title: "three.js viewer engine",
+        body: "createViewer() builds the house from the data and returns controls for views, walk and fly modes, picking, lighting, and layers. Test hooks on the window let browser checks drive it.",
+      },
+      {
+        title: "Guided tour",
+        body: "A deterministic timeline of camera shots plays pre-rendered narration and a generated score. The same timeline can be exported as an MP4 video in the browser.",
+      },
+      {
+        title: "Floor plan",
+        body: "An SVG floor plan with Site, Ground floor, Upper floor, and Areas tabs reads the same layout data. Selecting a room opens it in 3D.",
+      },
+    ],
+    evidence: [
+      "The live viewer offers Outside, Inside, and Cutaway views with room shortcuts, Overview, Walk, and Fly modes, and a screenshot control.",
+      "Switches open all doors and cabinets, close curtains, and toggle wiring, plumbing, and structure layers.",
+      "A narrated tour plays in the browser and can be downloaded as a video.",
+      "The floor plan page shows lot, floor, footprint, and room areas for the site, ground floor, and upper floor.",
+      "Unit tests cover the pure helpers, and the app builds to static files for Vercel.",
+    ],
+    images: [
+      {
+        src: "/images/projects/balay/exterior.webp",
+        alt: "Balay 3D viewer showing the front of a two-storey modern house at dusk with a timber gate, palms, and lit interiors",
+        width: 1920,
+        height: 1200,
+        label: "Exterior at dusk",
+      },
+      {
+        src: "/images/projects/balay/living.webp",
+        alt: "Balay 3D viewer inside the living room with a fluted timber TV wall, sofa, round coffee table, and full-width glass to the garden",
+        width: 1920,
+        height: 1200,
+        label: "Living room",
+      },
+      {
+        src: "/images/projects/balay/floor-plan.webp",
+        alt: "Balay floor plan page showing the ground floor with living, kitchen and dining, entry hall, foyer, carport, and area totals",
+        width: 1920,
+        height: 1200,
+        label: "Floor plan",
+      },
+    ],
+    repository: undefined,
+    liveUrl: "https://balay.vanajvanguardia.tech/",
+  },
 ] satisfies readonly Project[];
 
 type ProjectFilter = { featured?: boolean };
