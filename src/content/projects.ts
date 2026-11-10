@@ -10,6 +10,16 @@ function aqdScreen(file: string, label: string, alt: string) {
   } as const;
 }
 
+function acsfiScreen(file: string, label: string, alt: string, height = 1200) {
+  return {
+    src: `/images/projects/acsfi/${file}.webp`,
+    alt,
+    width: 1920,
+    height,
+    label,
+  } as const;
+}
+
 function balayScreen(file: string, label: string, alt: string) {
   return {
     src: `/images/projects/balay/${file}.webp`,
@@ -472,6 +482,213 @@ const projectEntries = [
         body: "Turborepo manages the frontend and CMS in one repository, while Vercel, Docker, and the production API configuration allow each application to be built and deployed for its own runtime needs.",
       },
     ],
+    journey: {
+      screenShape: "wide",
+      title: "From the first visit to a published report.",
+      summary:
+        "ACSFI is the public face of a charitable foundation. Visitors learn who it is, see what it does, and read the work as dated reports, while the foundation keeps all of it current through a CMS.",
+      chapters: [
+        {
+          label: "Arrive",
+          title: "A homepage that leads with the mission.",
+          lead: "The first screen is a full-bleed hero from the foundation's own photographs, and the page below it answers who they are and what they have done.",
+          points: [
+            "A hero slider with three slides, a clear headline, and two actions: read the stories or see the mission.",
+            "A mission statement and a short account of how the foundation began sit directly under the hero.",
+            "A row of four impact counters and a Stories of Impact strip put numbers and real activity on the first page.",
+          ],
+          screens: [
+            acsfiScreen(
+              "hero",
+              "Hero",
+              "ACSFI homepage hero: a full-width photograph of the foundation banner with the headline Empowering communities, inspiring change and two buttons"
+            ),
+            acsfiScreen(
+              "mission",
+              "Mission",
+              "ACSFI homepage mission section with a large statement about uplifting underprivileged communities and a short note on how the foundation began"
+            ),
+            acsfiScreen(
+              "impact-stats",
+              "Impact numbers and stories",
+              "ACSFI homepage showing four impact counters above a Stories of Impact row of three photo cards"
+            ),
+          ],
+        },
+        {
+          label: "Know the foundation",
+          title: "About: vision, commitments, values, and goals.",
+          lead: "The About page tells the organization's story in the order a donor or partner would ask for it.",
+          points: [
+            "A header with the foundation's name and a quick fact row: founded, based in, organization type, and focus.",
+            "The vision, three commitments, and three values, each as its own large, readable block with scroll-linked emphasis.",
+            "A goals section pairs each aim, such as scholarship grants, educational support, and community projects, with a photograph.",
+          ],
+          screens: [
+            acsfiScreen(
+              "about",
+              "About",
+              "ACSFI About page header reading Astro Charitable and Scholarship Foundation Inc. with a short introduction"
+            ),
+            acsfiScreen(
+              "vision",
+              "Vision",
+              "ACSFI vision statement: A productive society where no youth or family is left behind"
+            ),
+            acsfiScreen(
+              "values",
+              "Values",
+              "ACSFI values section listing Equality, Community and Teamwork, and Stewardship with large numerals"
+            ),
+            acsfiScreen(
+              "goals",
+              "Goals",
+              "ACSFI goals section with the Scholarship Grants goal beside a graduation photograph"
+            ),
+          ],
+        },
+        {
+          label: "See the programs",
+          title: "Three programs, told one at a time.",
+          lead: "Programs are laid out as a numbered sequence rather than a list of cards, so each one gets room.",
+          points: [
+            "Charitable Activities, Institutional Support and Enrichment, and Scholarships and Academic Enrichment, each with its own photographs.",
+            "Program photographs are shown in black and white with a large numeral behind each title, which keeps very different pictures consistent.",
+            "A closing statement about how every program begins with a community need leads into the stories.",
+          ],
+          screens: [
+            acsfiScreen(
+              "programs-intro",
+              "Programs",
+              "ACSFI Programs page header: Programs That Empower Communities"
+            ),
+            acsfiScreen(
+              "program-rows",
+              "Program rows",
+              "ACSFI program rows with the Charitable Activities program beside a black and white photograph"
+            ),
+            acsfiScreen(
+              "program-institutional",
+              "Institutional support",
+              "ACSFI program row for Institutional Support and Enrichment with a black and white photograph of a donation handover"
+            ),
+            acsfiScreen(
+              "program-approach",
+              "Our approach",
+              "ACSFI Our approach statement: Every program begins with a community's need"
+            ),
+          ],
+        },
+        {
+          label: "Read the stories",
+          title: "A timeline of dated activity reports.",
+          lead: "Stories is the foundation's running record. Each entry is a report the team publishes through the CMS.",
+          points: [
+            "A vertical timeline groups entries by date, with the program tag, reading time, a short excerpt, a photo, and a Read Story link.",
+            "The index is pre-rendered and revalidates every 60 seconds, so a new report appears without a redeploy.",
+          ],
+          screens: [
+            acsfiScreen(
+              "stories-index",
+              "Stories of Change",
+              "ACSFI Stories page header reading Stories of Change with an all stories count"
+            ),
+            acsfiScreen(
+              "stories-timeline",
+              "Story timeline",
+              "ACSFI stories timeline with dated entries, program tags, excerpts and photos"
+            ),
+          ],
+        },
+        {
+          label: "Open a report",
+          title: "Each activity is a structured report, not a blog post.",
+          lead: "Every story page is built from fields the foundation fills in once: when, where, who, why, and what happened.",
+          points: [
+            "A header with the program, reading time, date, time, venue, and participants, then a lead photograph.",
+            "Objectives and purpose are separate blocks above the narrative, so the aim of the activity is clear before the story starts.",
+            "A photo gallery and a Copy story link button close the page, followed by a prompt to read more.",
+          ],
+          screens: [
+            acsfiScreen(
+              "report-header",
+              "Report header",
+              "ACSFI activity report header with the title Tree Planting Activity, its date, time and venue, and a group photograph"
+            ),
+            acsfiScreen(
+              "report-objectives",
+              "Objectives and purpose",
+              "ACSFI activity report with separate Objectives and Purpose blocks above the narrative"
+            ),
+            acsfiScreen(
+              "report-gallery",
+              "Photo gallery",
+              "ACSFI activity report photo gallery arranged in a masonry layout"
+            ),
+          ],
+        },
+        {
+          label: "Keep it current",
+          title: "Content the foundation controls.",
+          lead: "Everything a visitor reads is a record in the CMS, and the pages say plainly when there is nothing to show yet.",
+          points: [
+            "Upcoming events come from the CMS. When none are scheduled, the page shows a calm empty state instead of a blank block.",
+            "Hero media, programs, statistics, quotes, and activities are all content types, so staff update the site without touching code.",
+            "A downloadable brochure sits in the footer and on the About call to action.",
+          ],
+          screens: [
+            acsfiScreen(
+              "upcoming-events",
+              "Upcoming events, empty state",
+              "ACSFI Upcoming Events section showing a calm message that there are no upcoming events at this time"
+            ),
+          ],
+        },
+        {
+          label: "Get in touch",
+          title: "A contact page that sets expectations.",
+          lead: "A short form explains what happens next before the visitor sends anything.",
+          points: [
+            "Contact opens with an inviting headline and a map to find the office.",
+            "The form lists the usual reasons to write, such as partnerships and visits, and states the expected response time.",
+          ],
+          screens: [
+            acsfiScreen(
+              "contact",
+              "Let's talk",
+              "ACSFI Contact page opening with the headline Let's talk"
+            ),
+            acsfiScreen(
+              "contact-form",
+              "Message form",
+              "ACSFI contact form with full name, email, subject and message fields and a short list of what to expect"
+            ),
+          ],
+        },
+        {
+          label: "Anywhere",
+          title: "Responsive, with a considered not-found page.",
+          lead: "Every page reflows from a wide desktop layout down to a phone.",
+          points: [
+            "On a phone the navigation becomes a full-screen menu, and the hero, programs, and stories reflow to one column.",
+            "A custom 404 keeps the navigation and offers a way home or back.",
+          ],
+          screens: [
+            acsfiScreen(
+              "mobile-pages",
+              "On a phone",
+              "ACSFI on a phone: the hero, the full-screen menu, the programs header and a program row",
+              980
+            ),
+            acsfiScreen(
+              "not-found",
+              "Not found",
+              "ACSFI custom 404 page reading This page doesn't exist with buttons to go home or go back"
+            ),
+          ],
+        },
+      ],
+    },
     architectureSummary:
       "A Bun and Turborepo monorepo contains a typed Next.js frontend and a Strapi backend. The frontend retrieves CMS content through authenticated server-side requests, while MySQL stores production content and Cloudinary serves managed media.",
     architecture: [
