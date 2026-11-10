@@ -9,6 +9,7 @@ export function ProjectJourney({ project }: { project: Project }) {
   return (
     <section
       className="project-journey"
+      data-shape={journey.screenShape ?? "phone"}
       aria-labelledby={`${project.slug}-journey-title`}
       data-reveal
     >
@@ -44,7 +45,11 @@ export function ProjectJourney({ project }: { project: Project }) {
                     alt={screen.alt}
                     width={screen.width}
                     height={screen.height}
-                    sizes="(max-width: 700px) 44vw, 240px"
+                    sizes={
+                      journey.screenShape === "wide"
+                        ? "(max-width: 700px) 92vw, 40vw"
+                        : "(max-width: 700px) 44vw, 240px"
+                    }
                   />
                   <figcaption>{screen.label}</figcaption>
                 </figure>

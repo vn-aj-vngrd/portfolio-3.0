@@ -43,6 +43,7 @@ export type Project = {
   decisions: readonly ProjectStage[];
   features?: readonly ProjectStage[];
   journey?: {
+    screenShape?: "phone" | "wide";
     title: string;
     summary: string;
     chapters: readonly ProjectChapter[];

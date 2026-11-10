@@ -3206,6 +3206,21 @@ main,
     500 0.62rem/1.4 var(--font-geist-mono),
     monospace;
 }
+.project-journey[data-shape="wide"] .journey-chapter {
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+}
+.project-journey[data-shape="wide"] .journey-screens {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  justify-content: stretch;
+}
+.project-journey[data-shape="wide"]
+  .journey-screens
+  figure:first-child:nth-last-child(odd) {
+  grid-column: 1 / -1;
+}
+.project-journey[data-shape="wide"] .journey-screens img {
+  border-radius: 0.7rem;
+}
 .case-context {
   display: grid;
   grid-template-columns: 0.85fr 1fr 1fr;
@@ -7151,6 +7166,10 @@ main,
   }
   .journey-screens {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .project-journey[data-shape="wide"] .journey-chapter,
+  .project-journey[data-shape="wide"] .journey-screens {
+    grid-template-columns: 1fr;
   }
   .project-showcase-heading {
     grid-template-columns: 1fr;
