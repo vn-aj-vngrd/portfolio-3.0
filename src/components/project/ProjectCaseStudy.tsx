@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ProjectJourney } from "@/components/project/ProjectJourney";
 import { ProjectShowcase } from "@/components/project/ProjectShowcase";
 import { RelayHighlights } from "@/components/project/RelayHighlights";
 import { projectCatalog } from "@/content/projects";
@@ -71,7 +72,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         </section>
       ) : null}
 
-      <ProjectShowcase project={project} />
+      {project.journey ? null : <ProjectShowcase project={project} />}
 
       <section
         className="case-context"
@@ -88,6 +89,8 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
           <p>{project.solution}</p>
         </div>
       </section>
+
+      <ProjectJourney project={project} />
 
       {project.slug === "relay" ? <RelayHighlights /> : null}
       {project.features ? (
