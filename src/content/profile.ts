@@ -1,10 +1,48 @@
 import { aiWorkflow } from "@/content/ai-workflow";
 
+export type IntroIcon =
+  | "code"
+  | "web"
+  | "mobile"
+  | "sparkles"
+  | "agent"
+  | "terminal"
+  | "pin";
+
+export type IntroPart = string | { chip: string; icon: IntroIcon };
+
+// Plain-text twins of these paragraphs feed metadata; keep both in step.
+const intro: readonly (readonly IntroPart[])[] = [
+  [
+    "I’m a ",
+    { chip: "product-driven engineer", icon: "code" },
+    " in ",
+    { chip: "Cebu", icon: "pin" },
+    " with 3+ years building ",
+    { chip: "web", icon: "web" },
+    " and ",
+    { chip: "mobile apps", icon: "mobile" },
+    " from requirements to delivery. At work that means React and C# / ASP.NET Core; in my own products, TypeScript, Next.js, and Expo.",
+  ],
+  [
+    "Lately I’m building ",
+    { chip: "AI features", icon: "sparkles" },
+    " and ",
+    { chip: "agents", icon: "agent" },
+    " into real products, working daily with ",
+    { chip: "Claude Code", icon: "terminal" },
+    " and ",
+    { chip: "Codex", icon: "terminal" },
+    ". I direct the work, review the code, and verify the results.",
+  ],
+];
+
 export const profile = {
   name: "Van AJ Vanguardia",
   title: "AI Product Engineer / Software Engineer.",
   statement:
-    "I am an AI product engineer with more than three years of experience building web and mobile applications, from requirements through delivery, with the user’s task guiding each decision. At work I build with React and C# / ASP.NET Core; in my own products I use TypeScript, Next.js, React Native, and Expo.",
+    "I’m a product-driven engineer in Cebu with 3+ years building web and mobile apps from requirements to delivery. At work that means React and C# / ASP.NET Core; in my own products, TypeScript, Next.js, and Expo.",
+  intro,
   introduction: `I am based in Cebu, Philippines. ${aiWorkflow.profileSummary}`,
   location: "Cebu, Philippines",
   availability: "Open to opportunities",
