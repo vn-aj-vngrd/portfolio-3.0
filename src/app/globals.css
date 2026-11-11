@@ -7514,27 +7514,33 @@ main,
   display: none;
 }
 .case-nav a {
+  position: relative;
   display: inline-flex;
   min-height: 2rem;
   align-items: center;
   margin-block: 0.4rem;
   padding-inline: 0.7rem;
-  border-radius: 0.4rem;
   color: var(--muted);
   font:
     500 0.7rem/1.4 var(--font-geist-mono),
     monospace;
   white-space: nowrap;
-  transition:
-    color 0.18s ease,
-    background-color 0.18s ease;
+  transition: color 0.18s ease;
 }
 .case-nav a:hover,
 .case-nav a[aria-current="location"] {
   color: var(--ink);
 }
-.case-nav a[aria-current="location"] {
-  background: var(--surface-strong);
+.case-nav a[aria-current="location"]::before {
+  content: "";
+  position: absolute;
+  left: 0.1rem;
+  top: 50%;
+  width: 0.35rem;
+  height: 0.35rem;
+  margin-top: -0.175rem;
+  border-radius: 50%;
+  background: var(--signal);
 }
 .case-nav-left {
   margin: 0;
@@ -7565,4 +7571,7 @@ main,
   .case-study [id] {
     scroll-margin-top: 8.5rem;
   }
+}
+.case-nav + * {
+  border-top: 0;
 }
