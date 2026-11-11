@@ -60,10 +60,12 @@ export function InterfaceControls() {
   const mounted = useSyncExternalStore(
     () => () => undefined,
     () => true,
-    () => false,
+    () => false
   );
   const [soundEnabled, setSoundEnabled] = useState(false);
-  const audioRef = useRef<Partial<Record<InterfaceSound, HTMLAudioElement>>>({});
+  const audioRef = useRef<Partial<Record<InterfaceSound, HTMLAudioElement>>>(
+    {}
+  );
 
   const playSound = (name: InterfaceSound, volume: number) => {
     const audio = audioRef.current[name] ?? new Audio(soundFiles[name]);
@@ -75,11 +77,14 @@ export function InterfaceControls() {
 
   const changeTheme = (
     choice: ThemeChoice,
-    event: ReactMouseEvent<HTMLButtonElement>,
+    event: ReactMouseEvent<HTMLButtonElement>
   ) => {
     const root = document.documentElement;
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const nextIsDark = choice === "dark" || (choice === "system" && prefersDark);
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    const nextIsDark =
+      choice === "dark" || (choice === "system" && prefersDark);
     const alreadyShowingTheme = root.classList.contains("dark") === nextIsDark;
 
     const applyTheme = () => {
@@ -92,13 +97,18 @@ export function InterfaceControls() {
       return;
     }
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
     const transitionDocument = document as TransitionDocument;
 
     if (reducedMotion || !transitionDocument.startViewTransition) {
       root.classList.add("theme-transition-fallback");
       applyTheme();
-      window.setTimeout(() => root.classList.remove("theme-transition-fallback"), 500);
+      window.setTimeout(
+        () => root.classList.remove("theme-transition-fallback"),
+        500
+      );
       return;
     }
 
@@ -107,7 +117,7 @@ export function InterfaceControls() {
     const y = event.clientY || rect.top + rect.height / 2;
     const radius = Math.hypot(
       Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y),
+      Math.max(y, window.innerHeight - y)
     );
     const transition = transitionDocument.startViewTransition(applyTheme);
 
@@ -124,7 +134,7 @@ export function InterfaceControls() {
             duration: 560,
             easing: "cubic-bezier(.32,.08,.24,1)",
             pseudoElement: "::view-transition-new(root)",
-          },
+          }
         );
       })
       .catch(() => undefined);
@@ -207,7 +217,11 @@ export function InterfaceControls() {
   };
 
   return (
-    <div className="interface-controls" role="group" aria-label="Interface preferences">
+    <div
+      className="interface-controls"
+      role="group"
+      aria-label="Interface preferences"
+    >
       <div className="theme-control">
         <span className="preference-label">Theme</span>
         <div className="theme-options" role="group" aria-label="Color theme">
@@ -229,9 +243,13 @@ export function InterfaceControls() {
         type="button"
         className="sound-toggle"
         onClick={toggleSound}
-        aria-label={soundEnabled ? "Disable interface sounds" : "Enable interface sounds"}
+        aria-label={
+          soundEnabled ? "Disable interface sounds" : "Enable interface sounds"
+        }
         aria-pressed={soundEnabled}
-        title={soundEnabled ? "Disable interface sounds" : "Enable interface sounds"}
+        title={
+          soundEnabled ? "Disable interface sounds" : "Enable interface sounds"
+        }
       >
         <span className="preference-label">Sound</span>
         <svg viewBox="0 0 24 24" aria-hidden="true">

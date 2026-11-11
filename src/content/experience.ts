@@ -15,6 +15,68 @@ export const experienceIntro: readonly RichPart[] = [
   ", from new features to AI capabilities and accessibility.",
 ];
 
+const fullScaleGroups = [
+  {
+    client: "Lytho",
+    label: "Current client · React, C# / ASP.NET Core, SQL Server, AWS",
+    bullets: [
+      "Shipped multiple customer-facing feature epics, expanding how teams manage content, customize data, and coordinate approvals.",
+      "Contributed AI Insights, AI Reviewer, AI Skills, and AI Teammates, agent features that help customers review content and surface insights.",
+      "Fixed form-rendering and UI defects that supported a passed third-party WCAG 2.2 AA audit.",
+      "Resolved export, complex-query, and Lambda processing bottlenecks; QA and customers verified exports after the fixes.",
+      "Helped move Windows services from EC2 to Linux containers on ECS Fargate and built Lambda file processors with no Windows dependency.",
+    ],
+  },
+  {
+    client: "TicketBooth",
+    label: "Earlier client · ASP.NET Core, Angular, Salesforce, Stripe",
+    bullets: [
+      "Built a Salesforce event-booking dashboard for a corporate ticket-management platform.",
+      "Delivered ASP.NET Core and Angular features and integrated Stripe payments.",
+    ],
+  },
+  {
+    client: "Billing (Internal)",
+    label: "ASP.NET Core, Blazor, Azure",
+    bullets: [
+      "Sped up data fetches by replacing slow external API calls with direct database access and optimized queries.",
+      "Extended billing workflows and exports, and integrated QuickBooks employee data so staff no longer switch tools.",
+      "Set up GitHub Actions and Zoho CI/CD for Azure deployment.",
+    ],
+  },
+] as const;
+
+const fullScaleHomeGroups = [
+  {
+    client: "Lytho",
+    label: "Current client · React, C# / ASP.NET Core, SQL Server, AWS",
+    bullets: [
+      "Shipped customer-facing feature epics across React and ASP.NET Core services: content management, data customization, and approval workflows.",
+      "Built AI features, including AI Insights, AI Reviewer, AI Skills, and AI Teammates, so customers can review content and surface insights.",
+      "Improved UI and accessibility, including form-rendering fixes, for a product that passed a third-party WCAG 2.2 AA audit.",
+      "Fixed slow and failing exports, complex queries, and Lambda file processing; QA and customers confirmed the fixes.",
+      "Helped move Windows services from EC2 to Linux containers on ECS Fargate and added Lambda file processors without Windows dependencies.",
+    ],
+  },
+  {
+    client: "TicketBooth",
+    label: "Earlier client · ASP.NET Core, Angular, Salesforce, Stripe",
+    bullets: [
+      "Built a Salesforce event-booking dashboard for a platform that centralizes corporate ticket inventory, requests, allocations, and reporting.",
+      "Developed ASP.NET Core and Angular features and integrated Stripe payments.",
+    ],
+  },
+  {
+    client: "Billing (Internal)",
+    label: "ASP.NET Core, Blazor, Azure",
+    bullets: [
+      "Sped up data fetches by replacing slow external API calls with direct database access and optimized queries.",
+      "Extended billing workflows and exports, and integrated QuickBooks employee data so staff can work without switching tools.",
+      "Set up CI/CD with GitHub Actions and Zoho for Azure deployment.",
+    ],
+  },
+] as const;
+
 export const experience = [
   {
     company: "Full Scale Teams PH",
@@ -23,56 +85,28 @@ export const experience = [
     kind: "Professional",
     current: true,
     summary:
-      "Deliver full-stack product development through Full Scale’s offshore development teams. Currently maintain and extend Lytho, a creative operations platform for marketing workflows and digital assets, using React, C# / ASP.NET Core microservices, Microsoft SQL Server, and AWS. Earlier work includes Ticket Booth, a corporate event-ticket management platform, using Salesforce, ASP.NET Core, and Angular, plus internal billing tooling using ASP.NET Core, Blazor, and Microsoft Azure.",
+      "Full-stack delivery for client products through Full Scale’s offshore teams, in sprint-based Agile with trunk-based development. Uses Claude Code, Cursor, Codex, and Copilot with direct review of generated changes.",
     highlights: [
       {
-        action: "Maintain and evolve Lytho.",
+        action: "Lytho.",
         detail:
-          "Deliver customer-facing features across React interfaces and ASP.NET Core services, including AI insights, data customization, and approval workflows. Features reached customers and received positive feedback; QA and customers verified successful exports after fixes to slow or failing export workflows.",
+          "Customer-facing features, AI capabilities, accessibility, and cloud modernization.",
       },
       {
-        action: "Add AI features and improve accessibility.",
+        action: "TicketBooth.",
         detail:
-          "Implement AI insights and custom AI skill workflows. Contributed accessibility fixes to a product that passed a third-party WCAG 2.2 AA audit.",
+          "Event booking and payments for a corporate ticketing platform.",
       },
       {
-        action: "Move Windows services to Linux containers.",
+        action: "Billing (Internal).",
         detail:
-          "Contributed to backend modernization through EC2-to-ECS migration and ECR container images. Adapted Windows services to run in Linux Docker containers on ECS Fargate and built new AWS Lambda file processors to handle work without legacy Windows dependencies.",
-      },
-      {
-        action: "Deliver internal billing capabilities.",
-        detail:
-          "Expanded an internally used ASP.NET Core and Blazor billing system with workflows, exports, and QuickBooks employee-data integration. Improved fetch response times by replacing slow external API calls with direct database access, implementing connection and factory setup and optimized queries. Configured CI/CD and development workflows using GitHub Actions and Zoho for Microsoft Azure deployment.",
-      },
-      {
-        action: "Build event-booking and payment features.",
-        detail:
-          "Delivered a Salesforce event-booking dashboard for Ticket Booth, a platform that centralizes corporate ticket inventory, requests, allocations, and reporting. Developed ASP.NET Core backend and Angular frontend features and integrated Stripe payments.",
-      },
-      {
-        action: "Work in a continuous delivery cycle.",
-        detail:
-          "Contribute within sprint-based Agile teams using trunk-based development, connecting feature work, bug fixes, review, and release to product needs.",
-      },
-      {
-        action: "Integrate AI-assisted engineering workflows.",
-        detail:
-          "Use Claude Code, Cursor, Codex, and GitHub Copilot for development tasks, with direct code review and verification of generated changes.",
+          "Faster data access, workflows, integrations, and CI/CD for an internal system.",
       },
     ],
-    // Compact wording for the résumé, maintained alongside the full account above.
-    resumeBullets: [
-      "Lytho (current client): Continuously deliver full-stack features and enhancements for Lytho’s customer base using React, C# / ASP.NET Core microservices, SQL Server, and AWS. Completed multiple feature epics released to customers, expanding how teams manage content, customize data, and coordinate approvals.",
-      "Contributed to building AI agents and AI-powered features at Lytho, including AI Insights, AI Reviewer, AI Skills, and AI Teammates, to help customers review content, surface actionable insights, and streamline creative workflows.",
-      "Improved UI/UX and accessibility, including form-rendering fixes, contributing to a successful WCAG 2.2 AA audit conducted by Ramp Accessible.",
-      "Addressed performance bottlenecks and defects across exports, complex data queries, and AWS Lambda file processing; QA and customers verified successful exports after the fixes.",
-      "Contributed to backend modernization through EC2-to-ECS migration and ECR container images; adapted Windows services to run in Linux containers on ECS Fargate and built new AWS Lambda file processors to handle work without legacy Windows dependencies.",
-      "Ticket Booth (earlier client): Built a Salesforce dashboard, ASP.NET Core backend and Angular frontend features, and Stripe payment integration for a corporate event-ticket management platform.",
-      "Internal Billing System: Improved data-fetch response times by replacing slow external API calls with direct database access, implementing connection management and optimized queries.",
-      "Expanded ASP.NET Core and Blazor billing workflows and exports; integrated QuickBooks employee data so internal staff could access information without switching tools.",
-      "Configured billing CI/CD and development workflows using GitHub Actions and Zoho for Microsoft Azure deployment.",
-    ],
+    // Compact wording for the résumé, grouped by client; each bullet is an action and its confirmed result.
+    groups: fullScaleHomeGroups,
+    resumeGroups: fullScaleGroups,
+    resumeBullets: fullScaleGroups.flatMap((group) => group.bullets),
     stack: [
       "React",
       "C#",
@@ -93,41 +127,34 @@ export const experience = [
     period: "Apr 2023 – Apr 2024",
     kind: "Professional",
     summary:
-      "Founded NextDevs and led the team building three applications: an administrative Crew Management System (CMS), a crew portal for personal information and documents, and a Crew Application app for online applications. Delivered all three as Progressive Web Apps (PWAs), combining hands-on full-stack development with direct client collaboration, team coordination, and support.",
+      "Founded NextDevs and led a team building three PWAs for crew management.",
     highlights: [
       {
-        action: "Led product development with clients.",
+        action: "Led delivery.",
         detail:
-          "Worked directly with clients to clarify crew-management requirements and prioritize features, then coordinated implementation across frontend and QA contributors.",
+          "Founded NextDevs and led three PWAs: Crew Management System, Crew Portal, and Crew Application, on Next.js, NestJS/Fastify, and Prisma. The CMS and portal were adopted across the client company.",
       },
       {
-        action: "Built the APIs behind crew-management workflows.",
+        action: "Worked with clients.",
         detail:
-          "Developed endpoints with NestJS and Fastify, structured service and database boundaries, and used Prisma for typed data access connecting the application’s interfaces to backend operations.",
+          "Defined requirements and priorities, coordinated frontend and QA, and resolved client-reported issues.",
       },
       {
-        action: "Developed and refined the frontend.",
+        action: "Built crew workflows.",
         detail:
-          "Built Next.js interfaces for three applications: an administrative CMS for crew-management, crew-change, and reporting; a crew portal for personal information and documents; and a Crew Application app for online submissions. All three are PWAs; the CMS and crew portal are adopted across the client company. Integrated backend APIs and resolved interface and performance issues.",
+          "Admin reports and alerts for expiring documents, contracts, and disembarkation schedules, plus in-app contract generation and export.",
       },
       {
-        action: "Made the application stack testable together.",
+        action: "Made it testable.",
         detail:
-          "Configured Docker and NGINX environments for integration testing and release review. Used Swagger and Postman to document and validate API behavior with the team.",
-      },
-      {
-        action: "Supported clients beyond feature development.",
-        detail:
-          "Provided direct application support, investigated client-reported issues, and coordinated fixes with the development team.",
+          "Docker and NGINX environments for integration testing; APIs documented and validated with Swagger and Postman.",
       },
     ],
     resumeBullets: [
-      "Founded NextDevs and led full-stack delivery of three Progressive Web Apps (PWAs): Crew Management System (CMS), Crew Portal, and Crew Application, using Next.js, NestJS/Fastify, and Prisma. The CMS and portal were adopted across the client company.",
-      "Worked directly with clients to define requirements and prioritize features; coordinated frontend and QA delivery and resolved client-reported issues.",
-      "Built Crew Portal for managing documents and viewing essential information, and a separate Crew Application app for submitting application details online or through an office kiosk.",
-      "Built CMS reports and admin alerts for expiring documents, contracts, and disembarkation schedules, helping administrators track crew-change requirements and upcoming actions.",
-      "Implemented in-app generation and export of crew contracts and other documents using crew- and admin-supplied information, enabling staff to prepare documents directly in the system.",
-      "Configured Docker and NGINX environments for full-stack integration testing before release; documented and validated APIs with Swagger and Postman.",
+      "Founded NextDevs and led delivery of three PWAs (Crew Management System, Crew Portal, Crew Application) with Next.js, NestJS/Fastify, and Prisma; the CMS and portal were adopted across the client company.",
+      "Defined requirements and priorities directly with clients, coordinated frontend and QA, and resolved client-reported issues.",
+      "Built admin reports and alerts for expiring documents, contracts, and disembarkation schedules, plus in-app generation and export of crew contracts.",
+      "Set up Docker and NGINX integration-test environments; documented and validated APIs with Swagger and Postman.",
     ],
     stack: [
       "Next.js",
@@ -146,22 +173,17 @@ export const experience = [
     period: "Sep 2023 – Jan 2024",
     kind: "Internship",
     summary:
-      "Completed a full-stack internship program and built assessment projects with Next.js, ASP.NET Core, MSSQL, and Docker.",
+      "Full-stack internship program with Next.js, ASP.NET Core, MSSQL, and Docker.",
     highlights: [
       {
-        action: "Built an event registration workflow.",
+        action: "Built an event registration system.",
         detail:
-          "Collaborated on an event registration system using ASP.NET Core Web API, Next.js, MSSQL, and Docker.",
+          "Co-built with ASP.NET Core, Next.js, MSSQL, and Docker, including QR-based attendance tracking and real-time check-in statistics.",
       },
       {
-        action: "Implemented attendee tracking.",
+        action: "Built an assessment project alone.",
         detail:
-          "Added QR-based attendance flows and real-time event statistics for organizers.",
-      },
-      {
-        action: "Built an independent assessment project.",
-        detail:
-          "Independently developed a contact-management system across interface, API, database, and containerized environment.",
+          "A contact-management system across interface, API, database, and Docker.",
       },
     ],
     resumeBullets: [
@@ -176,22 +198,17 @@ export const experience = [
     period: "Aug 2023 – Nov 2023",
     kind: "Capstone",
     summary:
-      "Co-developed a marketplace connecting student freelancers with clients using Next.js for web interfaces, React Native with Expo for mobile, and Convex for the shared backend.",
+      "Co-developed NextGig, a marketplace connecting student freelancers with clients.",
     highlights: [
       {
-        action: "Built the mobile and web interfaces.",
+        action: "Built the mobile and web apps.",
         detail:
-          "Implemented the mobile application with Expo, React Native, and TypeScript, plus the admin interface and landing page with Next.js.",
+          "Expo and React Native app, plus a Next.js admin interface and landing page, in TypeScript.",
       },
       {
-        action: "Connected shared data and authentication.",
+        action: "Connected data and auth.",
         detail:
-          "Integrated Convex as the shared backend and Clerk for secure passwordless authentication.",
-      },
-      {
-        action: "Prepared the capstone release.",
-        detail:
-          "Deployed the product across mobile distribution channels and Vercel as part of the capstone delivery.",
+          "Shared Convex backend with Clerk passwordless authentication; web deployed on Vercel, mobile distribution prepared.",
       },
     ],
     resumeBullets: [
@@ -214,22 +231,17 @@ export const experience = [
     period: "Sep 2022 – Dec 2022",
     kind: "Internship",
     summary:
-      "Contributed to backend, documentation, QA, and frontend maintenance across internal business systems.",
+      "Backend, documentation, QA, and frontend maintenance for internal business systems.",
     highlights: [
       {
-        action: "Documented and implemented APIs.",
+        action: "Built and documented APIs.",
         detail:
-          "Created API documentation and implemented CodeIgniter backend endpoints for an Alumni Portal.",
+          "CodeIgniter APIs for an Alumni Portal, validated with Postman.",
       },
       {
-        action: "Tested API and production behavior.",
+        action: "Supported production.",
         detail:
-          "Used Postman for manual API testing and worked with senior developers to resolve visible production issues.",
-      },
-      {
-        action: "Maintained an existing ERP interface.",
-        detail:
-          "Refined jQuery and JavaScript frontend code for an enterprise resource-planning system.",
+          "Worked with senior developers on production issues and maintained JavaScript and jQuery interfaces for ERP workflows.",
       },
     ],
     resumeBullets: [
@@ -244,17 +256,12 @@ export const experience = [
     period: "Jun 2022 – Jul 2022",
     kind: "Internship",
     summary:
-      "Used Python automation to prepare legacy operational data for a new planned-maintenance system.",
+      "Prepared legacy operational data for a planned-maintenance system with Python.",
     highlights: [
       {
-        action: "Automated legacy data preparation.",
+        action: "Automated data preparation.",
         detail:
-          "Developed a Python workflow with Pandas and NumPy to migrate and format legacy Excel records.",
-      },
-      {
-        action: "Standardized records for import.",
-        detail:
-          "Prepared consistent source records for database import and reduced manual handling during system implementation.",
+          "Standardized legacy Excel records with Python, Pandas, and NumPy for import, reducing manual work.",
       },
     ],
     resumeBullets: [

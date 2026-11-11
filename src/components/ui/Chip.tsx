@@ -126,6 +126,27 @@ const paths: Record<ChipIcon, React.ReactNode> = {
       <path d="m8 10.5 4 .8 4-.8M12 11.5V15M10 18l2-3 2 3" />
     </>
   ),
+  mail: (
+    <>
+      <rect x="3" y="5" width="18" height="14" rx="2.5" />
+      <path d="m4 7 8 6 8-6" />
+    </>
+  ),
+  globe: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M3.5 12h17M12 3.5c2.5 2.6 2.5 14.4 0 17M12 3.5c-2.5 2.6-2.5 14.4 0 17" />
+    </>
+  ),
+  github: (
+    <path d="M9 19c-4 1.2-4-2-6-2.5M15 21v-3.2c0-1 .1-1.5-.5-2.1 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.4 1.3a11.6 11.6 0 0 0-6.2 0C6.6 3.9 5.6 4.2 5.6 4.2a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 4.2 10.6c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2.1V21" />
+  ),
+  linkedin: (
+    <>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="3" />
+      <path d="M8 11v5M8 8v.01M12 16v-5M12 13c0-1.4 1-2 2-2s2 .8 2 2.2V16" />
+    </>
+  ),
   grad: (
     <path d="m3 9 9-4.5L21 9l-9 4.5zM7 11.5V16c0 1.2 2.2 2.5 5 2.5s5-1.3 5-2.5v-4.5" />
   ),
@@ -172,6 +193,13 @@ export function Chip({
       {children}
     </>
   );
+  if (href && /^(https?:|mailto:)/u.test(href)) {
+    return (
+      <a className="intro-chip intro-chip-link" href={href}>
+        {content}
+      </a>
+    );
+  }
   return href ? (
     <Link className="intro-chip intro-chip-link" href={href}>
       {content}

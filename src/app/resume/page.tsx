@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { Chip } from "@/components/ui/Chip";
 import { PrintButton } from "@/components/ui/PrintButton";
 import { aiWorkflow } from "@/content/ai-workflow";
 import { profile } from "@/content/profile";
@@ -20,22 +21,32 @@ function displayUrl(url: string) {
 export default function ResumePage() {
   return (
     <main id="main-content" className="resume-page">
-      <div className="resume-controls print-hidden">
-        <Link className="page-back-link" href="/">
-          <span aria-hidden="true">←</span> Back to portfolio
-        </Link>
-        <PrintButton />
+      <div className="resume-bar print-hidden">
+        <div className="resume-controls">
+          <Link className="page-back-link" href="/">
+            <span aria-hidden="true">←</span> Back to portfolio
+          </Link>
+          <PrintButton />
+        </div>
       </div>
       <article className="resume-sheet" data-reveal>
         <header>
           <h1>{profile.name}</h1>
           <p>{resume.title}</p>
           <address>
-            <span>{profile.location}</span>
-            <a href={`mailto:${profile.email}`}>{profile.email}</a>
-            <a href={SITE_URL}>{displayUrl(SITE_URL)}</a>
-            <a href={profile.github}>{displayUrl(profile.github)}</a>
-            <a href={profile.linkedin}>{displayUrl(profile.linkedin)}</a>
+            <Chip icon="pin">{profile.location}</Chip>
+            <Chip icon="mail" href={`mailto:${profile.email}`}>
+              {profile.email}
+            </Chip>
+            <Chip icon="globe" href={SITE_URL}>
+              {displayUrl(SITE_URL)}
+            </Chip>
+            <Chip icon="github" href={profile.github}>
+              {displayUrl(profile.github)}
+            </Chip>
+            <Chip icon="linkedin" href={profile.linkedin}>
+              {displayUrl(profile.linkedin)}
+            </Chip>
           </address>
         </header>
 
@@ -53,25 +64,29 @@ export default function ResumePage() {
                 <p>{item.company}</p>
               </div>
               <p className="resume-period">{item.period}</p>
-              <ul>
-                {item.bullets.map((bullet) => {
-                  const label = resume.engagementLabels.find((value) =>
-                    bullet.startsWith(`${value}: `)
-                  );
-                  return (
-                    <li key={bullet}>
-                      {label ? (
-                        <>
-                          <strong>{label}:</strong>
-                          {bullet.slice(label.length + 1)}
-                        </>
-                      ) : (
-                        bullet
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
+              {"resumeGroups" in item && item.resumeGroups ? (
+                <div className="resume-groups">
+                  {item.resumeGroups.map((group) => (
+                    <div className="resume-group" key={group.client}>
+                      <h4>
+                        {group.client}
+                        <span>{group.label}</span>
+                      </h4>
+                      <ul>
+                        {group.bullets.map((bullet) => (
+                          <li key={bullet}>{bullet}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <ul>
+                  {item.bullets.map((bullet) => (
+                    <li key={bullet}>{bullet}</li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
         </section>
