@@ -4,7 +4,7 @@ export const profile = {
   name: "Van AJ Vanguardia",
   title: "AI Product Engineer / Software Engineer.",
   statement:
-    "For more than three years, I have built and maintained web and mobile applications, prioritizing user experience from requirements through delivery. I am product-driven and fully adopted AI: I build AI features and agents into real products, and I ship with Claude Code and Codex every day. My work centers on React and C# / ASP.NET Core, alongside personal products in the TypeScript ecosystem with Next.js, React Native, and Expo.",
+    "I am an AI product engineer with more than three years of experience building web and mobile applications, from requirements through delivery, with the user’s task guiding each decision. At work I build with React and C# / ASP.NET Core; in my own products I use TypeScript, Next.js, React Native, and Expo.",
   introduction: `I am based in Cebu, Philippines. ${aiWorkflow.profileSummary}`,
   location: "Cebu, Philippines",
   availability: "Open to opportunities",
