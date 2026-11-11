@@ -14,6 +14,7 @@ const { projectCatalog } = await load("src/content/projects.ts");
 const { experience } = await load("src/content/experience.ts");
 const { certifications } = await load("src/content/certifications.ts");
 const { gear } = await load("src/content/gear.ts");
+const { projectReadingMinutes } = await load("src/lib/reading-time.ts");
 
 const projects = projectCatalog.list();
 const filled = (value) => typeof value === "string" && value.trim().length > 0;
@@ -238,4 +239,11 @@ test("profile keeps the identity fields every surface reads", () => {
     );
   }
   assert.match(profile, /name: "Van AJ Vanguardia"/u);
+});
+
+test("case studies carry a believable reading time", () => {
+  for (const project of projects) {
+    const minutes = projectReadingMinutes(project);
+    assert.ok(within(minutes, 2, 25), `${project.slug}: ${minutes} min`);
+  }
 });
