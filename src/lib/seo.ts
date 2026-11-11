@@ -5,7 +5,7 @@ export const SITE_NAME = "Van AJ Vanguardia";
 export const SITE_TITLE =
   "Van AJ Vanguardia | AI Product Engineer / Software Engineer";
 export const SITE_DESCRIPTION =
-  "Cebu-based AI product engineer and software engineer building AI features, agents, and web, mobile, and backend products with TypeScript, React, Next.js, ASP.NET Core, Claude Code, and Codex.";
+  "Cebu-based AI product engineer and software engineer building AI features, agents, and web, mobile, and backend products with TypeScript, React, Next.js, ASP.NET Core, and Claude Code.";
 
 export const DEFAULT_SOCIAL_IMAGE = {
   url: "/opengraph-image",

@@ -1,58 +1,144 @@
 import Link from "next/link";
 
+import { AiMotion } from "@/components/ai/AiMotion";
+import { FactoryPipeline } from "@/components/ai/FactoryPipeline";
+import { FactoryRun } from "@/components/ai/FactoryRun";
+import { SetupMap } from "@/components/ai/SetupMap";
 import { WorkflowSteps } from "@/components/ai/WorkflowSteps";
 import {
   agentGuardrails,
-  aiToolNames,
   aiWorkflow,
-  executionContexts,
-  modelPreferences,
+  setupItems,
   skillGroups,
-  supportingContexts,
   workflowEvidence,
 } from "@/content/ai-workflow";
+import {
+  factoryGuardrails,
+  factoryImprovement,
+  factoryIntro,
+  factoryRoles,
+} from "@/content/factory";
 import { projectCatalog } from "@/content/projects";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
   title: "AI Engineering Workflow",
   description:
-    "How Van AJ Vanguardia uses coding agents: product questions, focused specifications, vertical slices, implementation, and independent code review.",
+    "How Van AJ Vanguardia builds with Claude Code: Opus plans, Sonnet builds, and his software factory turns GitHub issues into reviewed draft pull requests.",
   path: aiWorkflow.path,
 });
 
 export default function AiWorkflowPage() {
   return (
     <main id="main-content" className="ai-page">
-      <section className="ai-hero" aria-labelledby="ai-title" data-reveal>
+      <AiMotion />
+      <section
+        className="ai-hero"
+        aria-labelledby="ai-title"
+        data-reveal="list"
+      >
         <Link className="page-back-link" href="/">
           <span aria-hidden="true">←</span> Back to portfolio
         </Link>
         <div className="ai-hero-grid">
           <div>
-            <p className="ai-kicker">AI-assisted engineering</p>
+            <p className="ai-kicker">{aiWorkflow.kicker}</p>
             <h1 id="ai-title">{aiWorkflow.title}</h1>
           </div>
           <div>
             <p className="ai-introduction">{aiWorkflow.introduction}</p>
-            <nav className="ai-links" aria-label="Workflow sections">
-              <a href="#workflow">The workflow ↓</a>
-              <a href="#evidence">Public evidence ↓</a>
+            <nav className="ai-links" aria-label="Page sections">
+              <a href="#setup">My setup ↓</a>
+              <a href="#factory">The factory ↓</a>
+              <a href="#loop">The loop ↓</a>
+              <a href="#evidence">Evidence ↓</a>
             </nav>
           </div>
         </div>
       </section>
 
+      <section className="ai-section" id="setup" aria-labelledby="setup-title">
+        <header className="ai-section-heading" data-reveal>
+          <p className="ai-kicker">{aiWorkflow.setup.kicker}</p>
+          <h2 id="setup-title">{aiWorkflow.setup.title}</h2>
+          <p>{aiWorkflow.setup.lead}</p>
+        </header>
+        <SetupMap />
+        <div className="ai-ledger" data-reveal="list">
+          {setupItems.map((item) => (
+            <article key={item.title}>
+              <div>
+                <p className="ai-kicker">{item.kicker}</p>
+                <h3>{item.title}</h3>
+              </div>
+              <div>
+                <p>{item.body}</p>
+                {"link" in item ? (
+                  <a className="ai-source-link" href={item.link.href}>
+                    {item.link.label} ↗
+                  </a>
+                ) : null}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section
         className="ai-section"
-        id="workflow"
-        aria-labelledby="workflow-title"
-        data-reveal
+        id="factory"
+        aria-labelledby="factory-title"
       >
-        <header className="ai-section-heading">
-          <h2 id="workflow-title">Decisions before implementation.</h2>
+        <header className="ai-section-heading" data-reveal>
+          <p className="ai-kicker">{factoryIntro.kicker}</p>
+          <h2 id="factory-title">{factoryIntro.title}</h2>
+          {factoryIntro.lead.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
           <p>
-            {aiWorkflow.attribution.text}{" "}
+            {factoryIntro.aqdLine.before}
+            <Link href={factoryIntro.aqdLine.href}>
+              {factoryIntro.aqdLine.linkText}
+            </Link>
+            {factoryIntro.aqdLine.after}
+          </p>
+        </header>
+        <FactoryRun>
+          <FactoryPipeline />
+        </FactoryRun>
+        <div className="factory-notes">
+          <div>
+            <h3>Who does what</h3>
+            <dl className="factory-roles" data-reveal="list">
+              {factoryRoles.map((role) => (
+                <div key={role.who}>
+                  <dt>{role.who}</dt>
+                  <dd>{role.does}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <div>
+            <h3>What the factory can’t do</h3>
+            <ul data-reveal="list">
+              {factoryGuardrails.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="factory-improve">
+          <h3>How it improves</h3>
+          <p>{factoryImprovement}</p>
+        </div>
+      </section>
+
+      <section className="ai-section" id="loop" aria-labelledby="loop-title">
+        <header className="ai-section-heading" data-reveal>
+          <p className="ai-kicker">The loop</p>
+          <h2 id="loop-title">Decisions before implementation.</h2>
+          <p>
+            {aiWorkflow.attribution.text} {aiWorkflow.loopNote}{" "}
             <a href={aiWorkflow.attribution.href}>
               Explore the source skills ↗
             </a>
@@ -73,39 +159,15 @@ export default function AiWorkflowPage() {
           </svg>
           {aiWorkflow.feedbackLoop}
         </p>
-        <div className="ai-notes">
-          <p>{aiWorkflow.flexibility}</p>
-          <p>{aiWorkflow.releaseResponsibility}</p>
-        </div>
-      </section>
-
-      <section className="ai-section" aria-labelledby="setup-title" data-reveal>
-        <header className="ai-section-heading">
-          <h2 id="setup-title">A lightweight daily setup.</h2>
-          <p>{aiWorkflow.workspace}</p>
-        </header>
-        <div className="ai-ledger">
-          {executionContexts.map((context) => (
-            <article key={context.title}>
-              <h3>{context.title}</h3>
-              <div>
-                <p>{context.description}</p>
-                <p className="ai-tool-list">
-                  {aiToolNames(context.tools).join(" · ")}
-                </p>
-              </div>
-            </article>
-          ))}
-        </div>
+        <p className="ai-section-note">{aiWorkflow.flexibility}</p>
       </section>
 
       <section
         className="ai-section"
         id="evidence"
         aria-labelledby="evidence-title"
-        data-reveal
       >
-        <header className="ai-section-heading">
+        <header className="ai-section-heading" data-reveal>
           <h2 id="evidence-title">Inspect the work, not just the tools.</h2>
           <p>
             Public projects show the engineering practices and product decisions
@@ -113,7 +175,7 @@ export default function AiWorkflowPage() {
             the same agent workflow.
           </p>
         </header>
-        <div className="ai-ledger">
+        <div className="ai-ledger" data-reveal="list">
           {workflowEvidence.map((evidence) => {
             const project = projectCatalog.find(evidence.slug);
             if (!project)
@@ -141,20 +203,16 @@ export default function AiWorkflowPage() {
         </div>
       </section>
 
-      <section
-        className="ai-section"
-        aria-labelledby="skills-title"
-        data-reveal
-      >
-        <header className="ai-section-heading">
+      <section className="ai-section" aria-labelledby="skills-title">
+        <header className="ai-section-heading" data-reveal>
           <h2 id="skills-title">Reusable skills. Human judgment.</h2>
           <p>
-            I adapt shared skills and custom instructions across agents. They
-            make recurring tasks consistent without replacing product questions
-            or learning through the work.
+            I adapt shared skills and write my own. They make recurring work
+            consistent without replacing product questions or learning through
+            the work.
           </p>
         </header>
-        <div className="agent-skills">
+        <div className="agent-skills" data-reveal="list">
           {skillGroups.map((group) => (
             <details key={group.title}>
               <summary>
@@ -174,7 +232,7 @@ export default function AiWorkflowPage() {
         </div>
         <div className="ai-guardrails">
           <h3>What I remain accountable for</h3>
-          <ul>
+          <ul data-reveal="list">
             {agentGuardrails.map((guardrail) => (
               <li key={guardrail}>{guardrail}</li>
             ))}
@@ -182,43 +240,6 @@ export default function AiWorkflowPage() {
         </div>
       </section>
 
-      <section className="ai-section" aria-labelledby="tools-title" data-reveal>
-        <header className="ai-section-heading">
-          <h2 id="tools-title">Models and supporting tools.</h2>
-          <p>
-            The model, agent harness, and workspace serve different purposes. I
-            choose each for the context rather than treating one setup as
-            universal.
-          </p>
-        </header>
-        <div className="ai-ledger">
-          {Object.values(modelPreferences).map((model) => (
-            <article key={model.name}>
-              <div>
-                <p className="ai-kicker">{model.context}</p>
-                <h3>{model.name}</h3>
-              </div>
-              <div>
-                <p>{model.use}</p>
-                <a className="ai-source-link" href={model.source}>
-                  Model information ↗
-                </a>
-              </div>
-            </article>
-          ))}
-          {supportingContexts.map((context) => (
-            <article key={context.title}>
-              <h3>{context.title}</h3>
-              <div>
-                <p>{context.description}</p>
-                <p className="ai-tool-list">
-                  {aiToolNames(context.tools).join(" · ")}
-                </p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
       <footer className="ai-footer" data-reveal>
         <p>Tools support the work. The products show the result.</p>
         <Link href="/#my-work">Explore my products →</Link>

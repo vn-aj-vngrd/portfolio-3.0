@@ -85,7 +85,7 @@ export const experience = [
     kind: "Professional",
     current: true,
     summary:
-      "Full-stack delivery for client products through Full Scale’s offshore teams, in sprint-based Agile with trunk-based development. Uses Claude Code, Cursor, Codex, and Copilot with direct review of generated changes.",
+      "Full-stack delivery for client products through Full Scale’s offshore teams, in sprint-based Agile with trunk-based development. Uses Claude Code with direct review of generated changes.",
     highlights: [
       {
         action: "Lytho.",

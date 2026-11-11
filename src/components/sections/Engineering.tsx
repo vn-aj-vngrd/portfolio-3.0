@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { AiMotion } from "@/components/ai/AiMotion";
 import { WorkflowSteps } from "@/components/ai/WorkflowSteps";
 import { Chip } from "@/components/ui/Chip";
 import { aiWorkflow } from "@/content/ai-workflow";
@@ -11,9 +12,8 @@ export function Engineering() {
       className="section engineering-section"
       id="tech-stack"
       aria-labelledby="engineering-title"
-      data-reveal
     >
-      <div className="section-heading section-heading-wide">
+      <div className="section-heading section-heading-wide" data-reveal>
         <div className="section-index">
           <span>02</span>
           <span>Tech stack</span>
@@ -30,7 +30,11 @@ export function Engineering() {
         </p>
       </div>
 
-      <div className="pillar-list">
+      <div
+        className="pillar-list"
+        data-tour-stop="tech-pillars"
+        data-reveal="list"
+      >
         {engineeringPillars.map((pillar) => (
           <article key={pillar.title}>
             <h3>{pillar.title}</h3>
@@ -42,18 +46,21 @@ export function Engineering() {
 
       <section
         className="ai-workflow-preview"
+        data-tour-stop="tech-workflow"
+        data-reveal
         aria-labelledby="workflow-preview-title"
       >
         <h3 id="workflow-preview-title">{aiWorkflow.home.title}</h3>
         <p>{aiWorkflow.home.description}</p>
         <WorkflowSteps compact />
+        <AiMotion />
         <div className="ai-links">
           <Link href={aiWorkflow.path}>Explore my AI workflow →</Link>
           <Link href="/work/roleway">See Roleway’s approval-gated agent →</Link>
         </div>
       </section>
 
-      <div className="stack-introduction">
+      <div className="stack-introduction" data-reveal>
         <p>Working stack</p>
         <h3>The technologies I use, grouped by the work they support.</h3>
         <p>
@@ -63,7 +70,11 @@ export function Engineering() {
         </p>
       </div>
 
-      <div className="stack-groups">
+      <div
+        className="stack-groups"
+        data-tour-stop="tech-stack-groups"
+        data-reveal="list"
+      >
         {stackGroups.map((group) => (
           <article
             className={

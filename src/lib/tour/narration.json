@@ -1,0 +1,373 @@
+{
+  "engine": "kokoro-82m",
+  "voice": "af_heart",
+  "speed": 0.95,
+  "bitrateKbps": 64,
+  "stops": {
+    "intro-1": {
+      "file": "/tour/intro-1.c28194a9.m4a",
+      "hash": "c28194a9",
+      "seconds": 10.4,
+      "bytes": 87263,
+      "lines": [
+        "This is the portfolio of Van AJ Vanguardia, a product-driven engineer in Cebu.",
+        "Let’s take three minutes to walk through what he builds, and the evidence behind it."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 5.9
+        },
+        {
+          "start": 6.18,
+          "end": 10.4
+        }
+      ]
+    },
+    "intro-2": {
+      "file": "/tour/intro-2.758a65ca.m4a",
+      "hash": "758a65ca",
+      "seconds": 11.1,
+      "bytes": 93433,
+      "lines": [
+        "He has 3+ years taking products from requirements to production, across web, mobile apps, and backend.",
+        "Today, he builds AI features and agents into real products."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 6.63
+        },
+        {
+          "start": 6.91,
+          "end": 11.1
+        }
+      ]
+    },
+    "work-intro": {
+      "file": "/tour/work-intro.8d242b4d.m4a",
+      "hash": "8d242b4d",
+      "seconds": 6.3,
+      "bytes": 52040,
+      "lines": [
+        "First, the work: six products, each designed and built end to end.",
+        "Source is public where available."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 4.19
+        },
+        {
+          "start": 4.47,
+          "end": 6.3
+        }
+      ]
+    },
+    "work-relay": {
+      "file": "/tour/work-relay.c3172076.m4a",
+      "hash": "c3172076",
+      "seconds": 9.6,
+      "bytes": 80744,
+      "lines": [
+        "Relay keeps a pickleball session together, from the first invite to the final score.",
+        "Its AI agent answers game questions and prepares plans for review."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 4.82
+        },
+        {
+          "start": 5.1,
+          "end": 9.6
+        }
+      ]
+    },
+    "work-roleway": {
+      "file": "/tour/work-roleway.497e46d9.m4a",
+      "hash": "497e46d9",
+      "seconds": 7.6,
+      "bytes": 63567,
+      "lines": [
+        "Roleway turns a scattered job search into focused workspaces and clear next steps.",
+        "It’s open source and self-hostable."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 5.1
+        },
+        {
+          "start": 5.39,
+          "end": 7.6
+        }
+      ]
+    },
+    "work-viya": {
+      "file": "/tour/work-viya.e7d0fc10.m4a",
+      "hash": "e7d0fc10",
+      "seconds": 10.1,
+      "bytes": 85403,
+      "lines": [
+        "Viya is a mobile travel workspace for itineraries, budgets, documents, and bookings.",
+        "AI-assisted changes wait for the traveler’s review before saving."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 5.5
+        },
+        {
+          "start": 5.78,
+          "end": 10.1
+        }
+      ]
+    },
+    "work-acsfi": {
+      "file": "/tour/work-acsfi.9e1fc000.m4a",
+      "hash": "9e1fc000",
+      "seconds": 11.3,
+      "bytes": 94302,
+      "lines": [
+        "ACSFI is the live website of a scholarship foundation, backed by a headless CMS.",
+        "The team publishes programs, reports, and events without changing code."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 6.61
+        },
+        {
+          "start": 6.9,
+          "end": 11.3
+        }
+      ]
+    },
+    "work-balay": {
+      "file": "/tour/work-balay.8b6ed822.m4a",
+      "hash": "8b6ed822",
+      "seconds": 7.3,
+      "bytes": 60590,
+      "lines": [
+        "Balay is a two-storey house you can walk through in the browser, drawn live in three.js.",
+        "It has a narrated tour, too."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 5.38
+        },
+        {
+          "start": 5.66,
+          "end": 7.3
+        }
+      ]
+    },
+    "work-aqd": {
+      "file": "/tour/work-aqd.79c9164c.m4a",
+      "hash": "79c9164c",
+      "seconds": 8,
+      "bytes": 66793,
+      "lines": [
+        "And AQD is a private closet for iPhone, with an on-device agent.",
+        "No account, no backend, no cloud AI."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 5
+        },
+        {
+          "start": 5.28,
+          "end": 8
+        }
+      ]
+    },
+    "craft-method": {
+      "file": "/tour/craft-method.49a319fa.m4a",
+      "hash": "49a319fa",
+      "seconds": 8.7,
+      "bytes": 73530,
+      "lines": [
+        "Across all of it, the method stays the same.",
+        "Clarify the requirement, map the user flow, build it, then revise it against real behavior."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 2.41
+        },
+        {
+          "start": 2.69,
+          "end": 8.7
+        }
+      ]
+    },
+    "craft-agents": {
+      "file": "/tour/craft-agents.aac5adc3.m4a",
+      "hash": "aac5adc3",
+      "seconds": 11.3,
+      "bytes": 95896,
+      "lines": [
+        "He builds with Claude Code, in five stages: grill, spec, tickets, implement, and code review.",
+        "Opus plans, Sonnet builds, and he reviews the code and verifies the results."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 6.04
+        },
+        {
+          "start": 6.32,
+          "end": 11.3
+        }
+      ]
+    },
+    "craft-stack": {
+      "file": "/tour/craft-stack.b2f1a055.m4a",
+      "hash": "b2f1a055",
+      "seconds": 9.5,
+      "bytes": 79736,
+      "lines": [
+        "TypeScript is home, across web, mobile, and Node.js.",
+        "ASP.NET Core, databases, and cloud sit behind it when the work needs them."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 3.75
+        },
+        {
+          "start": 4.03,
+          "end": 9.5
+        }
+      ]
+    },
+    "github-activity": {
+      "file": "/tour/github-activity.ec45d023.m4a",
+      "hash": "ec45d023",
+      "seconds": 9.6,
+      "bytes": 81075,
+      "lines": [
+        "His GitHub activity covers the last twelve months, private work included.",
+        "Private work appears only as totals: no repository names, no source."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 4.41
+        },
+        {
+          "start": 4.69,
+          "end": 9.6
+        }
+      ]
+    },
+    "career-now": {
+      "file": "/tour/career-now.5ba83141.m4a",
+      "hash": "5ba83141",
+      "seconds": 10.7,
+      "bytes": 89678,
+      "lines": [
+        "Today he’s a full-stack developer at Full Scale.",
+        "He delivers customer-facing features, AI capabilities, accessibility, and cloud modernization for client products."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 2.79
+        },
+        {
+          "start": 3.07,
+          "end": 10.7
+        }
+      ]
+    },
+    "career-nextdevs": {
+      "file": "/tour/career-nextdevs.1d3e7dbb.m4a",
+      "hash": "1d3e7dbb",
+      "seconds": 8.4,
+      "bytes": 71592,
+      "lines": [
+        "Before that, he founded NextDevs and led a team building three crew-management web apps.",
+        "Two of them were adopted across the client company."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 5.27
+        },
+        {
+          "start": 5.55,
+          "end": 8.4
+        }
+      ]
+    },
+    "credentials": {
+      "file": "/tour/credentials.6ce46f5d.m4a",
+      "hash": "6ce46f5d",
+      "seconds": 8.6,
+      "bytes": 70481,
+      "lines": [
+        "He studied Information Technology at the University of San Carlos.",
+        "He was a Hackfest finalist and earned an Outstanding Intern Award."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 4.5
+        },
+        {
+          "start": 4.79,
+          "end": 8.6
+        }
+      ]
+    },
+    "principles": {
+      "file": "/tour/principles.547b0581.m4a",
+      "hash": "547b0581",
+      "seconds": 8,
+      "bytes": 65832,
+      "lines": [
+        "He cares about what happens after the first release.",
+        "Start with the user’s task, then choose the simplest architecture that supports it."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 2.92
+        },
+        {
+          "start": 3.2,
+          "end": 8
+        }
+      ]
+    },
+    "contact": {
+      "file": "/tour/contact.220ab4aa.m4a",
+      "hash": "220ab4aa",
+      "seconds": 11.1,
+      "bytes": 93151,
+      "lines": [
+        "He’s open to AI product engineering and software engineering roles.",
+        "Email is the best way to reach him, and every case study is one click away.",
+        "Thanks for taking the tour."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 4.41
+        },
+        {
+          "start": 4.69,
+          "end": 9.35
+        },
+        {
+          "start": 9.63,
+          "end": 11.1
+        }
+      ]
+    }
+  }
+}

@@ -10,19 +10,33 @@ export function ContributionGraph({
   const weeks = compact ? calendar.slice(-20) : calendar;
 
   return (
-    <div className="contribution-graph" data-compact={compact}>
+    <div
+      className="contribution-graph"
+      data-compact={compact}
+      data-fill="cells"
+    >
       <div className="contribution-scroll" data-lenis-prevent>
-        <div className="contribution-weeks" role="img" aria-label="GitHub contribution activity">
+        <div
+          className="contribution-weeks"
+          role="img"
+          aria-label="GitHub contribution activity"
+        >
           {weeks.flatMap((week, weekIndex) =>
             week.map((day, dayIndex) => (
               <span
                 className="contribution-day"
                 data-level={day.level}
                 key={day.date}
-                style={{ gridColumn: weekIndex + 1, gridRow: dayIndex + 1 }}
+                style={
+                  {
+                    gridColumn: weekIndex + 1,
+                    gridRow: dayIndex + 1,
+                    "--col": Math.round((weekIndex * 20) / weeks.length),
+                  } as React.CSSProperties
+                }
                 title={`${day.date}: ${day.count} ${day.count === 1 ? "contribution" : "contributions"}`}
               />
-            )),
+            ))
           )}
         </div>
       </div>

@@ -27,6 +27,7 @@ Hold every rule on every edit.
 | Résumé wording, skills, product picks                                                   | `resume.ts`                                                                     | [career](references/career.md)     |
 | Name, title, statement, intro, philosophy, education, links                             | `profile.ts`                                                                    | [career](references/career.md)     |
 | Degree, award, certificate                                                              | `certifications.ts`                                                             | [career](references/career.md)     |
+| Guided tour narration (every line repeats a fact from another module)                   | `tour.ts`                                                                       | [site](references/site.md)         |
 | Gear, engineering pillars and stack, AI tools and workflow, design tokens, SEO metadata | `gear.ts`, `engineering.ts`, `ai-workflow.ts`, `design-system.ts`, `lib/seo.ts` | [site](references/site.md)         |
 
 ## Steps

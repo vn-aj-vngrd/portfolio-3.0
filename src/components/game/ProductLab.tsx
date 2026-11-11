@@ -1,7 +1,13 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useCallback, useEffect, useImperativeHandle, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 
 import {
   isPlatformModifierPressed,
@@ -18,19 +24,19 @@ const sceneLoading = (
 
 const ProductLabScene = dynamic(
   () => import("./ProductLabScene").then((module) => module.ProductLabScene),
-  { ssr: false, loading: () => sceneLoading },
+  { ssr: false, loading: () => sceneLoading }
 );
 const StackBuilderGame = dynamic(
   () => import("./StackBuilderGame").then((module) => module.StackBuilderGame),
-  { ssr: false, loading: () => sceneLoading },
+  { ssr: false, loading: () => sceneLoading }
 );
 const ReleaseRunGame = dynamic(
   () => import("./ReleaseRunGame").then((module) => module.ReleaseRunGame),
-  { ssr: false, loading: () => sceneLoading },
+  { ssr: false, loading: () => sceneLoading }
 );
 const ProductMatchGame = dynamic(
   () => import("./ProductMatchGame").then((module) => module.ProductMatchGame),
-  { ssr: false, loading: () => sceneLoading },
+  { ssr: false, loading: () => sceneLoading }
 );
 
 type LabGame = "stack" | "ship" | "match";
@@ -51,9 +57,29 @@ const games: readonly {
   duration: string;
   description: string;
 }[] = [
-  { id: "stack", index: "01", title: "Stack Builder", duration: "45 sec", description: "Time five moving 3D layers and build a stable product stack." },
-  { id: "ship", index: "02", title: "Release Run", duration: "45 sec", description: "Navigate a first-person build corridor and activate every release stage." },
-  { id: "match", index: "03", title: "Product Match", duration: "55 sec", description: "Match real products to the problems they were designed to solve." },
+  {
+    id: "stack",
+    index: "01",
+    title: "Stack Builder",
+    duration: "45 sec",
+    description: "Time five moving 3D layers and build a stable product stack.",
+  },
+  {
+    id: "ship",
+    index: "02",
+    title: "Release Run",
+    duration: "45 sec",
+    description:
+      "Navigate a first-person build corridor and activate every release stage.",
+  },
+  {
+    id: "match",
+    index: "03",
+    title: "Product Match",
+    duration: "55 sec",
+    description:
+      "Match real products to the problems they were designed to solve.",
+  },
 ];
 
 export function ProductLab({ ref, productMatches }: ProductLabProps) {
@@ -75,8 +101,12 @@ export function ProductLab({ ref, productMatches }: ProductLabProps) {
   useEffect(() => {
     const handleShortcut = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement | null;
-      if (target?.matches("input, textarea, select, [contenteditable='true']")) return;
-      if (isPlatformModifierPressed(event, platformModifier) && event.key.toLowerCase() === "k") {
+      if (target?.matches("input, textarea, select, [contenteditable='true']"))
+        return;
+      if (
+        isPlatformModifierPressed(event, platformModifier) &&
+        event.key.toLowerCase() === "k"
+      ) {
         event.preventDefault();
         open();
       }
@@ -85,14 +115,29 @@ export function ProductLab({ ref, productMatches }: ProductLabProps) {
     return () => document.removeEventListener("keydown", handleShortcut);
   }, [open, platformModifier]);
 
-  useEffect(() => () => {
-    document.documentElement.classList.remove("product-lab-open");
-  }, []);
+  useEffect(
+    () => () => {
+      document.documentElement.classList.remove("product-lab-open");
+    },
+    []
+  );
 
   return (
     <div className="product-lab-entry">
       <button className="product-lab-trigger" type="button" onClick={open}>
-        <i aria-hidden="true">↗</i>
+        <i aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            focusable="false"
+          >
+            <path d="M9.5 4h5M10.5 4v5.2L5.4 18a1.5 1.5 0 0 0 1.3 2.2h10.6a1.5 1.5 0 0 0 1.3-2.2l-5.1-8.8V4M8.2 14.5h7.6" />
+          </svg>
+        </i>
         <span>Product Lab</span>
         <kbd>{platformModifier ? `${platformModifier} K` : "K"}</kbd>
       </button>
@@ -114,14 +159,20 @@ export function ProductLab({ ref, productMatches }: ProductLabProps) {
               className="product-lab-back"
               type="button"
               onClick={game ? () => setGame(null) : close}
-              aria-label={game ? "Return to Product Lab games" : "Return to portfolio"}
+              aria-label={
+                game ? "Return to Product Lab games" : "Return to portfolio"
+              }
             >
               <span aria-hidden="true">←</span>
               {game ? "All games" : "Portfolio"}
             </button>
             <div>
               <span>Interactive portfolio</span>
-              <strong>{game ? games.find((entry) => entry.id === game)?.title : "Three ways Van builds"}</strong>
+              <strong>
+                {game
+                  ? games.find((entry) => entry.id === game)?.title
+                  : "Three ways Van builds"}
+              </strong>
             </div>
             <span className="product-lab-header-spacer" aria-hidden="true" />
           </header>
@@ -129,25 +180,38 @@ export function ProductLab({ ref, productMatches }: ProductLabProps) {
           <div className="product-lab-stage" data-game={game ?? "home"}>
             {isOpen && game === "stack" ? <StackBuilderGame /> : null}
             {isOpen && game === "ship" ? <ReleaseRunGame /> : null}
-            {isOpen && game === "match" ? <ProductMatchGame entries={productMatches} /> : null}
+            {isOpen && game === "match" ? (
+              <ProductMatchGame entries={productMatches} />
+            ) : null}
             {isOpen && game === null ? (
               <>
                 <div className="product-lab-visual">
                   <ProductLabScene />
-                  <span className="product-lab-coordinate" aria-hidden="true">CEB · 10.3157° N / 123.8854° E</span>
+                  <span className="product-lab-coordinate" aria-hidden="true">
+                    CEB · 10.3157° N / 123.8854° E
+                  </span>
                 </div>
                 <div className="product-lab-panel">
                   <div className="product-lab-home">
                     <p className="product-lab-eyebrow">Choose an experiment</p>
                     <h2>Build, release, and explore the work.</h2>
-                    <p>Three short interactions. No scoreboards, logins, or technical knowledge required.</p>
+                    <p>
+                      Three short interactions. No scoreboards, logins, or
+                      technical knowledge required.
+                    </p>
                     <div className="product-lab-games">
                       {games.map((entry) => (
-                        <button key={entry.id} type="button" onClick={() => setGame(entry.id)}>
+                        <button
+                          key={entry.id}
+                          type="button"
+                          onClick={() => setGame(entry.id)}
+                        >
                           <span>{entry.index}</span>
                           <strong>{entry.title}</strong>
                           <p>{entry.description}</p>
-                          <small>{entry.duration} <i aria-hidden="true">→</i></small>
+                          <small>
+                            {entry.duration} <i aria-hidden="true">→</i>
+                          </small>
                         </button>
                       ))}
                     </div>

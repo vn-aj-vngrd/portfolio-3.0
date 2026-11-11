@@ -9,6 +9,7 @@ import { Header } from "@/components/layout/Header";
 import { PortfolioNavigation } from "@/components/providers/PortfolioNavigation";
 import { ScrollReveal } from "@/components/providers/ScrollReveal";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { TourRoot } from "@/components/tour/TourRoot";
 import { projectCatalog } from "@/content/projects";
 import {
   DEFAULT_SOCIAL_IMAGE,
@@ -121,6 +122,7 @@ export default function RootLayout({
             <Header productMatches={projectCatalog.productMatches()} />
             {children}
             <Footer />
+            <TourRoot />
           </PortfolioNavigation>
         </ThemeProvider>
         {process.env.VERCEL_ENV !== "preview" && <Analytics />}

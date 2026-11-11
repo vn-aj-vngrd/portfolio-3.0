@@ -5,22 +5,19 @@ import {
   type MouseEvent as ReactMouseEvent,
   type ReactNode,
   useEffect,
-  useRef,
   useState,
   useSyncExternalStore,
 } from "react";
 
+import { isTourActive } from "@/components/tour/store";
+import {
+  playInterfaceSound,
+  unlockInterfaceAudio,
+} from "@/lib/audio/interface-sound";
+
 type ThemeChoice = "system" | "light" | "dark";
-type InterfaceSound = "hover" | "focus" | "click" | "enable";
 type TransitionDocument = Document & {
   startViewTransition?: (update: () => void) => { ready: Promise<void> };
-};
-
-const soundFiles: Record<InterfaceSound, string> = {
-  hover: "/sounds/hover.wav",
-  focus: "/sounds/focus.wav",
-  click: "/sounds/click.wav",
-  enable: "/sounds/enable.wav",
 };
 
 const themes: { value: ThemeChoice; label: string; icon: ReactNode }[] = [
@@ -63,17 +60,6 @@ export function InterfaceControls() {
     () => false
   );
   const [soundEnabled, setSoundEnabled] = useState(false);
-  const audioRef = useRef<Partial<Record<InterfaceSound, HTMLAudioElement>>>(
-    {}
-  );
-
-  const playSound = (name: InterfaceSound, volume: number) => {
-    const audio = audioRef.current[name] ?? new Audio(soundFiles[name]);
-    audioRef.current[name] = audio;
-    audio.volume = volume;
-    audio.currentTime = 0;
-    void audio.play().catch(() => undefined);
-  };
 
   const changeTheme = (
     choice: ThemeChoice,
@@ -141,12 +127,6 @@ export function InterfaceControls() {
   };
 
   useEffect(() => {
-    for (const [name, src] of Object.entries(soundFiles)) {
-      const audio = new Audio(src);
-      audio.preload = "auto";
-      audioRef.current[name as InterfaceSound] = audio;
-    }
-
     const frame = requestAnimationFrame(() => {
       setSoundEnabled(localStorage.getItem("interface-sounds") === "on");
     });
@@ -169,7 +149,7 @@ export function InterfaceControls() {
       if (!control || control === hoveredControl) return;
 
       hoveredControl = control;
-      playSound("hover", 0.5);
+      if (!isTourActive()) playInterfaceSound("hover");
     };
 
     const handlePointerOut = (event: PointerEvent) => {
@@ -183,13 +163,13 @@ export function InterfaceControls() {
       const control = findControl(event.target);
       if (!control) return;
 
-      playSound("click", 0.72);
+      if (!isTourActive()) playInterfaceSound("click");
     };
 
     const handleFocus = (event: FocusEvent) => {
       const control = findControl(event.target);
       if (control?.matches(":focus-visible")) {
-        playSound("focus", 0.55);
+        if (!isTourActive()) playInterfaceSound("focus");
       }
     };
 
@@ -212,7 +192,8 @@ export function InterfaceControls() {
     localStorage.setItem("interface-sounds", next ? "on" : "off");
 
     if (next) {
-      playSound("enable", 0.78);
+      unlockInterfaceAudio();
+      playInterfaceSound("enable");
     }
   };
 

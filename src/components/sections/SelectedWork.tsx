@@ -27,9 +27,8 @@ export function SelectedWork() {
       className="section work-section"
       id="my-work"
       aria-labelledby="work-title"
-      data-reveal
     >
-      <div className="section-heading">
+      <div className="section-heading" data-tour-stop="work" data-reveal>
         <div className="section-index">
           <span>01</span>
           <span>My work</span>
@@ -53,14 +52,18 @@ export function SelectedWork() {
           </p>
         </div>
       </div>
-      <div className="project-list">
+      <div className="project-list" data-reveal="list">
         {featured.map((project, index) => (
           <ProjectFeature key={project.slug} project={project} index={index} />
         ))}
       </div>
 
       {supporting.length ? (
-        <div className="supporting-work" aria-labelledby="supporting-title">
+        <div
+          className="supporting-work"
+          aria-labelledby="supporting-title"
+          data-reveal
+        >
           <h3 id="supporting-title">Supporting work</h3>
           {supporting.map((project) => (
             <article key={project.slug}>
