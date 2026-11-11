@@ -20,7 +20,7 @@ export default function Home() {
         name: SITE_NAME,
         url: SITE_URL,
         image: absoluteUrl("/images/profile.jpg"),
-        jobTitle: "Full-Stack Software Developer",
+        jobTitle: "AI Product Engineer / Software Engineer",
         description: profile.statement,
         address: {
           "@type": "PostalAddress",
@@ -56,7 +56,7 @@ export default function Home() {
         "@type": "ProfilePage",
         "@id": `${SITE_URL}/#profile-page`,
         url: SITE_URL,
-        name: `${SITE_NAME} — Full-Stack Software Developer`,
+        name: `${SITE_NAME} — AI Product Engineer / Software Engineer`,
         description: SITE_DESCRIPTION,
         inLanguage: "en-PH",
         isPartOf: { "@id": `${SITE_URL}/#website` },

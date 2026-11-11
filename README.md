@@ -1,6 +1,6 @@
 # Portfolio 3.0
 
-Product-driven portfolio for Van AJ Vanguardia, a product-minded full-stack software engineer.
+Product-driven portfolio for Van AJ Vanguardia, a product-driven AI product engineer and software engineer.
 
 ## Stack
 

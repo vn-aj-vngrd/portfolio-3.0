@@ -5,10 +5,10 @@ import { aiWorkflow } from "@/content/ai-workflow";
 import { profile } from "@/content/profile";
 
 const signals = [
-  { value: "3+ years", label: "Full-stack work" },
+  { value: "3+ years", label: "Product engineering" },
   { value: "TypeScript", label: "Web and mobile" },
   { value: "ASP.NET Core", label: "APIs and data" },
-  { value: "Coding agents", label: "Research, build, review" },
+  { value: "AI features", label: "Agents, Claude Code, Codex" },
 ] as const;
 
 export function Hero() {

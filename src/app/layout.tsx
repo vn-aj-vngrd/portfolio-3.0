@@ -47,6 +47,8 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   keywords: [
     "Van AJ Vanguardia",
+    "AI product engineer",
+    "software engineer",
     "full-stack software developer",
     "software developer Cebu",
     "TypeScript developer",

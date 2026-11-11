@@ -30,6 +30,38 @@ function balayScreen(file: string, label: string, alt: string) {
   } as const;
 }
 
+function relayScreen(
+  file: string,
+  label: string,
+  alt: string,
+  width = 2880,
+  height = 1800
+) {
+  return {
+    src: `/images/projects/relay/${file}.webp`,
+    alt,
+    width,
+    height,
+    label,
+  } as const;
+}
+
+function rolewayScreen(
+  file: string,
+  label: string,
+  alt: string,
+  width: number,
+  height: number
+) {
+  return {
+    src: `/images/projects/roleway/${file}.webp`,
+    alt,
+    width,
+    height,
+    label,
+  } as const;
+}
+
 const projectEntries = [
   {
     slug: "relay",
@@ -80,6 +112,262 @@ const projectEntries = [
         body: "Large score controls, deterministic rotations, visible queue state, and focused live views prioritize fast one-handed decisions beside the court.",
       },
     ],
+    journey: {
+      screenShape: "wide",
+      title: "One game, from the first link to the last score.",
+      summary:
+        "Relay is one game link that grows with the session. The screens below follow a game in order: meet the product, plan and invite, find a court, track who is coming, run the courts, settle the cost, keep the memory, ask Agent, and come back for more. Public pages are shown with the product’s own sample data; signed-in screens use seeded games.",
+      chapters: [
+        {
+          label: "Meet Relay",
+          title: "Start from a link, a court, or Quick Play.",
+          lead: "The landing page leads with the promise, pickleball plans in one link, and offers four ways in before anyone signs up.",
+          points: [
+            "Create game, Start Quick Play, Find a court, and Explore open games all work without an account; logging in is for keeping a game.",
+            "A sample game shows what the one link carries: who is going, the live court, the cost per player, and the chat.",
+            "A feature carousel walks the whole flow in order: find a court, set the plan, invite players, play, split the cost, and keep the memory.",
+          ],
+          screens: [
+            relayScreen(
+              "landing-2026-11",
+              "Landing",
+              "Relay landing page with the headline Plan the game, Share the link, Play, and Create game, Start Quick Play, Find a court, and Explore open games actions"
+            ),
+            relayScreen(
+              "features-overview",
+              "What Relay does",
+              "Relay See what Relay does carousel with cards for finding a court, setting the plan, and inviting players with one link"
+            ),
+            relayScreen(
+              "sample-game",
+              "One link, everyone in the loop",
+              "Relay sample game Saturday Night Pickle showing the roster, a live court score, the cost per player, and game chat"
+            ),
+          ],
+        },
+        {
+          label: "Plan the game",
+          title: "Set the court, time, and access in four steps.",
+          lead: "A short Plan, Players and access, Details, and Review flow ends in one shared game link.",
+          points: [
+            "The plan starts with a name, a court from Relay’s directory or one you type, a date, and start and end times.",
+            "Hosts set the player limit and who can find the game, then optionally add booking and payment details before publishing.",
+            "Players see the same facts the host entered: venue, capacity, waitlist, estimated cost, and booking status.",
+          ],
+          screens: [
+            relayScreen(
+              "plan-and-invite",
+              "Plan and invite",
+              "Relay Create a game form at step one next to a published Saturday Night Pickle game card with a guest name field and Going, Maybe, and Can’t go buttons"
+            ),
+            relayScreen(
+              "create-game",
+              "Create game · step 1 of 4",
+              "Relay Create a game page at step one of four with game name, court, date, start time, and end time fields",
+              1260,
+              952
+            ),
+            relayScreen(
+              "guest-rsvp",
+              "Guest RSVP",
+              "Relay guest RSVP card with a name field, playing experience, Going, Maybe, and Can’t go buttons, and a Share game action"
+            ),
+          ],
+        },
+        {
+          label: "Find a court",
+          title: "Search courts across the Philippines.",
+          lead: "Court Finder lists 305 places on a map, and a court can start a game with its details already filled in.",
+          points: [
+            "Search by court, city, province, or amenity, or use your location.",
+            "Filter by setting, access, parking, price, and availability; restricted facilities stay listed when their access and booking rules are clear.",
+            "Relay links to directions and external booking. It does not reserve courts.",
+          ],
+          screens: [
+            relayScreen(
+              "court-finder",
+              "Court Finder",
+              "Relay Court Finder with a searchable list of 305 Philippines places beside a clustered map and filters for setting, access, parking, price, and availability"
+            ),
+            relayScreen(
+              "court-search",
+              "Courts near a city",
+              "Relay landing Court Finder section with a list of Cebu courts and a map zoomed to Mandaue and Lapu-Lapu"
+            ),
+          ],
+        },
+        {
+          label: "Know who is coming",
+          title: "A roster, a response, and a place for the group.",
+          lead: "The game overview answers the questions players ask in the chat: where, when, who is in, and what happens next.",
+          points: [
+            "Overview shows the date, court, duration, booking status, host note, and activity for Play, Payments, and Chat.",
+            "Players answer Going, Maybe, or Can’t go; capacity and the waitlist stay authoritative, and an ended game shows its final roster.",
+            "Groups keep recurring crews together, with owner and member roles and the next game for each.",
+          ],
+          screens: [
+            relayScreen(
+              "game-overview",
+              "Game overview",
+              "Relay game overview for Next Weekend Maybe with date, court, a note, a response card, and a Who’s playing roster",
+              1260,
+              952
+            ),
+            relayScreen(
+              "game-ended",
+              "Ended game",
+              "Relay ended game Sunday Morning Rotations with a View recap button and a final roster",
+              1260,
+              952
+            ),
+            relayScreen(
+              "groups",
+              "Groups",
+              "Relay Groups list showing four groups with member counts and owner or member roles",
+              1260,
+              952
+            ),
+          ],
+        },
+        {
+          label: "Run the courts",
+          title: "Pick a format, start the courts, and score from a phone.",
+          lead: "Courtside controls favor large targets and clear state over exhaustive configuration.",
+          points: [
+            "Five formats: Paddle Stack, Mix It Up, Balanced Mix, Court Climb, and Team Round Robin, with partner style and queue rules.",
+            "Active courts show the match in progress, big team scores, plus and minus controls, and Finish match; the queue shows who is up next.",
+            "After the game, the recap keeps matches, points played, court minutes, and each result with its winner.",
+          ],
+          screens: [
+            relayScreen(
+              "play-setup",
+              "Set up Play",
+              "Relay Set up Play panel listing five formats next to an Active courts panel with a live court score"
+            ),
+            relayScreen(
+              "courtside-score",
+              "Courtside score",
+              "Relay scoreboard at courtside scale with two large team scores and a Finish match button"
+            ),
+            relayScreen(
+              "game-recap",
+              "Final recap",
+              "Relay final recap for Sunday Morning Rotations with matches, points played, court minutes, and match results",
+              1500,
+              812
+            ),
+          ],
+        },
+        {
+          label: "Split the cost, keep talking",
+          title: "Repayment and conversation stay with the game.",
+          lead: "Relay tracks who has paid. It never moves the money; players pay the host their usual way.",
+          points: [
+            "The host enters the total and payment method; each player sees their share and can upload a screenshot as proof, which the host marks as paid.",
+            "Hosts can adjust one player’s share without changing the rest, and a fixed per-player price is stated before anyone joins.",
+            "Game chat carries arrival updates, parking notes, photos, and reactions, with notifications for invites, waitlist changes, and payments.",
+          ],
+          screens: [
+            relayScreen(
+              "split-cost",
+              "Split the court cost",
+              "Relay repayment card showing a ₱300 share, the host’s payment method, and a proof of payment upload"
+            ),
+            relayScreen(
+              "game-chat",
+              "Game chat",
+              "Relay game chat with messages from players, day separators, a thumbs-up reaction, and a message box",
+              1260,
+              952
+            ),
+          ],
+        },
+        {
+          label: "Keep the story",
+          title: "Turn the game into something you can share.",
+          lead: "A finished game becomes a vertical Story built from its results and the photos people add.",
+          points: [
+            "Five themes: Court Pop, Studio, Scrapbook, Soft Serve, and Clubhouse.",
+            "Pick up to four photos, a layout, a look, and the details to show, then share or download a 1080 × 1920 image.",
+            "Device photos stay in the Story; the game album is unchanged.",
+          ],
+          screens: [
+            relayScreen(
+              "story-templates",
+              "Story templates",
+              "Relay Story section showing three phone-sized Story templates with a score, a match count, and a photo scrapbook"
+            ),
+            relayScreen(
+              "story-builder",
+              "Story builder",
+              "Relay Story builder with a Same court next week template and tabs for Photos, Layout, Look, and Details",
+              1260,
+              952
+            ),
+          ],
+        },
+        {
+          label: "Ask Agent",
+          title: "Get back to the game in plain language.",
+          lead: "Agent answers from the games, groups, and courts you are allowed to see, and prepares plans for review before anything is created.",
+          points: [
+            "Ask when the next game is, who is joining, which courts are nearby, or how Relay works; answers link back to the records.",
+            "When creation is enabled, Agent asks one missing question at a time and shows a proposal to approve.",
+            "Free hosts get 50 Agent messages a month; saved chats can be reopened.",
+          ],
+          screens: [
+            relayScreen(
+              "agent-landing",
+              "Agent",
+              "Relay Agent section with a sample conversation asking when the next game is and who is joining"
+            ),
+            relayScreen(
+              "agent-chat",
+              "Agent chat",
+              "Relay Agent page with suggested prompts such as Help me create a game and Find courts near me",
+              1500,
+              812
+            ),
+          ],
+        },
+        {
+          label: "Come back to it",
+          title: "Try it first, then keep your games.",
+          lead: "Quick Play needs no account and stays on the device; signing in keeps games, history, and insights.",
+          points: [
+            "Quick Play takes four to twenty-four names, a format, and a review, then runs rotations and scores locally.",
+            "Home lists recent games, and personal insights show games hosted and played, match record, and points for fun.",
+            "Free hosts get twelve games a month; Plus and Pro are listed as coming soon.",
+          ],
+          screens: [
+            relayScreen(
+              "quick-play",
+              "Quick Play",
+              "Relay Quick Play step one with player name fields, a Paste names action, and an Add player option"
+            ),
+            relayScreen(
+              "pricing",
+              "Pricing",
+              "Relay pricing page with Free, Plus, and Pro plans showing games per month, photo storage, and Agent messages"
+            ),
+            relayScreen(
+              "home",
+              "Home",
+              "Relay Home with a Ready for your next game heading, a list of what the link carries, and recent games",
+              1500,
+              812
+            ),
+            relayScreen(
+              "insights",
+              "Game insights",
+              "Relay personal game insights with match record, win rate, games hosted and played, points, and recent games",
+              1288,
+              931
+            ),
+          ],
+        },
+      ],
+    },
     agent: {
       summary:
         "A conversation grounded in the game, with a separate boundary for creation.",
@@ -259,6 +547,210 @@ const projectEntries = [
         body: "Connect your own provider for Agent; core tracking works without it. Provider charges are separate from Roleway capacity limits.",
       },
     ],
+    journey: {
+      screenShape: "wide",
+      title: "A job search, one Workspace at a time.",
+      summary:
+        "Roleway keeps each search in its own Workspace and follows a role from discovery to outcome. The screens below walk the product in order. Public pages show the product’s own sample data; the Inbox and Opportunity screens come from a fictional Workspace.",
+      chapters: [
+        {
+          label: "Meet Roleway",
+          title: "A clear next move, with AI when you want it.",
+          lead: "The landing page opens on the idea: every target gets a Workspace, and every serious role keeps one Next Action.",
+          points: [
+            "The hero shows a Workspace of Opportunities grouped by stage with a due Next Action beside each.",
+            "Core tracking works without AI. Agent is optional and uses a provider you connect.",
+            "Plans set capacity: Free includes one active Workspace; Plus and Pro, with more Workspaces and storage, are listed as coming soon.",
+          ],
+          screens: [
+            rolewayScreen(
+              "landing-2026-11",
+              "Landing",
+              "Roleway landing page headline Your job search with a clear next move above a sample Workspace of Opportunities grouped by stage",
+              2880,
+              1800
+            ),
+            rolewayScreen(
+              "pricing",
+              "Plans",
+              "Roleway pricing with Free, Plus, and Pro plans showing active Workspaces and saved content",
+              2880,
+              2400
+            ),
+          ],
+        },
+        {
+          label: "Start from Home",
+          title: "The day’s work, ordered.",
+          lead: "Home brings due work, follow-ups, interviews, and Jobs to review into one briefing for the active Workspace.",
+          points: [
+            "Next up groups overdue, today, and upcoming items, each linking to its Opportunity.",
+            "Workspace details keep target roles, locations, industries, seniority, and work arrangement in view.",
+            "Notifications collect interview reminders, Opportunity changes, and due tasks across all Workspaces.",
+          ],
+          screens: [
+            rolewayScreen(
+              "sample-home",
+              "Workspace Home",
+              "Roleway Workspace Home with a Next up briefing, Workspace details, Workspace pulse, and active Opportunities",
+              2408,
+              1888
+            ),
+            rolewayScreen(
+              "sample-notifications",
+              "Notifications",
+              "Roleway Notifications grouping interview, Opportunity, and task updates with an At a glance summary",
+              1928,
+              1048
+            ),
+          ],
+        },
+        {
+          label: "Capture, then commit",
+          title: "Every Job gets a deliberate first decision.",
+          lead: "A discovered listing lands in the Inbox. Tracking it creates an Opportunity; until then it is only a Job.",
+          points: [
+            "Add a Job by hand or import a public listing; Ashby, Greenhouse, and Lever endpoints and page metadata fill the details.",
+            "The Inbox shows role, company, compensation, and description, then Track, Review later, or Dismiss.",
+            "Tracking creates an Opportunity with a stage, a priority, and a first Next Action.",
+          ],
+          screens: [
+            rolewayScreen(
+              "sample-inbox",
+              "Inbox review",
+              "Roleway Inbox with a Job expanded to its details and actions to track it, review it later, or dismiss it",
+              2608,
+              1348
+            ),
+            rolewayScreen(
+              "add-job",
+              "Add job",
+              "Roleway Add a job dialog with role title, company, description, location, compensation, work arrangement, and a Job URL import",
+              1260,
+              952
+            ),
+            rolewayScreen(
+              "inbox-review",
+              "Jobs to review",
+              "Roleway Inbox listing three Jobs to review with an expanded Job and an Inbox overview",
+              1260,
+              952
+            ),
+          ],
+        },
+        {
+          label: "Track serious roles",
+          title: "List or board, one Next Action each.",
+          lead: "Opportunities are grouped by stage and show priority, Next Action, and due date at a glance.",
+          points: [
+            "Work from the List by default and switch to the Board when moving stages is the work.",
+            "Each Opportunity page keeps the description, tasks, interviews, documents, people, and activity together.",
+            "Mark application submitted to record when, where, and what you sent; Roleway adds a follow-up and never contacts the employer.",
+          ],
+          screens: [
+            rolewayScreen(
+              "sample-opportunities",
+              "Opportunities list",
+              "Roleway Opportunities list grouped by Interested, Preparing, and Applied with priority, Next Action, and due date columns",
+              2608,
+              988
+            ),
+            rolewayScreen(
+              "opportunity-dossier",
+              "Opportunity dossier",
+              "Roleway Opportunity page with tabs for Overview, Tasks, Interviews, Documents, People, and Activity, a Next Action, and a status panel",
+              1260,
+              952
+            ),
+          ],
+        },
+        {
+          label: "Interviews, people, and documents",
+          title: "Preparation stays attached to the role.",
+          lead: "Conversations, contacts, and drafts belong to an Opportunity or to the whole Workspace.",
+          points: [
+            "Interviews list upcoming, next seven days, history, and a calendar, each with time zone and a preparation check.",
+            "Contacts track relationship, linked Opportunity, and the next follow-up, with overdue ones surfaced first.",
+            "Documents keep drafts and approved versions, such as resumes, research notes, and application answers, with a recently updated list.",
+          ],
+          screens: [
+            rolewayScreen(
+              "sample-interviews",
+              "Interviews",
+              "Roleway Interviews page listing upcoming conversations with dates, times, Opportunities, and a preparation check",
+              2416,
+              1348
+            ),
+            rolewayScreen(
+              "sample-contacts",
+              "Contacts",
+              "Roleway Contacts table with recruiters, hiring managers, and referrals, their Opportunities, and follow-up dates",
+              2416,
+              1068
+            ),
+            rolewayScreen(
+              "sample-documents",
+              "Documents",
+              "Roleway Document library with resumes, research notes, and application answers marked Draft or Approved",
+              2416,
+              1228
+            ),
+          ],
+        },
+        {
+          label: "See the whole search",
+          title: "Insights that only claim what was recorded.",
+          lead: "Account-wide activity across Workspaces, with a plain note about what the numbers can and cannot say.",
+          points: [
+            "Jobs captured, applications, interviews held, and offers recorded for a chosen period.",
+            "Activity over time and a Needs attention panel for missing, overdue, or stale Next Actions.",
+            "Conversion rates appear only after enough applications are recorded; counts never imply causation.",
+          ],
+          screens: [
+            rolewayScreen(
+              "sample-insights",
+              "Insights",
+              "Roleway Insights with jobs captured, applications, interviews held, offers, an activity chart, and a Needs attention panel",
+              2608,
+              1628
+            ),
+          ],
+        },
+        {
+          label: "Ask Agent",
+          title: "Explore, draft, and propose, then approve.",
+          lead: "Agent reads the active Workspace or all Workspaces, streams its answer, and proposes changes you approve one by one.",
+          points: [
+            "The + and / menu offers Create and Explore prompts; Create covers Workspace, task, Next Action, note, interview, and contact.",
+            "Agent asks for missing details in chat and shows the exact destination and fields before anything is saved.",
+            "Connect your own provider and choose a model; saved conversations can be resumed.",
+          ],
+          screens: [
+            rolewayScreen(
+              "agent-workspaces",
+              "Agent across Workspaces",
+              "Roleway Agent opened across all Workspaces with a message box, a plus menu for Create and Explore actions, and a model selector",
+              1288,
+              930
+            ),
+            rolewayScreen(
+              "sample-agent",
+              "Sample conversation",
+              "Roleway Agent sample conversation answering what to focus on today and preparing for an interview",
+              1172,
+              1234
+            ),
+            rolewayScreen(
+              "agent-demo",
+              "Conversational creation",
+              "Roleway public Agent demo gathering a Workspace objective in conversation before asking the user to review a proposal",
+              1440,
+              1000
+            ),
+          ],
+        },
+      ],
+    },
     agent: {
       summary:
         "Explore your search, turn a request into a proposal, and stay in control of every saved change.",
