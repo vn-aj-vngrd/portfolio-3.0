@@ -101,12 +101,13 @@ export const gear: readonly GearItem[] = [
   {
     name: "iPhone 17 Pro Max",
     detail: "Mobile device",
+    color: "Silver",
     use: "Real-device QA for responsive interfaces, PWAs, authentication, and mobile product flows.",
     kind: "phone",
     image: {
       src: "/images/gear/iphone-17-pro-max.webp",
-      alt: "iPhone 17 Pro Max in Deep Blue, back and front",
-      width: 805,
+      alt: "iPhone 17 Pro Max in Silver, back and front",
+      width: 803,
       height: 1000,
     },
   },
