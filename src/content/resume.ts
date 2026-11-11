@@ -16,7 +16,7 @@ function experienceEntry(company: string, bullets?: readonly string[]) {
 export const resume = {
   title: "AI Product Engineer / Software Engineer",
   summary:
-    "Product-driven AI product engineer and software engineer building customer-facing applications with React, C# / ASP.NET Core, SQL Server, and AWS, alongside personal web and mobile products in the TypeScript ecosystem. Builds AI features and agents, including tool-calling assistants with approval flows, and works daily with Claude Code and Codex. Founded NextDevs and led client-facing product delivery. Prioritizes user experience and adapts technology choices to product needs, staying hands-on from planning through delivery: guiding decisions, reviewing code, and verifying results.",
+    "AI Product Engineer / Software Engineer with 3+ years shipping customer-facing products across web, mobile, and backend. Builds AI features and agents, such as tool-calling assistants with approval-gated actions, and works daily with Claude Code and Codex. Delivers with React, C# / ASP.NET Core, SQL Server, AWS, and TypeScript; founded NextDevs and led delivery of three PWAs.",
   skills: [
     {
       label: "Frontend & mobile",
@@ -52,11 +52,6 @@ export const resume = {
         "Claude Code, Codex, PI Agent, Cursor, Herdr, MCPs, custom skills, multi-agent orchestration, agent loops",
     },
   ],
-  engagementLabels: [
-    "Lytho (current client)",
-    "Ticket Booth (earlier client)",
-    "Internal Billing System",
-  ],
   professional: [
     experienceEntry("Full Scale Teams PH"),
     experienceEntry("NextDevs Software Development Services"),
@@ -73,7 +68,7 @@ const productSelections = [
   {
     slug: "relay",
     description:
-      "Built Relay for pickleball RSVPs, rotations, scores, and shared expenses. Implemented a Vercel AI SDK / OpenRouter agent with streamed answers, authorized game, group, court, and Help Center tools, and approval-gated creation. Enforced server-side authorization; tested permissions and session workflows with Vitest and Playwright.",
+      "Pickleball RSVPs, rotations, scores, and shared costs, with a streaming AI agent over permission-checked tools and approval-gated creation. Server-side authorization tested with Vitest and Playwright.",
     stack: [
       "Next.js",
       "TypeScript",
@@ -90,7 +85,7 @@ const productSelections = [
   {
     slug: "roleway",
     description:
-      "Built a job-search workspace with a Vercel AI SDK tool-loop agent that streams progress through user-connected providers, with bounded account context and Zod-validated structured output. Agent proposes workspaces, tasks, notes, next actions, interviews, and contacts for user approval; PostgreSQL functions authorize execution. Protected data with row-level security and encrypted provider credentials.",
+      "Job-search workspace with a tool-loop AI agent on user-connected providers that proposes tasks, notes, interviews, and contacts for approval; PostgreSQL functions authorize execution, with row-level security and encrypted credentials.",
     stack: [
       "Next.js",
       "TypeScript",
@@ -106,13 +101,13 @@ const productSelections = [
   {
     slug: "acsfi",
     description:
-      "Built the Astro Charitable and Scholarship Foundation’s website and Strapi CMS so editors can update programs, reports, and events without changing code. Used Next.js static generation with incremental regeneration to serve pages and refresh published content.",
+      "Website and Strapi CMS for a nonprofit foundation so editors publish programs, reports, and events without code; Next.js static generation with incremental regeneration.",
     stack: ["Next.js", "TypeScript", "Strapi", "MySQL", "Docker"],
   },
   {
     slug: "aqd",
     description:
-      "Built AQD, a private on-device closet app for iPhone, in SwiftUI and SwiftData with no account or backend. Implemented an Apple Foundation Models Agent that answers from the closet, drafts changes as tickable reviewed change sets with undo, and checks replies against real records. Enforced layered architecture and design tokens with scripts and tests.",
+      "Private on-device iPhone closet app in SwiftUI and SwiftData, with no account or backend; an Apple Foundation Models agent answers from the closet and drafts reviewable, undoable change sets.",
     stack: [
       "Swift",
       "SwiftUI",

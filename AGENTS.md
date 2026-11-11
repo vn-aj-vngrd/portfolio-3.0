@@ -15,6 +15,7 @@ Read the relevant source of truth before changing behavior:
 Each skill lives in `.agents/skills/<name>/` and is also linked from `.claude/skills/` for Claude Code.
 
 - `portfolio-content`: load before adding, updating, or removing any portfolio fact (products, experience, résumé, profile, certifications, gear, copy). It holds the content rules and the touchpoint checklist that `scripts/content.test.mjs` enforces.
+- `resume`: load before changing résumé wording, bullets, summary, or the `/resume` page and print layout. It holds the rules for action-and-result bullets, confirmed metrics, client grouping, and parse-safe structure.
 - `deploy-vercel`: load only when the user asks to deploy or release.
 
 ## Workflow

@@ -436,12 +436,12 @@ figure {
 .product-lab-visual::before {
   content: "PRODUCT / LAB 03";
   position: absolute;
-  top: 1rem;
-  left: 1rem;
+  top: 1.75rem;
+  left: 1.75rem;
   z-index: 2;
   color: var(--faint);
   font:
-    500 0.52rem/1 var(--font-geist-mono),
+    500 0.6rem/1 var(--font-geist-mono),
     monospace;
   letter-spacing: 0.08em;
   pointer-events: none;
@@ -464,8 +464,8 @@ figure {
 }
 .product-lab-coordinate {
   position: absolute;
-  right: 1rem;
-  bottom: 1rem;
+  right: 1.75rem;
+  bottom: 1.75rem;
   z-index: 3;
   padding: 0.4rem 0.5rem;
   background: var(--signal);
@@ -2744,10 +2744,12 @@ main,
 .featured-credential {
   position: sticky;
   top: 2rem;
-  min-height: 25rem;
+  min-height: 30rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 2rem;
+  overflow: hidden;
   padding: clamp(1.6rem, 3vw, 2.5rem);
   background: var(--ink);
   color: var(--canvas);
@@ -2789,7 +2791,44 @@ main,
   line-height: 1.08;
   letter-spacing: -0.035em;
 }
-.featured-credential > div:last-child > span {
+.credential-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--canvas) 18%, transparent);
+  color: color-mix(in srgb, var(--canvas) 82%, transparent);
+  font:
+    500 0.7rem/1.35 var(--font-geist-mono),
+    monospace;
+}
+.credential-brand svg {
+  width: 2.4rem;
+  height: 1.2rem;
+  flex: none;
+}
+.credential-bar {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  height: 0.35rem;
+}
+.credential-bar i {
+  flex: 1;
+}
+.credential-bar i:nth-child(1) {
+  background: #4285f4;
+}
+.credential-bar i:nth-child(2) {
+  background: #ea4335;
+}
+.credential-bar i:nth-child(3) {
+  background: #fbbc04;
+}
+.credential-bar i:nth-child(4) {
+  background: #34a853;
+}
+.featured-credential > .credential-body > span {
   display: block;
   margin-top: 0.8rem;
   color: color-mix(in srgb, var(--canvas) 65%, transparent);
@@ -3238,12 +3277,7 @@ main,
 @media (min-width: 901px) {
   .journey-copy {
     position: sticky;
-    top: 9.5rem;
-  }
-}
-@media (min-width: 981px) {
-  .journey-copy {
-    top: 5.5rem;
+    top: 2rem;
   }
 }
 .journey-label {
@@ -6082,65 +6116,68 @@ main,
 /* Résumé */
 .resume-page {
   width: auto;
+  min-height: 100svh;
   margin-right: 0;
   margin-left: var(--rail);
-  padding-block: 3rem 6rem;
+  padding-block: 0 6rem;
+  background:
+    radial-gradient(
+        circle at 1px 1px,
+        color-mix(in srgb, var(--ink) 9%, transparent) 1px,
+        transparent 0
+      )
+      0 0 / 22px 22px,
+    var(--surface);
+}
+.resume-bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  padding-inline: 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--canvas);
 }
 .resume-controls {
   max-width: 52rem;
-  margin: 0 auto 1.5rem;
+  min-height: 3.5rem;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
+}
+.resume-controls .page-back-link {
+  border-bottom: 0;
 }
 .resume-print-button {
-  min-height: 3.25rem;
+  min-height: 2.25rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.6rem 0.75rem 0.6rem 1rem;
-  border: 1px solid var(--ink);
-  background: var(--ink);
-  color: var(--canvas);
-  font-family: var(--font-geist-mono), monospace;
+  gap: 0.55rem;
+  padding: 0 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--canvas);
+  color: var(--ink);
+  font:
+    500 0.7rem/1.4 var(--font-geist-mono),
+    monospace;
   transition:
-    transform 0.18s ease,
-    background-color 0.18s ease,
-    color 0.18s ease;
+    border-color 0.18s ease,
+    background-color 0.18s ease;
 }
 .resume-print-button:hover {
-  transform: translateY(-2px);
+  border-color: var(--signal);
+  background: var(--signal-soft);
 }
 .resume-print-button svg {
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 1rem;
+  height: 1rem;
   fill: none;
-  stroke: currentColor;
-  stroke-width: 1.6;
+  stroke: var(--signal);
+  stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
-}
-.resume-print-button > span:nth-child(2) {
-  display: grid;
-  text-align: left;
-}
-.resume-print-button strong {
-  font-size: 0.72rem;
-  font-weight: 580;
-  line-height: 1.2;
-}
-.resume-print-button small {
-  margin-top: 0.15rem;
-  color: color-mix(in srgb, var(--canvas) 65%, transparent);
-  font-size: 0.57rem;
-  line-height: 1.2;
-}
-.resume-print-button > span:last-child {
-  display: grid;
-  width: 1.7rem;
-  height: 1.7rem;
-  place-items: center;
-  border-left: 1px solid color-mix(in srgb, var(--canvas) 22%, transparent);
 }
 .resume-sheet {
   --resume-ink: #142b45;
@@ -6149,9 +6186,12 @@ main,
   --resume-rule: #cddcf0;
   color-scheme: light;
   max-width: 52rem;
-  margin-inline: auto;
+  margin: 2rem auto 0;
   padding: clamp(2rem, 5vw, 4rem);
   background: #fff;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, #142b45 8%, transparent),
+    0 18px 50px -20px color-mix(in srgb, #142b45 28%, transparent);
   color: var(--resume-ink);
   border: 0;
   font-size: 0.9375rem;
@@ -6184,10 +6224,39 @@ main,
   min-width: 0;
   overflow-wrap: anywhere;
 }
-.resume-sheet address a {
+.resume-sheet address .intro-chip {
+  margin: 0;
+  padding: 0.25em 0.7em;
+  border-color: var(--resume-rule);
+  background: #f4f8fd;
+  color: var(--resume-ink);
+  font-size: 0.78rem;
+  font-weight: 500;
+  white-space: normal;
+}
+.resume-sheet address .intro-chip svg {
   color: var(--resume-accent);
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+}
+.resume-sheet address a.intro-chip:hover {
+  border-color: var(--resume-accent);
+}
+.resume-group + .resume-group {
+  margin-top: 1rem;
+}
+.resume-group h4 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.75rem;
+  margin: 0 0 0.35rem;
+  font-size: 0.92rem;
+  font-weight: 650;
+}
+.resume-group h4 span {
+  color: var(--resume-body);
+  font-size: 0.74rem;
+  font-weight: 450;
+  opacity: 0.8;
 }
 .resume-sheet section {
   padding-top: 2rem;
@@ -7461,10 +7530,34 @@ main,
     gap: 2pt 10pt;
     font-size: 9.5pt;
   }
-  .resume-sheet address a {
-    display: inline;
-    min-height: 0;
-    color: inherit;
+  .resume-page {
+    background: #fff !important;
+  }
+  .resume-sheet {
+    box-shadow: none;
+  }
+  .resume-sheet address .intro-chip {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: 9.5pt;
+  }
+  .resume-sheet address .intro-chip svg {
+    display: none;
+  }
+  .resume-group + .resume-group {
+    margin-top: 5pt;
+  }
+  .resume-group h4 {
+    margin-bottom: 1pt;
+    font-size: 10pt;
+    break-after: avoid;
+  }
+  .resume-group h4 span {
+    font-size: 8.5pt;
+  }
+  .resume-group {
+    break-inside: avoid;
   }
   .resume-sheet section {
     padding-top: 7pt;
@@ -7553,91 +7646,67 @@ main,
     color: inherit;
   }
 }
+.resume-groups {
+  grid-column: 1 / -1;
+}
 
-.case-nav {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  display: flex;
-  align-items: center;
+.experience-groups {
+  display: grid;
   gap: 1.5rem;
-  padding: 0 max(1.25rem, calc((100% - 84rem) / 2));
-  border-block: 1px solid var(--border);
-  background: var(--canvas);
+  margin-top: 1.4rem;
 }
-.case-nav ul {
+.experience-group h4 {
   display: flex;
-  min-width: 0;
-  flex: 1;
-  gap: 0.25rem;
-  margin: 0;
-  padding: 0;
-  overflow-x: auto;
-  list-style: none;
-  scrollbar-width: none;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.8rem;
+  margin: 0 0 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 1rem;
+  font-weight: 600;
 }
-.case-nav ul::-webkit-scrollbar {
-  display: none;
-}
-.case-nav a {
-  position: relative;
-  display: inline-flex;
-  min-height: 2rem;
-  align-items: center;
-  margin-block: 0.4rem;
-  padding-inline: 0.7rem;
-  color: var(--muted);
-  font:
-    500 0.7rem/1.4 var(--font-geist-mono),
-    monospace;
-  white-space: nowrap;
-  transition: color 0.18s ease;
-}
-.case-nav a:hover,
-.case-nav a[aria-current="location"] {
-  color: var(--ink);
-}
-.case-nav a[aria-current="location"]::before {
-  content: "";
-  position: absolute;
-  left: 0.1rem;
-  top: 50%;
-  width: 0.35rem;
-  height: 0.35rem;
-  margin-top: -0.175rem;
-  border-radius: 50%;
-  background: var(--signal);
-}
-.case-nav-left {
-  margin: 0;
+.experience-group h4 span {
   color: var(--faint);
   font:
     450 0.66rem/1.4 var(--font-geist-mono),
     monospace;
-  white-space: nowrap;
 }
-.case-nav-progress {
+.experience-group ul {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.experience-group li {
+  position: relative;
+  padding-left: 1.1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.experience-group li::before {
+  content: "";
   position: absolute;
-  inset: auto 0 -1px 0;
-  height: 2px;
+  top: 0.7em;
+  left: 0;
+  width: 0.4rem;
+  height: 1px;
   background: var(--signal);
-  transform-origin: left;
 }
-.case-study [id] {
-  scroll-margin-top: 4.5rem;
+
+.resume-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
-@media (max-width: 980px) {
-  .case-nav {
-    top: 4.25rem;
-    padding-inline: 1.25rem;
-  }
-  .case-nav-left {
-    display: none;
-  }
-  .case-study [id] {
-    scroll-margin-top: 8.5rem;
-  }
+.resume-print-button {
+  cursor: pointer;
 }
-.case-nav + * {
-  border-top: 0;
+@media (max-width: 640px) {
+  .resume-controls {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-block: 0.5rem;
+  }
 }

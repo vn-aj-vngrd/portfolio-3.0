@@ -48,13 +48,31 @@ export function Experience() {
 
               <p className="experience-summary">{item.summary}</p>
 
-              <ul className="experience-highlights">
-                {item.highlights.map((highlight) => (
-                  <li key={highlight.action}>
-                    <strong>{highlight.action}</strong> {highlight.detail}
-                  </li>
-                ))}
-              </ul>
+              {item.groups ? (
+                <div className="experience-groups">
+                  {item.groups.map((group) => (
+                    <section className="experience-group" key={group.client}>
+                      <h4>
+                        {group.client}
+                        <span>{group.label}</span>
+                      </h4>
+                      <ul>
+                        {group.bullets.map((bullet) => (
+                          <li key={bullet}>{bullet}</li>
+                        ))}
+                      </ul>
+                    </section>
+                  ))}
+                </div>
+              ) : (
+                <ul className="experience-highlights">
+                  {item.highlights.map((highlight) => (
+                    <li key={highlight.action}>
+                      <strong>{highlight.action}</strong> {highlight.detail}
+                    </li>
+                  ))}
+                </ul>
+              )}
 
               <ul
                 className="experience-stack"

@@ -68,6 +68,12 @@ export type ExperienceHighlight = {
   detail: string;
 };
 
+export type ResumeGroup = {
+  client: string;
+  label: string;
+  bullets: readonly string[];
+};
+
 export type Experience = {
   company: string;
   role: string;
@@ -77,6 +83,8 @@ export type Experience = {
   summary: string;
   highlights: readonly ExperienceHighlight[];
   resumeBullets?: readonly string[];
+  resumeGroups?: readonly ResumeGroup[];
+  groups?: readonly ResumeGroup[];
   stack: readonly string[];
 };
 
@@ -105,7 +113,11 @@ export type ChipIcon =
   | "ball"
   | "sun"
   | "user"
-  | "access";
+  | "access"
+  | "mail"
+  | "globe"
+  | "github"
+  | "linkedin";
 
 // Prose with inline chips; a chip with `href` links to a case study or page.
 export type RichPart = string | { chip: string; icon: ChipIcon; href?: string };

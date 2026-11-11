@@ -8,7 +8,6 @@ export function ProjectJourney({ project }: { project: Project }) {
 
   return (
     <section
-      id="journey"
       className="project-journey"
       data-shape={journey.screenShape ?? "phone"}
       aria-labelledby={`${project.slug}-journey-title`}

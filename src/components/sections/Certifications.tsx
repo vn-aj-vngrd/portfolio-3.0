@@ -31,15 +31,37 @@ export function Certifications() {
       <div className="credentials-layout">
         {featured ? (
           <article className="featured-credential">
+            <div className="credential-brand">
+              <svg
+                viewBox="0 0 64 32"
+                aria-hidden="true"
+                fill="none"
+                strokeWidth="6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M19 6 5 16" stroke="#4285f4" />
+                <path d="M5 16l14 10" stroke="#34a853" />
+                <path d="M45 6l14 10" stroke="#ea4335" />
+                <path d="M59 16 45 26" stroke="#fbbc04" />
+              </svg>
+              <span>Google Developer Student Club</span>
+            </div>
             <div className="credential-mark" aria-hidden="true">
               <span>HF</span>
               <small>2024</small>
             </div>
-            <div>
+            <div className="credential-body">
               <p>{featured.kind}</p>
               <h3>{featured.title}</h3>
               <span>{featured.issuer}</span>
             </div>
+            <span className="credential-bar" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+              <i />
+            </span>
           </article>
         ) : null}
 

@@ -65,9 +65,12 @@ export function LivePresence() {
       ) : (
         <>
           <p className="presence-primary">
-            <strong>{count}</strong> {count === 1 ? "person" : "people"} viewing now
+            <strong>{count}</strong> {count === 1 ? "person" : "people"} viewing
+            now
           </p>
-          <span className="presence-detail">Anonymous · active in last 75s</span>
+          <span className="presence-detail">
+            Anonymous · active in last 75s
+          </span>
         </>
       )}
     </section>
