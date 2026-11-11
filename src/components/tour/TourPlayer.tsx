@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { profile } from "@/content/profile";
+import { SITE_URL } from "@/lib/seo";
 import { formatClock } from "@/lib/tour";
 
 import { onTourFrame, tourControl, useTour } from "./store";
@@ -27,6 +28,17 @@ export default function TourPlayer() {
   const fillRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const replayRef = useRef<HTMLButtonElement>(null);
   const ended = status === "ended";
+  const [copied, setCopied] = useState(false);
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(`${SITE_URL}/?tour`);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Clipboard blocked: the link is also the page address plus ?tour.
+    }
+  };
 
   // Publish the player height so the page can leave room for it, then re-align.
   useEffect(() => {
@@ -178,6 +190,9 @@ export default function TourPlayer() {
             </button>
             <Link href="/resume">Résumé ↗</Link>
             <a href={`mailto:${profile.email}`}>Email Van</a>
+            <button type="button" onClick={copyLink}>
+              {copied ? "Copied" : "Copy tour link"}
+            </button>
             <button
               type="button"
               className="tour-icon-button"
@@ -258,7 +273,7 @@ export default function TourPlayer() {
         )}
 
         <p className="sr-only" role="status">
-          {announcement}
+          {copied ? "Tour link copied" : announcement}
         </p>
       </section>
     </div>

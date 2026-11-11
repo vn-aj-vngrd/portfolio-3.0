@@ -51,10 +51,11 @@ A `15.5rem` studio rail frames a `74rem` editorial canvas on desktop. Mobile rep
 - **Media stage:** Quiet surface for real product imagery.
 - **Interface controls:** Equal-size theme and sound controls.
 - **Focus ring:** 3px Signal Blue with 4px offset.
+- **Guided tour:** A rail row (`Guided tour`, duration in a hairline box), a mobile header button, and a hero link start a narrated walk. A flat player on the canvas (opaque, 1px hairline, 4px radius) holds the meta row, one caption sentence, a chapter scrubber (Signal Blue marks the current chapter only) and 40px controls. While it plays, everything except the current stop dims to 30% opacity (70% under `prefers-contrast: more`); pausing undims. A long jump is a short fade cut, not a fast scroll. No glass, glow or badge marks the active stop.
 
 ## Motion
 
-Motion explains state. Theme changes use one radial reveal from the initiating control. Smooth scrolling preserves user control. Hover feedback stays under 300ms. Honor `prefers-reduced-motion` and keep the static experience complete.
+Motion explains state. Theme changes use one radial reveal from the initiating control. Smooth scrolling preserves user control; the guided tour scrolls and dims by itself but pauses at the first wheel, key or touch, and with reduced motion every move is immediate. Hover feedback stays under 300ms. Honor `prefers-reduced-motion` and keep the static experience complete.
 
 ## Responsive behavior
 

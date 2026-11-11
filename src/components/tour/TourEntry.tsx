@@ -1,8 +1,17 @@
 "use client";
 
+import { usePathname, useRouter } from "next/navigation";
+
 import { TOUR_DURATION_LABEL } from "@/lib/tour";
 
-import { preloadTour, startTour } from "./store";
+import {
+  focusTourPlayer,
+  isTourActive,
+  preloadTour,
+  primeAudio,
+  setPendingTour,
+  startTour,
+} from "./store";
 import { PlayIcon } from "./TourIcons";
 
 type Variant = "rail" | "header" | "hero";
@@ -10,8 +19,22 @@ type Variant = "rail" | "header" | "hero";
 const ACCESSIBLE_NAME = `Start the guided tour, ${TOUR_DURATION_LABEL.replace("min", "minutes")}, narrated`;
 
 export function TourEntry({ variant }: { variant: Variant }) {
+  const pathname = usePathname();
+  const router = useRouter();
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    startTour({ invoker: event.currentTarget });
+    const invoker = event.currentTarget;
+    if (pathname !== "/" && !isTourActive()) {
+      // The tour lives on the home page: keep the click's audio permission, go there, start.
+      primeAudio();
+      setPendingTour({ chapterKey: null, invoker });
+      router.push("/");
+      return;
+    }
+    if (isTourActive()) {
+      focusTourPlayer();
+      return;
+    }
+    startTour({ invoker });
   };
   const common = {
     type: "button" as const,

@@ -22,6 +22,8 @@ export type TourSnapshot = {
   narration: NarrationState;
   soundBlocked: boolean;
   timeline: TourTimeline;
+  /** Share-link start card (`/?tour`): open while set; `chapter` is the requested chapter key. */
+  invite: { chapter: string | null } | null;
 };
 
 const IDLE: TourSnapshot = {
@@ -35,6 +37,7 @@ const IDLE: TourSnapshot = {
   narration: "pending",
   soundBlocked: false,
   timeline: TOUR_TIMELINE_ESTIMATE,
+  invite: null,
 };
 
 let snapshot: TourSnapshot = IDLE;
@@ -63,7 +66,12 @@ export function setTourState(patch: Partial<TourSnapshot>) {
 }
 
 export function resetTourState() {
-  setTourState({ ...IDLE, voice: snapshot.voice, music: snapshot.music });
+  setTourState({
+    ...IDLE,
+    voice: snapshot.voice,
+    music: snapshot.music,
+    invite: snapshot.invite,
+  });
 }
 
 export function useTour() {
@@ -71,6 +79,28 @@ export function useTour() {
 }
 
 export const isTourActive = () => snapshot.status !== "idle";
+
+export const openTourInvite = (chapter: string | null) =>
+  setTourState({ invite: { chapter } });
+export const closeTourInvite = () => setTourState({ invite: null });
+
+// A start requested from another route: entries prime audio in the click, navigate to `/`,
+// and `TourRoot` starts the tour once the home page is on screen.
+let pending: { chapterKey: string | null; invoker: HTMLElement | null } | null =
+  null;
+export const setPendingTour = (next: typeof pending) => {
+  pending = next;
+};
+export function takePendingTour() {
+  const taken = pending;
+  pending = null;
+  return taken;
+}
+
+export function setTourPreference(key: "voice" | "music", on: boolean) {
+  setTourState({ [key]: on });
+  saveTourPrefs();
+}
 
 // Per-frame values (clock, scrubber fill) bypass React: listeners write to the DOM.
 type FrameListener = (time: number) => void;
