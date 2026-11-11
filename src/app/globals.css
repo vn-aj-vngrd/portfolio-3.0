@@ -1845,6 +1845,39 @@ main,
     450 0.74rem/1.65 var(--font-geist-mono),
     monospace;
 }
+.hero-intro-rich {
+  max-width: 44ch;
+  margin: 0.9rem 0 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 2;
+}
+.hero-intro-rich p {
+  margin: 0;
+}
+.hero-intro-rich p + p {
+  margin-top: 1rem;
+}
+.intro-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.05em 0.55em;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.95em;
+  font-weight: 540;
+  line-height: 1.45;
+  white-space: nowrap;
+}
+.intro-chip svg {
+  width: 1.05em;
+  height: 1.05em;
+  flex: none;
+  color: var(--signal);
+}
 .hero-links {
   display: flex;
   flex-wrap: wrap;

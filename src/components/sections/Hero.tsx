@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { HeroIntro } from "@/components/sections/HeroIntro";
 import { aiWorkflow } from "@/content/ai-workflow";
 import { profile } from "@/content/profile";
 
@@ -29,8 +30,7 @@ export function Hero() {
         <p className="hero-kicker">Hello, I’m</p>
         <h1 id="hero-title">{profile.name}</h1>
         <p className="hero-role">{profile.title}</p>
-        <p className="hero-statement">{profile.statement}</p>
-        <p className="hero-intro">{profile.introduction}</p>
+        <HeroIntro />
         <nav className="hero-links" aria-label="Profile links">
           <a href={profile.github} target="_blank" rel="noreferrer">
             GitHub ↗
