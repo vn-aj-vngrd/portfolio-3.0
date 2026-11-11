@@ -66,7 +66,7 @@ let teardown: (() => void)[] = [];
 let startToken = 0;
 let stage: Stage | null = null;
 // Playback speed. The tour clock runs `rate` timeline-seconds per real second; the
-// voice follows through playbackRate, scrolls and pointer moves shorten to match.
+// voice follows through playbackRate, and scrolls shorten to match.
 let rate = 1;
 let rateDirty = false;
 
@@ -402,10 +402,7 @@ function cut(target: number, onSettled?: () => void) {
 
 export function realign() {
   if (!active || getSnapshot().status === "idle") return;
-  align(true, () => {
-    stage?.refresh();
-    if (activeEl) stage?.point(activeEl, true);
-  });
+  align(true, () => stage?.refresh());
 }
 
 function enterStop(index: number) {
@@ -418,10 +415,7 @@ function enterStop(index: number) {
   el.setAttribute("data-tour-active", "");
   log("stop", { id: stop.id });
   stage?.highlight(el);
-  align(false, () => {
-    stage?.refresh();
-    if (active && activeEl === el) stage?.point(el);
-  });
+  align(false, () => stage?.refresh());
 }
 
 function setStage(status: "playing" | "paused" | "ended") {
