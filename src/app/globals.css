@@ -5851,7 +5851,24 @@ main,
   color: #151719;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.gear-item:hover .gear-item-visual svg {
+.gear-item-visual img,
+.gear-primary-visual img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  mix-blend-mode: multiply;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gear-item-visual img {
+  max-height: 15rem;
+  object-fit: contain;
+}
+.gear-primary-visual img {
+  max-height: 26rem;
+  object-fit: contain;
+}
+.gear-item:hover .gear-item-visual svg,
+.gear-item:hover .gear-item-visual img {
   transform: scale(1.035);
 }
 .gear-item-copy {

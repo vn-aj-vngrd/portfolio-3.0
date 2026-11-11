@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { GearIllustration } from "@/components/gear/GearIllustration";
@@ -11,28 +12,56 @@ export const metadata = createPageMetadata({
   path: "/gear",
 });
 
-const groups: { title: string; description: string; items: readonly GearItem[] }[] = [
+const groups: {
+  title: string;
+  description: string;
+  items: readonly GearItem[];
+}[] = [
   {
     title: "Displays",
-    description: "The ultrawide holds the main editor and browser; the second display keeps documentation, terminals, and communication visible.",
+    description:
+      "The ultrawide holds the main editor and browser; the second display keeps documentation, terminals, and communication visible.",
     items: gear.slice(1, 3),
   },
   {
     title: "Input",
-    description: "The keyboard and mouse I use for daily development, navigation, and review.",
+    description:
+      "The keyboard and mouse I use for daily development, navigation, and review.",
     items: gear.slice(3, 5),
   },
   {
     title: "Everyday devices",
-    description: "Audio, communication, and real-device checks for responsive web and mobile work.",
+    description:
+      "Audio, communication, and real-device checks for responsive web and mobile work.",
     items: gear.slice(5, 7),
   },
   {
     title: "Desk and power",
-    description: "A sit-stand desk and shared charging point keep the workspace easy to reset between tasks.",
+    description:
+      "A sit-stand desk and shared charging point keep the workspace easy to reset between tasks.",
     items: gear.slice(7),
   },
 ];
+
+function GearVisual({
+  item,
+  priority = false,
+}: {
+  item: GearItem;
+  priority?: boolean;
+}) {
+  if (!item.image) return <GearIllustration kind={item.kind} />;
+  return (
+    <Image
+      src={item.image.src}
+      alt={item.image.alt}
+      width={item.image.width}
+      height={item.image.height}
+      sizes="(max-width: 700px) 90vw, (max-width: 1100px) 45vw, 640px"
+      priority={priority}
+    />
+  );
+}
 
 export default function GearPage() {
   const primary = gear[0];
@@ -50,14 +79,19 @@ export default function GearPage() {
           </div>
           <p>
             I use this setup for full-stack development, mobile testing, local
-            containers, coding-agent sessions, database work, and interface review.
+            containers, coding-agent sessions, database work, and interface
+            review.
           </p>
         </div>
       </section>
 
-      <section className="gear-primary" aria-labelledby="primary-gear-title" data-reveal>
+      <section
+        className="gear-primary"
+        aria-labelledby="primary-gear-title"
+        data-reveal
+      >
         <div className="gear-primary-visual">
-          <GearIllustration kind={primary.kind} />
+          <GearVisual item={primary} priority />
         </div>
         <article>
           <p>Primary machine</p>
@@ -82,7 +116,7 @@ export default function GearPage() {
               {group.items.map((item) => (
                 <article className="gear-item" key={item.name}>
                   <div className="gear-item-visual">
-                    <GearIllustration kind={item.kind} />
+                    <GearVisual item={item} />
                   </div>
                   <div className="gear-item-copy">
                     {item.color ? <p>{item.color}</p> : null}
@@ -98,7 +132,10 @@ export default function GearPage() {
       </div>
 
       <footer className="gear-footer" data-reveal>
-        <p>This equipment supports the work; the selected projects show the result.</p>
+        <p>
+          This equipment supports the work; the selected projects show the
+          result.
+        </p>
         <Link href="/#my-work">See what I build →</Link>
       </footer>
     </main>
