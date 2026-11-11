@@ -3172,7 +3172,12 @@ main,
 @media (min-width: 901px) {
   .journey-copy {
     position: sticky;
-    top: 2rem;
+    top: 9.5rem;
+  }
+}
+@media (min-width: 981px) {
+  .journey-copy {
+    top: 5.5rem;
   }
 }
 .journey-label {
@@ -7490,7 +7495,7 @@ main,
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  padding: 0 max(2.5rem, calc((100% - var(--max)) / 2));
+  padding: 0 max(1.25rem, calc((100% - 84rem) / 2));
   border-block: 1px solid var(--border);
   background: var(--canvas);
 }
