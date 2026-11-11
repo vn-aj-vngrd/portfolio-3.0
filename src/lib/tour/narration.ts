@@ -26,10 +26,12 @@ export function playStop(
   destination: AudioNode,
   buffer: AudioBuffer,
   atContextTime: number,
-  offset = 0
+  offset = 0,
+  rate = 1
 ) {
   const source = ctx.createBufferSource();
   source.buffer = buffer;
+  source.playbackRate.value = rate;
   source.connect(destination);
   source.start(Math.max(atContextTime, 0), Math.max(offset, 0));
   return source;

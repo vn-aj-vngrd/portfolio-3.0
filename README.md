@@ -33,7 +33,7 @@ Project media lives in `public/images/projects/`. Add or change portfolio data t
 
 ## Guided tour
 
-The homepage has a narrated tour: 8 chapters, about 3½ minutes. A recorded voice (Kokoro-82M, rendered offline) narrates each stop, captions follow sentence by sentence, a generated score plays under it and ducks under the voice, and everything but the current stop dims. Start it from the rail, the mobile header, or the hero. Share it with `/?tour` (or `/?tour=<chapter>`, such as `/?tour=work`), which opens a start card because browsers need one click before sound.
+The homepage has a narrated tour: 8 chapters, about 3½ minutes. A recorded voice (Kokoro-82M, rendered offline) narrates each stop, captions follow sentence by sentence, a generated score plays under it and ducks under the voice, a spotlight greys everything but the current stop while a pointer settles on it, and playback speed runs 1× to 2×. Start it from the rail, the mobile header, or the hero. Share it with `/?tour` (or `/?tour=<chapter>`, such as `/?tour=work`), which opens a start card because browsers need one click before sound.
 
 The words live in `src/content/tour.ts`, each line with the source file that backs it; `scripts/tour.test.mjs` checks every claim. After changing a line, run `yarn narrate:tour` (it installs Kokoro into `~/.cache/portfolio-tour-tts`, outside the repo, and re-records only changed stops into `public/tour/` and `src/lib/tour/narration.json`), listen, then `yarn test`.
 
