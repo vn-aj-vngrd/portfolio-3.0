@@ -70,7 +70,7 @@ export const aiWorkflow = {
   introduction:
     "I start with the product question: who needs this, what should change, and what could go wrong? Agents help me investigate, implement, and review. I remain responsible for the decisions and the result.",
   profileSummary:
-    "I build AI features and agents into customer-facing products, such as tool-calling assistants with approval flows, and I work daily with Claude Code and Codex from planning through delivery. I guide the decisions, review the code, and verify the results.",
+    "I build AI features and agents into real products, including assistants that propose changes and wait for approval. I work with Claude Code and Codex every day, directing the work, reviewing the code, and verifying the results.",
   home: {
     title: "How I build with agents",
     description:
