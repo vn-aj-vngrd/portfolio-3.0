@@ -1,13 +1,25 @@
 import Link from "next/link";
 
+import { CaseStudyNav } from "@/components/project/CaseStudyNav";
 import { ProjectJourney } from "@/components/project/ProjectJourney";
 import { ProjectShowcase } from "@/components/project/ProjectShowcase";
 import { RelayHighlights } from "@/components/project/RelayHighlights";
 import { projectCatalog } from "@/content/projects";
+import { projectReadingMinutes } from "@/lib/reading-time";
 import type { Project } from "@/types/content";
 
 export function ProjectCaseStudy({ project }: { project: Project }) {
   const nextProject = projectCatalog.next(project.slug);
+  const minutes = projectReadingMinutes(project);
+  const sections = [
+    ...(project.agent ? [{ id: "agent", label: "AI Agent" }] : []),
+    { id: "problem", label: "Problem" },
+    ...(project.journey ? [{ id: "journey", label: "Journey" }] : []),
+    ...(project.features ? [{ id: "workflow", label: "Workflow" }] : []),
+    { id: "architecture", label: "Architecture" },
+    { id: "decisions", label: "Decisions" },
+    { id: "evidence", label: "Evidence" },
+  ];
 
   return (
     <main id="main-content" className="case-study">
@@ -15,7 +27,9 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         <Link className="back-link" href="/#my-work">
           ← My work
         </Link>
-        <p className="project-category">{project.category}</p>
+        <p className="project-category">
+          {project.category} · {minutes} min read
+        </p>
         <h1>{project.name}</h1>
         <p className="case-summary">{project.summary}</p>
         <dl className="case-meta">
@@ -46,8 +60,11 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         </div>
       </header>
 
+      <CaseStudyNav sections={sections} minutes={minutes} />
+
       {project.agent ? (
         <section
+          id="agent"
           className="case-decisions"
           aria-labelledby="agent-title"
           data-reveal
@@ -75,6 +92,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       {project.journey ? null : <ProjectShowcase project={project} />}
 
       <section
+        id="problem"
         className="case-context"
         aria-labelledby="context-title"
         data-reveal
@@ -95,6 +113,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       {project.slug === "relay" ? <RelayHighlights /> : null}
       {project.features ? (
         <section
+          id="workflow"
           className="case-decisions"
           aria-labelledby="features-title"
           data-reveal
@@ -114,6 +133,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       ) : null}
 
       <section
+        id="architecture"
         className="case-architecture"
         aria-labelledby="architecture-title"
         data-reveal
@@ -133,6 +153,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       </section>
 
       <section
+        id="decisions"
         className="case-decisions"
         aria-labelledby="decisions-title"
         data-reveal
@@ -155,6 +176,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       </section>
 
       <section
+        id="evidence"
         className="case-evidence"
         aria-labelledby="evidence-title"
         data-reveal
