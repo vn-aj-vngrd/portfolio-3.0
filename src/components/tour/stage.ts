@@ -20,7 +20,7 @@ export type Stage = {
   destroy: () => void;
 };
 
-const POINTER_SVG = `<svg viewBox="0 0 20 24" width="20" height="24" aria-hidden="true" focusable="false"><path d="M2 1.5v17.2l4.6-4.1 3 6.9 3-1.3-3-6.8h6.3z" /></svg>`;
+const POINTER_SVG = `<svg viewBox="0 0 20 24" width="20" height="24" aria-hidden="true" focusable="false"><path d="M3.2 2.6 3.4 18.2l4-3.6 2.6 5.6 2.7-1.2-2.6-5.5 5.3-.3z" /></svg>`;
 
 export function createStage(): Stage {
   const spot = document.createElement("div");
