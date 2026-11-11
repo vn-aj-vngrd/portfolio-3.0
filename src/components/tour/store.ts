@@ -9,6 +9,11 @@ import { TOUR_TIMELINE_ESTIMATE, type TourTimeline } from "@/lib/tour";
 
 export type TourStatus = "idle" | "loading" | "playing" | "paused" | "ended";
 export type PauseReason = "user" | "scroll" | "hidden" | "overlay" | null;
+export const TOUR_SPEEDS = [1, 1.25, 1.5, 2] as const;
+export type TourSpeed = (typeof TOUR_SPEEDS)[number];
+export const isTourSpeed = (value: unknown): value is TourSpeed =>
+  TOUR_SPEEDS.some((speed) => speed === value);
+
 export type NarrationState = "pending" | "ready" | "partial" | "unavailable";
 
 export type TourSnapshot = {
@@ -18,6 +23,7 @@ export type TourSnapshot = {
   cue: string | null;
   voice: boolean;
   music: boolean;
+  speed: TourSpeed;
   pauseReason: PauseReason;
   narration: NarrationState;
   soundBlocked: boolean;
@@ -33,6 +39,7 @@ const IDLE: TourSnapshot = {
   cue: null,
   voice: true,
   music: true,
+  speed: 1,
   pauseReason: null,
   narration: "pending",
   soundBlocked: false,
@@ -70,6 +77,7 @@ export function resetTourState() {
     ...IDLE,
     voice: snapshot.voice,
     music: snapshot.music,
+    speed: snapshot.speed,
     invite: snapshot.invite,
   });
 }
@@ -121,10 +129,15 @@ export function loadTourPrefs() {
   try {
     const raw = window.localStorage.getItem(PREFS_KEY);
     if (!raw) return;
-    const parsed = JSON.parse(raw) as { voice?: unknown; music?: unknown };
+    const parsed = JSON.parse(raw) as {
+      voice?: unknown;
+      music?: unknown;
+      speed?: unknown;
+    };
     setTourState({
       voice: typeof parsed.voice === "boolean" ? parsed.voice : true,
       music: typeof parsed.music === "boolean" ? parsed.music : true,
+      speed: isTourSpeed(parsed.speed) ? parsed.speed : 1,
     });
   } catch {
     // Storage can be blocked; the defaults stand.
@@ -134,7 +147,11 @@ export function saveTourPrefs() {
   try {
     window.localStorage.setItem(
       PREFS_KEY,
-      JSON.stringify({ voice: snapshot.voice, music: snapshot.music })
+      JSON.stringify({
+        voice: snapshot.voice,
+        music: snapshot.music,
+        speed: snapshot.speed,
+      })
     );
   } catch {
     // Not persisted; the choice still applies to this visit.

@@ -22,6 +22,7 @@ import {
 import { fetchNarration, loadStopBuffer, playStop } from "@/lib/tour/narration";
 import { MUSIC_LEVEL, type ScoreHandle, startScore } from "@/lib/tour/score";
 
+import { createStage, type Stage } from "./stage";
 import {
   emitTourFrame,
   getAudioContext,
@@ -33,6 +34,7 @@ import {
   saveTourPrefs,
   setTourState,
   type TourScroller,
+  type TourSpeed,
 } from "./store";
 
 const MOBILE_QUERY = "(max-width: 980px)";
@@ -62,6 +64,11 @@ let scrolling = false;
 let cutting = false;
 let teardown: (() => void)[] = [];
 let startToken = 0;
+let stage: Stage | null = null;
+// Playback speed. The tour clock runs `rate` timeline-seconds per real second; the
+// voice follows through playbackRate, and scrolls shorten to match.
+let rate = 1;
+let rateDirty = false;
 
 // Audio. `mode` picks the clock: the AudioContext when it is running (pause freezes
 // sound and clock together), otherwise performance.now() so captions still advance.
@@ -106,12 +113,12 @@ const delay = (ms: number) =>
 
 function now() {
   if (!timeline) return 0;
-  const t = playing ? base + (clockNow() - wallAt) : base;
+  const t = playing ? base + (clockNow() - wallAt) * rate : base;
   return Math.min(t, timeline.duration);
 }
 
 /** Context time at which timeline time `t` is heard. Valid right after base/wallAt are set. */
-const contextTimeAt = (t: number) => wallAt + (t - base);
+const contextTimeAt = (t: number) => wallAt + (t - base) / rate;
 
 function setMode(next: "audio" | "perf") {
   if (mode === next) return;
@@ -213,13 +220,18 @@ function stopSources() {
 function scheduleStop(stop: TimelineStop) {
   const buffer = buffers.get(stop.id);
   if (!ctx || !voiceBus || mode !== "audio" || !buffer || !playing) return;
-  if (stop.voiceStart < now() + 0.03) return;
+  const t = now();
+  if (stop.voiceEnd - t < 0.25) return;
   if (sources.some((entry) => entry.id === stop.id)) return;
+  // A stop already under way (speed change, late decode) joins at its own offset.
+  const late = Math.max(0, t - stop.voiceStart);
   const source = playStop(
     ctx,
     voiceBus,
     buffer,
-    contextTimeAt(stop.voiceStart)
+    late > 0.03 ? ctx.currentTime : contextTimeAt(stop.voiceStart),
+    late > 0.03 ? late : 0,
+    rate
   );
   const entry = { id: stop.id, source };
   sources.push(entry);
@@ -321,35 +333,52 @@ function releaseScrolling(afterMs: number) {
   }, afterMs);
 }
 
-function align(instant = false) {
+/** Scroll the active stop into place; `onSettled` runs once, when the page has stopped. */
+function align(instant = false, onSettled?: () => void) {
+  let settled = false;
+  const settle = () => {
+    if (settled) return;
+    settled = true;
+    onSettled?.();
+  };
   const target = computeTarget();
-  if (target === null || !scroller) return;
-  const distance = target - window.scrollY;
-  if (Math.abs(distance) < 2) return;
-
-  const duration = instant
-    ? 0
-    : scrollDuration(distance, window.innerHeight, reducedMotion());
-  if (duration === "cut") {
-    cut(target);
+  if (target === null || !scroller) {
+    settle();
     return;
   }
+  const distance = target - window.scrollY;
+  if (Math.abs(distance) < 2) {
+    settle();
+    return;
+  }
+
+  const planned = instant
+    ? 0
+    : scrollDuration(distance, window.innerHeight, reducedMotion());
+  if (planned === "cut") {
+    cut(target, settle);
+    return;
+  }
+  const duration = planned / rate;
   scrolling = true;
   if (duration === 0) {
     scroller.scrollPageTo(target, { duration: 0, immediate: true });
     releaseScrolling(120);
+    window.requestAnimationFrame(settle);
     return;
   }
   scroller.scrollPageTo(target, {
     duration,
     onComplete: () => {
       scrolling = false;
+      settle();
     },
   });
   releaseScrolling(duration * 1000 + 300);
+  window.setTimeout(settle, duration * 1000 + 120);
 }
 
-function cut(target: number) {
+function cut(target: number, onSettled?: () => void) {
   if (!scroller) return;
   log("cut", { target: Math.round(target) });
   cutting = true;
@@ -363,6 +392,7 @@ function cut(target: number) {
           html().classList.remove("tour-cut");
           cutting = false;
           releaseScrolling(300);
+          onSettled?.();
         })
       );
     },
@@ -371,7 +401,8 @@ function cut(target: number) {
 }
 
 export function realign() {
-  if (active && getSnapshot().status !== "idle") align(true);
+  if (!active || getSnapshot().status === "idle") return;
+  align(true, () => stage?.refresh());
 }
 
 function enterStop(index: number) {
@@ -383,7 +414,8 @@ function enterStop(index: number) {
   if (!el) return;
   el.setAttribute("data-tour-active", "");
   log("stop", { id: stop.id });
-  align();
+  stage?.highlight(el);
+  align(false, () => stage?.refresh());
 }
 
 function setStage(status: "playing" | "paused" | "ended") {
@@ -476,6 +508,11 @@ export function resume() {
   playing = true;
   if (mode === "audio") {
     void ctx?.resume();
+    if (rateDirty) {
+      rateDirty = false;
+      stopSources();
+      if (score) scheduleMusic(base, false);
+    }
     if (sources.length === 0) scheduleAll();
   }
   setStage("playing");
@@ -662,7 +699,8 @@ function installListeners() {
   add("resize", () => {
     window.clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(() => {
-      if (playing) align(true);
+      if (playing) realign();
+      else stage?.refresh();
     }, 200);
   });
   teardown.push(() => window.clearTimeout(resizeTimer));
@@ -679,11 +717,14 @@ function installListeners() {
   const main = document.getElementById("main-content");
   if (main) {
     const layoutObserver = new ResizeObserver(() => {
-      if (!playing || scrolling || cutting) return;
+      if (cutting) return;
+      stage?.refresh();
+      if (!playing || scrolling) return;
       const target = computeTarget();
-      if (target !== null && Math.abs(target - window.scrollY) > 8) align(true);
+      if (target !== null && Math.abs(target - window.scrollY) > 8) realign();
     });
     layoutObserver.observe(main);
+    if (activeEl) layoutObserver.observe(activeEl);
     teardown.push(() => layoutObserver.disconnect());
   }
 }
@@ -693,6 +734,8 @@ export async function start(
 ) {
   if (active) return;
   loadTourPrefs();
+  rate = getSnapshot().speed;
+  rateDirty = false;
   timeline = buildTimeline(tourChapters, tourManifest, {
     keep: (stopDef) => stopElement(stopDef.stop) !== null,
   });
@@ -733,6 +776,8 @@ export async function start(
     soundBlocked: false,
     narration: "pending",
   });
+  stage = createStage();
+  stage.setRate(rate);
   installListeners();
   log("start", { chapter: chapterIndex });
   update(base);
@@ -796,6 +841,29 @@ export function setVoice(on: boolean) {
   if (active) scheduleDuck(now());
 }
 
+export function setSpeed(next: TourSpeed) {
+  if (next === rate) return;
+  // Rebase on the old rate so the timeline position does not jump.
+  if (active && timeline && playing) {
+    base = now();
+    wallAt = clockNow();
+  }
+  rate = next;
+  stage?.setRate(next);
+  setTourState({ speed: next });
+  saveTourPrefs();
+  log("speed", { rate: next });
+  if (!active || !timeline) return;
+  if (!playing) {
+    rateDirty = true;
+    return;
+  }
+  if (mode === "audio") {
+    scheduleAll();
+    if (score) scheduleMusic(now(), false);
+  }
+}
+
 export function setMusic(on: boolean) {
   setTourState({ music: on });
   saveTourPrefs();
@@ -815,6 +883,10 @@ export function stop() {
   teardown = [];
   activeEl?.removeAttribute("data-tour-active");
   activeEl = null;
+  stage?.destroy();
+  stage = null;
+  rate = 1;
+  rateDirty = false;
   stopIndex = -1;
   scrolling = false;
   cutting = false;

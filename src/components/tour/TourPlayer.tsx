@@ -7,7 +7,7 @@ import { profile } from "@/content/profile";
 import { SITE_URL } from "@/lib/seo";
 import { formatClock } from "@/lib/tour";
 
-import { onTourFrame, tourControl, useTour } from "./store";
+import { onTourFrame, TOUR_SPEEDS, tourControl, useTour } from "./store";
 import {
   CloseIcon,
   MusicIcon,
@@ -85,6 +85,9 @@ export default function TourPlayer() {
   const total = timeline.chapters.length;
   const paused = status === "paused";
   const loading = status === "loading";
+  const speedLabel = `${tour.speed}×`;
+  const nextSpeed =
+    TOUR_SPEEDS[(TOUR_SPEEDS.indexOf(tour.speed) + 1) % TOUR_SPEEDS.length];
   const captionsLive = !tour.voice || tour.narration !== "ready";
 
   const announcement = loading
@@ -238,6 +241,17 @@ export default function TourPlayer() {
             </div>
             <span className="tour-chapter-title">{chapter.title}</span>
             <div className="tour-group">
+              <button
+                type="button"
+                className="tour-icon-button tour-speed"
+                aria-label={`Playback speed ${speedLabel}. Change to ${nextSpeed}×`}
+                title="Playback speed"
+                onClick={() =>
+                  tourControl((director) => director.setSpeed(nextSpeed))
+                }
+              >
+                {speedLabel}
+              </button>
               <button
                 type="button"
                 className="tour-icon-button"

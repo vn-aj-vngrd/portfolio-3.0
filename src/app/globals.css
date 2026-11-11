@@ -8116,54 +8116,51 @@ main,
   }
 }
 
-/* Stage: spotlight by dimming, only while the tour plays. */
-html[data-tour] {
-  --tour-dim: 0.3;
-}
-@media (prefers-contrast: more) {
-  html[data-tour] {
-    --tour-dim: 0.7;
-  }
+/* Stage: one spotlight greys everything outside the current stop. */
+.tour-spot {
+  display: none;
 }
 html[data-tour] main {
   padding-bottom: var(--tour-player-h, 0px);
 }
-html[data-tour="playing"]
-  main
-  > :not([data-tour-active], :has([data-tour-active])),
-html[data-tour="playing"] .site-footer,
-html[data-tour="playing"]
-  main
-  > :has([data-tour-active])
-  [data-tour-stop]:not(
-    [data-tour-active],
-    :has([data-tour-active]),
-    [data-tour-active] *
-  ),
-html[data-tour="playing"]
-  main
-  > :has([data-tour-active])
-  > :not([data-tour-active], :has([data-tour-active]), [data-tour-stop]),
-html[data-tour="playing"]
-  [data-tour-stop]:has([data-tour-active])
-  > :not([data-tour-active], :has([data-tour-active])) {
-  opacity: var(--tour-dim) !important;
+html[data-tour] .tour-spot {
+  --tour-dim: 74%;
+  display: block;
+  position: absolute;
+  z-index: 30;
+  box-sizing: border-box;
+  border-radius: 6px;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--ink) 22%, transparent),
+    0 0 0 250vmax color-mix(in srgb, var(--canvas) var(--tour-dim), transparent);
+  opacity: 0;
+  pointer-events: none;
+}
+@media (prefers-contrast: more) {
+  html[data-tour] .tour-spot {
+    --tour-dim: 88%;
+  }
+}
+html[data-tour="playing"] .tour-spot {
+  opacity: 1;
+}
+html.tour-cut .tour-spot {
+  opacity: 0 !important;
 }
 @media (prefers-reduced-motion: no-preference) {
-  html[data-tour] main > *,
-  html[data-tour] main > * > *,
-  html[data-tour] [data-tour-stop],
-  html[data-tour] [data-tour-stop] > *,
-  html[data-tour] .site-footer {
-    transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  html[data-tour] .tour-spot {
+    transition:
+      opacity 0.35s linear,
+      top calc(0.6s / var(--tour-rate, 1)) var(--ease-out),
+      left calc(0.6s / var(--tour-rate, 1)) var(--ease-out),
+      width calc(0.6s / var(--tour-rate, 1)) var(--ease-out),
+      height calc(0.6s / var(--tour-rate, 1)) var(--ease-out);
   }
-  html[data-tour] main,
-  html[data-tour] .site-footer {
-    transition: opacity 0.24s linear;
+  html[data-tour] .tour-spot[data-instant] {
+    transition: opacity 0.35s linear;
   }
   html.tour-cut main,
   html.tour-cut .site-footer {
-    opacity: 0 !important;
     transition: opacity 0.16s linear;
   }
 }
@@ -8298,6 +8295,15 @@ html.tour-cut .site-footer {
 }
 .tour-icon-button:hover {
   color: var(--signal);
+}
+.tour-icon-button.tour-speed {
+  width: auto;
+  min-width: 3rem;
+  padding-inline: 0.5rem;
+  font: inherit;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
 }
 .tour-icon-button.tour-primary {
   box-shadow: inset 0 0 0 1px var(--ink);
@@ -8455,8 +8461,8 @@ html.tour-cut .site-footer {
   .tour-entry-rail {
     display: none !important;
   }
-  html[data-tour] {
-    --tour-dim: 1 !important;
+  .tour-spot {
+    display: none !important;
   }
   html.tour-cut main,
   html.tour-cut .site-footer {
