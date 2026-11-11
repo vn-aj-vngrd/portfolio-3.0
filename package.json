@@ -13,6 +13,7 @@
     "test": "node --test scripts/*.test.mjs",
     "setup:hooks": "lefthook install",
     "prepare": "node scripts/install-git-hooks.mjs",
+    "narrate:tour": "node scripts/narrate-tour.mjs",
     "release": "semantic-release",
     "check:quality": "yarn lint && yarn typecheck && yarn test"
   },

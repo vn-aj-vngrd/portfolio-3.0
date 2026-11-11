@@ -7988,6 +7988,39 @@ html.tour-cut .site-footer {
 .tour-icon-button[aria-pressed="false"] {
   color: var(--faint);
 }
+.tour-icon-button[data-busy] svg {
+  opacity: 0.35;
+}
+.tour-icon-button[data-busy] {
+  position: relative;
+}
+.tour-icon-button[data-busy]::after {
+  content: "";
+  position: absolute;
+  inset: 0.55rem;
+  border: 2px solid transparent;
+  border-top-color: var(--ink);
+  border-radius: 50%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tour-icon-button[data-busy]::after {
+    animation: tour-spin 0.8s linear infinite;
+  }
+}
+@keyframes tour-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.tour-meta-action {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--signal);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
 .tour-chapter-title {
   min-width: 0;
   flex: 1;

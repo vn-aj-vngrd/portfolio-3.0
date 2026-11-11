@@ -12,16 +12,22 @@ import {
   prevTarget,
   scrollDuration,
   scrollTopFor,
+  type TimelineStop,
+  TOUR_TIMELINE_ESTIMATE,
   tourManifest,
   type TourTimeline,
 } from "@/lib/tour";
+import { fetchNarration, loadStopBuffer, playStop } from "@/lib/tour/narration";
 
 import {
   emitTourFrame,
+  getAudioContext,
   getSnapshot,
   loadTourPrefs,
   type PauseReason,
+  primeAudio,
   resetTourState,
+  saveTourPrefs,
   setTourState,
   type TourScroller,
 } from "./store";
@@ -32,6 +38,10 @@ const DESKTOP_TOP_INSET = 24;
 const PLAYER_FALLBACK = 190;
 const PLAYER_GAP = 16;
 const CUT_OUT_MS = 170;
+const VOICE_LEVEL = 0.95;
+const FIRST_AUDIO_WAIT_MS = 4000;
+const AUDIO_START_WAIT_MS = 300;
+const FETCH_CONCURRENCY = 3;
 
 type LogEntry = { at: number; type: string; [key: string]: unknown };
 
@@ -48,6 +58,20 @@ let invokerEl: HTMLElement | null = null;
 let scrolling = false;
 let cutting = false;
 let teardown: (() => void)[] = [];
+let startToken = 0;
+
+// Audio. `mode` picks the clock: the AudioContext when it is running (pause freezes
+// sound and clock together), otherwise performance.now() so captions still advance.
+let ctx: AudioContext | null = null;
+let master: DynamicsCompressorNode | null = null;
+let voiceBus: GainNode | null = null;
+let mode: "audio" | "perf" = "perf";
+const buffers = new Map<string, AudioBuffer>();
+const requests = new Map<string, Promise<void>>();
+const failed = new Set<string>();
+let sources: { id: string; source: AudioBufferSourceNode }[] = [];
+let queue: TimelineStop[] = [];
+let workers = 0;
 const eventLog: LogEntry[] = [];
 
 const html = () => document.documentElement;
@@ -64,13 +88,133 @@ export function attach(next: TourScroller) {
 }
 
 export function preload() {
-  // Narration preloading arrives with the recorded audio.
+  for (const stop of TOUR_TIMELINE_ESTIMATE.stops.slice(0, 3)) {
+    if (stop.audio) void fetchNarration(stop.audio).catch(() => undefined);
+  }
 }
+
+const clockNow = () =>
+  mode === "audio" && ctx ? ctx.currentTime : performance.now() / 1000;
+const delay = (ms: number) =>
+  new Promise<void>((resolve) => window.setTimeout(resolve, ms));
 
 function now() {
   if (!timeline) return 0;
-  const t = playing ? base + (performance.now() - wallAt) / 1000 : base;
+  const t = playing ? base + (clockNow() - wallAt) : base;
   return Math.min(t, timeline.duration);
+}
+
+/** Context time at which timeline time `t` is heard. Valid right after base/wallAt are set. */
+const contextTimeAt = (t: number) => wallAt + (t - base);
+
+function setMode(next: "audio" | "perf") {
+  if (mode === next) return;
+  base = now();
+  mode = next;
+  wallAt = clockNow();
+}
+
+function ensureGraph() {
+  if (!ctx || master) return;
+  master = ctx.createDynamicsCompressor();
+  master.threshold.value = -10;
+  master.ratio.value = 3;
+  master.connect(ctx.destination);
+  voiceBus = ctx.createGain();
+  voiceBus.gain.value = getSnapshot().voice ? VOICE_LEVEL : 0;
+  voiceBus.connect(master);
+}
+
+function stopSources() {
+  for (const { source } of sources) {
+    try {
+      source.stop();
+    } catch {
+      // Already ended.
+    }
+    source.disconnect();
+  }
+  sources = [];
+}
+
+function scheduleStop(stop: TimelineStop) {
+  const buffer = buffers.get(stop.id);
+  if (!ctx || !voiceBus || mode !== "audio" || !buffer || !playing) return;
+  if (stop.voiceStart < now() + 0.03) return;
+  if (sources.some((entry) => entry.id === stop.id)) return;
+  const source = playStop(
+    ctx,
+    voiceBus,
+    buffer,
+    contextTimeAt(stop.voiceStart)
+  );
+  const entry = { id: stop.id, source };
+  sources.push(entry);
+  source.onended = () => {
+    sources = sources.filter((item) => item !== entry);
+  };
+}
+
+function scheduleAll() {
+  stopSources();
+  if (!timeline) return;
+  for (const stop of timeline.stops) scheduleStop(stop);
+}
+
+function updateNarration() {
+  if (!timeline) return;
+  const withAudio = timeline.stops.filter((stop) => stop.audio);
+  let narration = getSnapshot().narration;
+  if (!ctx || withAudio.length === 0) narration = "unavailable";
+  else if (failed.size > 0 && failed.size >= withAudio.length)
+    narration = "unavailable";
+  else if (buffers.size > 0) narration = failed.size > 0 ? "partial" : "ready";
+  else narration = "pending";
+  setTourState({ narration });
+}
+
+function request(stop: TimelineStop) {
+  if (!ctx || !stop.audio) return Promise.resolve();
+  let pending = requests.get(stop.id);
+  if (!pending) {
+    pending = loadStopBuffer(ctx, stop.audio).then(
+      (buffer) => {
+        if (!active) return;
+        buffers.set(stop.id, buffer);
+        log("audio", { id: stop.id });
+        scheduleStop(stop);
+      },
+      () => {
+        failed.add(stop.id);
+        log("audio-failed", { id: stop.id });
+      }
+    );
+    pending = pending.then(updateNarration);
+    requests.set(stop.id, pending);
+  }
+  return pending;
+}
+
+async function worker() {
+  workers += 1;
+  try {
+    while (queue.length) {
+      const stop = queue.shift();
+      if (stop) await request(stop);
+    }
+  } finally {
+    workers -= 1;
+  }
+}
+
+/** Fetch stops in play order from `index`, then the ones before it. */
+function prioritize(index: number) {
+  if (!timeline || !ctx || !getSnapshot().voice) return;
+  const stops = timeline.stops;
+  queue = [...stops.slice(index), ...stops.slice(0, index)].filter(
+    (stop) => stop.audio && !requests.has(stop.id)
+  );
+  while (workers < FETCH_CONCURRENCY && queue.length) void worker();
 }
 
 function stopElement(selector: string) {
@@ -216,6 +360,8 @@ function finish() {
   base = timeline.duration;
   window.cancelAnimationFrame(raf);
   raf = 0;
+  stopSources();
+  if (mode === "audio") void ctx?.suspend();
   setStage("ended");
   setTourState({ status: "ended", cue: null, pauseReason: null });
   emitTourFrame(timeline.duration);
@@ -228,6 +374,7 @@ export function pause(reason: Exclude<PauseReason, null> = "user") {
   playing = false;
   window.cancelAnimationFrame(raf);
   raf = 0;
+  if (mode === "audio") void ctx?.suspend();
   setStage("paused");
   setTourState({ status: "paused", pauseReason: reason });
   log("pause", { reason });
@@ -242,8 +389,12 @@ export function resume() {
   }
   if (status !== "paused") return;
   align();
-  wallAt = performance.now();
+  wallAt = clockNow();
   playing = true;
+  if (mode === "audio") {
+    void ctx?.resume();
+    if (sources.length === 0) scheduleAll();
+  }
   setStage("playing");
   setTourState({ status: "playing", pauseReason: null });
   startLoop();
@@ -258,8 +409,17 @@ export function toggle() {
 
 function seek(t: number) {
   if (!timeline || !active) return;
+  if (getSnapshot().status === "loading") {
+    // Still preparing: move the start point, `start` begins playback from here.
+    base = Math.min(Math.max(t, 0), timeline.duration);
+    stopIndex = -1;
+    update(base);
+    prioritize(frameAt(timeline, base).stop);
+    return;
+  }
+  stopSources();
   base = Math.min(Math.max(t, 0), timeline.duration);
-  wallAt = performance.now();
+  wallAt = clockNow();
   stopIndex = -1;
   log("seek", { to: Number(base.toFixed(2)) });
   if (base >= timeline.duration) {
@@ -271,7 +431,10 @@ function seek(t: number) {
     setStage("playing");
     setTourState({ status: "playing", pauseReason: null });
   }
+  if (mode === "audio") void ctx?.resume();
   update(base);
+  scheduleAll();
+  prioritize(frameAt(timeline, base).stop);
   startLoop();
 }
 
@@ -435,7 +598,7 @@ function installListeners() {
   }
 }
 
-export function start(
+export async function start(
   options: { chapterKey?: string | null; invoker?: HTMLElement | null } = {}
 ) {
   if (active) return;
@@ -459,23 +622,80 @@ export function start(
     element.dataset.revealed = "true";
   }
 
+  const token = ++startToken;
   active = true;
-  playing = true;
-  wallAt = performance.now();
+  playing = false;
   stopIndex = -1;
+  mode = "perf";
+  ctx = getAudioContext() ?? primeAudio();
+  ensureGraph();
   setStage("playing");
   setTourState({
-    status: "playing",
+    status: "loading",
     timeline,
     chapter: 0,
     stop: 0,
     cue: null,
     pauseReason: null,
+    soundBlocked: false,
+    narration: "pending",
   });
   installListeners();
   log("start", { chapter: chapterIndex });
   update(base);
+  updateNarration();
+
+  // Start when the first narration is decoded or after a short wait, whichever is first.
+  const firstIndex = frameAt(timeline, base).stop;
+  const firstStop = timeline.stops[firstIndex];
+  prioritize(firstIndex);
+  const ready: Promise<unknown>[] = [];
+  if (ctx) {
+    ready.push(
+      Promise.race([
+        ctx.resume().catch(() => undefined),
+        delay(AUDIO_START_WAIT_MS),
+      ])
+    );
+    if (getSnapshot().voice && firstStop.audio) {
+      ready.push(
+        Promise.race([request(firstStop), delay(FIRST_AUDIO_WAIT_MS)])
+      );
+    }
+  }
+  await Promise.all(ready);
+  if (!active || token !== startToken) return;
+
+  mode = ctx && ctx.state === "running" ? "audio" : "perf";
+  wallAt = clockNow();
+  playing = true;
+  setTourState({
+    status: "playing",
+    soundBlocked: Boolean(ctx) && mode === "perf",
+  });
+  scheduleAll();
   startLoop();
+}
+
+/** The browser blocked autoplay: a click resumes the context and re-syncs the voice. */
+export function enableSound() {
+  if (!ctx || !active) return;
+  void ctx.resume().then(() => {
+    if (!active || !ctx || ctx.state !== "running") return;
+    setMode("audio");
+    setTourState({ soundBlocked: false });
+    if (playing) scheduleAll();
+  });
+}
+
+export function setVoice(on: boolean) {
+  setTourState({ voice: on });
+  saveTourPrefs();
+  log("voice", { on });
+  if (ctx && voiceBus) {
+    voiceBus.gain.setTargetAtTime(on ? VOICE_LEVEL : 0, ctx.currentTime, 0.08);
+  }
+  if (on && active && timeline) prioritize(frameAt(timeline, now()).stop);
 }
 
 export function stop() {
@@ -491,6 +711,16 @@ export function stop() {
   stopIndex = -1;
   scrolling = false;
   cutting = false;
+  stopSources();
+  queue = [];
+  buffers.clear();
+  requests.clear();
+  failed.clear();
+  master?.disconnect();
+  master = null;
+  voiceBus = null;
+  if (ctx?.state === "running") void ctx.suspend();
+  mode = "perf";
   html().classList.remove("tour-cut");
   delete html().dataset.tour;
   html().style.removeProperty("--tour-player-h");
@@ -523,6 +753,13 @@ if (process.env.NODE_ENV !== "production" && typeof window !== "undefined") {
       pause: () => pause("user"),
       resume,
       stop,
+      audio: () => ({
+        mode,
+        state: ctx?.state ?? null,
+        buffers: buffers.size,
+        failed: failed.size,
+        sources: sources.length,
+      }),
       log: () => eventLog.slice(),
     },
   });

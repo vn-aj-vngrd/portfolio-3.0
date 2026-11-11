@@ -13,6 +13,7 @@ import {
   PauseIcon,
   PlayIcon,
   PrevIcon,
+  VoiceIcon,
 } from "./TourIcons";
 
 const pad = (value: number) => String(value).padStart(2, "0");
@@ -70,10 +71,12 @@ export default function TourPlayer() {
   const chapter = timeline.chapters[tour.chapter];
   const total = timeline.chapters.length;
   const paused = status === "paused";
+  const loading = status === "loading";
   const captionsLive = !tour.voice || tour.narration !== "ready";
 
-  const announcement =
-    status === "ended"
+  const announcement = loading
+    ? "Preparing the tour"
+    : status === "ended"
       ? "Tour ended"
       : paused
         ? "Paused"
@@ -81,7 +84,9 @@ export default function TourPlayer() {
 
   const metaLeft = `${pad(tour.chapter + 1)} / ${pad(total)} · ${chapter.title}`;
   let metaState = "";
-  if (paused) {
+  if (loading) {
+    metaState = "Preparing the tour…";
+  } else if (paused) {
     metaState =
       tour.pauseReason === "scroll"
         ? `Paused · Resume returns to ${chapter.title}`
@@ -103,6 +108,20 @@ export default function TourPlayer() {
           <span>
             {ended ? "Tour complete" : metaLeft}
             {!ended && metaState ? ` · ${metaState}` : ""}
+            {tour.soundBlocked && !ended ? (
+              <>
+                {" · "}
+                <button
+                  type="button"
+                  className="tour-meta-action"
+                  onClick={() =>
+                    tourControl((director) => director.enableSound())
+                  }
+                >
+                  Turn on sound
+                </button>
+              </>
+            ) : null}
           </span>
           <span ref={clockRef}>
             {formatClock(0)} / {formatClock(timeline.duration)}
@@ -186,6 +205,8 @@ export default function TourPlayer() {
                 type="button"
                 className="tour-icon-button tour-primary"
                 aria-label={paused ? "Resume" : "Pause"}
+                aria-busy={loading || undefined}
+                data-busy={loading || undefined}
                 onClick={() => tourControl((director) => director.toggle())}
               >
                 {paused ? <PlayIcon /> : <PauseIcon />}
@@ -201,6 +222,17 @@ export default function TourPlayer() {
             </div>
             <span className="tour-chapter-title">{chapter.title}</span>
             <div className="tour-group">
+              <button
+                type="button"
+                className="tour-icon-button"
+                aria-label="Narration"
+                aria-pressed={tour.voice}
+                onClick={() =>
+                  tourControl((director) => director.setVoice(!tour.voice))
+                }
+              >
+                <VoiceIcon on={tour.voice} />
+              </button>
               <button
                 type="button"
                 className="tour-icon-button"

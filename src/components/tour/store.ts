@@ -111,6 +111,36 @@ export function saveTourPrefs() {
   }
 }
 
+// Audio. The context is created inside the click that starts the tour so browsers allow sound.
+let audioContext: AudioContext | null = null;
+export const getAudioContext = () => audioContext;
+
+export function primeAudio() {
+  if (typeof window === "undefined") return null;
+  if (!audioContext) {
+    const Constructor =
+      window.AudioContext ??
+      (window as unknown as { webkitAudioContext?: typeof AudioContext })
+        .webkitAudioContext;
+    if (!Constructor) return null;
+    try {
+      audioContext = new Constructor({ latencyHint: "playback" });
+    } catch {
+      return null;
+    }
+  }
+  try {
+    // iOS Safari mutes Web Audio with the ring switch unless the session is "playback".
+    (
+      navigator as Navigator & { audioSession?: { type: string } }
+    ).audioSession!.type = "playback";
+  } catch {
+    // Not supported; sound may follow the ring switch.
+  }
+  void audioContext.resume().catch(() => undefined);
+  return audioContext;
+}
+
 // Director bridge
 export type TourScroller = {
   scrollPageTo: (
@@ -164,6 +194,7 @@ export function startTour(
     focusTourPlayer();
     return;
   }
+  primeAudio();
   void loadDirector().then((module) => module.start(options));
 }
 

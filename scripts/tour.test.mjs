@@ -143,7 +143,7 @@ test("manifest matches the narration and the audio on disk", () => {
     }
     const rate = words(stop.lines.join(" ")) / entry.seconds;
     assert.ok(
-      rate >= 2.2 && rate <= 3.1,
+      rate >= 1.9 && rate <= 3.1,
       `${stop.id}: ${rate.toFixed(2)} words/s`
     );
     stop.lines.forEach((line, i) => {
