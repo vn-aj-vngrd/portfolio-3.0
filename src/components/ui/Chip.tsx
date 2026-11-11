@@ -94,10 +94,58 @@ const paths: Record<ChipIcon, React.ReactNode> = {
       <path d="m9 13.5-1.5 6.5 4.5-2.5 4.5 2.5-1.5-6.5" />
     </>
   ),
+  music: (
+    <>
+      <path d="M9 18V6l10-2v12" />
+      <circle cx="6.5" cy="18" r="2.5" />
+      <circle cx="16.5" cy="16" r="2.5" />
+    </>
+  ),
+  ball: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M3.5 12h17M12 3.5v17M6 6c3 2.5 3 9.5 0 12M18 6c-3 2.5-3 9.5 0 12" />
+    </>
+  ),
+  sun: (
+    <>
+      <circle cx="12" cy="12" r="3.8" />
+      <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4" />
+    </>
+  ),
+  user: (
+    <>
+      <circle cx="12" cy="8" r="3.6" />
+      <path d="M5 20c0-3.9 3.1-6.5 7-6.5s7 2.6 7 6.5" />
+    </>
+  ),
+  access: (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <circle cx="12" cy="8" r="1" />
+      <path d="m8 10.5 4 .8 4-.8M12 11.5V15M10 18l2-3 2 3" />
+    </>
+  ),
   grad: (
     <path d="m3 9 9-4.5L21 9l-9 4.5zM7 11.5V16c0 1.2 2.2 2.5 5 2.5s5-1.3 5-2.5v-4.5" />
   ),
 };
+
+export function ChipIconSvg({ icon }: { icon: ChipIcon }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {paths[icon]}
+    </svg>
+  );
+}
 
 export function Chip({
   icon,
