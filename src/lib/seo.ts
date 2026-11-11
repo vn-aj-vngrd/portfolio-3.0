@@ -2,15 +2,16 @@ import type { Metadata } from "next";
 
 export const SITE_URL = "https://vanajvanguardia.tech";
 export const SITE_NAME = "Van AJ Vanguardia";
-export const SITE_TITLE = "Van AJ Vanguardia | Full-Stack Software Developer";
+export const SITE_TITLE =
+  "Van AJ Vanguardia | AI Product Engineer / Software Engineer";
 export const SITE_DESCRIPTION =
-  "Cebu-based full-stack software developer building web, mobile, backend, and AI-enabled products with TypeScript, React, Next.js, and ASP.NET Core.";
+  "Cebu-based AI product engineer and software engineer building AI features, agents, and web, mobile, and backend products with TypeScript, React, Next.js, ASP.NET Core, Claude Code, and Codex.";
 
 export const DEFAULT_SOCIAL_IMAGE = {
   url: "/opengraph-image",
   width: 1200,
   height: 630,
-  alt: "Van AJ Vanguardia, Full-Stack Software Developer",
+  alt: "Van AJ Vanguardia, AI Product Engineer / Software Engineer",
 } as const;
 
 export function absoluteUrl(path = "/") {

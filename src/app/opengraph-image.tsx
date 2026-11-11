@@ -1,7 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt =
-  "Van AJ Vanguardia, Full-Stack Software Developer";
+export const alt = "Van AJ Vanguardia, AI Product Engineer / Software Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -39,7 +38,7 @@ export default function OpenGraphImage() {
             maxWidth: 960,
           }}
         >
-          Full-Stack Software Developer
+          AI Product Engineer / Software Engineer
         </div>
         <div style={{ fontSize: 30, color: "#5D6673" }}>
           TypeScript · React · Next.js · ASP.NET Core
