@@ -1,7 +1,22 @@
 import Link from "next/link";
 
 import { ProjectFeature } from "@/components/project/ProjectFeature";
+import { Chip } from "@/components/ui/Chip";
 import { projectCatalog } from "@/content/projects";
+import type { ChipIcon } from "@/types/content";
+
+const productChips: readonly {
+  name: string;
+  slug: string;
+  icon: ChipIcon;
+}[] = [
+  { name: "Relay", slug: "relay", icon: "users" },
+  { name: "Roleway", slug: "roleway", icon: "briefcase" },
+  { name: "Viya", slug: "viya", icon: "plane" },
+  { name: "ACSFI", slug: "acsfi", icon: "news" },
+  { name: "Balay", slug: "balay", icon: "home" },
+  { name: "AQD", slug: "aqd", icon: "shirt" },
+];
 
 export function SelectedWork() {
   const featured = projectCatalog.list({ featured: true });
@@ -20,15 +35,23 @@ export function SelectedWork() {
           <span>My work</span>
         </div>
         <h2 id="work-title">Products I designed and built.</h2>
-        <p>
-          Relay, Roleway, Viya, ACSFI, Balay, and AQD cover social sports,
-          job-search operations, mobile travel, nonprofit publishing, an
-          interactive 3D home-design experiment, and a private on-device iPhone
-          closet. Together they show how I handle product scope, interface
-          design, domain modeling, backend architecture, content systems,
-          testing, and release. Each case study links to the public source where
-          it is available; Balay is closed source.
-        </p>
+        <div className="section-lede">
+          <p>
+            Six products, built end to end. Source is public where available;
+            Balay is closed source.
+          </p>
+          <p className="chip-row">
+            {productChips.map((product) => (
+              <Chip
+                key={product.slug}
+                icon={product.icon}
+                href={`/work/${product.slug}`}
+              >
+                {product.name}
+              </Chip>
+            ))}
+          </p>
+        </div>
       </div>
       <div className="project-list">
         {featured.map((project, index) => (

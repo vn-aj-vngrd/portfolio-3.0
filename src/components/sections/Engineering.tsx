@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { WorkflowSteps } from "@/components/ai/WorkflowSteps";
+import { Chip } from "@/components/ui/Chip";
 import { aiWorkflow } from "@/content/ai-workflow";
 import { engineeringPillars, stackGroups } from "@/content/engineering";
 
@@ -17,11 +18,15 @@ export function Engineering() {
           <span>02</span>
           <span>Tech stack</span>
         </div>
-        <h2 id="engineering-title">TypeScript for the product. Backend systems around it.</h2>
+        <h2 id="engineering-title">
+          TypeScript for the product. Backend systems around it.
+        </h2>
         <p>
-          I use TypeScript across web, mobile, and Node.js services. ASP.NET Core,
-          relational databases, cloud platforms, testing tools, and deployment
-          automation support the rest of the system when the work requires them.
+          TypeScript across web, mobile, and Node.js, with{" "}
+          <Chip icon="server">ASP.NET Core</Chip>,{" "}
+          <Chip icon="database">databases</Chip>,{" "}
+          <Chip icon="cloud">cloud</Chip>, and <Chip icon="check">testing</Chip>{" "}
+          behind it when the work needs them.
         </p>
       </div>
 
@@ -35,7 +40,10 @@ export function Engineering() {
         ))}
       </div>
 
-      <section className="ai-workflow-preview" aria-labelledby="workflow-preview-title">
+      <section
+        className="ai-workflow-preview"
+        aria-labelledby="workflow-preview-title"
+      >
         <h3 id="workflow-preview-title">{aiWorkflow.home.title}</h3>
         <p>{aiWorkflow.home.description}</p>
         <WorkflowSteps compact />
@@ -58,7 +66,9 @@ export function Engineering() {
       <div className="stack-groups">
         {stackGroups.map((group) => (
           <article
-            className={group.primary ? "stack-group stack-group-primary" : "stack-group"}
+            className={
+              group.primary ? "stack-group stack-group-primary" : "stack-group"
+            }
             key={group.title}
           >
             <div>

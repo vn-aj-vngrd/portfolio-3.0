@@ -1,14 +1,74 @@
 export const colorTokens = [
-  { name: "Canvas", variable: "--canvas", light: "#FBFBFA", dark: "#0B0C0E", use: "Primary page background" },
-  { name: "Surface", variable: "--surface", light: "#F1F2F2", dark: "#141619", use: "Quiet media and data stages" },
-  { name: "Strong surface", variable: "--surface-strong", light: "#E7E9EA", dark: "#1C1F23", use: "Raised tonal separation" },
-  { name: "Ink", variable: "--ink", light: "#121416", dark: "#F1F3F4", use: "Primary text and controls" },
-  { name: "Muted ink", variable: "--muted", light: "#62686F", dark: "#A3A9B0", use: "Supporting copy" },
-  { name: "Faint ink", variable: "--faint", light: "#686E75", dark: "#7B828A", use: "AA-compliant metadata and tertiary labels" },
-  { name: "Border", variable: "--border", light: "#DFE2E4", dark: "#292D32", use: "Structural hairlines" },
-  { name: "Signal", variable: "--signal", light: "#155EEF", dark: "#77A6FF", use: "Links, focus, and active state" },
-  { name: "Signal soft", variable: "--signal-soft", light: "#E9EFFF", dark: "#14213C", use: "Selected-state background" },
-  { name: "Signal inverse", variable: "--signal-inverse", light: "#77A6FF", dark: "#155EEF", use: "Small accent text on inverted ink surfaces" },
+  {
+    name: "Canvas",
+    variable: "--canvas",
+    light: "#FBFBFA",
+    dark: "#0B0C0E",
+    use: "Primary page background",
+  },
+  {
+    name: "Surface",
+    variable: "--surface",
+    light: "#F1F2F2",
+    dark: "#141619",
+    use: "Quiet media and data stages",
+  },
+  {
+    name: "Strong surface",
+    variable: "--surface-strong",
+    light: "#E7E9EA",
+    dark: "#1C1F23",
+    use: "Raised tonal separation",
+  },
+  {
+    name: "Ink",
+    variable: "--ink",
+    light: "#121416",
+    dark: "#F1F3F4",
+    use: "Primary text and controls",
+  },
+  {
+    name: "Muted ink",
+    variable: "--muted",
+    light: "#62686F",
+    dark: "#A3A9B0",
+    use: "Supporting copy",
+  },
+  {
+    name: "Faint ink",
+    variable: "--faint",
+    light: "#686E75",
+    dark: "#7B828A",
+    use: "AA-compliant metadata and tertiary labels",
+  },
+  {
+    name: "Border",
+    variable: "--border",
+    light: "#DFE2E4",
+    dark: "#292D32",
+    use: "Structural hairlines",
+  },
+  {
+    name: "Signal",
+    variable: "--signal",
+    light: "#155EEF",
+    dark: "#77A6FF",
+    use: "Links, focus, and active state",
+  },
+  {
+    name: "Signal soft",
+    variable: "--signal-soft",
+    light: "#E9EFFF",
+    dark: "#14213C",
+    use: "Selected-state background",
+  },
+  {
+    name: "Signal inverse",
+    variable: "--signal-inverse",
+    light: "#77A6FF",
+    dark: "#155EEF",
+    use: "Small accent text on inverted ink surfaces",
+  },
 ] as const;
 
 export const spacingTokens = [
@@ -23,14 +83,38 @@ export const spacingTokens = [
 ] as const;
 
 export const componentInventory = [
-  { name: "Studio rail", role: "Persistent identity, section state, utilities, and direct contact." },
-  { name: "Page back link", role: "A consistent return path on every focused route." },
-  { name: "Editorial heading", role: "A restrained thesis with readable supporting context." },
-  { name: "Signal link", role: "Text-first action reserved for meaningful navigation." },
-  { name: "Data ledger", role: "Comparable facts separated by rules instead of floating cards." },
-  { name: "Media stage", role: "A quiet product-first surface for authentic screenshots." },
-  { name: "Interface controls", role: "Equal-size theme and sound controls with explicit labels." },
-  { name: "Focus ring", role: "A three-pixel Signal Blue outline visible across themes." },
+  {
+    name: "Studio rail",
+    role: "Persistent identity, section state, utilities, and direct contact.",
+  },
+  {
+    name: "Page back link",
+    role: "A consistent return path on every focused route.",
+  },
+  {
+    name: "Editorial heading",
+    role: "A restrained thesis with readable supporting context.",
+  },
+  {
+    name: "Signal link",
+    role: "Text-first action reserved for meaningful navigation.",
+  },
+  {
+    name: "Data ledger",
+    role: "Comparable facts separated by rules instead of floating cards.",
+  },
+  {
+    name: "Media stage",
+    role: "A quiet product-first surface for authentic screenshots.",
+  },
+  {
+    name: "Interface controls",
+    role: "Equal-size theme and sound controls with explicit labels.",
+  },
+  {
+    name: "Focus ring",
+    role: "A three-pixel Signal Blue outline visible across themes.",
+  },
 ] as const;
 
 export const cssTokenSnippet = `:root {

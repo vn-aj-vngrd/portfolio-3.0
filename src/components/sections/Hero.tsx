@@ -7,8 +7,8 @@ import { profile } from "@/content/profile";
 
 const signals = [
   { value: "3+ years", label: "Product engineering" },
-  { value: "TypeScript", label: "Web and mobile" },
-  { value: "ASP.NET Core", label: "APIs and data" },
+  { value: "Web and mobile", label: "Interfaces people use" },
+  { value: "Backend and cloud", label: "APIs, data, delivery" },
   { value: "AI features", label: "Agents, Claude Code, Codex" },
 ] as const;
 

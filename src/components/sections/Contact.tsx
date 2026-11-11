@@ -1,3 +1,4 @@
+import { Chip } from "@/components/ui/Chip";
 import { CopyEmail } from "@/components/ui/CopyEmail";
 import { profile } from "@/content/profile";
 
@@ -15,9 +16,10 @@ export function Contact() {
       </div>
       <h2 id="contact-title">Interested in working together?</h2>
       <p>
-        I am open to AI product engineering and software engineering roles
-        involving AI features, agents, web, mobile, or backend applications.
-        Email is the best way to reach me.
+        Open to <Chip icon="sparkles">AI product engineering</Chip> and{" "}
+        <Chip icon="code">software engineering</Chip> roles across{" "}
+        <Chip icon="web">web</Chip>, <Chip icon="mobile">mobile</Chip>, and{" "}
+        <Chip icon="server">backend</Chip>. Email is the best way to reach me.
       </p>
       <div className="contact-email">
         <a href={`mailto:${profile.email}`}>{profile.email}</a>

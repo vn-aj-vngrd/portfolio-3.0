@@ -79,3 +79,28 @@ export type Experience = {
   resumeBullets?: readonly string[];
   stack: readonly string[];
 };
+
+export type ChipIcon =
+  | "code"
+  | "web"
+  | "mobile"
+  | "server"
+  | "sparkles"
+  | "agent"
+  | "terminal"
+  | "pin"
+  | "users"
+  | "briefcase"
+  | "plane"
+  | "news"
+  | "home"
+  | "shirt"
+  | "database"
+  | "cloud"
+  | "check"
+  | "layers"
+  | "award"
+  | "grad";
+
+// Prose with inline chips; a chip with `href` links to a case study or page.
+export type RichPart = string | { chip: string; icon: ChipIcon; href?: string };
