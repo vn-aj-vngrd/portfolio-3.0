@@ -1,3 +1,4 @@
+import { Chip } from "@/components/ui/Chip";
 import { certifications } from "@/content/certifications";
 
 export function Certifications() {
@@ -16,11 +17,14 @@ export function Certifications() {
           <span>04</span>
           <span>Credentials</span>
         </div>
-        <h2 id="certifications-title">Education, awards, and technical training.</h2>
+        <h2 id="certifications-title">
+          Education, awards, and technical training.
+        </h2>
         <p>
-          I graduated with a BS in Information Technology from the University of
-          San Carlos in 2024. This section also includes my Hackfest finalist
-          recognition, internship awards, and completed technical programs.
+          BS Information Technology, University of San Carlos, 2024, with{" "}
+          <Chip icon="award">Hackfest finalist</Chip>,{" "}
+          <Chip icon="grad">internship awards</Chip>, and{" "}
+          <Chip icon="check">technical training</Chip>.
         </p>
       </div>
 

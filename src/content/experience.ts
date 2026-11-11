@@ -1,7 +1,19 @@
-import type { Experience } from "@/types/content";
+import type { Experience, RichPart } from "@/types/content";
 
 export const experienceIntroduction =
-  "My work spans product maintenance, new features, AI capabilities, accessibility, integrations, and cloud delivery. I connect React frontends with C# / ASP.NET Core services and SQL Server, with AWS and Microsoft Azure across current and earlier engagements.";
+  "Product work across frontend, backend, data, and delivery, from new features to AI capabilities, accessibility, and cloud.";
+
+export const experienceIntro: readonly RichPart[] = [
+  "Product work across ",
+  { chip: "frontend", icon: "web" },
+  ", ",
+  { chip: "backend", icon: "server" },
+  ", ",
+  { chip: "data", icon: "database" },
+  ", and ",
+  { chip: "cloud delivery", icon: "cloud" },
+  ", from new features to AI capabilities and accessibility.",
+];
 
 export const experience = [
   {
