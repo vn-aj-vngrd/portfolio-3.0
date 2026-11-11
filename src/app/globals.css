@@ -1846,7 +1846,8 @@ main,
     monospace;
 }
 .hero-intro-rich {
-  max-width: 44ch;
+  max-width: 54ch;
+  text-wrap: pretty;
   margin: 0.9rem 0 0;
   color: var(--muted);
   font-size: 1.05rem;

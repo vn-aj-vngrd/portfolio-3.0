@@ -4,6 +4,7 @@ export type IntroIcon =
   | "code"
   | "web"
   | "mobile"
+  | "server"
   | "sparkles"
   | "agent"
   | "terminal"
@@ -18,14 +19,16 @@ const intro: readonly (readonly IntroPart[])[] = [
     { chip: "product-driven engineer", icon: "code" },
     " in ",
     { chip: "Cebu", icon: "pin" },
-    " with 3+ years building ",
+    " with 3+ years taking products from requirements to production across ",
     { chip: "web", icon: "web" },
-    " and ",
+    ", ",
     { chip: "mobile apps", icon: "mobile" },
-    " from requirements to delivery. At work that means React and C# / ASP.NET Core; in my own products, TypeScript, Next.js, and Expo.",
+    ", and ",
+    { chip: "backend", icon: "server" },
+    ".",
   ],
   [
-    "Lately I’m building ",
+    "These days I’m building ",
     { chip: "AI features", icon: "sparkles" },
     " and ",
     { chip: "agents", icon: "agent" },
@@ -41,7 +44,7 @@ export const profile = {
   name: "Van AJ Vanguardia",
   title: "AI Product Engineer / Software Engineer.",
   statement:
-    "I’m a product-driven engineer in Cebu with 3+ years building web and mobile apps from requirements to delivery. At work that means React and C# / ASP.NET Core; in my own products, TypeScript, Next.js, and Expo.",
+    "I’m a product-driven engineer in Cebu with 3+ years taking products from requirements to production across web, mobile apps, and backend.",
   intro,
   introduction: `I am based in Cebu, Philippines. ${aiWorkflow.profileSummary}`,
   location: "Cebu, Philippines",

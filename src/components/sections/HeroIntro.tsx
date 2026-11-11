@@ -14,6 +14,13 @@ const paths: Record<IntroIcon, React.ReactNode> = {
       <path d="M11 18h2" />
     </>
   ),
+  server: (
+    <>
+      <rect x="4" y="4" width="16" height="6.5" rx="2" />
+      <rect x="4" y="13.5" width="16" height="6.5" rx="2" />
+      <path d="M8 7.25h.01M8 16.75h.01" />
+    </>
+  ),
   sparkles: (
     <path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.7 1.8L21.5 18.5l-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7z" />
   ),
