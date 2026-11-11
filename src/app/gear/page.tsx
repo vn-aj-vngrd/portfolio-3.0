@@ -68,7 +68,11 @@ export default function GearPage() {
 
   return (
     <main id="main-content" className="gear-page">
-      <section className="gear-hero" aria-labelledby="gear-title" data-reveal>
+      <section
+        className="gear-hero"
+        aria-labelledby="gear-title"
+        data-reveal="list"
+      >
         <Link className="page-back-link" href="/">
           <span aria-hidden="true">←</span> Back to portfolio
         </Link>
@@ -104,15 +108,15 @@ export default function GearPage() {
 
       <div className="gear-groups">
         {groups.map((group, groupIndex) => (
-          <section className="gear-group" key={group.title} data-reveal>
-            <header>
+          <section className="gear-group" key={group.title}>
+            <header data-reveal>
               <p>0{groupIndex + 1}</p>
               <div>
                 <h2>{group.title}</h2>
                 <p>{group.description}</p>
               </div>
             </header>
-            <div className="gear-list">
+            <div className="gear-list" data-reveal="list">
               {group.items.map((item) => (
                 <article className="gear-item" key={item.name}>
                   <div className="gear-item-visual">

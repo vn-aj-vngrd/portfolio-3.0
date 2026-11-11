@@ -64,3 +64,10 @@ export const ReplayIcon = () => (
     <path d="M4.5 12a7.5 7.5 0 1 0 2.4-5.5M4.5 4.5v4h4" />
   </Icon>
 );
+
+export const TourGuideIcon = ({ size }: { size?: number }) => (
+  <Icon size={size}>
+    <path d="M4 14v-2a8 8 0 0 1 16 0v2" />
+    <path d="M4 14h2.5a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1ZM20 14h-2.5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1H19a1 1 0 0 0 1-1Z" />
+  </Icon>
+);

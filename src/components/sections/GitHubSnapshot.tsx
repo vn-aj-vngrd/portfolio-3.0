@@ -1,11 +1,11 @@
 import Link from "next/link";
 
 import { ContributionGraph } from "@/components/github/ContributionGraph";
+import { Rule } from "@/components/ui/Rule";
 import { getGitHubStats } from "@/lib/github-stats";
 
-function formatNumber(value: number) {
-  return new Intl.NumberFormat("en-US").format(value);
-}
+const formatNumber = (value: number) =>
+  new Intl.NumberFormat("en-US").format(value);
 
 export async function GitHubSnapshot() {
   const stats = await getGitHubStats();
@@ -17,9 +17,8 @@ export async function GitHubSnapshot() {
       className="section github-snapshot"
       data-tour-stop="github"
       aria-labelledby="github-snapshot-title"
-      data-reveal
     >
-      <div className="github-snapshot-copy">
+      <div className="github-snapshot-copy" data-reveal>
         <p>GitHub activity · private included</p>
         <h2 id="github-snapshot-title">
           GitHub activity from the last twelve months.
@@ -33,16 +32,18 @@ export async function GitHubSnapshot() {
       </div>
       <div className="github-snapshot-data">
         <dl>
+          <Rule axis="x" at="50%" />
+          <Rule axis="y" at="50%" />
           <div>
-            <dt>{formatNumber(stats.contributions.total)}</dt>
+            <dt data-count>{formatNumber(stats.contributions.total)}</dt>
             <dd>Contributions</dd>
           </div>
           <div>
-            <dt>{formatNumber(stats.contributions.private)}</dt>
+            <dt data-count>{formatNumber(stats.contributions.private)}</dt>
             <dd>Private</dd>
           </div>
           <div>
-            <dt>{stats.repositories.total}</dt>
+            <dt data-count>{formatNumber(stats.repositories.total)}</dt>
             <dd>Repositories</dd>
           </div>
           <div>

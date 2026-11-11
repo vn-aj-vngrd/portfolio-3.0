@@ -11,7 +11,6 @@ import {
   attachTourScroller,
   isTourActive,
   openTourInvite,
-  startTour,
   takePendingTour,
   tourControl,
   useTour,
@@ -51,7 +50,7 @@ export function TourRoot() {
         await nextFrame();
         if (cancelled) return;
         window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-        startTour({ chapterKey: pending.chapterKey, invoker: pending.invoker });
+        openTourInvite(pending.chapterKey);
       })();
       return () => {
         cancelled = true;

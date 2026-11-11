@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { ContributionGraph } from "@/components/github/ContributionGraph";
+import { Rule } from "@/components/ui/Rule";
 import { getGitHubStats } from "@/lib/github-stats";
 import { createPageMetadata } from "@/lib/seo";
 
@@ -54,22 +55,32 @@ export default async function GitHubPage() {
 
   return (
     <main id="main-content" className="github-page">
-      <section className="github-hero" aria-labelledby="github-title" data-reveal>
+      <section
+        className="github-hero"
+        aria-labelledby="github-title"
+        data-reveal="list"
+      >
         <Link className="page-back-link" href="/">
           <span aria-hidden="true">←</span> Back to portfolio
         </Link>
         <div className="github-hero-grid">
           <div>
             <p className="github-kicker">GitHub activity</p>
-            <h1 id="github-title">A year of public and private repository work.</h1>
+            <h1 id="github-title">
+              A year of public and private repository work.
+            </h1>
           </div>
           <div>
             <p>
               This page reports contributions, owned repositories, detected
-              languages, and recent public work. Private activity appears only in
-              aggregate counts. Repository names and source remain private.
+              languages, and recent public work. Private activity appears only
+              in aggregate counts. Repository names and source remain private.
             </p>
-            <a href="https://github.com/vn-aj-vngrd" target="_blank" rel="noreferrer">
+            <a
+              href="https://github.com/vn-aj-vngrd"
+              target="_blank"
+              rel="noreferrer"
+            >
               @vn-aj-vngrd ↗
             </a>
           </div>
@@ -78,58 +89,83 @@ export default async function GitHubPage() {
 
       {stats ? (
         <>
-          <section className="github-overview" aria-label="GitHub activity overview" data-reveal>
+          <section
+            className="github-overview"
+            aria-label="GitHub activity overview"
+          >
             <dl>
+              <Rule />
+              <Rule at="calc(100% - 1px)" />
+              <Rule axis="x" at="50%" only="narrow" />
+              <Rule axis="y" at="25%" only="wide" />
+              <Rule axis="y" at="50%" />
+              <Rule axis="y" at="75%" only="wide" />
               <div>
-                <dt>{formatNumber(stats.contributions.total)}</dt>
+                <dt data-count>{formatNumber(stats.contributions.total)}</dt>
                 <dd>Contributions · last 12 months</dd>
               </div>
               <div>
-                <dt>{formatNumber(stats.contributions.private)}</dt>
+                <dt data-count>{formatNumber(stats.contributions.private)}</dt>
                 <dd>Private contributions included</dd>
               </div>
               <div>
-                <dt>{stats.repositories.total}</dt>
+                <dt data-count>{stats.repositories.total}</dt>
                 <dd>Owned repositories</dd>
               </div>
               <div>
-                <dt>{stats.repositories.private}</dt>
+                <dt data-count>{stats.repositories.private}</dt>
                 <dd>Private repositories</dd>
               </div>
             </dl>
             <ContributionGraph calendar={stats.contributions.calendar} />
-            <div className="github-period">
-              <span>{formatDate(stats.period.from)} – {formatDate(stats.period.to)}</span>
+            <div className="github-period" data-reveal>
+              <span>
+                {formatDate(stats.period.from)} – {formatDate(stats.period.to)}
+              </span>
               <span>Updated hourly</span>
             </div>
           </section>
 
-          <section className="github-section" aria-labelledby="rhythm-title" data-reveal>
-            <header className="github-section-heading">
+          <section className="github-section" aria-labelledby="rhythm-title">
+            <Rule />
+            <header className="github-section-heading" data-reveal>
               <p>01 · Rhythm</p>
               <div>
-                <h2 id="rhythm-title">Contribution activity over the last twelve months.</h2>
+                <h2 id="rhythm-title">
+                  Contribution activity over the last twelve months.
+                </h2>
                 <p>
                   The calendar combines public and private contribution counts.
-                  Private repository names, organizations, and source code are not requested or displayed.
+                  Private repository names, organizations, and source code are
+                  not requested or displayed.
                 </p>
               </div>
             </header>
-            <dl className="github-rhythm">
+            <dl className="github-rhythm" data-reveal="list">
+              <Rule />
+              <Rule at="calc(100% - 1px)" />
+              <Rule at="50%" only="wide" />
+              <Rule at="33.333%" only="narrow" />
+              <Rule at="66.666%" only="narrow" />
+              <Rule axis="y" />
+              <Rule axis="y" at="calc(100% - 1px)" />
+              <Rule axis="y" at="33.333%" only="wide" />
+              <Rule axis="y" at="66.666%" only="wide" />
+              <Rule axis="y" at="50%" only="narrow" />
               <div>
-                <dt>{stats.contributions.activeDays}</dt>
+                <dt data-count>{stats.contributions.activeDays}</dt>
                 <dd>Active days</dd>
               </div>
               <div>
-                <dt>{stats.contributions.currentStreak}</dt>
+                <dt data-count>{stats.contributions.currentStreak}</dt>
                 <dd>Current streak</dd>
               </div>
               <div>
-                <dt>{stats.contributions.longestStreak}</dt>
+                <dt data-count>{stats.contributions.longestStreak}</dt>
                 <dd>Longest streak</dd>
               </div>
               <div>
-                <dt>{stats.contributions.busiestDay?.count ?? 0}</dt>
+                <dt data-count>{stats.contributions.busiestDay?.count ?? 0}</dt>
                 <dd>
                   Busiest day
                   {stats.contributions.busiestDay
@@ -138,41 +174,53 @@ export default async function GitHubPage() {
                 </dd>
               </div>
               <div>
-                <dt>{stats.contributions.public}</dt>
+                <dt data-count>{stats.contributions.public}</dt>
                 <dd>Public contributions</dd>
               </div>
               <div>
-                <dt>{stats.repositories.recentlyActive}</dt>
+                <dt data-count>{stats.repositories.recentlyActive}</dt>
                 <dd>Repositories active in 90 days</dd>
               </div>
             </dl>
           </section>
 
-          <section className="github-section" aria-labelledby="languages-title" data-reveal>
-            <header className="github-section-heading">
+          <section className="github-section" aria-labelledby="languages-title">
+            <Rule />
+            <header className="github-section-heading" data-reveal>
               <p>02 · Languages</p>
               <div>
-                <h2 id="languages-title">Languages detected across owned repositories.</h2>
+                <h2 id="languages-title">
+                  Languages detected across owned repositories.
+                </h2>
                 <p>
-                  Percentages use GitHub Linguist byte counts from repositories available
-                  to this portfolio. Forks are excluded; public and private repositories are included.
+                  Percentages use GitHub Linguist byte counts from repositories
+                  available to this portfolio. Forks are excluded; public and
+                  private repositories are included.
                 </p>
               </div>
             </header>
             <div className="language-layout">
-              <ol className="language-chart">
+              <ol className="language-chart" data-reveal="list">
                 {stats.languages.slice(0, 10).map((language, index) => (
                   <li key={language.name}>
-                    <span>0{index + 1}</span>
+                    <span>{String(index + 1).padStart(2, "0")}</span>
                     <div>
                       <strong>{language.name}</strong>
-                      <i style={{ width: `${Math.max(language.percentage, 1)}%` }} />
+                      <i
+                        data-fill
+                        style={
+                          {
+                            width: `${Math.max(language.percentage, 1)}%`,
+                            "--i": index,
+                          } as React.CSSProperties
+                        }
+                      />
                     </div>
-                    <em>{language.percentage.toFixed(1)}%</em>
+                    <em data-count>{language.percentage.toFixed(1)}%</em>
                   </li>
                 ))}
               </ol>
-              <div className="all-languages">
+              <div className="all-languages" data-reveal>
                 <p>All detected languages</p>
                 <ul>
                   {stats.languages.map((language) => (
@@ -188,45 +236,53 @@ export default async function GitHubPage() {
                 </ul>
               </div>
             </div>
-            <p className="github-method-note">
-              This measures repository language bytes, not lines written. Generated,
-              vendored, educational, and historical code can influence the distribution.
+            <p className="github-method-note" data-reveal>
+              This measures repository language bytes, not lines written.
+              Generated, vendored, educational, and historical code can
+              influence the distribution.
             </p>
           </section>
 
-          <section className="github-section" aria-labelledby="repositories-title" data-reveal>
-            <header className="github-section-heading">
+          <section
+            className="github-section"
+            aria-labelledby="repositories-title"
+          >
+            <Rule />
+            <header className="github-section-heading" data-reveal>
               <p>03 · Repositories</p>
               <div>
-                <h2 id="repositories-title">Recently updated public repositories.</h2>
+                <h2 id="repositories-title">
+                  Recently updated public repositories.
+                </h2>
                 <p>
-                  Public repositories are listed with their primary language and most
-                  recent push date. Private repositories contribute only to the summary counts.
+                  Public repositories are listed with their primary language and
+                  most recent push date. Private repositories contribute only to
+                  the summary counts.
                 </p>
               </div>
             </header>
-            <div className="repository-summary">
+            <div className="repository-summary" data-reveal="list">
               <p>
-                <strong>{stats.repositories.public}</strong>
+                <strong data-count>{stats.repositories.public}</strong>
                 Public
               </p>
               <p>
-                <strong>{stats.repositories.private}</strong>
+                <strong data-count>{stats.repositories.private}</strong>
                 Private
               </p>
               <p>
-                <strong>{stats.repositories.stars}</strong>
+                <strong data-count>{stats.repositories.stars}</strong>
                 Stars
               </p>
               <p>
-                <strong>{stats.repositories.forks}</strong>
+                <strong data-count>{stats.repositories.forks}</strong>
                 Forks
               </p>
             </div>
-            <ol className="recent-repositories">
+            <ol className="recent-repositories" data-reveal="list">
               {stats.recentRepositories.map((repository, index) => (
                 <li key={repository.name}>
-                  <span>0{index + 1}</span>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
                   <div>
                     <h3>{repository.name}</h3>
                     <p>{repository.description || "Public repository"}</p>
@@ -234,11 +290,15 @@ export default async function GitHubPage() {
                   <div>
                     {repository.language ? (
                       <span>
-                        <i style={{ backgroundColor: repository.language.color }} />
+                        <i
+                          style={{ backgroundColor: repository.language.color }}
+                        />
                         {repository.language.name}
                       </span>
                     ) : null}
-                    <time dateTime={repository.pushedAt}>{formatDate(repository.pushedAt)}</time>
+                    <time dateTime={repository.pushedAt}>
+                      {formatDate(repository.pushedAt)}
+                    </time>
                   </div>
                   <a href={repository.url} target="_blank" rel="noreferrer">
                     Source ↗
@@ -248,18 +308,25 @@ export default async function GitHubPage() {
             </ol>
           </section>
 
-          <section className="github-section" aria-labelledby="stack-context-title" data-reveal>
-            <header className="github-section-heading">
+          <section
+            className="github-section"
+            aria-labelledby="stack-context-title"
+          >
+            <Rule />
+            <header className="github-section-heading" data-reveal>
               <p>04 · Stack context</p>
               <div>
-                <h2 id="stack-context-title">Framework and infrastructure context.</h2>
+                <h2 id="stack-context-title">
+                  Framework and infrastructure context.
+                </h2>
                 <p>
-                  Language statistics do not identify frameworks, hosting, databases, or
-                  delivery tools. Those details come from the documented projects and experience on this site.
+                  Language statistics do not identify frameworks, hosting,
+                  databases, or delivery tools. Those details come from the
+                  documented projects and experience on this site.
                 </p>
               </div>
             </header>
-            <div className="github-stack-context">
+            <div className="github-stack-context" data-reveal="list">
               {stackContext.map((group) => (
                 <article key={group.title}>
                   <h3>{group.title}</h3>
@@ -272,12 +339,18 @@ export default async function GitHubPage() {
       ) : (
         <section className="github-unavailable" data-reveal>
           <h2>GitHub activity is temporarily unavailable.</h2>
-          <p>The portfolio remains available while the private stats connection recovers.</p>
+          <p>
+            The portfolio remains available while the private stats connection
+            recovers.
+          </p>
         </section>
       )}
 
       <footer className="github-footer" data-reveal>
-        <p>For implementation details, architecture, and tests, continue to the selected projects.</p>
+        <p>
+          For implementation details, architecture, and tests, continue to the
+          selected projects.
+        </p>
         <Link href="/#my-work">See selected work →</Link>
       </footer>
     </main>

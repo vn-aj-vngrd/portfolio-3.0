@@ -7,12 +7,11 @@ import { TOUR_DURATION_LABEL } from "@/lib/tour";
 import {
   focusTourPlayer,
   isTourActive,
+  openTourInvite,
   preloadTour,
-  primeAudio,
   setPendingTour,
-  startTour,
 } from "./store";
-import { PlayIcon } from "./TourIcons";
+import { PlayIcon, TourGuideIcon } from "./TourIcons";
 
 type Variant = "rail" | "header" | "hero";
 
@@ -22,19 +21,18 @@ export function TourEntry({ variant }: { variant: Variant }) {
   const pathname = usePathname();
   const router = useRouter();
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const invoker = event.currentTarget;
-    if (pathname !== "/" && !isTourActive()) {
-      // The tour lives on the home page: keep the click's audio permission, go there, start.
-      primeAudio();
-      setPendingTour({ chapterKey: null, invoker });
-      router.push("/");
-      return;
-    }
     if (isTourActive()) {
       focusTourPlayer();
       return;
     }
-    startTour({ invoker });
+    if (pathname !== "/") {
+      // The tour lives on the home page: go there, then the start card opens.
+      setPendingTour({ chapterKey: null, invoker: event.currentTarget });
+      router.push("/");
+      return;
+    }
+    // Never start cold: the start card says what the tour is and asks for sound first.
+    openTourInvite(null);
   };
   const common = {
     type: "button" as const,
@@ -52,7 +50,7 @@ export function TourEntry({ variant }: { variant: Variant }) {
           aria-label={ACCESSIBLE_NAME}
         >
           <i aria-hidden="true">
-            <PlayIcon />
+            <TourGuideIcon />
           </i>
           <span>Guided tour</span>
           <kbd aria-hidden="true">{TOUR_DURATION_LABEL.toUpperCase()}</kbd>
@@ -68,7 +66,7 @@ export function TourEntry({ variant }: { variant: Variant }) {
         className="tour-entry tour-entry-header"
         aria-label={ACCESSIBLE_NAME}
       >
-        <PlayIcon />
+        <TourGuideIcon />
         <span>Tour</span>
       </button>
     );
@@ -77,7 +75,8 @@ export function TourEntry({ variant }: { variant: Variant }) {
   return (
     <button {...common} className="tour-entry tour-entry-hero">
       <PlayIcon />
-      <span>Take the guided tour · {TOUR_DURATION_LABEL}</span>
+      <span>Guided tour</span>
+      <em>{TOUR_DURATION_LABEL}</em>
     </button>
   );
 }

@@ -10,7 +10,7 @@ Product-driven portfolio for Van AJ Vanguardia, a product-driven AI product engi
 - Tailwind CSS 4
 - `next-themes`
 
-The homepage, living design system, AI workflow, gear catalog, résumé, GitHub engineering activity, and project case studies use statically generated or revalidated server content. Client JavaScript supports theme selection, smooth scrolling, keyboard navigation, live anonymous presence, Bug Hunt, email copying, and résumé printing.
+The homepage, living design system, AI workflow, gear catalog, résumé, GitHub engineering activity, and project case studies use statically generated or revalidated server content. Client JavaScript supports theme selection, smooth scrolling, keyboard navigation, live anonymous presence, Bug Hunt, email copying, résumé printing, and the factory walkthrough on /ai.
 
 ## Content
 
@@ -24,6 +24,7 @@ src/content/
 ├── experience.ts
 ├── certifications.ts
 ├── ai-workflow.ts
+├── factory.ts
 ├── gear.ts
 └── tour.ts
 ```

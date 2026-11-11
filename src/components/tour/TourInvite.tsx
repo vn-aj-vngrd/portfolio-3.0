@@ -19,6 +19,8 @@ import {
 } from "./store";
 import { MusicIcon, VoiceIcon } from "./TourIcons";
 
+const EXIT_MS = 200;
+
 function clockLabel(seconds: number) {
   const whole = Math.round(seconds);
   return `${Math.floor(whole / 60)} min ${String(whole % 60).padStart(2, "0")} s`;
@@ -45,26 +47,27 @@ export function TourInvite({ chapter }: { chapter: string | null }) {
     };
   }, []);
 
-  const dismiss = () => {
+  // Close the dialog first so its exit transition plays, then unmount.
+  const leave = (then: () => void) => {
     window.history.replaceState(
       null,
       "",
       withoutTourLink(window.location.href)
     );
-    closeTourInvite();
+    dialogRef.current?.close();
+    window.setTimeout(then, EXIT_MS);
   };
 
+  const dismiss = () => leave(closeTourInvite);
+
   const play = () => {
-    primeAudio();
-    window.history.replaceState(
-      null,
-      "",
-      withoutTourLink(window.location.href)
-    );
-    closeTourInvite();
-    startTour({
-      chapterKey: chapterIndex >= 0 ? chapter : null,
-      invoker: null,
+    primeAudio(); // must run inside the click for the browser to allow sound
+    leave(() => {
+      closeTourInvite();
+      startTour({
+        chapterKey: chapterIndex >= 0 ? chapter : null,
+        invoker: null,
+      });
     });
   };
 

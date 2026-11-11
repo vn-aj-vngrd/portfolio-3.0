@@ -4,6 +4,7 @@
 // through the store. One requestAnimationFrame loop advances the clock, moves the
 // stage from stop to stop and publishes changes.
 import { tourChapters } from "@/content/tour";
+import { reveal, REVEAL_SELECTOR } from "@/lib/reveal";
 import {
   buildTimeline,
   chapterAt,
@@ -706,9 +707,12 @@ export async function start(
   invokerEl = options.invoker ?? null;
 
   for (const element of document.querySelectorAll<HTMLElement>(
-    "[data-reveal]"
+    REVEAL_SELECTOR
   )) {
-    element.dataset.revealed = "true";
+    reveal(element, true);
+  }
+  for (const element of document.querySelectorAll<HTMLElement>("[data-flow]")) {
+    element.dataset.drawn = "true";
   }
 
   const token = ++startToken;

@@ -10,7 +10,7 @@ const signals = [
   { value: "3+ years", label: "Product engineering" },
   { value: "Web and mobile", label: "Interfaces people use" },
   { value: "Backend and cloud", label: "APIs, data, delivery" },
-  { value: "AI features", label: "Agents, Claude Code, Codex" },
+  { value: "AI features", label: "Agents and Claude Code" },
 ] as const;
 
 export function Hero() {
@@ -19,6 +19,7 @@ export function Hero() {
       className="hero"
       aria-labelledby="hero-title"
       data-tour-stop="hero"
+      data-reveal="list"
     >
       <div className="hero-portrait" aria-hidden="true">
         <Image

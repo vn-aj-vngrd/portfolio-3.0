@@ -11,7 +11,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
 
   return (
     <main id="main-content" className="case-study">
-      <header className="case-hero" data-reveal>
+      <header className="case-hero" data-reveal="list">
         <Link className="back-link" href="/#my-work">
           ← My work
         </Link>
@@ -47,16 +47,12 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       </header>
 
       {project.agent ? (
-        <section
-          className="case-decisions"
-          aria-labelledby="agent-title"
-          data-reveal
-        >
-          <div className="section-heading">
+        <section className="case-decisions" aria-labelledby="agent-title">
+          <div className="section-heading" data-reveal>
             <h2 id="agent-title">AI Agent</h2>
             <p>{project.agent.summary}</p>
           </div>
-          <div className="decision-list">
+          <div className="decision-list" data-reveal="list">
             {project.agent.steps.map((step) => (
               <article key={step.title}>
                 <h3>{step.title}</h3>
@@ -77,7 +73,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       <section
         className="case-context"
         aria-labelledby="context-title"
-        data-reveal
+        data-reveal="list"
       >
         <h2 id="context-title">Problem and response</h2>
         <div>
@@ -94,15 +90,11 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
 
       {project.slug === "relay" ? <RelayHighlights /> : null}
       {project.features ? (
-        <section
-          className="case-decisions"
-          aria-labelledby="features-title"
-          data-reveal
-        >
-          <div className="section-heading">
+        <section className="case-decisions" aria-labelledby="features-title">
+          <div className="section-heading" data-reveal>
             <h2 id="features-title">The workflow</h2>
           </div>
-          <div className="decision-list">
+          <div className="decision-list" data-reveal="list">
             {project.features.map((feature) => (
               <article key={feature.title}>
                 <h3>{feature.title}</h3>
@@ -116,13 +108,12 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       <section
         className="case-architecture"
         aria-labelledby="architecture-title"
-        data-reveal
       >
-        <div className="section-heading">
+        <div className="section-heading" data-reveal>
           <h2 id="architecture-title">Architecture</h2>
           <p>{project.architectureSummary}</p>
         </div>
-        <ol className="architecture-list">
+        <ol className="architecture-list" data-reveal="list">
           {project.architecture.map((layer) => (
             <li key={layer.title}>
               <h3>{layer.title}</h3>
@@ -132,19 +123,15 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         </ol>
       </section>
 
-      <section
-        className="case-decisions"
-        aria-labelledby="decisions-title"
-        data-reveal
-      >
-        <div className="section-heading">
+      <section className="case-decisions" aria-labelledby="decisions-title">
+        <div className="section-heading" data-reveal>
           <h2 id="decisions-title">Key product and engineering decisions</h2>
           <p>
             These decisions affect what users can do, where product rules live,
             and how the system handles failure or change.
           </p>
         </div>
-        <div className="decision-list">
+        <div className="decision-list" data-reveal="list">
           {project.decisions.map((decision) => (
             <article key={decision.title}>
               <h3>{decision.title}</h3>
@@ -154,19 +141,15 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
         </div>
       </section>
 
-      <section
-        className="case-evidence"
-        aria-labelledby="evidence-title"
-        data-reveal
-      >
-        <div>
+      <section className="case-evidence" aria-labelledby="evidence-title">
+        <div data-reveal>
           <h2 id="evidence-title">What you can inspect</h2>
           <p>
             The live product and public repository provide concrete evidence of
             the implemented features, architecture, tests, and documentation.
           </p>
         </div>
-        <ul>
+        <ul data-reveal="list">
           {project.evidence.map((item) => (
             <li key={item}>{item}</li>
           ))}

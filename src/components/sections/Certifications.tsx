@@ -11,9 +11,8 @@ export function Certifications() {
       id="credentials"
       data-tour-stop="credentials"
       aria-labelledby="certifications-title"
-      data-reveal
     >
-      <div className="section-heading section-heading-wide">
+      <div className="section-heading section-heading-wide" data-reveal>
         <div className="section-index">
           <span>04</span>
           <span>Credentials</span>
@@ -31,7 +30,7 @@ export function Certifications() {
 
       <div className="credentials-layout">
         {featured ? (
-          <article className="featured-credential">
+          <article className="featured-credential" data-reveal>
             <div className="credential-brand">
               <svg
                 viewBox="0 0 64 32"
@@ -58,15 +57,18 @@ export function Certifications() {
               <span>{featured.issuer}</span>
             </div>
             <span className="credential-bar" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-              <i />
+              {[0, 1, 2, 3].map((index) => (
+                <i
+                  data-fill
+                  key={index}
+                  style={{ "--i": index } as React.CSSProperties}
+                />
+              ))}
             </span>
           </article>
         ) : null}
 
-        <ol className="credential-list">
+        <ol className="credential-list" data-reveal="list">
           {credentials.map((credential, index) => (
             <li key={credential.title}>
               <span className="credential-number">0{index + 1}</span>
