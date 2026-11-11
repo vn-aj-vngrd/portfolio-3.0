@@ -1099,6 +1099,12 @@ const projectEntries = [
         label: "Floor plan",
       },
     ],
+    coverImage: {
+      src: "/images/projects/balay/front-morning.webp",
+      alt: "Balay 3D viewer showing the front of the two-storey modern house in morning light, with a timber gate, palms, and the tour panel open",
+      width: 2880,
+      height: 1800,
+    },
     repository: undefined,
     liveUrl: "https://balay.vanajvanguardia.tech/",
   },
