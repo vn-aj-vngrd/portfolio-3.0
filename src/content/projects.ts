@@ -47,7 +47,7 @@ const projectEntries = [
     problem:
       "Recreational pickleball groups coordinate the plan, roster, venue cost, court order, and scores across group chats, spreadsheets, and whoever happens to remember what comes next.",
     solution:
-      "Start with a court, a hosted game, or device-local Quick Play. A shared game link connects guest RSVPs, the roster, costs, rotations, scores, chat, and Stories. Agent adds a conversational entry point: explore authorized game details, answer one missing question at a time, and review a proposal before creating anything.",
+      "Start with a court, a hosted game, or device-local Quick Play. A shared game link connects guest RSVPs, the roster, costs and repayment status, rotations, scores, chat, and Stories. Court Finder searches a Philippines-wide directory, and personal game insights summarize hosted games and match records. Agent adds a conversational entry point: explore authorized game details, answer one missing question at a time, and review a proposal before creating anything.",
     role: "Designed and built independently",
     status: "Live web product · Source available",
     featured: true,
@@ -128,9 +128,9 @@ const projectEntries = [
       },
     ],
     evidence: [
-      "The public product presents a Philippines court finder, guest RSVP, device-local Quick Play, five play formats, court scoring, repayment tracking, and game chat. Story offers Court Pop, Studio, Scrapbook, Soft Serve, and Clubhouse themes with 1080 × 1920 export.",
-      "The database model covers users, sessions, guests, rosters, queues, matches, scores, expenses, messages, groups, and memories.",
-      "Automated tests cover RSVP and waitlist rules, expense splitting, queue assignment, standings, permissions, rotation formats, and accessible interface behavior.",
+      "The public product presents guest RSVP, device-local Quick Play, five play formats, court scoring, repayment tracking with proof and host confirmation, and game chat. Court Finder lists 305 places on a map with setting, access, parking, price, and availability filters. Story offers Court Pop, Studio, Scrapbook, Soft Serve, and Clubhouse themes with 1080 × 1920 export.",
+      "Signed-in players get personal game insights: games hosted and played, match record, win rate, points, and recent results. The database model covers users, sessions, guests, rosters, queues, matches, scores, expenses, messages, groups, and memories.",
+      "Automated tests cover RSVP and waitlist rules, expense splitting, queue assignment, standings, permissions, rotation formats, and accessible interface behavior. Agent adds saved chat history, reply feedback, and admin metrics and eval views for reviewing answer quality.",
       "The public repository documents authorization rules, domain structure, accessibility targets, integration boundaries, local setup, and quality commands.",
     ],
     images: [
@@ -156,13 +156,6 @@ const projectEntries = [
         label: "Plan and RSVP",
       },
       {
-        src: "/images/projects/relay/format.webp",
-        alt: "Relay play setup showing Paddle Stack, Mix It Up, Court Climb, and Team Round Robin formats",
-        width: 2880,
-        height: 1800,
-        label: "Play format",
-      },
-      {
         src: "/images/projects/relay/courts.webp",
         alt: "Relay active courts view with live scoring and the paddle queue",
         width: 2880,
@@ -170,18 +163,25 @@ const projectEntries = [
         label: "Live courts",
       },
       {
-        src: "/images/projects/relay/scoring.webp",
-        alt: "Relay courtside scoring view with large team scores and touch controls",
-        width: 2880,
-        height: 1800,
-        label: "Courtside scoring",
+        src: "/images/projects/relay/court-finder.webp",
+        alt: "Relay Court Finder showing a searchable list of Philippines pickleball courts beside a clustered map with setting, access, parking, price, and availability filters",
+        width: 1506,
+        height: 812,
+        label: "Court Finder · 305 places",
+      },
+      {
+        src: "/images/projects/relay/insights.webp",
+        alt: "Relay personal game insights showing match record, win rate, games hosted and played, points scored, and recent games",
+        width: 1500,
+        height: 812,
+        label: "Personal game insights",
       },
     ],
     coverImage: {
-      src: "/images/projects/relay/landing-2026-09.webp",
-      alt: "Updated Relay landing page with Create game, Quick Play, court discovery, and AI Agent entry points",
-      width: 1440,
-      height: 1000,
+      src: "/images/projects/relay/landing-2026-11.webp",
+      alt: "Relay landing page headline Plan the game, Share the link, Play, with Create game, Quick Play, Find a court, and Explore open games actions above a sample game preview",
+      width: 1506,
+      height: 812,
     },
     repository: "https://github.com/vn-aj-vngrd/relay",
     liveUrl: "https://relay.vanajvanguardia.tech/",
@@ -202,7 +202,7 @@ const projectEntries = [
     problem:
       "A serious job search spreads across browser tabs, spreadsheets, calendars, documents, and notes. Different career targets blur together, follow-ups are missed, preparation loses context, and it becomes difficult to decide what deserves attention next.",
     solution:
-      "An Account owns a Career Profile and multiple Workspaces, each with its own Jobs, Opportunities, preferences, people, documents, goals, and results. Home orders current work and each Opportunity retains its dossier and one Next Action. Agent helps users explore selected search context and create through conversation: clarify the destination, gather missing details, review the exact proposal, and open the saved result after approval.",
+      "An Account owns a Career Profile and multiple Workspaces, each with its own Jobs, Opportunities, preferences, people, documents, goals, and results. Home orders current work and each Opportunity retains its dossier and one Next Action. Agent helps users explore selected search context and create through conversation: clarify the destination, gather missing details, stream progress, review the exact proposal, and open the saved result after approval.",
     role: "Designed and built independently",
     status: "Live · Open source · Self-hostable",
     featured: true,
@@ -213,6 +213,7 @@ const projectEntries = [
       "Supabase",
       "Resend",
       "PostgreSQL",
+      "Vercel AI SDK",
       "OpenAI API",
       "Anthropic API",
       "Gemini API",
@@ -233,7 +234,7 @@ const projectEntries = [
       },
       {
         title: "Prepare with Agent, approve every change",
-        body: "Core tracking works without AI. Create and Explore are discoverable from the same + and / menu. Agent asks for missing details in chat, then presents the exact destination, text, and date for approval. Applications and employer messages remain user actions.",
+        body: "Core tracking works without AI. Create and Explore are discoverable from the same + and / menu. Agent asks for missing details in chat, then presents the exact destination, text, and date for approval. Interviews and contacts can be created too, but invitations, messages, and applications remain user actions.",
       },
       {
         title: "Protect data at two boundaries",
@@ -268,7 +269,7 @@ const projectEntries = [
         },
         {
           title: "Fill the gaps through chat",
-          body: "Agent asks for missing details one at a time and clarifies the target Opportunity, Workspace, or date. It can propose a Workspace, task, note, or Next Action.",
+          body: "Agent asks for missing details one at a time and clarifies the target Opportunity, Workspace, or date. It can propose a Workspace, task, Next Action, note, interview, or contact.",
         },
         {
           title: "Approve the exact change",
@@ -294,17 +295,17 @@ const projectEntries = [
       },
       {
         title: "Provider-neutral Agent boundary",
-        body: "Next.js Server Actions gather bounded account context before one generation request through custom HTTP adapters for OpenAI, Anthropic, Gemini, OpenRouter, or compatible endpoints. Zod validates the structured answer and proposals before storage. Responses appear after completion; this implementation does not use Vercel AI SDK or token streaming. User-supplied credentials are encrypted with AES-256-GCM.",
+        body: "A route handler authenticates the request, checks quota and scope, and gathers bounded context. A Vercel AI SDK ToolLoopAgent streams progress and the answer through the OpenAI, Anthropic, Gemini, OpenRouter, or compatible provider the user connected, calling scoped read tools rather than raw SQL. Zod validates the structured answer and proposals before they are saved with the conversation. The stream is feedback; only the saved run counts. User-supplied credentials are encrypted on the server.",
       },
       {
         title: "Database-authorized Agent actions",
-        body: "Agent proposes Workspaces, Opportunity tasks, Next Actions, and notes. Explicit approval invokes PostgreSQL functions that recheck ownership, proposal status, expiry, and domain rules in a transaction. Stale Next Action proposals are rejected instead of overwriting intervening edits. Explore uses bounded snapshots, not exhaustive account search. Documents contribute metadata; their full bodies, notes, activity history, and Help Center articles are not retrieved into model context.",
+        body: "Agent proposes Workspaces, Opportunity tasks, Next Actions, notes, interviews, and contacts. Explicit approval invokes PostgreSQL functions that recheck ownership, proposal status, expiry, and domain rules in a transaction. Stale Next Action proposals are rejected instead of overwriting intervening edits. Explore uses bounded snapshots, not exhaustive account search. Documents contribute metadata; their full bodies, notes, activity history, and Help Center articles are not retrieved into model context.",
       },
     ],
     evidence: [
       "The deployed product includes multiple Workspaces, Home, Job Inbox, list and board Opportunity views, detailed Opportunity dossiers, contacts, interviews, documents, entity search, notifications, Insights, settings, export, account deletion, and an admin console.",
       "Public job URLs are fetched server-side with private-network blocking, redirect and size limits, and a per-user quota; Ashby, Greenhouse, and Lever use public job-board endpoints with JSON-LD and metadata fallbacks.",
-      "The public Agent showcase demonstrates next-step exploration and conversational Workspace/task creation with illustrative data. The live creation guide documents all four supported changes, correction, rejection, and recovery. These demos do not execute live AI calls.",
+      "The public Agent showcase demonstrates next-step exploration and conversational Workspace/task creation with illustrative data. The live creation guide documents the supported changes, correction, rejection, and recovery. These demos do not execute live AI calls. Signed in, Agent reads across Workspaces or one fixed scope, saves resumable conversations, and lets the user choose a connected model.",
       "Unit tests cover workflow transitions, provider parsing, encrypted credentials, rich text, dates, URL safety, and validation. Playwright covers signup, onboarding, Workspaces, capture, Opportunity progression, application records, documents, interviews, Home, search, export, authorization, and account deletion.",
       "The Apache-2.0 repository is self-hostable. The PWA caches versioned static assets while authenticated pages and API responses remain network-only.",
     ],
@@ -324,6 +325,13 @@ const projectEntries = [
         label: "Workspace opportunities",
       },
       {
+        src: "/images/projects/roleway/agent-workspaces.webp",
+        alt: "Roleway Agent opened across all Workspaces with a message box, a plus menu for Create and Explore actions, and a model selector",
+        width: 1502,
+        height: 812,
+        label: "Agent across Workspaces",
+      },
+      {
         src: "/images/projects/roleway/workspace-home.webp",
         alt: "Roleway Home view ordering overdue and current work beside Workspace details, pulse, and active Opportunities",
         width: 1440,
@@ -332,10 +340,10 @@ const projectEntries = [
       },
     ],
     coverImage: {
-      src: "/images/projects/roleway/landing-2026-09.webp",
-      alt: "Updated Roleway landing page introducing its AI job-search assistant and an Opportunity list with Next Actions",
-      width: 1440,
-      height: 1000,
+      src: "/images/projects/roleway/landing-2026-11.webp",
+      alt: "Roleway landing page headline Your job search with a clear next move, above a sample Workspace of Opportunities grouped by stage with Next Actions",
+      width: 1502,
+      height: 812,
     },
     repository: "https://github.com/vn-aj-vngrd/roleway",
     liveUrl: "https://roleway.vanajvanguardia.tech/",

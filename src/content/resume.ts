@@ -90,12 +90,13 @@ const productSelections = [
   {
     slug: "roleway",
     description:
-      "Built a job-search workspace with custom AI provider adapters, bounded account context, and Zod-validated structured output. Agent proposes workspaces, tasks, notes, and next actions for user approval; PostgreSQL functions authorize execution. Protected data with row-level security and encrypted provider credentials.",
+      "Built a job-search workspace with a Vercel AI SDK tool-loop agent that streams progress through user-connected providers, with bounded account context and Zod-validated structured output. Agent proposes workspaces, tasks, notes, next actions, interviews, and contacts for user approval; PostgreSQL functions authorize execution. Protected data with row-level security and encrypted provider credentials.",
     stack: [
       "Next.js",
       "TypeScript",
       "Supabase",
       "PostgreSQL",
+      "Vercel AI SDK",
       "OpenAI, Anthropic, Gemini, OpenRouter",
       "Zod",
       "Vitest",
