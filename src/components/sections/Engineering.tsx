@@ -30,7 +30,7 @@ export function Engineering() {
         </p>
       </div>
 
-      <div className="pillar-list">
+      <div className="pillar-list" data-tour-stop="tech-pillars">
         {engineeringPillars.map((pillar) => (
           <article key={pillar.title}>
             <h3>{pillar.title}</h3>
@@ -42,6 +42,7 @@ export function Engineering() {
 
       <section
         className="ai-workflow-preview"
+        data-tour-stop="tech-workflow"
         aria-labelledby="workflow-preview-title"
       >
         <h3 id="workflow-preview-title">{aiWorkflow.home.title}</h3>
@@ -63,7 +64,7 @@ export function Engineering() {
         </p>
       </div>
 
-      <div className="stack-groups">
+      <div className="stack-groups" data-tour-stop="tech-stack-groups">
         {stackGroups.map((group) => (
           <article
             className={

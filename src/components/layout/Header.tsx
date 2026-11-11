@@ -12,6 +12,7 @@ import {
   portfolioSections,
   usePortfolioNavigation,
 } from "@/components/providers/PortfolioNavigation";
+import { TourEntry } from "@/components/tour/TourEntry";
 import { InterfaceControls } from "@/components/ui/InterfaceControls";
 import { LivePresence } from "@/components/ui/LivePresence";
 import { profile } from "@/content/profile";
@@ -218,6 +219,8 @@ export function Header({
           <span className="nav-divider" aria-hidden="true" />
         </nav>
 
+        <TourEntry variant="rail" />
+
         <ProductLab ref={productLabRef} productMatches={productMatches} />
 
         <div className="sidebar-dock">
@@ -226,6 +229,7 @@ export function Header({
           </div>
 
           <div className="header-utilities">
+            <TourEntry variant="header" />
             <details
               ref={menuRef}
               className="mobile-menu"

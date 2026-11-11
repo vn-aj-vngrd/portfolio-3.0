@@ -28,6 +28,7 @@ export function About() {
     <section
       className="section about-section"
       id="about"
+      data-tour-stop="about"
       aria-labelledby="about-title"
       data-reveal
     >

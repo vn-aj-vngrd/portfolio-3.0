@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { tourStopId } from "@/content/tour";
 import type { Project } from "@/types/content";
 
 export function ProjectFeature({
@@ -16,7 +17,10 @@ export function ProjectFeature({
     project.coverImage ?? project.images[project.coverImageIndex ?? 0];
 
   return (
-    <article className={`project-feature project-${project.slug}`}>
+    <article
+      className={`project-feature project-${project.slug}`}
+      data-tour-stop={tourStopId.project(project.slug)}
+    >
       <div className="project-copy">
         <p className="project-number">0{index + 1}</p>
         <p className="project-category">{project.category}</p>

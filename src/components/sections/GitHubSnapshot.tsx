@@ -13,7 +13,9 @@ export async function GitHubSnapshot() {
 
   return (
     <section
+      id="github-activity"
       className="section github-snapshot"
+      data-tour-stop="github"
       aria-labelledby="github-snapshot-title"
       data-reveal
     >

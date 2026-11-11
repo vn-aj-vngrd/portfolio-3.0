@@ -9,6 +9,7 @@ export function Certifications() {
     <section
       className="section certifications-section"
       id="credentials"
+      data-tour-stop="credentials"
       aria-labelledby="certifications-title"
       data-reveal
     >

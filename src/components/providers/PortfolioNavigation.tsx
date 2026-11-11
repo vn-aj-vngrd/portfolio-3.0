@@ -17,7 +17,12 @@ export const portfolioSections = [
   { href: "/#my-work", id: "my-work", label: "My work", index: "01" },
   { href: "/#tech-stack", id: "tech-stack", label: "Tech stack", index: "02" },
   { href: "/#experience", id: "experience", label: "Experience", index: "03" },
-  { href: "/#credentials", id: "credentials", label: "Credentials", index: "04" },
+  {
+    href: "/#credentials",
+    id: "credentials",
+    label: "Credentials",
+    index: "04",
+  },
   { href: "/#about", id: "about", label: "About", index: "05" },
   { href: "/#contact", id: "contact", label: "Contact", index: "06" },
 ] as const;
@@ -28,14 +33,23 @@ type ScrollAdapter = {
   destroy: () => void;
   resize: () => void;
   scrollTo: (target: HTMLElement | number, immediate: boolean) => void;
+  scrollToTop: (top: number, options: ScrollPageOptions) => void;
+};
+
+export type ScrollPageOptions = {
+  duration: number;
+  immediate?: boolean;
+  onComplete?: () => void;
 };
 
 type PortfolioNavigationValue = {
   activeSection: PortfolioSectionId | null;
   navigateToSection: (id: PortfolioSectionId) => void;
+  scrollPageTo: (top: number, options: ScrollPageOptions) => void;
 };
 
-const PortfolioNavigationContext = createContext<PortfolioNavigationValue | null>(null);
+const PortfolioNavigationContext =
+  createContext<PortfolioNavigationValue | null>(null);
 
 const legacySectionIds: Record<string, PortfolioSectionId> = {
   work: "my-work",
@@ -43,7 +57,12 @@ const legacySectionIds: Record<string, PortfolioSectionId> = {
   certifications: "credentials",
 };
 
-function createNativeScrollAdapter(reducedMotion: MediaQueryList): ScrollAdapter {
+const easeInOutCubic = (t: number) =>
+  t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
+
+function createNativeScrollAdapter(
+  reducedMotion: MediaQueryList
+): ScrollAdapter {
   return {
     destroy() {},
     resize() {},
@@ -56,6 +75,10 @@ function createNativeScrollAdapter(reducedMotion: MediaQueryList): ScrollAdapter
         behavior: immediate || reducedMotion.matches ? "auto" : "smooth",
       });
     },
+    scrollToTop(top, { onComplete }) {
+      window.scrollTo({ top, left: 0, behavior: "instant" });
+      if (onComplete) window.requestAnimationFrame(() => onComplete());
+    },
   };
 }
 
@@ -66,7 +89,21 @@ function createLenisScrollAdapter(lenis: Lenis): ScrollAdapter {
     scrollTo(target, immediate) {
       lenis.scrollTo(
         target,
-        immediate ? { immediate: true, force: true } : { lerp: 0.08 },
+        immediate ? { immediate: true, force: true } : { lerp: 0.08 }
+      );
+    },
+    scrollToTop(top, { duration, immediate, onComplete }) {
+      lenis.scrollTo(
+        top,
+        immediate
+          ? { immediate: true, force: true, onComplete }
+          : {
+              duration,
+              easing: easeInOutCubic,
+              force: true,
+              lock: false,
+              onComplete,
+            }
       );
     },
   };
@@ -76,10 +113,16 @@ function resolveSectionId(id: string) {
   return legacySectionIds[id] ?? id;
 }
 
-export function PortfolioNavigation({ children }: { children: React.ReactNode }) {
+export function PortfolioNavigation({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
   const router = useRouter();
-  const [activeSection, setActiveSection] = useState<PortfolioSectionId | null>(null);
+  const [activeSection, setActiveSection] = useState<PortfolioSectionId | null>(
+    null
+  );
   const adapterRef = useRef<ScrollAdapter | null>(null);
   const stopAlignmentRef = useRef<(() => void) | null>(null);
   const previousPathname = useRef(pathname);
@@ -90,6 +133,20 @@ export function PortfolioNavigation({ children }: { children: React.ReactNode })
     if (immediate) adapterRef.current?.resize();
     adapterRef.current?.scrollTo(target, immediate);
   }, []);
+
+  const scrollPageTo = useCallback(
+    (top: number, options: ScrollPageOptions) => {
+      const adapter = adapterRef.current;
+      if (!adapter) {
+        window.scrollTo({ top, left: 0, behavior: "instant" });
+        if (options.onComplete)
+          window.requestAnimationFrame(() => options.onComplete?.());
+        return;
+      }
+      adapter.scrollToTop(top, options);
+    },
+    []
+  );
 
   const navigateToSection = useCallback(
     (id: PortfolioSectionId) => {
@@ -102,7 +159,7 @@ export function PortfolioNavigation({ children }: { children: React.ReactNode })
       window.history.replaceState(null, "", `#${id}`);
       scrollToSection(id);
     },
-    [pathname, router, scrollToSection],
+    [pathname, router, scrollToSection]
   );
 
   useEffect(() => {
@@ -126,7 +183,7 @@ export function PortfolioNavigation({ children }: { children: React.ReactNode })
           syncTouch: false,
           wheelMultiplier: 0.88,
           prevent: (node) => Boolean(node.closest("[data-lenis-prevent]")),
-        }),
+        })
       );
     };
 
@@ -149,11 +206,14 @@ export function PortfolioNavigation({ children }: { children: React.ReactNode })
       if (!anchor) return;
 
       const url = new URL(anchor.href, window.location.href);
-      if (url.origin !== window.location.origin || url.pathname !== pathname) return;
+      if (url.origin !== window.location.origin || url.pathname !== pathname)
+        return;
 
       const requestedId = decodeURIComponent(url.hash.slice(1));
       const id = resolveSectionId(requestedId);
-      const scrollTarget = id ? document.getElementById(id) : document.documentElement;
+      const scrollTarget = id
+        ? document.getElementById(id)
+        : document.documentElement;
       if (!scrollTarget) return;
 
       event.preventDefault();
@@ -183,7 +243,7 @@ export function PortfolioNavigation({ children }: { children: React.ReactNode })
         const visible = entries.find((entry) => entry.isIntersecting);
         if (visible) setActiveSection(visible.target.id as PortfolioSectionId);
       },
-      { rootMargin: "-28% 0px -62% 0px", threshold: 0 },
+      { rootMargin: "-28% 0px -62% 0px", threshold: 0 }
     );
 
     for (const section of sections) observer.observe(section);
@@ -203,12 +263,17 @@ export function PortfolioNavigation({ children }: { children: React.ReactNode })
     const main = document.getElementById("main-content");
     if (!target || !main) return;
 
-    const expectedTop = Number.parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+    const expectedTop =
+      Number.parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
     let stopped = false;
     let timeout = 0;
 
     const alignToSection = () => {
-      if (stopped || Math.abs(target.getBoundingClientRect().top - expectedTop) <= 2) return;
+      if (
+        stopped ||
+        Math.abs(target.getBoundingClientRect().top - expectedTop) <= 2
+      )
+        return;
       scrollToSection(id, true);
     };
     const observer = new ResizeObserver(alignToSection);
@@ -221,7 +286,8 @@ export function PortfolioNavigation({ children }: { children: React.ReactNode })
       window.removeEventListener("wheel", stopTracking);
       window.removeEventListener("touchstart", stopTracking);
       window.removeEventListener("keydown", stopTracking);
-      if (stopAlignmentRef.current === stopTracking) stopAlignmentRef.current = null;
+      if (stopAlignmentRef.current === stopTracking)
+        stopAlignmentRef.current = null;
     };
 
     stopAlignmentRef.current?.();
@@ -246,8 +312,8 @@ export function PortfolioNavigation({ children }: { children: React.ReactNode })
   }, [pathname]);
 
   const value = useMemo(
-    () => ({ activeSection, navigateToSection }),
-    [activeSection, navigateToSection],
+    () => ({ activeSection, navigateToSection, scrollPageTo }),
+    [activeSection, navigateToSection, scrollPageTo]
   );
 
   return (
@@ -260,7 +326,9 @@ export function PortfolioNavigation({ children }: { children: React.ReactNode })
 export function usePortfolioNavigation() {
   const navigation = useContext(PortfolioNavigationContext);
   if (!navigation) {
-    throw new Error("usePortfolioNavigation must be used inside PortfolioNavigation");
+    throw new Error(
+      "usePortfolioNavigation must be used inside PortfolioNavigation"
+    );
   }
   return navigation;
 }

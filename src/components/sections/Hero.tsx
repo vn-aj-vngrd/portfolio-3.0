@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { HeroIntro } from "@/components/sections/HeroIntro";
+import { TourEntry } from "@/components/tour/TourEntry";
 import { aiWorkflow } from "@/content/ai-workflow";
 import { profile } from "@/content/profile";
 
@@ -14,7 +15,11 @@ const signals = [
 
 export function Hero() {
   return (
-    <section className="hero" aria-labelledby="hero-title">
+    <section
+      className="hero"
+      aria-labelledby="hero-title"
+      data-tour-stop="hero"
+    >
       <div className="hero-portrait" aria-hidden="true">
         <Image
           src="/images/profile.jpg"
@@ -32,6 +37,7 @@ export function Hero() {
         <p className="hero-role">{profile.title}</p>
         <HeroIntro />
         <nav className="hero-links" aria-label="Profile links">
+          <TourEntry variant="hero" />
           <a href={profile.github} target="_blank" rel="noreferrer">
             GitHub ↗
           </a>
@@ -43,7 +49,7 @@ export function Hero() {
         </nav>
       </div>
 
-      <dl className="signal-strip">
+      <dl className="signal-strip" data-tour-stop="hero-signals">
         {signals.map((signal) => (
           <div key={signal.value}>
             <dt>{signal.value}</dt>

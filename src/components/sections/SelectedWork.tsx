@@ -29,7 +29,7 @@ export function SelectedWork() {
       aria-labelledby="work-title"
       data-reveal
     >
-      <div className="section-heading">
+      <div className="section-heading" data-tour-stop="work">
         <div className="section-index">
           <span>01</span>
           <span>My work</span>

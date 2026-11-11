@@ -1,5 +1,6 @@
 import { RichText } from "@/components/ui/Chip";
 import { experience, experienceIntro } from "@/content/experience";
+import { tourStopId } from "@/content/tour";
 
 export function Experience() {
   return (
@@ -24,7 +25,11 @@ export function Experience() {
 
       <ol className="experience-timeline">
         {experience.map((item, index) => (
-          <li className="timeline-item" key={`${item.company}-${item.period}`}>
+          <li
+            className="timeline-item"
+            key={`${item.company}-${item.period}`}
+            data-tour-stop={tourStopId.experience(item.company)}
+          >
             <div className="timeline-period">
               <time>{item.period}</time>
               <span>{item.kind}</span>

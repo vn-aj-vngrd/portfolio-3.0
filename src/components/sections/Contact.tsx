@@ -7,6 +7,7 @@ export function Contact() {
     <section
       className="section contact-section"
       id="contact"
+      data-tour-stop="contact"
       aria-labelledby="contact-title"
       data-reveal
     >
