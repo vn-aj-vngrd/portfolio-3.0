@@ -21,10 +21,10 @@ const intro: readonly (readonly RichPart[])[] = [
     { chip: "AI features", icon: "sparkles" },
     " and ",
     { chip: "agents", icon: "agent" },
-    " into real products, working daily with ",
+    " into real products with ",
     { chip: "Claude Code", icon: "terminal" },
-    " and ",
-    { chip: "Codex", icon: "terminal" },
+    " and my own ",
+    { chip: "software factory", icon: "layers", href: "/ai#factory" },
     ". I\u00a0direct the work, review the code, and verify the results.",
   ],
 ];

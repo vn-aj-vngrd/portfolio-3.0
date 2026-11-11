@@ -226,13 +226,13 @@ export const tourChapters: readonly TourChapter[] = [
         id: "craft-agents",
         stop: "tech-workflow",
         lines: [
-          "He works with Claude Code and Codex every day, in five stages: grill, spec, tickets, implement, and code review.",
-          "He directs the work, reviews the code, and verifies the results.",
+          "He builds with Claude Code, in five stages: grill, spec, tickets, implement, and code review.",
+          "Opus plans, Sonnet builds, and he reviews the code and verifies the results.",
         ],
         evidence: [
           {
             file: "src/content/ai-workflow.ts",
-            text: "I work with Claude Code and Codex every day, directing the work, reviewing the code, and verifying the results",
+            text: "I build with Claude Code, where Opus plans and Sonnet builds",
           },
           { file: "src/content/ai-workflow.ts", text: 'title: "Code Review"' },
         ],

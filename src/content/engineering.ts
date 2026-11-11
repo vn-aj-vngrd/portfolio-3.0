@@ -125,7 +125,7 @@ export const stackGroups: readonly StackGroup[] = [
   {
     title: "AI tools and agent workspace",
     description:
-      "Coding agents, research assistants, dictation, and workspace tools that support implementation, review, and validation.",
+      "The Claude setup I build with: the agent harness, its two models, the workspace, and voice input.",
     technologies: engineeringAgentTools,
   },
   {

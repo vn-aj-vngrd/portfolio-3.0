@@ -38,32 +38,35 @@ const stageSymbols = {
 
 export function WorkflowSteps({ compact = false }: { compact?: boolean }) {
   return (
-    <ol
-      className={`workflow-steps${compact ? " workflow-steps-compact" : ""}`}
-      aria-label="Agent-assisted development stages"
-    >
-      {workflowStages.map((stage, index) => (
-        <li key={stage.id}>
-          <div className="workflow-symbol" aria-hidden="true">
-            <svg
-              viewBox="0 0 64 64"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              {stageSymbols[stage.id]}
-            </svg>
-          </div>
-          <span className="workflow-number" aria-hidden="true">
-            0{index + 1}
-          </span>
-          <strong>{stage.title}</strong>
-          {!compact && <p>{stage.description}</p>}
-          <span className="workflow-output">{stage.output}</span>
-        </li>
-      ))}
-    </ol>
+    <div className="workflow-flow">
+      <ol
+        className={`workflow-steps${compact ? " workflow-steps-compact" : ""}`}
+        aria-label="Agent-assisted development stages"
+        data-flow="loop"
+      >
+        {workflowStages.map((stage, index) => (
+          <li key={stage.id}>
+            <div className="workflow-symbol" aria-hidden="true">
+              <svg
+                viewBox="0 0 64 64"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                {stageSymbols[stage.id]}
+              </svg>
+            </div>
+            <span className="workflow-number" aria-hidden="true">
+              0{index + 1}
+            </span>
+            <strong>{stage.title}</strong>
+            {!compact && <p>{stage.description}</p>}
+            <span className="workflow-output">{stage.output}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }

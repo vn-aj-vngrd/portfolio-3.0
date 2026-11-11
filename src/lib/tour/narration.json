@@ -205,22 +205,22 @@
       ]
     },
     "craft-agents": {
-      "file": "/tour/craft-agents.3aefa90e.m4a",
-      "hash": "3aefa90e",
-      "seconds": 11.6,
-      "bytes": 97726,
+      "file": "/tour/craft-agents.aac5adc3.m4a",
+      "hash": "aac5adc3",
+      "seconds": 11.3,
+      "bytes": 95896,
       "lines": [
-        "He works with Claude Code and Codex every day, in five stages: grill, spec, tickets, implement, and code review.",
-        "He directs the work, reviews the code, and verifies the results."
+        "He builds with Claude Code, in five stages: grill, spec, tickets, implement, and code review.",
+        "Opus plans, Sonnet builds, and he reviews the code and verifies the results."
       ],
       "cues": [
         {
           "start": 0,
-          "end": 7.49
+          "end": 6.04
         },
         {
-          "start": 7.77,
-          "end": 11.6
+          "start": 6.32,
+          "end": 11.3
         }
       ]
     },

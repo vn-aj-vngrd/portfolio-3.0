@@ -10,7 +10,7 @@
 
 ## AI workflow (`ai-workflow.ts`)
 
-`aiTools`, `aiWorkflow`, `workflowStages`, `executionContexts`, model preferences. Tool names are used by the résumé, the engineering section, and `profile.introduction` through `aiWorkflow.profileSummary`. View `/ai`, `/resume`, and the homepage Hero.
+`aiTools` (current setup only), `setupItems`, `workflowStages`, `skillGroups`; factory facts live in `factory.ts`. `scripts/ai-workflow.test.mjs` guards retired tool names and the factory stage list. Tool names are used by the résumé, the engineering section, and `profile.introduction` through `aiWorkflow.profileSummary`; `profileSummary` also feeds the tour stop `craft-agents`, so changing it needs `yarn narrate:tour`. View `/ai`, `/resume`, and the homepage Hero.
 
 ## Design system (`design-system.ts`)
 

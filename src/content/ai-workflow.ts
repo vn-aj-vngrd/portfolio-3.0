@@ -1,18 +1,9 @@
 export const aiTools = {
-  claudeCode: { name: "Claude Code", kind: "Coding agent" },
-  codex: { name: "Codex", kind: "Coding agent and app" },
-  pi: { name: "Pi Agent", kind: "Coding agent harness" },
-  cursor: { name: "Cursor", kind: "AI editor" },
-  copilot: { name: "GitHub Copilot", kind: "Coding assistant" },
-  chatgpt: { name: "ChatGPT", kind: "Research and reasoning app" },
-  claude: { name: "Claude", kind: "Research and reasoning app" },
-  cowork: { name: "Cowork", kind: "Desktop workspace" },
-  cmux: { name: "cmux", kind: "Terminal workspace" },
-  herdr: { name: "HERDR", kind: "Agent workspace management" },
-  wispr: { name: "Wispr Flow", kind: "Voice dictation" },
-  termius: { name: "Termius", kind: "Remote terminal access" },
-  vscode: { name: "VS Code", kind: "Editor" },
-  opencode: { name: "OpenCode", kind: "Coding agent" },
+  claudeCode: { name: "Claude Code", kind: "Agent harness" },
+  opus: { name: "Claude Opus", kind: "Planning model" },
+  sonnet: { name: "Claude Sonnet", kind: "Building model" },
+  herdr: { name: "Herdr", kind: "Terminal workspace for coding agents" },
+  handy: { name: "Handy", kind: "Voice input" },
 } as const;
 
 type AiToolId = keyof typeof aiTools;
@@ -21,56 +12,29 @@ export function aiToolNames(ids: readonly AiToolId[]) {
   return ids.map((id) => aiTools[id].name);
 }
 
-export const resumeAiTools = aiToolNames([
-  "claudeCode",
-  "codex",
-  "pi",
-  "cursor",
-  "copilot",
-  "chatgpt",
-  "claude",
-]);
-export const resumeWorkflowTools = aiToolNames(["cmux", "herdr", "wispr"]);
-
-// Preserve the wider working inventory, not just the highlighted daily setup.
+// The current Claude setup shown in the homepage stack.
 export const engineeringAgentTools = aiToolNames([
   "claudeCode",
-  "codex",
-  "cursor",
-  "copilot",
-  "pi",
-  "opencode",
-  "cmux",
+  "opus",
+  "sonnet",
   "herdr",
-  "chatgpt",
-  "claude",
-  "wispr",
-  "termius",
+  "handy",
 ]);
-
-export const modelPreferences = {
-  professional: {
-    name: "Claude models",
-    context: "Professional work",
-    use: "My usual model family for professional development with Claude Code. I choose the model and interface to suit the task.",
-    source: "https://www.anthropic.com/claude",
-  },
-  personal: {
-    name: "GPT-6 Astra",
-    context: "Personal-project daily driver",
-    use: "My current daily driver for personal projects. Pi Agent is my lightweight CLI harness for OpenAI/Codex models; I also use the Codex app and ChatGPT as the task requires.",
-    source: "https://developers.openai.com/api/docs/models/gpt-6-astra",
-  },
-} as const;
 
 export const aiWorkflow = {
   path: "/ai",
   navigationLabel: "AI workflow",
+  kicker: "Claude Code · Opus plans · Sonnet builds",
   title: "How I build with agents.",
   introduction:
-    "I start with the product question: who needs this, what should change, and what could go wrong? Agents help me investigate, implement, and review. I remain responsible for the decisions and the result.",
+    "I start with the product question: who needs this, what should change, and what could go wrong? Then I build with Claude Code. Opus plans, Sonnet builds, and agents review. I approve the plan and merge the result.",
   profileSummary:
-    "I build AI features and agents into real products, including assistants that propose changes and wait for approval. I work with Claude Code and Codex every day, directing the work, reviewing the code, and verifying the results.",
+    "I build AI features and agents into real products, including assistants that propose changes and wait for approval. I build with Claude Code, where Opus plans and Sonnet builds, and I direct the work, review the code, and verify the results.",
+  setup: {
+    kicker: "My setup right now",
+    title: "One harness. Two models. I stay in charge.",
+    lead: "My setup is fully Claude. I moved from a mix of Claude and GPT tools to Claude Code as the harness for all of my work, with Claude models behind it. Herdr holds the sessions and Handy takes my voice.",
+  },
   home: {
     title: "How I build with agents",
     description:
@@ -83,13 +47,84 @@ export const aiWorkflow = {
     label: "Matt Pocock’s agent skills",
     href: "https://github.com/mattpocock/skills",
   },
+  loopNote:
+    "The factory runs this loop on tickets; I still run it by hand for discovery, prototypes, and small fixes.",
   flexibility:
-    "This is a working loop, not a documentation ceremony. A small fix may need only a clear decision and acceptance criteria; larger changes deserve a spec and tickets. Research and prototypes help when the answer is still uncertain.",
+    "A small fix may need only a clear decision and acceptance criteria; larger changes get a spec and tickets. I approve what is committed and released and check the deployed result. Shipping is never an unattended agent decision.",
   feedbackLoop: "Review, refine, repeat. Findings inform the next pass.",
-  releaseResponsibility:
-    "Planning and verification happen throughout. I approve what is committed or released and check the deployed result; shipping is not an unattended agent decision.",
-  workspace:
-    "cmux is my daily terminal workspace. HERDR keeps CLI agents, tasks, and sessions organized in one place. I default to a lightweight terminal setup and switch to desktop tools when the task benefits from broader app or computer interaction.",
+} as const;
+
+export const setupItems = [
+  {
+    kicker: "Harness",
+    title: "Claude Code",
+    body: "Every agent I run is Claude Code: the terminal agent with its tools, permissions, subagents, skills, and hooks. One harness means one set of instructions and skills across every project, and my factory is built from the same parts.",
+    link: {
+      label: "Claude Code",
+      href: "https://www.anthropic.com/claude-code",
+    },
+  },
+  {
+    kicker: "Plans",
+    title: "Claude Opus",
+    body: "Plans and judges. In the factory, Opus writes the plan and rates its risk, reviews security, and makes the final call before a pull request. It also builds when a plan is rated high risk.",
+    link: {
+      label: "Model information",
+      href: "https://www.anthropic.com/claude/opus",
+    },
+  },
+  {
+    kicker: "Builds",
+    title: "Claude Sonnet",
+    body: "Builds and checks. Sonnet implements each slice test-first, judges the UI screenshots, and reviews code and design.",
+    link: {
+      label: "Model information",
+      href: "https://www.anthropic.com/claude/sonnet",
+    },
+  },
+  {
+    kicker: "Workspace",
+    title: "Herdr",
+    body: "Herdr keeps my Claude Code sessions in workspaces, tabs, and panes on one screen and recognizes the agents running in them, so parallel work stays visible.",
+  },
+  {
+    kicker: "Voice input",
+    title: "Handy",
+    body: "I dictate prompts, grill answers, and notes with Handy. It turns speech into text; it makes no decisions.",
+  },
+] as const satisfies readonly {
+  kicker: string;
+  title: string;
+  body: string;
+  link?: { label: string; href: string };
+}[];
+
+export const setupMap = {
+  voice: {
+    kicker: "Voice in",
+    title: "Handy",
+    line: "Speech to text in any prompt",
+  },
+  me: {
+    kicker: "Me",
+    title: "Decide",
+    line: "What to build, which plan, what ships",
+  },
+  herdr: "Herdr · terminal workspace",
+  harness: "Claude Code · harness",
+  models: [
+    { name: "Opus", role: "Plans, reviews security, approves" },
+    { name: "Sonnet", role: "Builds, verifies, reviews code and design" },
+  ],
+  parts: "Skills · subagents · hooks",
+  out: {
+    kicker: "Out",
+    title: "Draft PR",
+    line: "Description, commits, screenshots, CI",
+  },
+  returnLabel: "Back to me to review and merge",
+  caption:
+    "My voice goes in through Handy. I decide what to build. Claude Code runs in Herdr, with Opus planning and Sonnet building. The work comes back to me as a draft pull request.",
 } as const;
 
 export const workflowStages = [
@@ -97,91 +132,38 @@ export const workflowStages = [
     id: "grill",
     title: "Grill",
     description:
-      "Question the user need, inspect the codebase, and challenge assumptions. Research or prototype when an answer is not yet clear.",
-    output: "Agreed decisions and constraints",
+      "Question the need, read the code, and challenge assumptions. Research or prototype when the answer is unclear.",
+    output: "Agreed decisions",
   },
   {
     id: "spec",
     title: "Spec",
     description:
-      "Record the resolved behavior, boundaries, and acceptance criteria. Preserve the reasoning without restarting discovery.",
-    output: "A durable specification",
+      "Record the behavior, boundaries, and acceptance criteria, with the reasoning behind them.",
+    output: "A durable spec",
   },
   {
     id: "tickets",
     title: "Tickets",
     description:
-      "Split larger work into small vertical slices across the relevant layers, with dependencies and a way to verify each result.",
-    output: "Verifiable end-to-end tasks",
+      "Split the work into thin vertical slices, each with a way to verify it.",
+    output: "Verifiable tickets",
   },
   {
     id: "implement",
     title: "Implement",
     description:
-      "Give agents bounded tasks and focused context. Build incrementally with tests, type checks, runtime feedback, and direct inspection.",
-    output: "Reviewable changes and checks",
+      "Build in small steps with tests, type checks, runtime feedback, and direct inspection.",
+    output: "Reviewable changes",
   },
   {
     id: "review",
     title: "Code Review",
     description:
-      "Check engineering standards and requirement fidelity separately. Review the findings, exercise the result, and iterate before acceptance.",
-    output: "Reviewed implementation",
+      "Review standards and the spec separately, exercise the result, and iterate before acceptance.",
+    output: "Reviewed code",
   },
 ] as const;
-
-type ToolContext = {
-  title: string;
-  description: string;
-  tools: readonly AiToolId[];
-};
-
-export const executionContexts = [
-  {
-    title: "Professional CLI work",
-    description:
-      "Claude Code with Claude models is my usual work setup. HERDR keeps sessions and tasks visible while I move between implementation and review.",
-    tools: ["claudeCode", "cmux", "herdr"],
-  },
-  {
-    title: "Personal CLI work",
-    description: `Pi Agent runs OpenAI/Codex models for my personal projects, with ${modelPreferences.personal.name} as my current daily driver. Pi provides the agent harness; OpenAI provides the model.`,
-    tools: ["pi", "cmux", "herdr"],
-  },
-  {
-    title: "Complex desktop tasks",
-    description:
-      "I use the Codex app, Claude Code on desktop, and Claude’s Cowork for tasks involving other apps, files, or supported computer interactions. I choose the environment and permissions for the task, rather than treating every chat as computer access.",
-    tools: ["codex", "claudeCode", "claude", "cowork"],
-  },
-] as const satisfies readonly ToolContext[];
-
-export const supportingContexts = [
-  {
-    title: "Research and decisions",
-    description:
-      "Question assumptions, compare approaches, and learn enough to make an informed product or engineering decision.",
-    tools: ["chatgpt", "claude"],
-  },
-  {
-    title: "Editing and inspection",
-    description:
-      "Navigate the code, use assistance where useful, and inspect changes directly in context.",
-    tools: ["cursor", "vscode", "copilot"],
-  },
-  {
-    title: "Voice input",
-    description:
-      "Dictate prompts, questions, and notes with Wispr Flow. It is an input layer, not the agent making the decisions.",
-    tools: ["wispr"],
-  },
-  {
-    title: "Remote access",
-    description:
-      "Use Termius for remote terminal access to my Mac and HERDR workspace. I also continue supported Claude and Codex sessions through their native remote features; terminal access and remote-agent control are different tools.",
-    tools: ["termius", "herdr", "claudeCode", "codex"],
-  },
-] as const satisfies readonly ToolContext[];
 
 export const workflowEvidence = [
   {
@@ -311,6 +293,27 @@ export const skillGroups = [
       },
     ],
   },
+  {
+    title: "Factory",
+    description: "My own skills that run the factory.",
+    skills: [
+      {
+        name: "factory",
+        description:
+          "Takes an issue through grill, plan, building, proof, and review to a draft pull request.",
+      },
+      {
+        name: "product",
+        description:
+          "Turns an idea into tickets and keeps each product’s notes current.",
+      },
+      {
+        name: "factory-retro",
+        description:
+          "Reads the run logs and proposes a fix for the biggest bottleneck.",
+      },
+    ],
+  },
 ] as const;
 
 export const agentGuardrails = [
@@ -319,5 +322,5 @@ export const agentGuardrails = [
   "Check repository evidence and primary documentation instead of accepting confident claims.",
   "Treat generated code as a proposal: run relevant tests, type checks, browser checks, and direct review.",
   "Protect confidential employer and client information, credentials, private source, and remote-access details.",
-  "Keep tool permissions, final acceptance, commits, and release decisions under human control.",
+  "Keep tool permissions, plan approval, merges, and releases under my control.",
 ] as const;
