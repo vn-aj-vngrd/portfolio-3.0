@@ -1,6 +1,29 @@
+import { Chip, ChipIconSvg } from "@/components/ui/Chip";
 import { profile } from "@/content/profile";
+import type { ChipIcon } from "@/types/content";
+
+const principles: readonly { icon: ChipIcon; text: string }[] = [
+  {
+    icon: "user",
+    text: "Understand the user’s task before choosing the implementation.",
+  },
+  {
+    icon: "layers",
+    text: "Add architectural complexity only when it solves a real constraint.",
+  },
+  {
+    icon: "agent",
+    text: "Review and test agent-generated work before it ships.",
+  },
+  {
+    icon: "access",
+    text: "Include accessibility, performance, and maintainability in the definition of done.",
+  },
+];
 
 export function About() {
+  const [degree, ...rest] = profile.education.split(", ");
+  const school = rest.filter((part) => !/Campus/u.test(part)).join(", ");
   return (
     <section
       className="section about-section"
@@ -17,38 +40,42 @@ export function About() {
           I care about what happens after the first release.
         </h2>
         <p className="about-lead">{profile.philosophy}</p>
-        <div className="about-details">
-          <p>
-            <strong>Based in</strong>
-            <br />
-            {profile.location}
-          </p>
-          <p>
-            <strong>Education</strong>
-            <br />
-            {profile.education}
-          </p>
-          <p>
-            <strong>Outside software</strong>
-            <br />
-            Music, basketball, travel, and time outdoors.
-          </p>
-        </div>
+        <dl className="about-details">
+          <div>
+            <dt>Based in</dt>
+            <dd>
+              <Chip icon="pin">{profile.location}</Chip>
+            </dd>
+          </div>
+          <div>
+            <dt>Education</dt>
+            <dd>
+              <Chip icon="grad">{degree}</Chip>
+              <span>{school}</span>
+            </dd>
+          </div>
+          <div>
+            <dt>Outside software</dt>
+            <dd>
+              <Chip icon="music">Music</Chip>
+              <Chip icon="ball">Basketball</Chip>
+              <Chip icon="plane">Travel</Chip>
+              <Chip icon="sun">Outdoors</Chip>
+            </dd>
+          </div>
+        </dl>
       </div>
       <aside className="about-note" aria-label="Working principles">
         <p>Working principles</p>
         <ol>
-          <li>
-            Understand the user’s task before choosing the implementation.
-          </li>
-          <li>
-            Add architectural complexity only when it solves a real constraint.
-          </li>
-          <li>Review and test agent-generated work before it ships.</li>
-          <li>
-            Include accessibility, performance, and maintainability in the
-            definition of done.
-          </li>
+          {principles.map((principle) => (
+            <li key={principle.text}>
+              <span className="principle-icon">
+                <ChipIconSvg icon={principle.icon} />
+              </span>
+              <p>{principle.text}</p>
+            </li>
+          ))}
         </ol>
       </aside>
     </section>

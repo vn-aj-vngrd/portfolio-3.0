@@ -100,7 +100,12 @@ export type ChipIcon =
   | "check"
   | "layers"
   | "award"
-  | "grad";
+  | "grad"
+  | "music"
+  | "ball"
+  | "sun"
+  | "user"
+  | "access";
 
 // Prose with inline chips; a chip with `href` links to a case study or page.
 export type RichPart = string | { chip: string; icon: ChipIcon; href?: string };
