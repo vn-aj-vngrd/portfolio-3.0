@@ -12,13 +12,20 @@ export async function GitHubSnapshot() {
   if (!stats) return null;
 
   return (
-    <section className="section github-snapshot" aria-labelledby="github-snapshot-title" data-reveal>
+    <section
+      className="section github-snapshot"
+      aria-labelledby="github-snapshot-title"
+      data-reveal
+    >
       <div className="github-snapshot-copy">
         <p>GitHub activity · private included</p>
-        <h2 id="github-snapshot-title">GitHub activity from the last twelve months.</h2>
+        <h2 id="github-snapshot-title">
+          GitHub activity from the last twelve months.
+        </h2>
         <p>
-          The summary includes private contribution and repository counts. It does
-          not request or display private repository names, organizations, or source code.
+          The summary includes private contribution and repository counts. It
+          does not request or display private repository names, organizations,
+          or source code.
         </p>
         <Link href="/github">Explore GitHub activity →</Link>
       </div>

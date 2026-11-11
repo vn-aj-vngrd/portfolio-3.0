@@ -1,4 +1,5 @@
-import { experience, experienceIntroduction } from "@/content/experience";
+import { RichText } from "@/components/ui/Chip";
+import { experience, experienceIntro } from "@/content/experience";
 
 export function Experience() {
   return (
@@ -13,8 +14,12 @@ export function Experience() {
           <span>03</span>
           <span>Experience</span>
         </div>
-        <h2 id="experience-title">Work across frontend, backend, data, and delivery.</h2>
-        <p>{experienceIntroduction}</p>
+        <h2 id="experience-title">
+          Work across frontend, backend, data, and delivery.
+        </h2>
+        <p>
+          <RichText parts={experienceIntro} />
+        </p>
       </div>
 
       <ol className="experience-timeline">
@@ -36,7 +41,9 @@ export function Experience() {
                   <h3>{item.role}</h3>
                   <p className="experience-company">{item.company}</p>
                 </div>
-                {item.current ? <span className="current-role">Current</span> : null}
+                {item.current ? (
+                  <span className="current-role">Current</span>
+                ) : null}
               </header>
 
               <p className="experience-summary">{item.summary}</p>
@@ -49,7 +56,10 @@ export function Experience() {
                 ))}
               </ul>
 
-              <ul className="experience-stack" aria-label={`${item.role} technologies`}>
+              <ul
+                className="experience-stack"
+                aria-label={`${item.role} technologies`}
+              >
                 {item.stack.map((technology) => (
                   <li key={technology}>{technology}</li>
                 ))}

@@ -1873,6 +1873,34 @@ main,
   line-height: 1.45;
   white-space: nowrap;
 }
+.intro-chip-link {
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease;
+}
+.intro-chip-link:hover {
+  border-color: var(--signal);
+  background: var(--signal-soft);
+}
+.section-lede {
+  grid-column: 2;
+  max-width: 54ch;
+  color: var(--muted);
+  font-size: 1.02rem;
+}
+.section-lede p {
+  margin: 0;
+}
+.section-lede .chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.section-heading > p .intro-chip,
+.contact-section p .intro-chip {
+  font-size: 0.9em;
+}
 .intro-chip svg {
   width: 1.05em;
   height: 1.05em;
