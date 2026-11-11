@@ -14,9 +14,9 @@ function experienceEntry(company: string, bullets?: readonly string[]) {
 }
 
 export const resume = {
-  title: "Full-Stack Software Developer",
+  title: "AI Product Engineer / Software Engineer",
   summary:
-    "Product-driven full-stack developer building customer-facing applications with React, C# / ASP.NET Core, SQL Server, and AWS, alongside personal web and mobile products in the TypeScript ecosystem. Founded NextDevs and led client-facing product delivery. Prioritizes user experience and adapts technology choices to product needs. Uses AI-assisted workflows while staying hands-on from planning through delivery, guiding decisions, reviewing code, and verifying results.",
+    "Product-driven AI product engineer and software engineer building customer-facing applications with React, C# / ASP.NET Core, SQL Server, and AWS, alongside personal web and mobile products in the TypeScript ecosystem. Builds AI features and agents, including tool-calling assistants with approval flows, and works daily with Claude Code and Codex. Founded NextDevs and led client-facing product delivery. Prioritizes user experience and adapts technology choices to product needs, staying hands-on from planning through delivery: guiding decisions, reviewing code, and verifying results.",
   skills: [
     {
       label: "Frontend & mobile",

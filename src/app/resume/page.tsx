@@ -9,7 +9,7 @@ import { createPageMetadata, SITE_URL } from "@/lib/seo";
 export const metadata = createPageMetadata({
   title: "Résumé",
   description:
-    "Résumé for Van AJ Vanguardia, a full-stack software developer building ASP.NET Core backends in C# and React frontends with TypeScript.",
+    "Résumé for Van AJ Vanguardia, an AI product engineer and software engineer building AI features, agents, ASP.NET Core backends in C#, and React frontends with TypeScript.",
   path: "/resume",
 });
 

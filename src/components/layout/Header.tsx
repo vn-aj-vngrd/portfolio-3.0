@@ -4,7 +4,10 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-import { ProductLab, type ProductLabHandle } from "@/components/game/ProductLab";
+import {
+  ProductLab,
+  type ProductLabHandle,
+} from "@/components/game/ProductLab";
 import {
   portfolioSections,
   usePortfolioNavigation,
@@ -20,7 +23,7 @@ import type { ProductMatchEntry } from "@/types/content";
 
 function setMobileMenuIsolation(open: boolean) {
   for (const element of document.querySelectorAll<HTMLElement>(
-    ".skip-link, .site-identity, main, .site-footer",
+    ".skip-link, .site-identity, main, .site-footer"
   )) {
     element.inert = open;
   }
@@ -73,29 +76,37 @@ export function Header({
     if (open) {
       delete menuRef.current?.dataset.closing;
       window.requestAnimationFrame(() => {
-        menuRef.current?.querySelector<HTMLElement>(".mobile-menu-panel header button")?.focus();
+        menuRef.current
+          ?.querySelector<HTMLElement>(".mobile-menu-panel header button")
+          ?.focus();
       });
     }
     document.documentElement.classList.toggle("mobile-menu-open", open);
     setMobileMenuIsolation(open);
   };
 
-  useEffect(() => () => {
-    if (menuCloseTimer.current) window.clearTimeout(menuCloseTimer.current);
-    document.documentElement.classList.remove("mobile-menu-open");
-    setMobileMenuIsolation(false);
-  }, []);
+  useEffect(
+    () => () => {
+      if (menuCloseTimer.current) window.clearTimeout(menuCloseTimer.current);
+      document.documentElement.classList.remove("mobile-menu-open");
+      setMobileMenuIsolation(false);
+    },
+    []
+  );
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement | null;
-      const isTyping = target?.matches("input, textarea, select, [contenteditable='true']");
+      const isTyping = target?.matches(
+        "input, textarea, select, [contenteditable='true']"
+      );
       if (isTyping) return;
 
       const isModifierKey =
         (platformModifier === "⌘" && event.key === "Meta") ||
         (platformModifier === "Ctrl" && event.key === "Control") ||
-        (platformModifier === null && (event.key === "Meta" || event.key === "Control"));
+        (platformModifier === null &&
+          (event.key === "Meta" || event.key === "Control"));
       if (isModifierKey) {
         setShortcutMode(true);
         return;
@@ -118,7 +129,8 @@ export function Header({
       const isModifierKey =
         (platformModifier === "⌘" && event.key === "Meta") ||
         (platformModifier === "Ctrl" && event.key === "Control") ||
-        (platformModifier === null && (event.key === "Meta" || event.key === "Control"));
+        (platformModifier === null &&
+          (event.key === "Meta" || event.key === "Control"));
       if (isModifierKey) setShortcutMode(false);
     };
     const handleBlur = () => setShortcutMode(false);
@@ -144,7 +156,7 @@ export function Header({
           >
             {profile.name}
           </Link>
-          <p>Full-stack software developer</p>
+          <p>AI Product Engineer / Software Engineer</p>
         </div>
 
         <nav className="desktop-nav" aria-label="Primary navigation">
@@ -228,8 +240,14 @@ export function Header({
 
               <div className="mobile-menu-panel" data-lenis-prevent>
                 <header>
-                  <Link href="/" onClick={closeMenu}>Van AJ Vanguardia</Link>
-                  <button type="button" onClick={closeMenu} aria-label="Close navigation menu">
+                  <Link href="/" onClick={closeMenu}>
+                    Van AJ Vanguardia
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={closeMenu}
+                    aria-label="Close navigation menu"
+                  >
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <path d="m6 6 12 12M18 6 6 18" />
                     </svg>
@@ -238,9 +256,13 @@ export function Header({
 
                 <div className="mobile-menu-content">
                   <p className="mobile-menu-label">Portfolio index</p>
-                  <nav className="mobile-primary-nav" aria-label="Mobile navigation">
+                  <nav
+                    className="mobile-primary-nav"
+                    aria-label="Mobile navigation"
+                  >
                     {portfolioSections.map((link) => {
-                      const isActive = pathname === "/" && activeSection === link.id;
+                      const isActive =
+                        pathname === "/" && activeSection === link.id;
                       return (
                         <Link
                           key={link.href}
@@ -267,19 +289,64 @@ export function Header({
                       }}
                     >
                       <span>Open Product Lab</span>
-                      <kbd>{platformModifier ? `${platformModifier} K` : "K"}</kbd>
+                      <kbd>
+                        {platformModifier ? `${platformModifier} K` : "K"}
+                      </kbd>
                     </button>
                   </div>
 
                   <div className="mobile-menu-explore">
                     <p className="mobile-menu-label">Explore</p>
                     <nav aria-label="Additional pages">
-                      <Link href="/ai" onClick={closeMenu} data-active={pathname === "/ai"} aria-current={pathname === "/ai" ? "page" : undefined}>AI workflow <span>↗</span></Link>
-                      <Link href="/github" onClick={closeMenu} data-active={pathname === "/github"} aria-current={pathname === "/github" ? "page" : undefined}>GitHub stats <span>↗</span></Link>
-                      <Link href="/design" onClick={closeMenu} data-active={pathname === "/design"} aria-current={pathname === "/design" ? "page" : undefined}>Design system <span>↗</span></Link>
-                      <Link href="/gear" onClick={closeMenu} data-active={pathname === "/gear"} aria-current={pathname === "/gear" ? "page" : undefined}>Gear <span>↗</span></Link>
-                      <Link href="/resume" onClick={closeMenu} data-active={pathname === "/resume"} aria-current={pathname === "/resume" ? "page" : undefined}>Résumé <span>↗</span></Link>
-                      <a href={profile.github} target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+                      <Link
+                        href="/ai"
+                        onClick={closeMenu}
+                        data-active={pathname === "/ai"}
+                        aria-current={pathname === "/ai" ? "page" : undefined}
+                      >
+                        AI workflow <span>↗</span>
+                      </Link>
+                      <Link
+                        href="/github"
+                        onClick={closeMenu}
+                        data-active={pathname === "/github"}
+                        aria-current={
+                          pathname === "/github" ? "page" : undefined
+                        }
+                      >
+                        GitHub stats <span>↗</span>
+                      </Link>
+                      <Link
+                        href="/design"
+                        onClick={closeMenu}
+                        data-active={pathname === "/design"}
+                        aria-current={
+                          pathname === "/design" ? "page" : undefined
+                        }
+                      >
+                        Design system <span>↗</span>
+                      </Link>
+                      <Link
+                        href="/gear"
+                        onClick={closeMenu}
+                        data-active={pathname === "/gear"}
+                        aria-current={pathname === "/gear" ? "page" : undefined}
+                      >
+                        Gear <span>↗</span>
+                      </Link>
+                      <Link
+                        href="/resume"
+                        onClick={closeMenu}
+                        data-active={pathname === "/resume"}
+                        aria-current={
+                          pathname === "/resume" ? "page" : undefined
+                        }
+                      >
+                        Résumé <span>↗</span>
+                      </Link>
+                      <a href={profile.github} target="_blank" rel="noreferrer">
+                        GitHub <span>↗</span>
+                      </a>
                     </nav>
                   </div>
 
@@ -315,7 +382,9 @@ export function Header({
             </span>
           ))}
         </div>
-        <p>Keep {platformModifier ?? "the modifier"} held, then press a number.</p>
+        <p>
+          Keep {platformModifier ?? "the modifier"} held, then press a number.
+        </p>
       </aside>
     </header>
   );
