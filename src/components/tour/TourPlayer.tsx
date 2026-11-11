@@ -9,6 +9,7 @@ import { formatClock } from "@/lib/tour";
 import { onTourFrame, tourControl, useTour } from "./store";
 import {
   CloseIcon,
+  MusicIcon,
   NextIcon,
   PauseIcon,
   PlayIcon,
@@ -232,6 +233,17 @@ export default function TourPlayer() {
                 }
               >
                 <VoiceIcon on={tour.voice} />
+              </button>
+              <button
+                type="button"
+                className="tour-icon-button"
+                aria-label="Music"
+                aria-pressed={tour.music}
+                onClick={() =>
+                  tourControl((director) => director.setMusic(!tour.music))
+                }
+              >
+                <MusicIcon on={tour.music} />
               </button>
               <button
                 type="button"

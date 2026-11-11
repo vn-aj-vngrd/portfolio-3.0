@@ -15,6 +15,7 @@ const { projectCatalog } = await load("src/content/projects.ts");
 const { experience } = await load("src/content/experience.ts");
 const timeline = await load("src/lib/tour/timeline.ts");
 const link = await load("src/lib/tour/link.ts");
+const score = await load("src/lib/tour/score.ts");
 const manifest = JSON.parse(read("src/lib/tour/narration.json"));
 
 const stops = tourChapters.flatMap((chapter) => chapter.stops);
@@ -331,4 +332,25 @@ test("parseTourLink and withoutTourLink", () => {
   assert.equal(link.parseTourLink(""), null);
   assert.equal(link.withoutTourLink("/?tour=work&x=1#about"), "/?x=1#about");
   assert.equal(link.withoutTourLink("/?tour#about"), "/#about");
+});
+
+test("the generated score is deterministic and stays in F major", () => {
+  const a = score.scoreEvents(120, 3);
+  const b = score.scoreEvents(120, 3);
+  assert.deepEqual(a, b);
+  assert.notDeepEqual(a, score.scoreEvents(120, 4));
+  const fMajor = new Set([0, 2, 4, 5, 7, 9, 10]);
+  for (const event of a) {
+    assert.ok(
+      fMajor.has(event.midi % 12),
+      `${event.kind} note ${event.midi} is out of key`
+    );
+    assert.ok(event.t >= 0 && event.t < 120);
+  }
+  assert.ok(a.some((event) => event.kind === "piano"));
+  assert.ok(
+    a.filter((event) => event.kind === "piano").every((event) => event.t >= 3.9)
+  );
+  const bass = a.filter((event) => event.kind === "bass");
+  assert.equal(bass[0].midi, 53 - 12);
 });

@@ -8,6 +8,7 @@ import {
   buildTimeline,
   chapterAt,
   chapterStart,
+  duckEnvelope,
   frameAt,
   prevTarget,
   scrollDuration,
@@ -18,6 +19,7 @@ import {
   type TourTimeline,
 } from "@/lib/tour";
 import { fetchNarration, loadStopBuffer, playStop } from "@/lib/tour/narration";
+import { MUSIC_LEVEL, type ScoreHandle, startScore } from "@/lib/tour/score";
 
 import {
   emitTourFrame,
@@ -65,6 +67,9 @@ let startToken = 0;
 let ctx: AudioContext | null = null;
 let master: DynamicsCompressorNode | null = null;
 let voiceBus: GainNode | null = null;
+let duck: GainNode | null = null;
+let musicBus: GainNode | null = null;
+let score: ScoreHandle | null = null;
 let mode: "audio" | "perf" = "perf";
 const buffers = new Map<string, AudioBuffer>();
 const requests = new Map<string, Promise<void>>();
@@ -123,6 +128,73 @@ function ensureGraph() {
   voiceBus = ctx.createGain();
   voiceBus.gain.value = getSnapshot().voice ? VOICE_LEVEL : 0;
   voiceBus.connect(master);
+  // score -> duck -> musicBus -> master
+  musicBus = ctx.createGain();
+  musicBus.gain.value = getSnapshot().music ? 1 : 0;
+  musicBus.connect(master);
+  duck = ctx.createGain();
+  duck.connect(musicBus);
+}
+
+function envelopeAt(env: [number, number][], t: number) {
+  let value = 1;
+  for (let i = 0; i < env.length; i += 1) {
+    if (env[i][0] > t) {
+      const prev = env[i - 1] ?? env[i];
+      return (
+        prev[1] +
+        ((env[i][1] - prev[1]) * (t - prev[0])) /
+          Math.max(1e-6, env[i][0] - prev[0])
+      );
+    }
+    value = env[i][1];
+  }
+  return value;
+}
+
+/** Duck the bed under the narration on the tour timeline; flat when there is no voice to duck for. */
+function scheduleDuck(fromT: number) {
+  if (!ctx || !duck || !timeline) return;
+  const gain = duck.gain;
+  const c = ctx.currentTime;
+  gain.cancelScheduledValues(c);
+  const snap = getSnapshot();
+  if (!snap.voice || snap.narration === "unavailable") {
+    gain.setTargetAtTime(1, c, 0.25);
+    return;
+  }
+  const env = duckEnvelope(timeline);
+  gain.setValueAtTime(envelopeAt(env, fromT), c);
+  for (const [t, value] of env) {
+    if (t > fromT) gain.linearRampToValueAtTime(value, contextTimeAt(t));
+  }
+}
+
+/** Fade in at the start (or quickly after a seek) and out over the last 3 s. */
+function scheduleMusic(fromT: number, fresh: boolean) {
+  if (!ctx || !score || !timeline) return;
+  const gain = score.level.gain;
+  const c = ctx.currentTime;
+  gain.cancelScheduledValues(c);
+  if (fresh) {
+    gain.setValueAtTime(0, c);
+    gain.linearRampToValueAtTime(MUSIC_LEVEL, c + 3.5);
+  } else {
+    gain.setValueAtTime(gain.value, c);
+    gain.linearRampToValueAtTime(MUSIC_LEVEL, c + 0.6);
+  }
+  const fadeStart = Math.max(timeline.duration - 3, fromT + 0.7);
+  gain.setValueAtTime(MUSIC_LEVEL, Math.max(contextTimeAt(fadeStart), c + 0.6));
+  gain.linearRampToValueAtTime(0, contextTimeAt(timeline.duration + 0.5));
+  scheduleDuck(fromT);
+}
+
+function beginScore(fromT: number) {
+  if (!ctx || !duck || mode !== "audio") return;
+  score?.stop(0.1);
+  score = startScore(ctx, duck, { seed: 3 });
+  score.schedule(ctx.currentTime + 6);
+  scheduleMusic(fromT, fromT < 0.5);
 }
 
 function stopSources() {
@@ -171,6 +243,7 @@ function updateNarration() {
   else if (buffers.size > 0) narration = failed.size > 0 ? "partial" : "ready";
   else narration = "pending";
   setTourState({ narration });
+  if (narration === "unavailable" && score) scheduleDuck(now());
 }
 
 function request(stop: TimelineStop) {
@@ -347,6 +420,7 @@ function tick() {
   raf = 0;
   if (!active || !playing) return;
   update(now());
+  if (ctx && score) score.schedule(ctx.currentTime + 6);
   if (playing && active) raf = window.requestAnimationFrame(tick);
 }
 
@@ -361,7 +435,15 @@ function finish() {
   window.cancelAnimationFrame(raf);
   raf = 0;
   stopSources();
-  if (mode === "audio") void ctx?.suspend();
+  if (mode === "audio") {
+    // Let the score's closing fade finish before the context freezes.
+    window.setTimeout(() => {
+      if (getSnapshot().status !== "ended") return;
+      score?.stop(0.2);
+      score = null;
+      void ctx?.suspend();
+    }, 900);
+  }
   setStage("ended");
   setTourState({ status: "ended", cue: null, pauseReason: null });
   emitTourFrame(timeline.duration);
@@ -417,7 +499,12 @@ function seek(t: number) {
     prioritize(frameAt(timeline, base).stop);
     return;
   }
+  const wasEnded = getSnapshot().status === "ended";
   stopSources();
+  if (wasEnded) {
+    score?.stop(0.1);
+    score = null;
+  }
   base = Math.min(Math.max(t, 0), timeline.duration);
   wallAt = clockNow();
   stopIndex = -1;
@@ -434,6 +521,8 @@ function seek(t: number) {
   if (mode === "audio") void ctx?.resume();
   update(base);
   scheduleAll();
+  if (score) scheduleMusic(base, false);
+  else beginScore(base);
   prioritize(frameAt(timeline, base).stop);
   startLoop();
 }
@@ -674,6 +763,7 @@ export async function start(
     soundBlocked: Boolean(ctx) && mode === "perf",
   });
   scheduleAll();
+  beginScore(base);
   startLoop();
 }
 
@@ -684,7 +774,10 @@ export function enableSound() {
     if (!active || !ctx || ctx.state !== "running") return;
     setMode("audio");
     setTourState({ soundBlocked: false });
-    if (playing) scheduleAll();
+    if (playing) {
+      scheduleAll();
+      beginScore(base);
+    }
   });
 }
 
@@ -696,6 +789,16 @@ export function setVoice(on: boolean) {
     voiceBus.gain.setTargetAtTime(on ? VOICE_LEVEL : 0, ctx.currentTime, 0.08);
   }
   if (on && active && timeline) prioritize(frameAt(timeline, now()).stop);
+  if (active) scheduleDuck(now());
+}
+
+export function setMusic(on: boolean) {
+  setTourState({ music: on });
+  saveTourPrefs();
+  log("music", { on });
+  if (ctx && musicBus) {
+    musicBus.gain.setTargetAtTime(on ? 1 : 0, ctx.currentTime, 0.25);
+  }
 }
 
 export function stop() {
@@ -716,10 +819,17 @@ export function stop() {
   buffers.clear();
   requests.clear();
   failed.clear();
-  master?.disconnect();
+  score?.stop(0.3);
+  score = null;
+  const released = master;
   master = null;
   voiceBus = null;
-  if (ctx?.state === "running") void ctx.suspend();
+  duck = null;
+  musicBus = null;
+  window.setTimeout(() => {
+    released?.disconnect();
+    if (!active && ctx?.state === "running") void ctx.suspend();
+  }, 500);
   mode = "perf";
   html().classList.remove("tour-cut");
   delete html().dataset.tour;
@@ -759,6 +869,9 @@ if (process.env.NODE_ENV !== "production" && typeof window !== "undefined") {
         buffers: buffers.size,
         failed: failed.size,
         sources: sources.length,
+        score: Boolean(score),
+        duck: duck?.gain.value ?? null,
+        level: score?.level.gain.value ?? null,
       }),
       log: () => eventLog.slice(),
     },
