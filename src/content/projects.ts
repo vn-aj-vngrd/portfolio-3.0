@@ -10,6 +10,16 @@ function aqdScreen(file: string, label: string, alt: string) {
   } as const;
 }
 
+function viyaScreen(file: string, label: string, alt: string) {
+  return {
+    src: `/images/projects/viya/${file}.webp`,
+    alt,
+    width: 1320,
+    height: 2868,
+    label,
+  } as const;
+}
+
 function acsfiScreen(file: string, label: string, alt: string, height = 1200) {
   return {
     src: `/images/projects/acsfi/${file}.webp`,
@@ -879,6 +889,10 @@ const projectEntries = [
         body: "Generated changes are checked against shared schemas, explained to the traveler, and saved only after approval.",
       },
       {
+        title: "Philippine context built in",
+        body: "Destination ranking, season and typhoon risk, and Philippines-first place search shape the suggestions before any model is asked.",
+      },
+      {
         title: "Demo reliability without fake success",
         body: "Deterministic fixtures and fallbacks keep critical flows testable when a model or provider is unavailable.",
       },
@@ -908,30 +922,299 @@ const projectEntries = [
       "Shared schemas validate structured AI outputs before application code consumes them.",
       "Architecture, security, setup, testing, demo, and product decisions are documented in the public repository.",
       "An Android preview-build path and repeatable demo fixtures are documented for release review.",
+      "The trip agent’s 17 tools are scoped to one trip, and every proposed change is validated and saved as a draft rather than written to the trip.",
+      "Budget, readiness, itinerary scheduling, and Philippine destination ranking live in pure TypeScript with their own unit tests.",
     ],
     images: [
-      {
-        src: "/images/projects/viya/home.png",
-        alt: "Viya home dashboard showing an active trip, readiness, budget, and travel ideas",
-        width: 1290,
-        height: 2796,
-        label: "Trip home",
-      },
-      {
-        src: "/images/projects/viya/ask.png",
-        alt: "Ask Viya screen offering reviewable trip actions for budget, documents, and itinerary",
-        width: 1290,
-        height: 2796,
-        label: "Ask Viya",
-      },
-      {
-        src: "/images/projects/viya/budget.png",
-        alt: "Viya trip budget screen showing planned spend, tracked expenses, and a receipt",
-        width: 1290,
-        height: 2796,
-        label: "Trip budget",
-      },
+      viyaScreen(
+        "workspace",
+        "Trip workspace",
+        "Viya trip workspace for Cebu and Bohol Escape with a typhoon-watch next step and rows for itinerary, places, bookings, readiness, budget, risks, and drafts"
+      ),
+      viyaScreen(
+        "agent-draft",
+        "Ask Viya",
+        "Viya chat in a trip saving a draft for a relaxed Day 4 beach afternoon with a weather note, a Draft ready to review card, and a Review drafts button"
+      ),
+      viyaScreen(
+        "budget",
+        "Trip budget",
+        "Viya budget showing 18,530 pesos spent of 60,000, 31,800 planned in the itinerary, and a breakdown by booking, expenses, and category"
+      ),
+      viyaScreen(
+        "itinerary",
+        "Itinerary",
+        "Viya itinerary with Day 1 and Day 2 of a Cebu and Bohol trip listing timed stops with durations, locations, and daily totals"
+      ),
     ],
+    journey: {
+      title: "From a place to think about, to a trip you have run.",
+      summary:
+        "Viya follows one trip through its life: find somewhere to go, start the trip, plan the days, track bookings and money, check readiness, keep the papers, ask the agent, run the day, and look back. Every screen below comes from the app running on an iPhone 17 Pro Max with fictional seeded trips. The places and businesses are real; the travelers are made up.",
+      chapters: [
+        {
+          label: "Find a place",
+          title: "Ideas ranked for the Philippines, by season.",
+          lead: "Discover starts from where you are going and when, not from a feed of photos.",
+          points: [
+            "Destinations are ranked from a built-in set of Philippine places by their best and avoid months, typhoon exposure, budget, and the traveler’s preferences.",
+            "Each card says why it fits: best season, the usual weather, trip length, and the province.",
+            "Once a trip exists, Discover turns to it: a season warning for its dates and a better-suited alternative to consider.",
+          ],
+          screens: [
+            viyaScreen(
+              "discover",
+              "Discover",
+              "Viya Discover with the next trip Cebu and Bohol Escape, Philippine destination cards for Bacolod and Vigan with Best season badges, and a typhoon warning for the trip dates"
+            ),
+          ],
+        },
+        {
+          label: "Start a trip",
+          title: "Three steps from a destination to a workspace.",
+          lead: "A trip needs a place, dates, and who is going. Everything else can be filled in later.",
+          points: [
+            "Destination search is Philippines-first, with suggestions from the same ranking as Discover.",
+            "A destination and dates passed in from Discover land on Review with a default name taken from the place, such as Cebu and Bohol Trip.",
+            "Creating the trip also generates its itinerary days and a baseline readiness checklist, so the workspace is useful on first open.",
+          ],
+          screens: [
+            viyaScreen(
+              "create-destination",
+              "Where to",
+              "Viya Where to step with a destination field, suggested Philippine places Vigan, Sagada, Bacolod, La Union, and Tagaytay, and an Ask Viya instead option"
+            ),
+            viyaScreen(
+              "create-review",
+              "Review",
+              "Viya trip review step showing the destination Cebu and Bohol, dates 12 to 16 Dec, a name field with the default Cebu and Bohol Trip, traveler type, style, pace, and budget"
+            ),
+          ],
+        },
+        {
+          label: "One workspace",
+          title: "Everything about a trip lives in one place.",
+          lead: "The workspace opens on the one thing that needs attention, then lists every part of the trip with its state.",
+          points: [
+            "Next up is chosen from the trip’s state: an urgent risk first, then budget pressure, then departure prep, then the next booking to make.",
+            "Each row shows live counts, such as 33 stops across 5 of 5 planned days, 4 of 7 bookings made, 57% ready, and what is left to spend.",
+            "The Trips list keeps upcoming, completed, and early-stage trips side by side with a countdown or status.",
+          ],
+          screens: [
+            viyaScreen(
+              "workspace",
+              "Trip workspace",
+              "Viya trip workspace for Cebu and Bohol Escape with a Late-November typhoon watch next step and rows for itinerary, places, bookings, readiness, budget, risks, and Drafts from Viya"
+            ),
+            viyaScreen(
+              "trips",
+              "All trips",
+              "Viya Trips list with Cebu and Bohol Escape in 12 days, Siargao Surf Week completed, and Palawan El Nido to Coron in 90 days, with All, Upcoming, and Past filters and a search field"
+            ),
+            viyaScreen(
+              "early-trip",
+              "An early trip",
+              "Viya workspace for a Palawan trip 90 days away with nothing planned yet, a Book ferry next step, and empty itinerary, bookings, and budget rows"
+            ),
+          ],
+        },
+        {
+          label: "Plan the days",
+          title: "A day-by-day plan that checks itself.",
+          lead: "Itinerary days follow the trip dates, and a stop is a time, a place, and a cost.",
+          points: [
+            "Days are generated from the trip dates. Changing the dates moves existing days and stops with them instead of dropping them.",
+            "Stops are timed and ordered. Two stops that overlap are flagged, and a stop can move to another day.",
+            "Skipped stops stay visible but struck through, and stay out of the budget.",
+            "Saved places that are not on a day yet wait in their own list until they are assigned.",
+          ],
+          screens: [
+            viyaScreen(
+              "itinerary",
+              "Days",
+              "Viya itinerary listing Day 1 and Day 2 of the Cebu and Bohol trip with timed stops such as Fly Manila to Cebu, Basilica del Santo Niño, and Kawasan Falls canyoneering, plus daily totals"
+            ),
+            viyaScreen(
+              "day-plan",
+              "One day",
+              "Viya Day 2 view with a summary, timed stops with costs, a skipped sardine-run stop shown struck through, a pace setting, and an Add stop button"
+            ),
+            viyaScreen(
+              "places",
+              "Places",
+              "Viya itinerary Places tab with three places not on a day yet and a list of places assigned to Day 1"
+            ),
+          ],
+        },
+        {
+          label: "Book it",
+          title: "What is booked, and what still needs booking.",
+          lead: "Bookings are grouped by type with a status, so the gaps are as visible as the confirmations.",
+          points: [
+            "Flights, stays, transport, and activities each show provider, date, cost, and status.",
+            "The workspace reads the same list: 4 of 7 booked, with the next booking to make named in Next up.",
+            "Booked items carry their confirmation reference into Travel Mode.",
+          ],
+          screens: [
+            viyaScreen(
+              "bookings",
+              "Bookings",
+              "Viya bookings list showing 4 of 7 booked with flights and a stay confirmed, a ferry booked, and a second stay and a countryside tour marked Not booked"
+            ),
+          ],
+        },
+        {
+          label: "Know the budget",
+          title: "Money counted once.",
+          lead: "The budget separates what is spent from what is only planned, so a number never means two things.",
+          points: [
+            "Spent is booked costs plus logged expenses. An expense linked to a booking replaces the booking’s quoted cost instead of adding to it.",
+            "Planned itinerary costs are estimates and reduce what is left, but are not counted as spent.",
+            "The daily safe amount divides what remains across the days still ahead, and the dashboard warns as spend nears or passes the total.",
+            "Amounts in another currency are set aside rather than mixed into the total.",
+          ],
+          screens: [
+            viyaScreen(
+              "budget",
+              "Budget",
+              "Viya budget showing 18,530 pesos spent of 60,000, 9,670 left after 31,800 planned, a per-day safe amount, and a breakdown by bookings, logged expenses, planned itinerary, and category"
+            ),
+          ],
+        },
+        {
+          label: "Be ready",
+          title: "Readiness and risks, in order of urgency.",
+          lead: "A readiness score and a short list of risks say what could go wrong before the trip does.",
+          points: [
+            "The checklist is split into To do, Risks, and Done, with due dates and priority, and a Mark done action on the next task.",
+            "Risks carry a severity and a suggested action, such as keeping a flexible day during a typhoon watch or leaving earlier for a tight ferry transfer.",
+            "The same open risks feed Next up and Travel Mode.",
+          ],
+          screens: [
+            viyaScreen(
+              "readiness",
+              "Checklist",
+              "Viya readiness at 57 percent with a Confirm booking coverage next task and a To do list of documents, bookings, packing, and backup-plan tasks with due dates"
+            ),
+            viyaScreen(
+              "risks",
+              "Risks",
+              "Viya Risks tab listing a High late-November typhoon watch, a Medium unbooked Panglao stay, and a Medium tight ferry transfer, each with what to do"
+            ),
+          ],
+        },
+        {
+          label: "Keep the papers",
+          title: "Documents, notes, and the people on the trip.",
+          lead: "Trip-level records sit beside the plan, not in a separate app.",
+          points: [
+            "Vault lists the documents a trip needs and whether each is saved or missing. A file added to Vault is read to suggest bookings and expenses for review.",
+            "Notes are grouped by category, with chips to filter by food, booking, or reminder.",
+            "Travelers list names and roles, including an emergency contact. Contact details stay out of anything sent to the model.",
+          ],
+          screens: [
+            viyaScreen(
+              "vault",
+              "Vault",
+              "Viya Vault listing Government ID as saved and Travel insurance as missing, with an empty state offering Add file"
+            ),
+            viyaScreen(
+              "notes",
+              "Notes",
+              "Viya trip notes with All, Food, Booking, and Reminder chips and three notes about food, ferry check-in, and canyoneering packing"
+            ),
+            viyaScreen(
+              "travelers",
+              "Travelers",
+              "Viya Travelers list with an emergency contact and a traveler"
+            ),
+          ],
+        },
+        {
+          label: "Ask Viya",
+          title: "An agent that reads the trip before it answers.",
+          lead: "Chat inside a trip is grounded in that trip’s records through tools, not in a pasted summary.",
+          points: [
+            "The agent has 17 tools scoped to one trip: ten read the itinerary, budget, bookings, readiness, risks, places, notes and documents, companions, and the season and destination, and seven propose changes.",
+            "A request such as planning a beach afternoon reads Day 4 and the season first, then drafts a stop, notes it as an estimate, and flags the weather.",
+            "Prices and opening hours are marked as estimates when they are not in the trip’s records, and the reply says plainly that nothing has changed yet.",
+          ],
+          screens: [
+            viyaScreen(
+              "agent-thinking",
+              "Reading the trip",
+              "Viya trip chat after the request Day 4 looks thin, plan a relaxed beach afternoon, check the weather risk, and draft it, showing a Thinking row"
+            ),
+            viyaScreen(
+              "agent-draft",
+              "Draft saved",
+              "Viya trip chat replying with a saved draft for a Wednesday 2 December slow beach afternoon at Alona Kew, a weather note on typhoon season, and a Draft ready to review card with Review drafts"
+            ),
+          ],
+        },
+        {
+          label: "Review before it counts",
+          title: "Every change is a draft you decide on.",
+          lead: "The agent never edits a trip. It saves a draft, and the traveler applies or dismisses it.",
+          points: [
+            "A draft is checked against the trip as it is now before it is saved: overlapping times, dates outside the trip, reversed bookings, and unrealistic budgets are returned to the model as errors it can correct.",
+            "The Drafts sheet describes what each draft would change in plain lines, with Apply and Dismiss for each.",
+            "Applying is checked again at the time it runs, writes only that draft’s own part of the trip, and cannot be applied twice.",
+          ],
+          screens: [
+            viyaScreen(
+              "agent-review",
+              "Drafts from Viya",
+              "Viya Drafts from Viya sheet with an itinerary draft for a relaxed beach afternoon on Day 4 and a readiness draft for weather and backup checks, each with Dismiss and Apply"
+            ),
+          ],
+        },
+        {
+          label: "On the day",
+          title: "Travel Mode keeps the day in one screen.",
+          lead: "Before and during the trip, a single view answers what is next and where the tickets are.",
+          points: [
+            "Before the trip it counts down to Day 1 and names the first stop and its time.",
+            "Open risks are one tap away, and an expense, a note, or a new risk can be added without leaving the screen.",
+            "Tickets list each booking with its reference, ready to show.",
+          ],
+          screens: [
+            viyaScreen(
+              "travel-mode",
+              "Travel Mode",
+              "Viya Travel Mode showing the trip starts in 12 days with the first stop Fly Manila to Cebu at 06:10, one urgent risk, quick actions to log an expense, add a note, or add a risk, and a tickets list"
+            ),
+          ],
+        },
+        {
+          label: "Look back",
+          title: "A finished trip becomes a recap.",
+          lead: "Completing a trip leads to its recap, and moments kept along the way are what the recap is made from.",
+          points: [
+            "A completed trip’s workspace leads with Relive this trip instead of preparation tasks.",
+            "The recap counts days, places, stops done, total spent, and moments, then lists the highlights by day.",
+            "Moments are dated notes with an optional highlight, grouped by day.",
+          ],
+          screens: [
+            viyaScreen(
+              "trip-complete",
+              "Completed trip",
+              "Viya workspace for Siargao Surf Week marked Completed with a Relive this trip next step and rows showing 6 of 6 days planned and all bookings made"
+            ),
+            viyaScreen(
+              "recap",
+              "Recap",
+              "Viya recap for Siargao showing 6 days, 14 places, 21 of 23 stops done, 69,200 pesos spent, 7 moments, and highlights by day"
+            ),
+            viyaScreen(
+              "moments",
+              "Moments",
+              "Viya Moments list with 7 moments and 5 highlighted, grouped by day with short captions from Siargao"
+            ),
+          ],
+        },
+      ],
+    },
     repository: "https://github.com/vn-aj-vngrd/viya-app",
   },
   {
