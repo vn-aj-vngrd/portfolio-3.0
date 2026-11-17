@@ -162,7 +162,15 @@ export default function AiWorkflowPage() {
               </div>
               <div>
                 <p>{item.body}</p>
-                <a className="ai-source-link" href={item.link.href}>
+                <a
+                  className="ai-source-link"
+                  href={item.link.href}
+                  aria-label={
+                    item.link.label.includes(item.title)
+                      ? undefined
+                      : `${item.link.label} for ${item.title}`
+                  }
+                >
                   {item.link.label} ↗
                 </a>
               </div>

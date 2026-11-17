@@ -214,14 +214,14 @@ export function FactoryReviewLoop() {
         <h3 id="fx-review-title">{factoryReviewLoop.title}</h3>
         <p>{factoryReviewLoop.lead}</p>
       </header>
-      <ol className="fx-chain" style={vars({ "--k": 3 })}>
+      <ol className="fx-chain" role="list" style={vars({ "--k": 3 })}>
         {order.map((id, i) => (
           <li key={id} className="fx-node" style={vars({ "--i": i })}>
             <span className="fx-node-number">{pad(stageIndex[id] + 1)}</span>
             <strong>{steps[id].label}</strong>
             <p>{steps[id].detail}</p>
             {id === "review" ? (
-              <ul className="fx-reviewers">
+              <ul className="fx-reviewers" role="list">
                 {reviewers.map((r) => (
                   <li key={r.name}>
                     <span>{r.name}</span>
@@ -240,7 +240,7 @@ export function FactoryReviewLoop() {
           <span aria-hidden="true">↺ </span>
           {factoryReviewLoop.changes}
         </p>
-        <ol className="fx-rounds">
+        <ol className="fx-rounds" role="list">
           {factoryReviewLoop.rounds.map((round) => (
             <li key={round}>{round}</li>
           ))}
@@ -275,7 +275,7 @@ export function FactoryArtifacts() {
             </span>
           ))}
         </div>
-        <ol>
+        <ol role="list">
           {factoryArtifacts.items.map((item, k) => {
             const a = stageIndex[item.from];
             const b = stageIndex[item.to];
@@ -414,6 +414,7 @@ export function FactoryImprovement() {
     >
       <ol
         className="fx-chain"
+        role="list"
         aria-label="The improvement loop"
         style={vars({ "--k": 4 })}
       >
