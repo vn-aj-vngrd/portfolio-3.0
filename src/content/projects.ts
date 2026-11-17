@@ -1007,6 +1007,11 @@ const projectEntries = [
         "QSM version history for a demo form template showing version 2 beside version 1 with the added checklist rows highlighted"
       ),
     ],
+    coverImage: qsmScreen(
+      "dashboard",
+      "Dashboard",
+      "QSM dashboard with cards for submissions, completion rate, items needing attention, and form templates, above charts of circular and document status"
+    ),
     repository: undefined,
     liveUrl: undefined,
   },
