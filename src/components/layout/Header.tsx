@@ -5,10 +5,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import {
-  ProductLab,
-  type ProductLabHandle,
-} from "@/components/game/ProductLab";
-import {
   AiWorkflowIcon,
   DesignSystemIcon,
   GearIcon,
@@ -29,7 +25,6 @@ import {
   isPlatformModifierPressed,
   usePlatformModifier,
 } from "@/hooks/usePlatformModifier";
-import type { ProductMatchEntry } from "@/types/content";
 
 function setMobileMenuIsolation(open: boolean) {
   for (const element of document.querySelectorAll<HTMLElement>(
@@ -54,15 +49,10 @@ const shortcuts = [
   { key: "0", label: "Résumé", href: "/resume" },
 ] as const;
 
-export function Header({
-  productMatches,
-}: {
-  productMatches: readonly ProductMatchEntry[];
-}) {
+export function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const menuRef = useRef<HTMLDetailsElement>(null);
-  const productLabRef = useRef<ProductLabHandle>(null);
   const menuCloseTimer = useRef<number | null>(null);
   const [shortcutMode, setShortcutMode] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
@@ -71,6 +61,7 @@ export function Header({
   const paletteInvoker = useRef<HTMLElement | null>(null);
   const platformModifier = usePlatformModifier();
   const { activeSection, navigateToSection } = usePortfolioNavigation();
+  const inLab = pathname === "/lab" || pathname.startsWith("/lab/");
 
   const closeMenu = () => {
     const menu = menuRef.current;
@@ -139,6 +130,11 @@ export function Header({
       if (!event.metaKey && !event.ctrlKey) setShortcutMode(false);
 
       if (!isPlatformModifierPressed(event, platformModifier)) return;
+      if (event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        router.push("/lab");
+        return;
+      }
       const shortcut = shortcuts.find((item) => item.key === event.key);
       if (!shortcut) return;
 
@@ -348,7 +344,25 @@ export function Header({
 
         <TourEntry variant="rail" />
 
-        <ProductLab ref={productLabRef} productMatches={productMatches} />
+        <div className="product-lab-entry">
+          <Link
+            className="product-lab-trigger"
+            href="/lab"
+            data-active={inLab}
+            aria-current={inLab ? "page" : undefined}
+            aria-keyshortcuts={
+              platformModifier ? `${platformModifier} K` : undefined
+            }
+          >
+            <i aria-hidden="true">
+              <ProductLabIcon />
+            </i>
+            <span>Product Lab</span>
+            <kbd aria-hidden="true">
+              {platformModifier ? `${platformModifier} K` : "K"}
+            </kbd>
+          </Link>
+        </div>
 
         <div className="quick-nav-entry">
           <button
@@ -435,22 +449,21 @@ export function Header({
                   </nav>
 
                   <div className="mobile-menu-play">
-                    <button
+                    <Link
                       className="mobile-game-button"
-                      type="button"
-                      onClick={() => {
-                        closeMenu();
-                        productLabRef.current?.open();
-                      }}
+                      href="/lab"
+                      onClick={closeMenu}
+                      data-active={inLab}
+                      aria-current={inLab ? "page" : undefined}
                     >
-                      <span>Open Product Lab</span>
-                      <kbd>
+                      <span>Product Lab</span>
+                      <kbd aria-hidden="true">
                         {platformModifier ? `${platformModifier} K` : "K"}
                       </kbd>
                       <i aria-hidden="true">
                         <ProductLabIcon />
                       </i>
-                    </button>
+                    </Link>
                   </div>
 
                   <div className="mobile-menu-explore">

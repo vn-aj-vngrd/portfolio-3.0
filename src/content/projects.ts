@@ -2335,6 +2335,7 @@ export const projectCatalog = {
       slug: project.slug,
       name: project.name,
       href: `/work/${project.slug}`,
+      image: (project.coverImage ?? project.images[0]).src,
       ...project.match,
     }));
   },

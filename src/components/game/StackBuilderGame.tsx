@@ -285,6 +285,8 @@ export function StackBuilderGame() {
   const [started, setStarted] = useState(false);
   const [progress, setProgress] = useState(0);
   const [accuracies, setAccuracies] = useState<number[]>([]);
+  const [perfects, setPerfects] = useState(0);
+  const [lastDrop, setLastDrop] = useState<string | null>(null);
   const [status, setStatus] = useState<StackStatus>("ready");
   const [runKey, setRunKey] = useState(0);
   const [copied, setCopied] = useState(false);
@@ -308,15 +310,21 @@ export function StackBuilderGame() {
     setStarted(false);
     setProgress(0);
     setAccuracies([]);
+    setPerfects(0);
+    setLastDrop(null);
     setStatus("ready");
     setRunKey((current) => current + 1);
     setCopied(false);
   };
 
   const handleDrop = useCallback(
-    (nextProgress: number, nextAccuracy: number) => {
+    (nextProgress: number, nextAccuracy: number, perfect: boolean) => {
       setProgress(nextProgress);
       setAccuracies((current) => [...current, nextAccuracy]);
+      if (perfect) setPerfects((current) => current + 1);
+      setLastDrop(
+        perfect ? "Perfect drop" : `${Math.round(nextAccuracy * 100)}% aligned`
+      );
     },
     []
   );
@@ -352,7 +360,6 @@ export function StackBuilderGame() {
         <div className="lab-game lab-stack-drop-game">
           <div className="stack-game-hud">
             <p>3D timing game</p>
-            <h2>Stack Builder</h2>
             <span>
               {status === "playing"
                 ? `Drop ${brief.layers[progress]?.label ?? "the final layer"}: ${stackModules[progress] ?? "Complete"}`
@@ -385,10 +392,11 @@ export function StackBuilderGame() {
           {status === "ready" ? (
             <div className="stack-game-intro">
               <span>Build a stable product</span>
-              <h3>Time every drop.</h3>
+              <h2>Time every drop.</h2>
               <p>
-                Each moving block is one layer of Van&apos;s stack. Align all
-                five as the tower gets faster and narrower.
+                Each moving block is one layer of Van&apos;s stack. Choose a
+                brief to preview it, then align all five as the tower gets
+                faster and narrower.
               </p>
               <div
                 className="stack-game-briefs"
@@ -424,6 +432,11 @@ export function StackBuilderGame() {
               <div className="stack-game-help">
                 <kbd>Click / Tap / Space</kbd>
                 <span>Drop the moving block</span>
+                {lastDrop ? (
+                  <b data-perfect={lastDrop === "Perfect drop"} role="status">
+                    {lastDrop}
+                  </b>
+                ) : null}
               </div>
               <button
                 className="stack-game-drop"
@@ -438,7 +451,7 @@ export function StackBuilderGame() {
           {status === "failed" ? (
             <div className="stack-game-result" role="status">
               <span>Build interrupted · {progress} / 5 layers</span>
-              <h3>The stack missed.</h3>
+              <h2>The stack missed.</h2>
               <p>
                 Alignment gets tighter as delivery moves upward. Reset the build
                 and time the next drop.
@@ -451,8 +464,11 @@ export function StackBuilderGame() {
 
           {status === "complete" ? (
             <div className="stack-game-result" role="status">
-              <span>05 / 05 · {accuracy}% alignment</span>
-              <h3>Stack shipped.</h3>
+              <span>
+                05 / 05 · {accuracy}% alignment
+                {perfects ? ` · ${perfects} perfect` : ""}
+              </span>
+              <h2>Stack shipped.</h2>
               <ul>
                 {brief.layers.map((layer, index) => (
                   <li key={layer.label}>

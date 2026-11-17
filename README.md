@@ -47,6 +47,10 @@ The words live in `src/content/tour.ts`, each line with the source file that bac
 /design.md
 /gear
 /resume
+/lab
+/lab/stack-builder
+/lab/release-run
+/lab/product-match
 /work/viya
 /work/crave-roulette
 /work/watchbox
