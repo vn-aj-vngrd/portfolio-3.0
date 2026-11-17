@@ -3,8 +3,16 @@
 import { useEffect, useImperativeHandle, useRef } from "react";
 import * as THREE from "three";
 
+import { createLabGraphics } from "./labGraphics";
+
 const stages = ["Plan", "Build", "Test", "Ship"] as const;
-export type ReleaseControl = "forward" | "back" | "left" | "right" | "turnLeft" | "turnRight";
+export type ReleaseControl =
+  | "forward"
+  | "back"
+  | "left"
+  | "right"
+  | "turnLeft"
+  | "turnRight";
 
 export type ReleaseRunSceneHandle = {
   activate: () => void;
@@ -18,7 +26,9 @@ type ReleaseRunSceneProps = {
 };
 
 function readColor(token: string, fallback: string) {
-  const value = getComputedStyle(document.documentElement).getPropertyValue(token).trim();
+  const value = getComputedStyle(document.documentElement)
+    .getPropertyValue(token)
+    .trim();
   return new THREE.Color(value || fallback);
 }
 
@@ -36,23 +46,37 @@ function makeLabel(text: string, color: string) {
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
   const sprite = new THREE.Sprite(
-    new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false }),
+    new THREE.SpriteMaterial({
+      map: texture,
+      transparent: true,
+      depthWrite: false,
+    })
   );
   sprite.scale.set(2.6, 0.65, 1);
   return sprite;
 }
 
-export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunSceneProps) {
+export function ReleaseRunScene({
+  ref,
+  onProgress,
+  onReady,
+}: ReleaseRunSceneProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const progressCallback = useRef(onProgress);
   const readyCallback = useRef(onReady);
   const activateAction = useRef(() => {});
-  const controlAction = useRef((_action: ReleaseControl, _pressed: boolean) => {});
+  const controlAction = useRef(
+    (_action: ReleaseControl, _pressed: boolean) => {}
+  );
 
-  useImperativeHandle(ref, () => ({
-    activate: () => activateAction.current(),
-    setControl: (action, pressed) => controlAction.current(action, pressed),
-  }), []);
+  useImperativeHandle(
+    ref,
+    () => ({
+      activate: () => activateAction.current(),
+      setControl: (action, pressed) => controlAction.current(action, pressed),
+    }),
+    []
+  );
 
   useEffect(() => {
     progressCallback.current = onProgress;
@@ -65,7 +89,11 @@ export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunScenePro
 
     let renderer: THREE.WebGLRenderer;
     try {
-      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        alpha: false,
+      });
     } catch {
       canvas.dataset.unavailable = "true";
       return;
@@ -79,8 +107,12 @@ export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunScenePro
     const signal = readColor("--signal", "#155eef");
     const dark = canvasColor.getHSL({ h: 0, s: 0, l: 0 }).l < 0.2;
     const world = dark ? canvasColor : new THREE.Color("#0a0c10");
-    const worldSurface = dark ? surface.clone().lerp(ink, 0.08) : new THREE.Color("#171a20");
-    const worldBorder = dark ? border.clone().lerp(ink, 0.14) : new THREE.Color("#343a45");
+    const worldSurface = dark
+      ? surface.clone().lerp(ink, 0.08)
+      : new THREE.Color("#171a20");
+    const worldBorder = dark
+      ? border.clone().lerp(ink, 0.14)
+      : new THREE.Color("#343a45");
 
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -92,6 +124,10 @@ export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunScenePro
     scene.fog = new THREE.Fog(world, 8, 28);
     const camera = new THREE.PerspectiveCamera(68, 1, 0.08, 60);
     camera.rotation.order = "YXZ";
+    const graphics = createLabGraphics(renderer, scene, camera, {
+      bloom: 0.38,
+      dust: { center: [0, 2.4, -9], size: [9, 1.6, 22] },
+    });
 
     const player = new THREE.Vector3(0, 1.45, 6);
     let yaw = 0;
@@ -105,10 +141,19 @@ export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunScenePro
     const targets: THREE.Group[] = [];
     const targetMeshes: THREE.Object3D[] = [];
     const raycaster = new THREE.Raycaster();
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-    const floorMaterial = new THREE.MeshStandardMaterial({ color: worldSurface, roughness: 0.86, metalness: 0.08 });
-    const floor = new THREE.Mesh(new THREE.BoxGeometry(10, 0.28, 28), floorMaterial);
+    const floorMaterial = new THREE.MeshStandardMaterial({
+      color: worldSurface,
+      roughness: 0.3,
+      metalness: 0.65,
+    });
+    const floor = new THREE.Mesh(
+      new THREE.BoxGeometry(10, 0.28, 28),
+      floorMaterial
+    );
     floor.position.set(0, -0.2, -7);
     floor.receiveShadow = true;
     scene.add(floor);
@@ -119,9 +164,16 @@ export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunScenePro
     (grid.material as THREE.Material).opacity = 0.23;
     scene.add(grid);
 
-    const wallMaterial = new THREE.MeshStandardMaterial({ color: worldSurface, roughness: 0.72, metalness: 0.18 });
+    const wallMaterial = new THREE.MeshStandardMaterial({
+      color: worldSurface,
+      roughness: 0.72,
+      metalness: 0.18,
+    });
     for (const x of [-5.05, 5.05]) {
-      const wall = new THREE.Mesh(new THREE.BoxGeometry(0.22, 3.2, 28), wallMaterial);
+      const wall = new THREE.Mesh(
+        new THREE.BoxGeometry(0.22, 3.2, 28),
+        wallMaterial
+      );
       wall.position.set(x, 1.35, -7);
       wall.receiveShadow = true;
       scene.add(wall);
@@ -132,11 +184,11 @@ export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunScenePro
         const marker = new THREE.Mesh(
           new THREE.BoxGeometry(0.12, 2.2, 0.12),
           new THREE.MeshStandardMaterial({
-            color: progress === 4 ? signal : worldBorder,
+            color: worldBorder,
             emissive: signal,
-            emissiveIntensity: 0.08,
+            emissiveIntensity: 0.55,
             roughness: 0.4,
-          }),
+          })
         );
         marker.position.set(x, 1.1, z);
         scene.add(marker);
@@ -160,10 +212,10 @@ export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunScenePro
         new THREE.MeshStandardMaterial({
           color: index === 0 ? signal : muted,
           emissive: index === 0 ? signal : world,
-          emissiveIntensity: index === 0 ? 1.35 : 0.05,
+          emissiveIntensity: index === 0 ? 3.2 : 0.05,
           roughness: 0.25,
           metalness: 0.35,
-        }),
+        })
       );
       ring.userData.stageIndex = index;
       group.add(ring);
@@ -175,12 +227,15 @@ export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunScenePro
           emissive: index === 0 ? signal : world,
           emissiveIntensity: index === 0 ? 0.72 : 0,
           roughness: 0.3,
-        }),
+        })
       );
       core.userData.stageIndex = index;
       group.add(core);
 
-      const label = makeLabel(`${String(index + 1).padStart(2, "0")}  ${stages[index]}`, dark ? "#f1f3f4" : "#ffffff");
+      const label = makeLabel(
+        `${String(index + 1).padStart(2, "0")}  ${stages[index]}`,
+        dark ? "#f1f3f4" : "#ffffff"
+      );
       label.position.y = 1.12;
       group.add(label);
 
@@ -191,18 +246,24 @@ export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunScenePro
 
     const finishGate = new THREE.Group();
     finishGate.position.set(0, 1.7, -18.2);
-    const leftPost = new THREE.Mesh(new THREE.BoxGeometry(0.18, 3.4, 0.18), wallMaterial);
+    const leftPost = new THREE.Mesh(
+      new THREE.BoxGeometry(0.18, 3.4, 0.18),
+      wallMaterial
+    );
     leftPost.position.x = -2.2;
     const rightPost = leftPost.clone();
     rightPost.position.x = 2.2;
-    const topPost = new THREE.Mesh(new THREE.BoxGeometry(4.55, 0.18, 0.18), wallMaterial);
+    const topPost = new THREE.Mesh(
+      new THREE.BoxGeometry(4.55, 0.18, 0.18),
+      wallMaterial
+    );
     topPost.position.y = 1.7;
     finishGate.add(leftPost, rightPost, topPost);
     scene.add(finishGate);
 
-    const ambient = new THREE.HemisphereLight(0xb9c9ff, 0x08090b, 1.65);
+    const ambient = new THREE.HemisphereLight(0xb9c9ff, 0x08090b, 0.95);
     scene.add(ambient);
-    const key = new THREE.DirectionalLight(0xffffff, 2.4);
+    const key = new THREE.DirectionalLight(0xffffff, 1.4);
     key.position.set(3, 8, 5);
     key.castShadow = true;
     scene.add(key);
@@ -219,7 +280,7 @@ export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunScenePro
           const entry = child.material as THREE.MeshStandardMaterial;
           entry.color.copy(active ? signal : complete ? ink : muted);
           entry.emissive.copy(active ? signal : world);
-          entry.emissiveIntensity = active ? 1.15 : complete ? 0.08 : 0.02;
+          entry.emissiveIntensity = active ? 3.2 : complete ? 0.08 : 0.02;
         }
       });
     };
@@ -228,7 +289,12 @@ export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunScenePro
       if (progress >= targets.length) return;
       raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
       const hit = raycaster.intersectObjects(targetMeshes, false)[0];
-      if (!hit || hit.object.userData.stageIndex !== progress || hit.distance > 11) return;
+      if (
+        !hit ||
+        hit.object.userData.stageIndex !== progress ||
+        hit.distance > 11
+      )
+        return;
       progress += 1;
       updateTargetState();
       progressCallback.current(progress);
@@ -236,9 +302,23 @@ export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunScenePro
 
     const onKeyDown = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement | null;
-      const focusedControl = target?.closest("button, a, input, textarea, select");
+      const focusedControl = target?.closest(
+        "button, a, input, textarea, select"
+      );
       if (focusedControl && document.pointerLockElement !== canvas) return;
-      if (["KeyW", "KeyA", "KeyS", "KeyD", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Space"].includes(event.code)) {
+      if (
+        [
+          "KeyW",
+          "KeyA",
+          "KeyS",
+          "KeyD",
+          "ArrowUp",
+          "ArrowDown",
+          "ArrowLeft",
+          "ArrowRight",
+          "Space",
+        ].includes(event.code)
+      ) {
         event.preventDefault();
       }
       if (event.code === "Space") activateTarget();
@@ -268,6 +348,7 @@ export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunScenePro
       const width = Math.max(1, canvas.clientWidth);
       const height = Math.max(1, canvas.clientHeight);
       renderer.setSize(width, height, false);
+      graphics.setSize(width, height);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
     };
@@ -281,11 +362,17 @@ export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunScenePro
       if (controls.has("turnRight")) yaw -= delta * 1.8;
 
       camera.rotation.set(pitch, yaw, 0);
-      const forward = new THREE.Vector3(0, 0, -1).applyEuler(new THREE.Euler(0, yaw, 0));
-      const right = new THREE.Vector3(1, 0, 0).applyEuler(new THREE.Euler(0, yaw, 0));
+      const forward = new THREE.Vector3(0, 0, -1).applyEuler(
+        new THREE.Euler(0, yaw, 0)
+      );
+      const right = new THREE.Vector3(1, 0, 0).applyEuler(
+        new THREE.Euler(0, yaw, 0)
+      );
       const movement = new THREE.Vector3();
-      if (keys.has("KeyW") || keys.has("ArrowUp") || controls.has("forward")) movement.add(forward);
-      if (keys.has("KeyS") || keys.has("ArrowDown") || controls.has("back")) movement.sub(forward);
+      if (keys.has("KeyW") || keys.has("ArrowUp") || controls.has("forward"))
+        movement.add(forward);
+      if (keys.has("KeyS") || keys.has("ArrowDown") || controls.has("back"))
+        movement.sub(forward);
       if (keys.has("KeyD") || controls.has("right")) movement.add(right);
       if (keys.has("KeyA") || controls.has("left")) movement.sub(right);
       if (keys.has("ArrowLeft")) yaw += delta * 1.8;
@@ -302,12 +389,13 @@ export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunScenePro
         if (!reducedMotion) {
           target.rotation.y += delta * (index === progress ? 0.95 : 0.18);
           if (index === progress) {
-            target.position.y = stagePositions[index].y + Math.sin(time * 0.002) * 0.08;
+            target.position.y =
+              stagePositions[index].y + Math.sin(time * 0.002) * 0.08;
           }
         }
       });
       signalLight.position.z = player.z - 3;
-      renderer.render(scene, camera);
+      graphics.render(time);
       frame = requestAnimationFrame(render);
     };
 
@@ -335,22 +423,40 @@ export function ReleaseRunScene({ ref, onProgress, onReady }: ReleaseRunScenePro
       document.removeEventListener("mousemove", onMouseMove);
       canvas.removeEventListener("click", onCanvasClick);
       scene.traverse((object) => {
-        if (!(object instanceof THREE.Mesh || object instanceof THREE.LineSegments || object instanceof THREE.Sprite)) return;
+        if (
+          !(
+            object instanceof THREE.Mesh ||
+            object instanceof THREE.LineSegments ||
+            object instanceof THREE.Points ||
+            object instanceof THREE.Sprite
+          )
+        )
+          return;
         if ("geometry" in object && object.geometry) object.geometry.dispose();
-        const materials = Array.isArray(object.material) ? object.material : [object.material];
+        const materials = Array.isArray(object.material)
+          ? object.material
+          : [object.material];
         for (const entry of materials) {
           if (entry instanceof THREE.SpriteMaterial) entry.map?.dispose();
           entry.dispose();
         }
       });
+      graphics.dispose();
       renderer.dispose();
     };
   }, []);
 
   return (
     <>
-      <canvas ref={canvasRef} className="release-run-canvas" aria-label="Release Run first-person game" />
-      <div className="release-run-crosshair" aria-hidden="true"><span /><span /></div>
+      <canvas
+        ref={canvasRef}
+        className="release-run-canvas"
+        aria-label="Release Run first-person game"
+      />
+      <div className="release-run-crosshair" aria-hidden="true">
+        <span />
+        <span />
+      </div>
     </>
   );
 }

@@ -3,6 +3,8 @@
 import { useEffect, useImperativeHandle, useRef } from "react";
 import * as THREE from "three";
 
+import { createLabGraphics, glow } from "./labGraphics";
+
 export type StackDropSceneHandle = {
   drop: () => void;
 };
@@ -11,7 +13,7 @@ type StackDropSceneProps = {
   ref?: React.Ref<StackDropSceneHandle>;
   running: boolean;
   layers: readonly string[];
-  onDrop: (progress: number, accuracy: number) => void;
+  onDrop: (progress: number, accuracy: number, perfect: boolean) => void;
   onFail: () => void;
   onComplete: () => void;
 };
@@ -20,7 +22,11 @@ type Block = {
   mesh: THREE.Mesh;
   width: number;
   depth: number;
+  label?: THREE.Mesh;
 };
+
+const LABEL_WIDTH = 3.1;
+const PERFECT_TOLERANCE = 0.14;
 
 export function StackDropScene({
   ref,
@@ -34,9 +40,13 @@ export function StackDropScene({
   const callbacks = useRef({ onDrop, onFail, onComplete });
   const dropAction = useRef(() => {});
 
-  useImperativeHandle(ref, () => ({
-    drop: () => dropAction.current(),
-  }), []);
+  useImperativeHandle(
+    ref,
+    () => ({
+      drop: () => dropAction.current(),
+    }),
+    []
+  );
 
   useEffect(() => {
     callbacks.current = { onDrop, onFail, onComplete };
@@ -48,7 +58,11 @@ export function StackDropScene({
 
     let renderer: THREE.WebGLRenderer;
     try {
-      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        antialias: true,
+        alpha: false,
+      });
     } catch {
       canvas.dataset.unavailable = "true";
       return;
@@ -59,7 +73,9 @@ export function StackDropScene({
     const surface = new THREE.Color("#171b22");
     const edge = new THREE.Color("#687384");
     const layerColors = ["#e8edf5", "#a9c4ff", "#5d8eff", "#155eef", "#0c3ca9"];
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -72,25 +88,90 @@ export function StackDropScene({
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 60);
     camera.position.set(7.5, 6.5, 8.5);
     camera.lookAt(0, 1, 0);
+    const graphics = createLabGraphics(renderer, scene, camera, {
+      dust: { center: [0, 4, 0], size: [22, 10, 22] },
+    });
 
-    const ambient = new THREE.HemisphereLight(0xc9d6ff, 0x050608, 2.1);
+    const ambient = new THREE.HemisphereLight(0xc9d6ff, 0x050608, 1.1);
     scene.add(ambient);
-    const key = new THREE.DirectionalLight(0xffffff, 3.2);
+    const key = new THREE.DirectionalLight(0xffffff, 1.9);
     key.position.set(4, 9, 5);
     key.castShadow = true;
     key.shadow.mapSize.set(1024, 1024);
     scene.add(key);
-    const rim = new THREE.PointLight(signal, 20, 18, 1.7);
+    const rim = new THREE.PointLight(signal, 34, 22, 1.7);
     rim.position.set(-4, 4, -3);
     scene.add(rim);
 
     const floor = new THREE.Mesh(
-      new THREE.CylinderGeometry(5.5, 6.2, 0.45, 6),
-      new THREE.MeshStandardMaterial({ color: surface, roughness: 0.78, metalness: 0.2 }),
+      new THREE.CylinderGeometry(4.6, 4.6, 0.12, 64),
+      new THREE.MeshStandardMaterial({
+        color: surface,
+        roughness: 0.28,
+        metalness: 0.7,
+      })
     );
-    floor.position.y = -0.5;
+    floor.position.y = -0.34;
     floor.receiveShadow = true;
     scene.add(floor);
+    const floorRing = new THREE.LineLoop(
+      new THREE.BufferGeometry().setFromPoints(
+        Array.from({ length: 96 }, (_, index) => {
+          const angle = (index / 96) * Math.PI * 2;
+          return new THREE.Vector3(
+            Math.cos(angle) * 4.6,
+            -0.27,
+            Math.sin(angle) * 4.6
+          );
+        })
+      ),
+      new THREE.LineBasicMaterial({
+        color: glow("#5d8eff", 5),
+      })
+    );
+    scene.add(floorRing);
+
+    // Every layer wears the name of the technology it stands for.
+    const fontFamily =
+      getComputedStyle(document.body)
+        .getPropertyValue("--font-geist-mono")
+        .trim() || "monospace";
+    const makeLabel = (text: string, dark: boolean) => {
+      const surface2d = document.createElement("canvas");
+      surface2d.width = 1024;
+      surface2d.height = 160;
+      const context = surface2d.getContext("2d");
+      if (!context) return undefined;
+      let size = 64;
+      context.font = `600 ${size}px ${fontFamily}, monospace`;
+      const measured = context.measureText(text).width;
+      if (measured > 960) size = Math.floor((size * 960) / measured);
+      context.font = `600 ${size}px ${fontFamily}, monospace`;
+      context.textAlign = "center";
+      context.textBaseline = "middle";
+      context.fillStyle = dark ? "#0a0c10" : "#ffffff";
+      context.fillText(text, 512, 84);
+      const texture = new THREE.CanvasTexture(surface2d);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      return new THREE.Mesh(
+        new THREE.PlaneGeometry(LABEL_WIDTH, LABEL_WIDTH * (160 / 1024)),
+        new THREE.MeshBasicMaterial({ map: texture, transparent: true })
+      );
+    };
+    const fitLabel = (block: Block) => {
+      if (!block.label) return;
+      const fit = Math.min(1, Math.max(0, block.width - 0.2) / LABEL_WIDTH);
+      block.label.scale.set(fit / block.mesh.scale.x, fit, 1);
+    };
+    const addLabel = (block: Block, index: number) => {
+      const label = makeLabel(layers[index], index < 3);
+      if (!label) return;
+      label.position.z = block.depth / 2 + 0.006;
+      block.mesh.add(label);
+      block.label = label;
+      fitLabel(block);
+    };
 
     const grid = new THREE.GridHelper(18, 18, signal, edge);
     grid.position.y = -0.26;
@@ -102,22 +183,28 @@ export function StackDropScene({
       width: number,
       depth: number,
       color: string,
-      y: number,
+      y: number
     ): Block => {
       const mesh = new THREE.Mesh(
         new THREE.BoxGeometry(width, 0.56, depth),
-        new THREE.MeshStandardMaterial({
+        new THREE.MeshPhysicalMaterial({
           color,
-          roughness: 0.48,
-          metalness: 0.18,
-        }),
+          roughness: 0.34,
+          metalness: 0.1,
+          clearcoat: 0.7,
+          clearcoatRoughness: 0.25,
+        })
       );
       mesh.position.y = y;
       mesh.castShadow = true;
       mesh.receiveShadow = true;
       const outline = new THREE.LineSegments(
         new THREE.EdgesGeometry(mesh.geometry),
-        new THREE.LineBasicMaterial({ color: edge, transparent: true, opacity: 0.7 }),
+        new THREE.LineBasicMaterial({
+          color: edge,
+          transparent: true,
+          opacity: 0.7,
+        })
       );
       mesh.add(outline);
       scene.add(mesh);
@@ -136,7 +223,30 @@ export function StackDropScene({
     let frame = 0;
     let lastTime = performance.now();
     let cameraTargetY = 1;
+    let shift = 0;
+    let viewWidth = 1;
+    let viewHeight = 1;
+    const started = performance.now();
     const falling: { mesh: THREE.Mesh; velocity: number }[] = [];
+    const settling: { mesh: THREE.Mesh; age: number }[] = [];
+    const pulses: { ring: THREE.LineSegments; age: number }[] = [];
+
+    const pulse = (block: Block) => {
+      if (reducedMotion) return;
+      const ring = new THREE.LineSegments(
+        new THREE.EdgesGeometry(
+          new THREE.BoxGeometry(block.width, 0.02, block.depth)
+        ),
+        new THREE.LineBasicMaterial({
+          color: glow("#82aaff", 4),
+          transparent: true,
+        })
+      );
+      ring.position.copy(block.mesh.position);
+      ring.position.y -= 0.28;
+      scene.add(ring);
+      pulses.push({ ring, age: 0 });
+    };
 
     const spawn = () => {
       const previous = blocks[blocks.length - 1];
@@ -144,8 +254,9 @@ export function StackDropScene({
         previous.width,
         previous.depth,
         layerColors[progress],
-        0.58 + progress * 0.58,
+        0.58 + progress * 0.58
       );
+      addLabel(next, progress);
       if (axis === "x") {
         next.mesh.position.x = -4.4;
         next.mesh.position.z = previous.mesh.position.z;
@@ -159,8 +270,10 @@ export function StackDropScene({
     const finishDrop = () => {
       if (!running || !active || failed || complete) return;
       const previous = blocks[blocks.length - 1];
-      const activePosition = axis === "x" ? active.mesh.position.x : active.mesh.position.z;
-      const previousPosition = axis === "x" ? previous.mesh.position.x : previous.mesh.position.z;
+      const activePosition =
+        axis === "x" ? active.mesh.position.x : active.mesh.position.z;
+      const previousPosition =
+        axis === "x" ? previous.mesh.position.x : previous.mesh.position.z;
       const activeSize = axis === "x" ? active.width : active.depth;
       const previousSize = axis === "x" ? previous.width : previous.depth;
       const delta = activePosition - previousPosition;
@@ -171,6 +284,30 @@ export function StackDropScene({
         falling.push({ mesh: active.mesh, velocity: 0 });
         active = null;
         callbacks.current.onFail();
+        return;
+      }
+
+      const perfect = Math.abs(delta) <= PERFECT_TOLERANCE;
+      if (perfect) {
+        // A near-perfect drop snaps into place and keeps its full size.
+        if (axis === "x") active.mesh.position.x = previousPosition;
+        else active.mesh.position.z = previousPosition;
+        blocks.push(active);
+        pulse(active);
+        settling.push({ mesh: active.mesh, age: 0 });
+        active = null;
+        progress += 1;
+        callbacks.current.onDrop(progress, 1, true);
+        if (progress >= layers.length) {
+          complete = true;
+          callbacks.current.onComplete();
+          return;
+        }
+        axis = axis === "x" ? "z" : "x";
+        direction = 1;
+        speed += 0.34;
+        cameraTargetY = 1 + progress * 0.22;
+        spawn();
         return;
       }
 
@@ -188,13 +325,15 @@ export function StackDropScene({
         active.mesh.scale.z = overlap / activeSize;
         active.mesh.position.z = keptCenter;
       }
+      fitLabel(active);
+      settling.push({ mesh: active.mesh, age: 0 });
 
       if (cutSize > 0.08 && !reducedMotion) {
         const offcut = makeBlock(
           axis === "x" ? cutSize : active.width,
           axis === "z" ? cutSize : active.depth,
           layerColors[progress],
-          active.mesh.position.y,
+          active.mesh.position.y
         );
         offcut.mesh.position.copy(active.mesh.position);
         if (axis === "x") offcut.mesh.position.x = cutCenter;
@@ -205,7 +344,7 @@ export function StackDropScene({
       blocks.push(active);
       active = null;
       progress += 1;
-      callbacks.current.onDrop(progress, accuracy);
+      callbacks.current.onDrop(progress, accuracy, false);
 
       if (progress >= layers.length) {
         complete = true;
@@ -234,9 +373,10 @@ export function StackDropScene({
       const width = Math.max(1, canvas.clientWidth);
       const height = Math.max(1, canvas.clientHeight);
       renderer.setSize(width, height, false);
+      graphics.setSize(width, height);
+      viewWidth = width;
+      viewHeight = height;
       camera.aspect = width / height;
-      camera.position.x = camera.aspect < 0.75 ? 9.4 : 7.5;
-      camera.position.z = camera.aspect < 0.75 ? 11.4 : 8.5;
       camera.updateProjectionMatrix();
     };
 
@@ -246,7 +386,9 @@ export function StackDropScene({
 
       if (running && active && !failed && !complete) {
         const limit = 4.4;
-        const next = (axis === "x" ? active.mesh.position.x : active.mesh.position.z) + direction * speed * delta;
+        const next =
+          (axis === "x" ? active.mesh.position.x : active.mesh.position.z) +
+          direction * speed * delta;
         if (Math.abs(next) >= limit) direction *= -1;
         if (axis === "x") active.mesh.position.x += direction * speed * delta;
         else active.mesh.position.z += direction * speed * delta;
@@ -259,9 +401,49 @@ export function StackDropScene({
         piece.mesh.rotation.z += delta * 0.8;
       }
 
-      camera.position.y += (5.7 + cameraTargetY - camera.position.y) * Math.min(1, delta * 3.5);
+      for (const entry of settling) {
+        entry.age += delta;
+        const t = Math.min(1, entry.age / 0.22);
+        entry.mesh.scale.y = reducedMotion
+          ? 1
+          : 1 - Math.sin(t * Math.PI) * 0.14;
+      }
+      for (const entry of pulses) {
+        entry.age += delta;
+        const t = Math.min(1, entry.age / 0.6);
+        entry.ring.scale.setScalar(1 + t * 0.9);
+        (entry.ring.material as THREE.LineBasicMaterial).opacity = 1 - t;
+      }
+
+      // Before the first drop and after the last, the camera circles the tower
+      // and steps aside so the panel never covers it.
+      const resting = !running || complete;
+      const narrow = camera.aspect < 0.75;
+      const wide = camera.aspect > 1.25;
+      const radius = narrow ? 14.8 : 11.3;
+      const seconds = (time - started) / 1000;
+      const swing =
+        resting && !reducedMotion ? Math.sin(seconds * 0.35) * 0.32 : 0;
+      const angle = 0.62 + swing;
+      const ease = Math.min(1, delta * 3.5);
+      camera.position.x +=
+        (Math.sin(angle) * radius - camera.position.x) * ease;
+      camera.position.z +=
+        (Math.cos(angle) * radius - camera.position.z) * ease;
+      camera.position.y += (5.7 + cameraTargetY - camera.position.y) * ease;
       camera.lookAt(0, cameraTargetY, 0);
-      renderer.render(scene, camera);
+      shift += ((resting && wide ? 0.2 : 0) - shift) * ease;
+      if (shift > 0.001) {
+        camera.setViewOffset(
+          viewWidth,
+          viewHeight,
+          -viewWidth * shift,
+          0,
+          viewWidth,
+          viewHeight
+        );
+      } else if (camera.view?.enabled) camera.clearViewOffset();
+      graphics.render(time);
       frame = requestAnimationFrame(render);
     };
 
@@ -271,6 +453,19 @@ export function StackDropScene({
     canvas.addEventListener("pointerdown", onCanvasPointer);
     resize();
     if (running) spawn();
+    else {
+      // The idle scene previews the finished stack for the chosen brief.
+      layers.forEach((_, index) => {
+        const preview = makeBlock(
+          3.5 - (index + 1) * 0.2,
+          2.35 - (index + 1) * 0.13,
+          layerColors[index],
+          0.58 + index * 0.58
+        );
+        addLabel(preview, index);
+      });
+      cameraTargetY = 1.5;
+    }
     frame = requestAnimationFrame(render);
 
     return () => {
@@ -280,14 +475,33 @@ export function StackDropScene({
       document.removeEventListener("keydown", onKeyDown);
       canvas.removeEventListener("pointerdown", onCanvasPointer);
       scene.traverse((object) => {
-        if (!(object instanceof THREE.Mesh || object instanceof THREE.LineSegments)) return;
+        if (
+          !(
+            object instanceof THREE.Mesh ||
+            object instanceof THREE.Line ||
+            object instanceof THREE.Points
+          )
+        )
+          return;
         object.geometry?.dispose();
-        const materials = Array.isArray(object.material) ? object.material : [object.material];
-        for (const entry of materials) entry.dispose();
+        const materials = Array.isArray(object.material)
+          ? object.material
+          : [object.material];
+        for (const entry of materials) {
+          (entry as THREE.MeshBasicMaterial).map?.dispose();
+          entry.dispose();
+        }
       });
+      graphics.dispose();
       renderer.dispose();
     };
   }, [layers, running]);
 
-  return <canvas ref={canvasRef} className="stack-drop-canvas" aria-label="Stack Builder timing game" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="stack-drop-canvas"
+      aria-label="Stack Builder timing game"
+    />
+  );
 }

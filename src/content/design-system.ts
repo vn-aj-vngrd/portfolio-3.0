@@ -157,7 +157,7 @@ export const componentInventory = [
   },
   {
     name: "Product Lab",
-    role: "A rail row and a mobile menu entry that open a full-screen takeover with playable product specimens.",
+    role: "A rail row and a mobile menu entry that link to /lab, an index of playable product specimens; each one plays on its own page in a full-height stage with an optional full screen.",
   },
   {
     name: "Particle flow",
@@ -356,7 +356,7 @@ A 15.5rem studio rail frames a 74rem content area on desktop. Mobile replaces th
 - Hero tour link: a compact text link in the hero that opens the start card; it never starts the tour by itself.
 - Start card: chapters, narration and music toggles, Play, and Explore on my own; the first step of every tour start.
 - Tour player: a flat player on the canvas (opaque, 1px hairline, 4px radius) with a meta row, one caption sentence, a chapter scrubber and 40px controls.
-- Product Lab: a rail row and a mobile menu entry that open a full-screen takeover with playable product specimens.
+- Product Lab: a rail row and a mobile menu entry that link to /lab, an index of playable product specimens; each one plays on its own page in a full-height stage with an optional full screen.
 - Particle flow: 2px particles that travel along live connectors on /ai; transform and opacity only.
 - Stat ledger: comparable metrics on drawn hairlines; each number counts once to its exact value, and rules and cells draw in as the ledger enters view.
 - Workflow diagram: the five-stage loop on the home page and /ai; connectors draw in order, each icon draws as work reaches it, then restrained particles flow only while it is in view.
@@ -370,7 +370,7 @@ Motion explains state. Theme changes use one radial reveal from the initiating c
 
 ### Overlay motion
 
-Overlays share one set of tokens in globals.css: --motion-in, --motion-out, --motion-sweep-in, --motion-sweep-out, --motion-rise, --ease-out and --ease-in. Floating surfaces (start card, quick navigation, tip, tour player) fade and rise 12px in 300ms with an ease-out curve and leave in 180ms with an ease-in curve. Full-screen takeovers (Product Lab, the mobile menu) sweep down from the top in 500ms and retract in 300ms. Scrims fade on the same timing. New dialogs and popovers use these tokens and never their own durations.
+Overlays share one set of tokens in globals.css: --motion-in, --motion-out, --motion-sweep-in, --motion-sweep-out, --motion-rise, --ease-out and --ease-in. Floating surfaces (start card, quick navigation, tip, tour player) fade and rise 12px in 300ms with an ease-out curve and leave in 180ms with an ease-in curve. Full-screen takeovers (the mobile menu) sweep down from the top in 500ms and retract in 300ms. Scrims fade on the same timing. New dialogs and popovers use these tokens and never their own durations.
 
 ### Reveal
 

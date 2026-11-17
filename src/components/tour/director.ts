@@ -587,10 +587,7 @@ export function replay() {
 }
 
 function isOverlayOpen() {
-  const classes = html().classList;
-  return (
-    classes.contains("product-lab-open") || classes.contains("mobile-menu-open")
-  );
+  return html().classList.contains("mobile-menu-open");
 }
 
 function installListeners() {

@@ -15,6 +15,7 @@ export type ProductMatchEntry = {
   slug: string;
   name: string;
   href: string;
+  image: string;
   prompt: string;
   clue: string;
   result: string;
@@ -33,7 +34,7 @@ export type Project = {
   name: string;
   category: string;
   summary: string;
-  match: Omit<ProductMatchEntry, "slug" | "name" | "href">;
+  match: Omit<ProductMatchEntry, "slug" | "name" | "href" | "image">;
   problem: string;
   solution: string;
   role: string;

@@ -10,7 +10,6 @@ import { PortfolioNavigation } from "@/components/providers/PortfolioNavigation"
 import { ScrollReveal } from "@/components/providers/ScrollReveal";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { TourRoot } from "@/components/tour/TourRoot";
-import { projectCatalog } from "@/content/projects";
 import {
   DEFAULT_SOCIAL_IMAGE,
   SITE_DESCRIPTION,
@@ -119,7 +118,7 @@ export default function RootLayout({
               Skip to content
             </a>
             <div id="top" />
-            <Header productMatches={projectCatalog.productMatches()} />
+            <Header />
             {children}
             <Footer />
             <TourRoot />
