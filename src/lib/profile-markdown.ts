@@ -1,6 +1,8 @@
 // Plain-Markdown copies of the portfolio for AI assistants, crawlers, and recruiters' tools.
 // Every line derives from src/content; nothing is restated by hand here.
+import { shippedAi } from "@/content/ai-workflow";
 import { experience } from "@/content/experience";
+import { factoryIntro, factoryPair } from "@/content/factory";
 import { profile } from "@/content/profile";
 import { projectCatalog } from "@/content/projects";
 import { resume, resumeProducts } from "@/content/resume";
@@ -252,6 +254,28 @@ export function llmsFull() {
     "## Skills",
     "",
     skillsMarkdown(),
+    "",
+    "## AI engineering",
+    "",
+    "AI agents shipped in products:",
+    "",
+    bullets(
+      shippedAi.map(
+        (item) =>
+          `**${item.name}: ${item.title}.** ${item.description} (${item.stack})`
+      )
+    ),
+    "",
+    `**Software factories.** ${factoryIntro.lead.join(" ")} ${factoryPair.lead}`,
+    "",
+    bullets(
+      factoryPair.rows.map(
+        (row) =>
+          `${row.label}. ${factoryPair.columns.personal.name}: ${row.personal} ${factoryPair.columns.work.name}: ${row.work}`
+      )
+    ),
+    "",
+    `${factoryPair.note} Details: ${absoluteUrl("/ai")}`,
     "",
     "## Products and case studies",
     "",

@@ -9304,6 +9304,100 @@ html[data-tour] .shortcut-hint {
 .factory-notes li + li {
   margin-top: 0.65rem;
 }
+.factory-pair {
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 5rem;
+}
+.factory-pair h3 {
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+  font-weight: 550;
+}
+.factory-pair > p:not(.ai-section-note) {
+  max-width: 66ch;
+  margin: 0 0 1.75rem;
+  color: var(--muted);
+}
+.factory-pair table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 0.88rem;
+}
+.factory-pair thead td {
+  width: 9rem;
+}
+.factory-pair th,
+.factory-pair td {
+  padding: 0.85rem 1.25rem 0.85rem 0;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+.factory-pair thead th {
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 550;
+}
+.factory-pair thead th span {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+.factory-pair tbody th {
+  color: var(--ink);
+  font:
+    500 0.75rem/1.7 var(--font-geist-mono),
+    monospace;
+}
+.factory-pair tbody td {
+  color: var(--muted);
+}
+.ai-ledger-stack {
+  margin-top: 0.6rem !important;
+  font:
+    500 0.72rem/1.6 var(--font-geist-mono),
+    monospace !important;
+}
+@media (max-width: 700px) {
+  .factory-pair thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+  .factory-pair table,
+  .factory-pair tbody,
+  .factory-pair tr,
+  .factory-pair tbody th,
+  .factory-pair tbody td {
+    display: block;
+  }
+  .factory-pair tr {
+    padding-block: 0.9rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .factory-pair tbody th,
+  .factory-pair tbody td {
+    padding: 0;
+    border: 0;
+  }
+  .factory-pair tbody td {
+    margin-top: 0.6rem;
+  }
+  .factory-pair tbody td::before {
+    content: attr(data-label);
+    display: block;
+    color: var(--ink);
+    font-size: 0.8rem;
+    font-weight: 550;
+  }
+}
 .factory-improve {
   margin-top: 3rem;
 }

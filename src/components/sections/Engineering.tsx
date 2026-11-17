@@ -56,6 +56,9 @@ export function Engineering() {
         <AiMotion />
         <div className="ai-links">
           <Link href={aiWorkflow.path}>Explore my AI workflow →</Link>
+          <Link href={`${aiWorkflow.path}#factory`}>
+            See my software factories →
+          </Link>
           <Link href="/work/roleway">See Roleway’s approval-gated agent →</Link>
         </div>
       </section>

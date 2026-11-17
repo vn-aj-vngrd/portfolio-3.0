@@ -16,7 +16,7 @@ function experienceEntry(company: string, bullets?: readonly string[]) {
 export const resume = {
   title: "AI Product Engineer / Software Engineer",
   summary:
-    "AI Product Engineer / Software Engineer with 3+ years shipping customer-facing products across web, mobile, and backend. Builds AI features and agents, such as tool-calling assistants with approval-gated actions, and builds with Claude Code through a personal software factory that turns GitHub issues into reviewed draft PRs. Delivers with React, C# / ASP.NET Core, SQL Server, AWS, and TypeScript; founded NextDevs and led delivery of three PWAs.",
+    "AI Product Engineer / Software Engineer with 3+ years shipping customer-facing products across web, mobile, and backend. Builds AI features and agents, such as tool-calling assistants with approval-gated actions, and builds with Claude Code through two software factories of his own, for personal and client work, that turn tickets into reviewed pull requests. Delivers with React, C# / ASP.NET Core, SQL Server, AWS, and TypeScript; founded NextDevs and led delivery of three PWAs.",
   skills: [
     {
       label: "Frontend & mobile",
