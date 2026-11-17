@@ -26,8 +26,10 @@ function walk(dir) {
   });
 }
 
-// File -> reason. Empty: no retained exceptions.
-const allowList = new Map();
+// File -> reason.
+const allowList = new Map([
+  ["src/app/robots.ts", "crawler user-agent names, not tools Van uses"],
+]);
 
 test("retired tools and daily-driver framing are gone from published copy", () => {
   const files = [

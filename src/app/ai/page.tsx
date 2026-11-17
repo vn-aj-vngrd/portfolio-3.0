@@ -19,7 +19,13 @@ import {
   factoryRoles,
 } from "@/content/factory";
 import { projectCatalog } from "@/content/projects";
-import { createPageMetadata } from "@/lib/seo";
+import { createPageMetadata, SITE_URL } from "@/lib/seo";
+import {
+  breadcrumbSchema,
+  JsonLd,
+  PERSON_ID,
+  WEBSITE_ID,
+} from "@/lib/structured-data";
 
 export const metadata = createPageMetadata({
   title: "AI Engineering Workflow",
@@ -31,6 +37,27 @@ export const metadata = createPageMetadata({
 export default function AiWorkflowPage() {
   return (
     <main id="main-content" className="ai-page">
+      <JsonLd
+        graph={[
+          {
+            "@type": "TechArticle",
+            "@id": `${SITE_URL}${aiWorkflow.path}#article`,
+            url: `${SITE_URL}${aiWorkflow.path}`,
+            headline: aiWorkflow.title,
+            description: aiWorkflow.introduction,
+            inLanguage: "en-PH",
+            author: { "@id": PERSON_ID },
+            isPartOf: { "@id": WEBSITE_ID },
+            about: [
+              "AI-assisted software engineering",
+              "Claude Code",
+              "Coding agents",
+              "Multi-agent orchestration",
+            ],
+          },
+          breadcrumbSchema("AI workflow", aiWorkflow.path),
+        ]}
+      />
       <AiMotion />
       <section
         className="ai-hero"
