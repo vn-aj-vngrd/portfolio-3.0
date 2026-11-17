@@ -30,7 +30,7 @@ Never type "3+ years". `experienceYears()` counts whole years from `CAREER_START
 
 ## Hiring brief (`hiring.ts`)
 
-`/hire` and `/hire.md`: `facts`, `claims` (each with `proof` links to a case study, public repository, or live product), and `faq` (also emitted as FAQPage JSON-LD). Every line repeats a fact from another module. A fact Van has not confirmed (work arrangement, notice period, compensation) stays under "Not published". A new claim needs at least one proof link that resolves.
+`/hire` and `/hire.md`: `facts`, `claims` (each with `proof` links to a case study, public repository, or live product), and `faq` (also emitted as FAQPage JSON-LD). Every line repeats a fact from another module. A fact Van has not confirmed (notice period, work authorization, compensation) stays under "Not published". A new claim needs at least one proof link that resolves.
 
 ## Résumé PDF
 

@@ -20,8 +20,8 @@ export const certifications: readonly Certification[] = [
   },
   {
     title: "Full Scale Internship - Certificate of Completion",
-    issuer: "GigaBook Inc.",
-    kind: "Professional training",
+    issuer: "Full Scale",
+    kind: "Internship · 489 hours · Jan 2024",
     href: "/certificates/fs-coc.pdf",
   },
   {

@@ -227,7 +227,7 @@ export const shippedAi = [
     name: "Full Scale · Lytho",
     title: "Agent features in a customer product",
     description:
-      "At Full Scale I contributed AI Insights, AI Reviewer, AI Skills, and AI Teammates for Lytho: agent features that help customers review content and surface insights.",
+      "At Full Scale I built AI Reviewer and AI Insights for Lytho and contributed to AI Skills and AI Teammates: agent features that help customers review content and surface insights.",
     stack: "React · C# / ASP.NET Core · AWS",
   },
 ] as const satisfies readonly {

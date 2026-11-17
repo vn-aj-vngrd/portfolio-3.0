@@ -68,7 +68,7 @@ const productSelections = [
   {
     slug: "relay",
     description:
-      "Pickleball RSVPs, rotations, scores, and shared costs, with a streaming AI agent over permission-checked tools and approval-gated creation. Server-side authorization tested with Vitest and Playwright.",
+      "Pickleball RSVPs, rotations, scores, and shared costs, with a streaming AI agent over permission-checked tools and approval-gated creation. Verified by 2,789 automated tests in CI and live agent evals (52 of 54 checks passed).",
     stack: [
       "Next.js",
       "TypeScript",
@@ -107,7 +107,7 @@ const productSelections = [
   {
     slug: "aqd",
     description:
-      "Private on-device iPhone closet app in SwiftUI and SwiftData, with no account or backend; an Apple Foundation Models agent answers from the closet and drafts reviewable, undoable change sets.",
+      "Private on-device iPhone closet app in SwiftUI and SwiftData, with no account or backend; an Apple Foundation Models agent answers from the closet and drafts reviewable, undoable change sets; a release eval gate passed over 24 live on-device runs.",
     stack: [
       "Swift",
       "SwiftUI",
