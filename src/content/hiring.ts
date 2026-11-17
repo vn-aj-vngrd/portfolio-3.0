@@ -145,6 +145,12 @@ export const hiring = {
       ],
     },
     {
+      claim: "I have shipped AI features to production for a client.",
+      detail:
+        "QSM, a ship-management company’s safety system, is in production with three AI features I led: PDF-to-form import with schema validation, repair, and a visual review pass; a streaming document editor; and an assistant grounded in permission-checked data. Usage is capped per user and every call is audited.",
+      proof: [{ label: "QSM case study", href: "/work/qsm" }],
+    },
+    {
       claim: "I build AI features in a commercial product at work.",
       detail:
         "At Full Scale I built AI Reviewer and AI Insights for Lytho and contributed to AI Skills and AI Teammates, alongside customer-facing feature epics in React and C# / ASP.NET Core on AWS.",
@@ -195,7 +201,7 @@ export const hiring = {
     {
       question: "Has he built AI agents in real products?",
       answer:
-        "Yes. Relay and Roleway are live web products with streaming, tool-calling agents and approval-gated actions. AQD has an on-device agent on Apple Foundation Models, and Viya has a trip agent with 17 scoped tools. At work he built AI Reviewer and AI Insights for Lytho’s product.",
+        "Yes. Relay and Roleway are live web products with streaming, tool-calling agents and approval-gated actions. QSM, client work in production, has AI import, an AI editor, and a grounded assistant. AQD has an on-device agent on Apple Foundation Models, and Viya has a trip agent with 17 scoped tools. At work he built AI Reviewer and AI Insights for Lytho’s product.",
     },
     {
       question: "Which AI tools and providers has he used?",

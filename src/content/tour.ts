@@ -79,13 +79,13 @@ export const tourChapters: readonly TourChapter[] = [
         id: "work-intro",
         stop: "work",
         lines: [
-          "First, the work: six products, each designed and built end to end.",
+          "First, the work: seven products, six of them built end to end.",
           "Source is public where available.",
         ],
         evidence: [
           {
             file: "src/components/sections/SelectedWork.tsx",
-            text: "Six products, built end to end. Source is public where available",
+            text: "Seven products. Six I designed and built end to end",
           },
         ],
       },
@@ -122,6 +122,28 @@ export const tourChapters: readonly TourChapter[] = [
           {
             file: "src/content/projects.ts",
             text: "Live · Open source · Self-hostable",
+          },
+        ],
+      },
+      {
+        id: "work-qsm",
+        stop: "project-qsm",
+        lines: [
+          "QSM is a ship-management company’s safety system, on office web and vessel tablets.",
+          "It is in production, works offline, and turns old PDF forms digital with AI.",
+        ],
+        evidence: [
+          {
+            file: "src/content/projects.ts",
+            text: "onto a shore-office web app and vessel tablets",
+          },
+          {
+            file: "src/content/projects.ts",
+            text: "In production · Client work",
+          },
+          {
+            file: "src/content/projects.ts",
+            text: "AI Import converts a legacy PDF into an editable form draft",
           },
         ],
       },
@@ -414,6 +436,7 @@ export const tourPronunciations: Readonly<Record<string, string>> = {
   Cebu: "Seh-boo",
   ACSFI: "A. C. S. F. I.",
   AQD: "A. Q. D.",
+  QSM: "Q. S. M.",
   Viya: "Vee-ya",
   Balay: "Bah-lie",
   "three.js": "three J S",

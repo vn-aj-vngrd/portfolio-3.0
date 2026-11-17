@@ -2154,6 +2154,7 @@ html[data-tour] .project-list > .project-feature {
 .project-relay .project-media,
 .project-roleway .project-media,
 .project-acsfi .project-media,
+.project-qsm .project-media,
 .project-balay .project-media,
 .project-aqd .project-media {
   min-height: 32rem;
@@ -2195,6 +2196,22 @@ html[data-tour] .project-list > .project-feature {
     linear-gradient(90deg, rgba(20, 94, 239, 0.06) 1px, transparent 1px),
     linear-gradient(rgba(20, 94, 239, 0.06) 1px, transparent 1px);
   background-size: 4.5rem 4.5rem;
+}
+.project-qsm .project-media {
+  background: #e4ebf0;
+}
+.project-qsm .project-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(160deg, rgba(23, 74, 110, 0.12), transparent 52%),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 5rem,
+      rgba(23, 74, 110, 0.06) 5rem calc(5rem + 1px)
+    );
 }
 .project-acsfi .project-media {
   background: #e9e7f2;
@@ -7524,6 +7541,7 @@ html[data-tour] .project-list > .project-feature {
   .project-relay .project-media,
   .project-roleway .project-media,
   .project-acsfi .project-media,
+  .project-qsm .project-media,
   .project-balay .project-media,
   .project-aqd .project-media,
   .project-viya .project-media {

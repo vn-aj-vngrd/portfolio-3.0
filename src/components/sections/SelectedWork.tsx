@@ -13,6 +13,7 @@ const productChips: readonly {
 }[] = [
   { name: "Relay", slug: "relay", icon: "users" },
   { name: "Roleway", slug: "roleway", icon: "briefcase" },
+  { name: "QSM", slug: "qsm", icon: "check" },
   { name: "Viya", slug: "viya", icon: "plane" },
   { name: "ACSFI", slug: "acsfi", icon: "news" },
   { name: "AQD", slug: "aqd", icon: "shirt" },
@@ -53,8 +54,8 @@ export function SelectedWork() {
         <h2 id="work-title">Products I designed and built.</h2>
         <div className="section-lede">
           <p>
-            Six products, built end to end. Source is public where available;
-            Balay is closed source.
+            Seven products. Six I designed and built end to end; QSM was
+            co-built for a client. Source is public where available.
           </p>
           <p className="chip-row">
             {productChips.map((product) => (

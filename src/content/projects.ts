@@ -40,6 +40,16 @@ function balayScreen(file: string, label: string, alt: string) {
   } as const;
 }
 
+function qsmScreen(file: string, label: string, alt: string) {
+  return {
+    src: `/images/projects/qsm/${file}.webp`,
+    alt,
+    width: 1920,
+    height: 1200,
+    label,
+  } as const;
+}
+
 function relayScreen(
   file: string,
   label: string,
@@ -851,6 +861,154 @@ const projectEntries = [
     },
     repository: "https://github.com/vn-aj-vngrd/roleway",
     liveUrl: "https://roleway.vanajvanguardia.tech/",
+  },
+  {
+    slug: "qsm",
+    name: "QSM",
+    category: "Offline-first web and tablet system · Maritime safety",
+    summary:
+      "QSM moves a ship-management company’s paper safety management system onto a shore-office web app and vessel tablets. Office staff design forms, manuals, and circulars; crews fill them in offline; and three AI features turn legacy PDFs into structured forms, help write controlled documents, and answer questions from permission-checked data.",
+    match: {
+      prompt:
+        "A fleet runs its safety checklists and manuals on paper, and the ships are often offline.",
+      clue: "Look for the office web app paired with vessel tablets that keep working without a connection.",
+      result:
+        "QSM lets the office publish controlled forms, manuals, and circulars to each vessel, where crews complete them offline and sync when a connection returns.",
+    },
+    problem:
+      "A ship-management company ran its safety management system on paper: checklists, manuals, and fleet notices were printed, filled in by hand, and sent back to the office. Vessels are offline for long stretches, every document is controlled and versioned, and hundreds of existing PDF forms had to be rebuilt before anything could go digital.",
+    solution:
+      "The office designs block-based forms, controlled documents, and circulars on the web, sends them through a maker, checker, and approver workflow, and publishes them to each vessel. Shared tablets on board hold a local database, so crews read manuals and complete forms offline and sync later. AI Import converts a legacy PDF into an editable form draft, AI Editor helps write and revise documents, and an in-app assistant answers from data the user is allowed to see.",
+    role: "Co-built with one other engineer; led AI, import, export, and infrastructure",
+    status: "In production · Client work · Closed source",
+    featured: true,
+    tags: ["ai", "web", "mobile"],
+    stack: [
+      "TypeScript",
+      "React",
+      "TanStack Router",
+      "React Native",
+      "Expo",
+      "PowerSync",
+      "Hono",
+      "oRPC",
+      "PostgreSQL",
+      "Drizzle ORM",
+      "Redis",
+      "BullMQ",
+      "Vercel AI SDK",
+      "Docker",
+    ],
+    decisions: [
+      {
+        title: "Treat the ship as offline by default",
+        body: "PostgreSQL is the source of truth, and each tablet holds a SQLite copy kept in step by PowerSync. Sync rules are scoped to the vessel, so a device receives only its own forms, documents, and circulars, and submissions made at sea upload when a connection returns.",
+      },
+      {
+        title: "Treat model output as untrusted input",
+        body: "Nothing a model returns is saved as it arrives. An imported form is parsed and validated against the same schema the designer uses, repaired when it fails, checked for leaked prompt text, and reviewed against the page image. It then lands as a draft beside the source PDF for a person to correct.",
+      },
+      {
+        title: "One form definition, three renderers",
+        body: "A form template is one block-based schema. The web app, the tablet app, and the PDF export each render it, and parity between them is documented and tested so a checklist looks the same on screen, on board, and on paper.",
+      },
+      {
+        title: "Controlled content keeps its history",
+        body: "Forms, documents, and circulars are versioned, pass through a maker, checker, and approver workflow before release, and keep an audit log. Submissions keep their own version history, and the office can restore an earlier version.",
+      },
+    ],
+    agent: {
+      title: "AI features",
+      summary:
+        "Three AI features, each behind an admin switch, a permission check, and a per-user daily limit.",
+      steps: [
+        {
+          title: "AI Import: a legacy PDF becomes a structured form",
+          body: "The browser extracts each page’s text and image from the PDF, and the server queues the job. The model drafts one page per call. The draft is validated against the form schema; if it fails, a repair prompt gets one attempt, then a full retry at temperature 0. A guard rejects output that leaks prompt text, and a visual review pass compares the page image with the draft and returns corrected blocks. The result opens as a draft in a split screen next to the source.",
+        },
+        {
+          title: "AI Editor: streamed help inside controlled documents",
+          body: "In the document and circular editors, a writer can improve writing, fix spelling, make formal, simplify, or ask for anything in their own words. The system prompt carries fixed rules, such as never inventing regulations, vessel facts, deadlines, approvals, or signatures, plus guidelines an administrator sets for each module. The answer streams into the editor for the writer to accept or discard.",
+        },
+        {
+          title: "Assistant: answers from what the user may see",
+          body: "A floating assistant sends the current screen’s route, module, and visible facts with the question. The server chooses the relevant modules and builds context from permission-checked database summaries, capped at 8,000 characters. The prompt forbids inventing totals, implying access to hidden records, or claiming an action was performed.",
+        },
+        {
+          title: "Provider-neutral, capped, and audited",
+          body: "An administrator chooses Google, Anthropic, or any OpenAI-compatible provider and model at runtime. API keys are encrypted with AES-GCM and shown masked, and a connection test reports whether the model accepts images. Each user has a daily limit per feature (50 editor requests, 50 imports, 75 assistant messages), and every call is written to the audit log with its provider, model, and token count.",
+        },
+      ],
+    },
+    architectureSummary:
+      "A Bun and Turborepo monorepo holds three apps (web, tablet, and API server) and thirteen shared packages. Typed oRPC contracts connect the clients to a Hono server; PostgreSQL holds the data, PowerSync carries it to the tablets, and a queue runs AI imports and PDF exports in the background.",
+    architecture: [
+      {
+        title: "Typed contracts end to end",
+        body: "The web and tablet apps call a Hono server through shared oRPC contracts, so a change to an API shape fails type checking in every client that uses it.",
+      },
+      {
+        title: "Relational model",
+        body: "PostgreSQL with Drizzle ORM models forms, submissions, documents, circulars, vessels, crew, devices, roles, approvals, and audit history across 58 tables and 69 migrations.",
+      },
+      {
+        title: "Offline sync",
+        body: "PowerSync replicates each vessel’s slice of PostgreSQL into SQLite on its tablets and queues local writes for upload. Devices are enrolled with provisioning codes.",
+      },
+      {
+        title: "AI package",
+        body: "One package owns prompts, schemas, provider selection, limits, and audit helpers on the Vercel AI SDK. Imports run as BullMQ jobs with a five-minute timeout and report completion over a realtime channel, with polling as the fallback. The editor and assistant stream their answers.",
+      },
+      {
+        title: "Export engine",
+        body: "PDF exports render the same React templates on the server and print them with Playwright, so the exported form matches what the office designed.",
+      },
+      {
+        title: "Self-hosted delivery",
+        body: "Docker Compose runs the server, web app, PostgreSQL, Redis, object storage, and PowerSync behind Traefik on the company’s own server, with documented backup, recovery, and a staging-to-production cutover.",
+      },
+    ],
+    evidence: [
+      "The repository is private client work, so these figures are read from it rather than linked: 1,433 commits between Jan and Oct 2026, 703 of them mine.",
+      "My commits lead the AI package, the import engine, the export engine, and the Docker infrastructure; my co-developer leads the tablet app.",
+      "The codebase has 555 test files, 26 of them in the AI package, and 34 Maestro flows for the tablet app.",
+      "The AI package validates every imported form against the designer’s own schema and has tests for parsing, repair, prompt building, and rate limits.",
+      "The screenshots show a local instance with invented demo records. Client names, branding, documents, and vessel data are removed.",
+    ],
+    images: [
+      qsmScreen(
+        "designer",
+        "Form designer",
+        "QSM form designer with a block palette on the left, a demo engine room checklist on the canvas with a Yes, No, N/A table and a signature field, and table properties on the right"
+      ),
+      qsmScreen(
+        "ai-import",
+        "AI Import",
+        "QSM AI Import workspace with a demo checklist PDF on the left, the form canvas on the right, and a Generating draft with AI status"
+      ),
+      qsmScreen(
+        "ai-editor",
+        "AI writing tools",
+        "QSM document editor on a demo safety bulletin with the AI writing tools menu open: Ask AI anything, Improve Writing, Fix Spelling, Make Formal, and Simplify"
+      ),
+      qsmScreen(
+        "assistant",
+        "Assistant",
+        "QSM dashboard with the assistant panel open, offering to summarize the dashboard and find items needing action, with Dashboard as its context"
+      ),
+      qsmScreen(
+        "ai-settings",
+        "AI settings",
+        "QSM AI settings form with provider, model, base URL, and an empty API key field, plus switches for AI editor, AI import, and AI assistant"
+      ),
+      qsmScreen(
+        "version-history",
+        "Version history",
+        "QSM version history for a demo form template showing version 2 beside version 1 with the added checklist rows highlighted"
+      ),
+    ],
+    repository: undefined,
+    liveUrl: undefined,
   },
   {
     slug: "viya",

@@ -33,6 +33,13 @@ const productDevices = [
     baseY: 0.7,
   },
   {
+    name: "QSM",
+    color: "#2f6f95",
+    body: [1.9, 2.55] as const,
+    screen: [1.62, 1.86] as const,
+    baseY: 0.7,
+  },
+  {
     name: "VIYA",
     color: "#eef2f8",
     body: [1.5, 3.05] as const,

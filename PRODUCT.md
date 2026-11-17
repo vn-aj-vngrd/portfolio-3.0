@@ -26,7 +26,7 @@ Visitors usually arrive through a shared link, search result, résumé, GitHub p
 
 - The homepage introduces Van, selected work, engineering approach, experience, credentials, and contact paths.
 - Dedicated routes cover project case studies, résumé, GitHub activity, agentic workflow, gear, and the portfolio design system.
-- Featured work is limited to public personal projects with evidence in public repositories or deployed products.
+- Featured work is public personal projects with evidence in public repositories or deployed products, plus client work Van has confirmed may be shown. Client work is anonymised unless the client agreed to be named: no client name, branding, documents, domains, or operational data, in copy or in screenshots.
 - Employer, client, private repository, and confidential Van/Lytho details remain private.
 - Claims must be traceable to repository evidence, deployed behavior, or Van's confirmation. Unknown metrics, impact, ownership, and mastery remain unstated.
 - Private GitHub activity may appear only as aggregates. Private repository names and source are never exposed.
@@ -42,6 +42,7 @@ The product is Portfolio 3.0 and represents Van AJ Vanguardia. Its voice is calm
 
 - Typed profile, experience, project, credential, stack, and design-system content under `src/content/`.
 - Public case studies and product links for Relay, Roleway, Viya, ACSFI, Balay (a closed-source 3D home-design experiment), and AQD (a source-available on-device iPhone closet app).
+- QSM, an anonymised case study of private client work (an offline-first safety management system co-built with one other engineer, in production). Its figures are read from the private repository, and its screenshots show a local instance with invented demo records.
 - Public repository and contribution evidence presented through the GitHub surfaces.
 - A downloadable résumé (page, Markdown, and PDF), a hiring brief that links each claim to its proof, and confirmed education and certification records.
 - An inspectable design-system route and `design.md` endpoint documenting the portfolio's interface language.

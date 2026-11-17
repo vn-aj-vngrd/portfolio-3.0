@@ -45,22 +45,22 @@
       ]
     },
     "work-intro": {
-      "file": "/tour/work-intro.8d242b4d.m4a",
-      "hash": "8d242b4d",
-      "seconds": 6.3,
-      "bytes": 52040,
+      "file": "/tour/work-intro.00d65cef.m4a",
+      "hash": "00d65cef",
+      "seconds": 5.9,
+      "bytes": 48848,
       "lines": [
-        "First, the work: six products, each designed and built end to end.",
+        "First, the work: seven products, six of them built end to end.",
         "Source is public where available."
       ],
       "cues": [
         {
           "start": 0,
-          "end": 4.19
+          "end": 3.79
         },
         {
-          "start": 4.47,
-          "end": 6.3
+          "start": 4.07,
+          "end": 5.9
         }
       ]
     },
@@ -101,6 +101,26 @@
         {
           "start": 5.39,
           "end": 7.6
+        }
+      ]
+    },
+    "work-qsm": {
+      "file": "/tour/work-qsm.f660497d.m4a",
+      "hash": "f660497d",
+      "seconds": 12,
+      "bytes": 100373,
+      "lines": [
+        "QSM is a ship-management company’s safety system, on office web and vessel tablets.",
+        "It is in production, works offline, and turns old PDF forms digital with AI."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 6.2
+        },
+        {
+          "start": 6.48,
+          "end": 12
         }
       ]
     },
