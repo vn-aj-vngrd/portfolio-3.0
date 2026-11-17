@@ -20,6 +20,8 @@ Tokens and snippets documented at `/design` and `/design.md`. Keep in step with 
 
 `SITE_TITLE`, `SITE_DESCRIPTION`, `createPageMetadata`. Page titles read `<Topic> | Van AJ Vanguardia`; case studies read `<Name> Case Study`. Descriptions are one concrete sentence with the full name. View the `<title>` of each changed route.
 
+`src/lib/profile-markdown.ts` builds `/llms.txt`, `/llms-full.txt`, and `/resume.md` from the content modules, and `src/lib/structured-data.tsx` builds the Person and breadcrumb JSON-LD. Both derive every fact, so a content edit needs no change there; a new content field that AI readers should see is added to the builder. View `/llms-full.txt` after a content change.
+
 ## Guided tour (`tour.ts`)
 
 `tourChapters` hold the narrated stops: each has `lines` (one sentence each, at most 120 characters), `evidence` (a source file and an exact string that must appear in it), and a `stop` that matches a `data-tour-stop` attribute. The tour repeats facts from `profile.ts`, `projects.ts`, `experience.ts`, `certifications.ts`, `engineering.ts`, and `ai-workflow.ts`. Change a fact that a tour line repeats: fix the line in `tour.ts`, run `yarn narrate:tour` (re-records only changed stops), listen to the changed stops, then `yarn test`. A new featured project needs a stop in catalog order; a renamed company needs its stop id updated (`tourStopId`). Pronunciations of names are in `tourPronunciations`. View the homepage and run the tour.

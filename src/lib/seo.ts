@@ -5,7 +5,29 @@ export const SITE_NAME = "Van AJ Vanguardia";
 export const SITE_TITLE =
   "Van AJ Vanguardia | AI Product Engineer / Software Engineer";
 export const SITE_DESCRIPTION =
-  "Cebu-based AI product engineer and software engineer building AI features, agents, and web, mobile, and backend products with TypeScript, React, Next.js, ASP.NET Core, and Claude Code.";
+  "Van AJ Vanguardia is an AI engineer and full-stack software engineer in Cebu, Philippines, building AI features, agents, and web, mobile, and backend products with TypeScript, React, Next.js, ASP.NET Core, and Claude Code.";
+
+export const SITE_KEYWORDS = [
+  "Van AJ Vanguardia",
+  "AI engineer",
+  "AI product engineer",
+  "software engineer",
+  "full-stack software engineer",
+  "full-stack developer Philippines",
+  "AI engineer Philippines",
+  "software developer Cebu",
+  "LLM application developer",
+  "AI agents",
+  "tool calling",
+  "Claude Code",
+  "Vercel AI SDK",
+  "TypeScript developer",
+  "React developer",
+  "Next.js developer",
+  "React Native developer",
+  "ASP.NET Core developer",
+  "product engineer",
+] as const;
 
 export const DEFAULT_SOCIAL_IMAGE = {
   url: "/opengraph-image",

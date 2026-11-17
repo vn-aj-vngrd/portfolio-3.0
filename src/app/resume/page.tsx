@@ -6,13 +6,39 @@ import { aiWorkflow } from "@/content/ai-workflow";
 import { profile } from "@/content/profile";
 import { resume, resumeProducts } from "@/content/resume";
 import { createPageMetadata, SITE_URL } from "@/lib/seo";
+import {
+  breadcrumbSchema,
+  JsonLd,
+  PERSON_ID,
+  personSchema,
+  WEBSITE_ID,
+} from "@/lib/structured-data";
 
 export const metadata = createPageMetadata({
   title: "Résumé",
   description:
-    "Résumé for Van AJ Vanguardia, an AI product engineer and software engineer building AI features, agents, ASP.NET Core backends in C#, and React frontends with TypeScript.",
+    "Résumé for Van AJ Vanguardia, an AI engineer and full-stack software engineer building AI features, agents, ASP.NET Core backends in C#, and React frontends with TypeScript.",
   path: "/resume",
 });
+metadata.alternates = {
+  canonical: "/resume",
+  types: { "text/markdown": "/resume.md" },
+};
+
+const resumeGraph = [
+  personSchema(),
+  {
+    "@type": "ProfilePage",
+    "@id": `${SITE_URL}/resume#profile-page`,
+    url: `${SITE_URL}/resume`,
+    name: `${profile.name} résumé`,
+    description: resume.summary,
+    inLanguage: "en-PH",
+    isPartOf: { "@id": WEBSITE_ID },
+    mainEntity: { "@id": PERSON_ID },
+  },
+  breadcrumbSchema("Résumé", "/resume"),
+];
 
 function displayUrl(url: string) {
   return url.replace(/^https?:\/\//, "").replace(/\/$/, "");
@@ -21,6 +47,7 @@ function displayUrl(url: string) {
 export default function ResumePage() {
   return (
     <main id="main-content" className="resume-page">
+      <JsonLd graph={resumeGraph} />
       <div className="resume-bar print-hidden">
         <div className="resume-controls">
           <Link className="page-back-link" href="/">

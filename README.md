@@ -47,6 +47,9 @@ The words live in `src/content/tour.ts`, each line with the source file that bac
 /design.md
 /gear
 /resume
+/resume.md
+/llms.txt
+/llms-full.txt
 /lab
 /lab/stack-builder
 /lab/release-run
@@ -56,7 +59,7 @@ The words live in `src/content/tour.ts`, each line with the source file that bac
 /work/watchbox
 ```
 
-Metadata routes provide `/sitemap.xml`, `/robots.txt`, and `/opengraph-image`. The `/design` route presents the portfolio system as live specimens with copyable tokens and components; `/design.md` exposes the portable Markdown specification.
+Metadata routes provide `/sitemap.xml`, `/robots.txt` (which names the AI crawlers it allows), `/opengraph-image`, and a PNG share card per case study. `/llms.txt`, `/llms-full.txt`, and `/resume.md` are plain-Markdown copies of the portfolio for AI assistants and recruiters' tools, generated from `src/content/` by `src/lib/profile-markdown.ts`; structured data comes from `src/lib/structured-data.tsx`. The `/design` route presents the portfolio system as live specimens with copyable tokens and components; `/design.md` exposes the portable Markdown specification.
 
 ## GitHub activity
 

@@ -13,6 +13,7 @@ import { TourRoot } from "@/components/tour/TourRoot";
 import {
   DEFAULT_SOCIAL_IMAGE,
   SITE_DESCRIPTION,
+  SITE_KEYWORDS,
   SITE_NAME,
   SITE_TITLE,
   SITE_URL,
@@ -45,25 +46,17 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
-  keywords: [
-    "Van AJ Vanguardia",
-    "AI product engineer",
-    "software engineer",
-    "full-stack software developer",
-    "software developer Cebu",
-    "TypeScript developer",
-    "React developer",
-    "Next.js developer",
-    "ASP.NET Core developer",
-    "product engineer",
-  ],
+  keywords: [...SITE_KEYWORDS],
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
   publisher: SITE_NAME,
   category: "technology",
   referrer: "origin-when-cross-origin",
   formatDetection: { email: false, address: false, telephone: false },
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    types: { "text/markdown": "/llms-full.txt" },
+  },
   manifest: "/favicon/site.webmanifest",
   icons: {
     icon: [
