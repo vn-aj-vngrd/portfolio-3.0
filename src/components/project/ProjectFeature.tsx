@@ -77,7 +77,10 @@ export function ProjectFeature({
           </figure>
         ) : (
           (usesPhoneScreens
-            ? project.images.slice(0, project.slug === "viya" ? 3 : 2)
+            ? project.images.slice(
+                0,
+                project.slug === "viya" || project.slug === "aqd" ? 3 : 2
+              )
             : [featureImage]
           ).map((image, imageIndex) => (
             <figure
