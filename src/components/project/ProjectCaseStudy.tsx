@@ -49,7 +49,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
       {project.agent ? (
         <section className="case-decisions" aria-labelledby="agent-title">
           <div className="section-heading" data-reveal>
-            <h2 id="agent-title">AI Agent</h2>
+            <h2 id="agent-title">{project.agent.title ?? "AI Agent"}</h2>
             <p>{project.agent.summary}</p>
           </div>
           <div className="decision-list" data-reveal="list">
@@ -60,11 +60,13 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
               </article>
             ))}
           </div>
-          <div className="project-links">
-            <a href={project.agent.guideUrl} target="_blank" rel="noreferrer">
-              Read the Agent capability guide ↗
-            </a>
-          </div>
+          {project.agent.guideUrl ? (
+            <div className="project-links">
+              <a href={project.agent.guideUrl} target="_blank" rel="noreferrer">
+                Read the Agent capability guide ↗
+              </a>
+            </div>
+          ) : null}
         </section>
       ) : null}
 

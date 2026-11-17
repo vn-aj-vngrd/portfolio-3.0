@@ -216,6 +216,14 @@ export const shippedAi = [
     stack: "Swift · Foundation Models · Swift Testing",
   },
   {
+    slug: "qsm",
+    name: "QSM · client work",
+    title: "AI import, editor, and assistant in a production system",
+    description:
+      "In a ship-management company’s safety system, AI Import turns a legacy PDF into a structured form: one page per model call, validated against the form schema, repaired on failure, and reviewed against the page image. An editor streams document help under fixed maritime rules, and an assistant answers from permission-checked data. Every call is capped per user and audited.",
+    stack: "Vercel AI SDK · Google, Anthropic, OpenAI-compatible · BullMQ",
+  },
+  {
     slug: "viya",
     name: "Viya",
     title: "A trip agent with 17 scoped tools",

@@ -54,9 +54,10 @@ export type Project = {
     chapters: readonly ProjectChapter[];
   };
   agent?: {
+    title?: string;
     summary: string;
     steps: readonly ProjectStage[];
-    guideUrl: string;
+    guideUrl?: string;
   };
   architectureSummary: string;
   architecture: readonly ProjectStage[];
