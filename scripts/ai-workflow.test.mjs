@@ -9,7 +9,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (path) => readFileSync(join(root, path), "utf8");
 const load = async (path) => import(pathToFileURL(join(root, path)).href);
 
-const { aiTools, setupItems, engineeringAgentTools } = await load(
+const { aiTools, setupItems, engineeringAgentTools, shippedAi } = await load(
   "src/content/ai-workflow.ts"
 );
 const {
@@ -157,6 +157,16 @@ test("every tool row links to its official site and names a mark", () => {
     assert.match(item.link.href, /^https:\/\//u);
     const { mark } = aiTools[item.tool];
     assert.ok(mark === null || ["claude", "herdr"].includes(mark));
+  }
+});
+
+test("every shipped product agent shows its place in the loop", () => {
+  for (const item of shippedAi) {
+    if (!item.slug) continue;
+    const { loop } = item;
+    assert.ok(loop, `${item.name} has no loop strip`);
+    for (const key of ["reads", "checks", "approval", "proof"])
+      assert.ok(loop[key]?.length > 0, `${item.name} is missing ${key}`);
   }
 });
 

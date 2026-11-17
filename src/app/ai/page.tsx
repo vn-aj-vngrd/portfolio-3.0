@@ -11,6 +11,7 @@ import {
   FactorySwimlane,
 } from "@/components/ai/FactoryVisuals";
 import { SetupMap } from "@/components/ai/SetupMap";
+import { AgentStrip, ShippedAgentLoop } from "@/components/ai/ShippedVisuals";
 import { ToolMark } from "@/components/ai/ToolMark";
 import { WorkflowSteps } from "@/components/ai/WorkflowSteps";
 import {
@@ -113,7 +114,8 @@ export default function AiWorkflowPage() {
             anything.
           </p>
         </header>
-        <div className="ai-ledger" data-reveal="list">
+        <ShippedAgentLoop />
+        <div className="ai-ledger ai-shipped" data-reveal="list">
           {shippedAi.map((item) => (
             <article key={item.name}>
               <div>
@@ -122,6 +124,7 @@ export default function AiWorkflowPage() {
               </div>
               <div>
                 <p>{item.description}</p>
+                {"loop" in item ? <AgentStrip loop={item.loop} /> : null}
                 <p className="ai-ledger-stack">{item.stack}</p>
                 <div className="ai-links">
                   {"slug" in item ? (

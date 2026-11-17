@@ -1,0 +1,81 @@
+import { shippedAgentLoop } from "@/content/ai-workflow";
+
+// Visuals for the shipped-agent ledger on /ai, in the factory diagrams' language
+// (FactoryVisuals.tsx): one draw-in on entry, solid lines forward, a diamond
+// where a person decides. All text is real; only markers and lines are hidden.
+
+type Vars = Record<`--${string}`, string | number>;
+const vars = (v: Vars) => v as React.CSSProperties;
+
+export function ShippedAgentLoop() {
+  return (
+    <figure
+      className="fx fx-shipped-loop"
+      data-flow="draw"
+      aria-labelledby="fx-shipped-loop-title"
+    >
+      <h3 id="fx-shipped-loop-title" className="fx-shipped-loop-title">
+        {shippedAgentLoop.title}
+      </h3>
+      <ol className="fx-chain" style={vars({ "--k": 4 })}>
+        {shippedAgentLoop.steps.map((step, i) => (
+          <li
+            key={step.label}
+            className="fx-node"
+            data-mine={"person" in step ? "" : undefined}
+            style={vars({ "--i": i })}
+          >
+            <span className="fx-node-number">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <strong className="fx-chain-title">
+              {"person" in step ? (
+                <span className="fx-diamond" aria-hidden="true" />
+              ) : null}
+              {step.label}
+            </strong>
+            <p>{step.detail}</p>
+          </li>
+        ))}
+      </ol>
+      <figcaption>{shippedAgentLoop.caption}</figcaption>
+    </figure>
+  );
+}
+
+type Loop = { reads: string; checks: string; approval: string; proof: string };
+
+/** One agent's place in the loop: what it reads, how output is checked, what waits for a person, and the evidence. */
+export function AgentStrip({ loop }: { loop: Loop }) {
+  const { labels } = shippedAgentLoop;
+  const rows = [
+    { key: "reads", text: loop.reads },
+    { key: "checks", text: loop.checks },
+    { key: "approval", text: loop.approval },
+    { key: "proof", text: loop.proof },
+  ] as const;
+  return (
+    <div className="fx fx-strip-wrap" data-flow="draw">
+      <dl className="fx-strip">
+        {rows.map((row, i) => (
+          <div
+            key={row.key}
+            className="fx-node"
+            data-kind={row.key}
+            style={vars({ "--i": i })}
+          >
+            <dt>
+              {row.key === "approval" ? (
+                <span className="fx-diamond" aria-hidden="true" />
+              ) : (
+                <span className="fx-strip-dot" aria-hidden="true" />
+              )}
+              {labels[row.key]}
+            </dt>
+            <dd>{row.text}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}

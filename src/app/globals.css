@@ -11031,6 +11031,114 @@ html[data-tour] .shortcut-hint {
   }
 }
 
+/* Shipped agents: the shared loop and one strip per agent (ShippedVisuals.tsx). */
+.fx-shipped-loop {
+  margin: 0 0 3rem;
+}
+.fx-shipped-loop-title {
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+  font-weight: 550;
+}
+.fx-chain .fx-chain-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+.fx-strip-wrap {
+  margin: 1.25rem 0 0.25rem;
+}
+.fx-strip {
+  position: relative;
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+}
+.fx-strip::before {
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: calc(0.35rem - 0.5px);
+  width: 1px;
+  background: var(--border);
+  content: "";
+}
+.fx-strip > div {
+  position: relative;
+  min-width: 0;
+}
+.fx-strip dt {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--muted);
+  font:
+    500 0.66rem/1.5 var(--font-geist-mono),
+    monospace;
+}
+.fx-strip dd {
+  margin: 0.15rem 0 0 1.35rem;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+.fx-strip [data-kind="approval"] dt,
+.fx-strip [data-kind="approval"] dd {
+  color: var(--ink);
+}
+.fx-strip-dot {
+  position: relative;
+  flex: none;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: var(--canvas);
+}
+@container (min-width: 36rem) {
+  .fx-strip {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0 1.25rem;
+  }
+  .fx-strip::before {
+    top: calc(0.35rem - 0.5px);
+    right: 0;
+    bottom: auto;
+    left: 0.35rem;
+    width: auto;
+    height: 1px;
+  }
+  .fx-strip dt {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .fx-strip dd {
+    margin: 0.2rem 0 0;
+  }
+}
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .fx[data-flow] .fx-strip {
+    --fx-step: 0.18s;
+  }
+  .fx[data-flow]:not([data-drawn]) .fx-strip::before {
+    transform: scaleY(0);
+  }
+  .fx[data-flow][data-drawn] .fx-strip::before {
+    transform-origin: top;
+    animation: draw-y 0.8s linear backwards;
+  }
+  @container (min-width: 36rem) {
+    .fx[data-flow]:not([data-drawn]) .fx-strip::before {
+      transform: scaleX(0);
+    }
+    .fx[data-flow][data-drawn] .fx-strip::before {
+      transform-origin: left;
+      animation-name: draw-x;
+    }
+  }
+}
+
 /* Product Lab: /lab index and /lab/<game> play pages. */
 .product-lab-trigger {
   text-decoration: none;
