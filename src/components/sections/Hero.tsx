@@ -3,7 +3,6 @@ import Link from "next/link";
 
 import { HeroIntro } from "@/components/sections/HeroIntro";
 import { TourEntry } from "@/components/tour/TourEntry";
-import { aiWorkflow } from "@/content/ai-workflow";
 import { hiring } from "@/content/hiring";
 import { profile } from "@/content/profile";
 
@@ -49,7 +48,6 @@ export function Hero() {
           </a>
           <Link href="/resume">Résumé ↗</Link>
           <Link href="/hire">Hiring brief →</Link>
-          <Link href={aiWorkflow.path}>{aiWorkflow.navigationLabel} →</Link>
         </nav>
       </div>
 
