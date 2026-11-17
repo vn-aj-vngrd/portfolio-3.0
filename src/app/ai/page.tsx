@@ -3,7 +3,15 @@ import Link from "next/link";
 import { AiMotion } from "@/components/ai/AiMotion";
 import { FactoryPipeline } from "@/components/ai/FactoryPipeline";
 import { FactoryRun } from "@/components/ai/FactoryRun";
+import {
+  FactoryArtifacts,
+  FactoryImprovement,
+  FactoryReviewLoop,
+  FactoryRoute,
+  FactorySwimlane,
+} from "@/components/ai/FactoryVisuals";
 import { SetupMap } from "@/components/ai/SetupMap";
+import { ToolMark } from "@/components/ai/ToolMark";
 import { WorkflowSteps } from "@/components/ai/WorkflowSteps";
 import {
   agentGuardrails,
@@ -15,7 +23,6 @@ import {
 } from "@/content/ai-workflow";
 import {
   factoryGuardrails,
-  factoryImprovement,
   factoryIntro,
   factoryPair,
   factoryRoles,
@@ -138,20 +145,21 @@ export default function AiWorkflowPage() {
           <p>{aiWorkflow.setup.lead}</p>
         </header>
         <SetupMap />
-        <div className="ai-ledger" data-reveal="list">
+        <div className="ai-ledger ai-tools" data-reveal="list">
           {setupItems.map((item) => (
             <article key={item.title}>
-              <div>
-                <p className="ai-kicker">{item.kicker}</p>
-                <h3>{item.title}</h3>
+              <div className="ai-tool-name">
+                <ToolMark tool={item.tool} />
+                <div>
+                  <p className="ai-kicker">{item.kicker}</p>
+                  <h3>{item.title}</h3>
+                </div>
               </div>
               <div>
                 <p>{item.body}</p>
-                {"link" in item ? (
-                  <a className="ai-source-link" href={item.link.href}>
-                    {item.link.label} ↗
-                  </a>
-                ) : null}
+                <a className="ai-source-link" href={item.link.href}>
+                  {item.link.label} ↗
+                </a>
               </div>
             </article>
           ))}
@@ -180,6 +188,9 @@ export default function AiWorkflowPage() {
         <FactoryRun>
           <FactoryPipeline />
         </FactoryRun>
+        <FactorySwimlane />
+        <FactoryReviewLoop />
+        <FactoryArtifacts />
         <div className="factory-notes">
           <div>
             <h3>Who does what</h3>
@@ -194,16 +205,24 @@ export default function AiWorkflowPage() {
           </div>
           <div>
             <h3>What the factory can’t do</h3>
-            <ul data-reveal="list">
-              {factoryGuardrails.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
+            <ul className="ai-rules ai-rules-stacked" data-reveal="list">
+              {factoryGuardrails.map((item) => {
+                const cut = item.indexOf(". ") + 1;
+                return (
+                  <li key={item}>
+                    <span className="ai-rule-mark" aria-hidden="true" />
+                    <strong>{item.slice(0, cut)}</strong>
+                    <span>{item.slice(cut + 1)}</span>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
         <div className="factory-pair" id="factory-pair">
           <h3>{factoryPair.title}</h3>
           <p>{factoryPair.lead}</p>
+          <FactoryRoute />
           <table>
             <thead>
               <tr>
@@ -233,8 +252,8 @@ export default function AiWorkflowPage() {
           <p className="ai-section-note">{factoryPair.note}</p>
         </div>
         <div className="factory-improve">
-          <h3>How it improves</h3>
-          <p>{factoryImprovement}</p>
+          <h3 id="factory-improve-title">How it improves</h3>
+          <FactoryImprovement />
         </div>
       </section>
 
@@ -337,11 +356,17 @@ export default function AiWorkflowPage() {
         </div>
         <div className="ai-guardrails">
           <h3>What I remain accountable for</h3>
-          <ul data-reveal="list">
-            {agentGuardrails.map((guardrail) => (
-              <li key={guardrail}>{guardrail}</li>
+          <ol className="ai-rules" data-reveal="list">
+            {agentGuardrails.map((item, index) => (
+              <li key={item.title}>
+                <span className="ai-rule-number" aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <strong>{item.title}</strong>
+                <span>{item.text}</span>
+              </li>
             ))}
-          </ul>
+          </ol>
         </div>
       </section>
 

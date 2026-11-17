@@ -1,12 +1,17 @@
+// `mark` names a small monochrome mark in src/components/ai/ToolMark.tsx; null shows a monogram.
 export const aiTools = {
-  claudeCode: { name: "Claude Code", kind: "Agent harness" },
-  opus: { name: "Claude Opus", kind: "Planning model" },
-  sonnet: { name: "Claude Sonnet", kind: "Building model" },
-  herdr: { name: "Herdr", kind: "Terminal workspace for coding agents" },
-  handy: { name: "Handy", kind: "Voice input" },
+  claudeCode: { name: "Claude Code", kind: "Agent harness", mark: "claude" },
+  opus: { name: "Claude Opus", kind: "Planning model", mark: "claude" },
+  sonnet: { name: "Claude Sonnet", kind: "Building model", mark: "claude" },
+  herdr: {
+    name: "Herdr",
+    kind: "Terminal workspace for coding agents",
+    mark: "herdr",
+  },
+  handy: { name: "Handy", kind: "Voice input", mark: null },
 } as const;
 
-type AiToolId = keyof typeof aiTools;
+export type AiToolId = keyof typeof aiTools;
 
 export function aiToolNames(ids: readonly AiToolId[]) {
   return ids.map((id) => aiTools[id].name);
@@ -56,6 +61,7 @@ export const aiWorkflow = {
 
 export const setupItems = [
   {
+    tool: "claudeCode",
     kicker: "Harness",
     title: "Claude Code",
     body: "Every agent I run is Claude Code: the terminal agent with its tools, permissions, subagents, skills, and hooks. One harness means one set of instructions and skills across every project, and my factory is built from the same parts.",
@@ -65,6 +71,7 @@ export const setupItems = [
     },
   },
   {
+    tool: "opus",
     kicker: "Plans",
     title: "Claude Opus",
     body: "Plans and judges. In the factory, Opus writes the plan and rates its risk, reviews security, and makes the final call before a pull request. It also builds when a plan is rated high risk.",
@@ -74,6 +81,7 @@ export const setupItems = [
     },
   },
   {
+    tool: "sonnet",
     kicker: "Builds",
     title: "Claude Sonnet",
     body: "Builds and checks. Sonnet implements each slice test-first, judges the UI screenshots, and reviews code and design.",
@@ -83,16 +91,21 @@ export const setupItems = [
     },
   },
   {
+    tool: "herdr",
     kicker: "Workspace",
     title: "Herdr",
     body: "Herdr keeps my Claude Code sessions in workspaces, tabs, and panes on one screen and recognizes the agents running in them, so parallel work stays visible.",
+    link: { label: "Herdr", href: "https://herdr.dev" },
   },
   {
+    tool: "handy",
     kicker: "Voice input",
     title: "Handy",
     body: "I dictate prompts, grill answers, and notes with Handy. It turns speech into text; it makes no decisions.",
+    link: { label: "Handy", href: "https://handy.computer" },
   },
 ] as const satisfies readonly {
+  tool: AiToolId;
   kicker: string;
   title: string;
   body: string;
@@ -374,11 +387,30 @@ export const skillGroups = [
   },
 ] as const;
 
+// Each item is one accountability: a short label for scanning, then the commitment itself.
 export const agentGuardrails = [
-  "Keep the user need, constraints, and acceptance criteria explicit.",
-  "Give each agent a bounded task and an output I can inspect.",
-  "Check repository evidence and primary documentation instead of accepting confident claims.",
-  "Treat generated code as a proposal: run relevant tests, type checks, browser checks, and direct review.",
-  "Protect confidential employer and client information, credentials, private source, and remote-access details.",
-  "Keep tool permissions, plan approval, merges, and releases under my control.",
+  {
+    title: "Requirements",
+    text: "Keep the user need, constraints, and acceptance criteria explicit.",
+  },
+  {
+    title: "Scope",
+    text: "Give each agent a bounded task and an output I can inspect.",
+  },
+  {
+    title: "Evidence",
+    text: "Check repository evidence and primary documentation instead of accepting confident claims.",
+  },
+  {
+    title: "Verification",
+    text: "Treat generated code as a proposal: run relevant tests, type checks, browser checks, and direct review.",
+  },
+  {
+    title: "Confidentiality",
+    text: "Protect confidential employer and client information, credentials, private source, and remote-access details.",
+  },
+  {
+    title: "Control",
+    text: "Keep tool permissions, plan approval, merges, and releases under my control.",
+  },
 ] as const;

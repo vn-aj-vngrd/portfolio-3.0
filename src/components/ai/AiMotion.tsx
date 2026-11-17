@@ -5,8 +5,11 @@ import { useEffect } from "react";
 import { buildLoopFlow, buildSetupFlow, Flow } from "@/lib/ai/flow";
 
 // Diagram motion (the /ai page and the home workflow diagram): one-shot draw-in and ambient particle flow that runs only while a diagram is visible.
+// data-flow="draw" figures only draw in; setup and loop also get particles once drawn.
 const builders = { setup: buildSetupFlow, loop: buildLoopFlow } as const;
 const ambientAfter = { setup: 3000, loop: 4200 } as const;
+const hasParticles = (kind: string): kind is keyof typeof builders =>
+  kind in builders;
 
 export function AiMotion() {
   useEffect(() => {
@@ -19,10 +22,22 @@ export function AiMotion() {
     const cleanups: (() => void)[] = [];
 
     for (const el of figures) {
-      const kind = el.dataset.flow as keyof typeof builders;
+      const kind = el.dataset.flow ?? "";
+      if (!hasParticles(kind)) {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (!entry.isIntersecting) return;
+            el.dataset.drawn = "true";
+            observer.disconnect();
+          },
+          { threshold: 0.3 }
+        );
+        observer.observe(el);
+        cleanups.push(() => observer.disconnect());
+        continue;
+      }
       const build = builders[kind];
       const host = (kind === "loop" ? el.parentElement : el) ?? el;
-      if (!build) continue;
       let flow: Flow | null = null;
       let visible = false;
       let drawn = false;

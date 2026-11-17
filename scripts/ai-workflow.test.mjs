@@ -12,9 +12,13 @@ const load = async (path) => import(pathToFileURL(join(root, path)).href);
 const { aiTools, setupItems, engineeringAgentTools } = await load(
   "src/content/ai-workflow.ts"
 );
-const { factoryStages, factoryRunFrames } = await load(
-  "src/content/factory.ts"
-);
+const {
+  factoryStages,
+  factoryRunFrames,
+  factoryLanes,
+  factoryArtifacts,
+  factoryPair,
+} = await load("src/content/factory.ts");
 const { statusesAt } = await load("src/lib/ai/factory-run.ts");
 
 const stageIds = factoryStages.map((stage) => stage.id);
@@ -126,6 +130,34 @@ test("statusesAt derives stage state from a frame", () => {
   for (const id of stageIds)
     assert.equal(complete[id].status, id === "merge" ? "waiting" : "done");
   assert.equal(complete.gate.state, "Approved");
+});
+
+test("factory diagrams derive from the stage list", () => {
+  // Swimlane: a stage's lane is the first part of its actor.
+  for (const stage of factoryStages) {
+    const [primary] = stage.actor.split(" · ");
+    assert.ok(factoryLanes.includes(primary), `${stage.id} has no lane`);
+    for (const model of stage.models)
+      assert.ok(factoryLanes.includes(model), `${model} has no lane`);
+  }
+  for (const item of factoryArtifacts.items) {
+    const from = stageIds.indexOf(item.from);
+    const to = stageIds.indexOf(item.to);
+    assert.ok(from >= 0 && to >= from, `${item.label} runs backwards`);
+  }
+  const { route } = factoryPair;
+  assert.equal(route.personal.length, route.stops.length);
+  assert.equal(route.work.length, route.stops.length);
+});
+
+test("every tool row links to its official site and names a mark", () => {
+  for (const item of setupItems) {
+    assert.ok(item.tool in aiTools, `${item.title} has no tool id`);
+    assert.equal(aiTools[item.tool].name, item.title);
+    assert.match(item.link.href, /^https:\/\//u);
+    const { mark } = aiTools[item.tool];
+    assert.ok(mark === null || ["claude", "herdr"].includes(mark));
+  }
 });
 
 test("setup lists only current tools", () => {

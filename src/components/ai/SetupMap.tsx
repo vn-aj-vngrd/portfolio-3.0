@@ -1,3 +1,4 @@
+import { ToolMark } from "@/components/ai/ToolMark";
 import { setupMap } from "@/content/ai-workflow";
 
 export function SetupMap() {
@@ -11,7 +12,10 @@ export function SetupMap() {
       <ol className="setup-map-flow">
         <li className="setup-node" data-node="voice">
           <span className="ai-kicker">{voice.kicker}</span>
-          <strong>{voice.title}</strong>
+          <strong className="setup-tool">
+            <ToolMark tool="handy" size="sm" />
+            {voice.title}
+          </strong>
           <p>{voice.line}</p>
         </li>
         <li className="setup-node setup-node-me" data-node="me">
@@ -20,9 +24,15 @@ export function SetupMap() {
           <p>{me.line}</p>
         </li>
         <li className="setup-frame" data-node="herdr">
-          <span className="setup-frame-label">{setupMap.herdr}</span>
+          <span className="setup-frame-label">
+            <ToolMark tool="herdr" size="sm" />
+            {setupMap.herdr}
+          </span>
           <div className="setup-harness">
-            <span className="setup-harness-label">{setupMap.harness}</span>
+            <span className="setup-harness-label">
+              <ToolMark tool="claudeCode" size="sm" />
+              {setupMap.harness}
+            </span>
             <ul className="setup-models">
               {setupMap.models.map((model) => (
                 <li key={model.name}>
