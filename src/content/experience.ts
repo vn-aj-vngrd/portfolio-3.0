@@ -85,7 +85,7 @@ export const experience = [
     kind: "Professional",
     current: true,
     summary:
-      "Full-stack delivery for client products through Full Scale’s offshore teams, in sprint-based Agile with trunk-based development. Uses Claude Code with direct review of generated changes.",
+      "Full-stack delivery for client products through Full Scale’s offshore teams, in sprint-based Agile with trunk-based development. Builds with a Claude Code software factory I made for this work, which takes Jira tickets to reviewed, proven pull requests that I check and merge.",
     highlights: [
       {
         action: "Lytho.",

@@ -1,5 +1,6 @@
 // Facts about the software factory. No runtime imports: the Node tests load this file directly.
 // Publish no run counts, rates, timings or cost; the factory has too few finished jobs to support one.
+// The work factory is internal to the client: describe its shape only, never its source, tickets or repos.
 
 export type FactoryStageId =
   | "issue"
@@ -279,3 +280,62 @@ export const factoryRunFrames = [
       "The factory stops here. I review and merge; nothing merges or deploys on its own.",
   },
 ] as const satisfies readonly FactoryFrame[];
+
+// The factory built twice: the personal one above, and one for client work.
+export const factoryPair = {
+  title: "Two factories. One method.",
+  lead: "I built the factory twice: once for my own products, and once for my client work at Full Scale. Both take a ticket to a pull request that I review. Neither merges on its own.",
+  columns: {
+    personal: {
+      name: "Personal factory",
+      scope: "My own products, starting with AQD",
+    },
+    work: {
+      name: "Work factory",
+      scope: "Lytho client work at Full Scale",
+    },
+  },
+  rows: [
+    {
+      label: "Ticket in",
+      personal:
+        "A GitHub issue with the problem, the spec, and acceptance criteria.",
+      work: "A Jira ticket. One command starts one ticket or several in parallel.",
+    },
+    {
+      label: "Where I step in",
+      personal: "Once, at the plan. Then the merge.",
+      work: "Twice: the plan, then the pull request. In auto mode an Opus plan judge answers the plan and the run ends at a draft.",
+    },
+    {
+      label: "Build",
+      personal:
+        "Sonnet builds each slice test-first; Opus builds when the plan is rated high risk.",
+      work: "A builder works in separate git worktrees, one commit per group. A bug must reproduce as a failing test before Opus looks for the root cause.",
+    },
+    {
+      label: "Review",
+      personal:
+        "Code always, design on UI, security on risk. Two rework rounds at most.",
+      work: "Code and security always, design on UI. Two rework rounds at most.",
+    },
+    {
+      label: "Proof",
+      personal:
+        "The checks run, the real UI is driven, and each screenshot is judged against its pass condition.",
+      work: "A prover runs the product and records evidence for each criterion. A risk judge then decides: ship or escalate to me.",
+    },
+    {
+      label: "Ends at",
+      personal: "A draft pull request with screenshots.",
+      work: "A pull request, a proof comment on the ticket, and a handover note. A loop then answers review comments and fixes failing CI.",
+    },
+    {
+      label: "Guard",
+      personal:
+        "A hook checks every tool call against the agent’s role. No agent pushes.",
+      work: "A permission gate decides what runs unasked and what asks me first: merges, deletes, and messages to people always ask.",
+    },
+  ],
+  note: "The work factory is internal to the client, so its source, tickets, and run numbers stay private. I designed and built both.",
+} as const;
