@@ -28,6 +28,28 @@ The résumé is typed data rendered at `/resume` and printed to A4. Humans and a
 5. Open `/resume` at 1440px and 390px, then print it (`agent-browser pdf`) and confirm two A4 pages with no clipped lines, chips collapsed to text, and groups not split mid-heading.
 6. Ship per `docs/DEVELOPMENT_WORKFLOW.md`. Merge waits for Van.
 
+## Standing principles (always great)
+
+Van wants the résumé and portfolio to stay strong for three readers at once: a recruiter skimming for 10 seconds, an engineering manager judging depth, and an ATS or AI agent parsing text. Hold these on every content edit, not only résumé edits.
+
+1. **Outcome first, then how.** Open with the verb and the result for the user or customer; name the stack second. "Built X so customers can Y", not "Worked on X using Z".
+2. **Proof beats adjectives.** Prefer a confirmed number, then a named verifiable outcome (passed WCAG 2.2 AA audit, three PWAs adopted company-wide, tests and evals in CI), then a concrete mechanism. Never "passionate", "robust", "various".
+3. **Ownership is stated exactly.** "Built" only for work Van owned; "contributed to" or "helped" for shared work. Never inflate; an overstated claim costs more than a modest one.
+4. **One headline, one proof point.** The summary leads with the target title and holds one proof point; the strongest differentiator (the Claude Code software factory, shipped AI agents) appears in the first screen, not the last line.
+5. **Context in every role.** Each role or client carries its stack label, period, and what the product does, so a reader with no context understands the scale of the work.
+6. **Metrics pipeline.** Whenever a bullet lacks a number, keep the outcome wording and list the missing metric under "Ask Van" in your PR and final reply. When Van supplies one, add it in the same source module and every mirror (homepage group, résumé group, `resume.md`, tour, `llms.txt`).
+7. **Machine-readable parity.** `/resume`, `/resume.md`, `/llms.txt`, structured data and the PDF all derive from the typed data. Change the data once, regenerate the PDF (`yarn dev`, then `yarn resume:pdf`), and keep the test suite green.
+8. **Earned keywords only.** A skill appears in the skills section only if a role, product, or the engineering and AI pages show it being used.
+
+### Evaluation loop (max 2 rounds)
+
+After any non-trivial copy change:
+
+1. **Round 1: independent read.** Spawn a fresh reviewer that has only the files and these rules, not your conclusions. Ask for ranked weaknesses, drop-in replacements built from facts already in the repo, and any claim that overstates its source.
+2. **Apply** the valid findings. Reject any suggestion that invents a number, ownership, or confidential detail.
+3. **Round 2: self-check** against the principles and the 15–28 word rule, then confirm two A4 pages in the PDF.
+4. Stop after two rounds. Remaining gaps go on the "Ask Van" list, not into the copy.
+
 ## Ask Van (metrics not yet confirmed)
 
 Collect any of these before writing them down: users or customers reached by the Lytho epics; export or query speedup (before and after); size of the AWS migration (services moved); Billing fetch-time improvement; TicketBooth events, tickets, or payment volume; NextDevs headcount and adoption (users, crew records); latency, test, or coverage numbers for personal products.

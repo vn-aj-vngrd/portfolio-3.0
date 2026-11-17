@@ -16,6 +16,7 @@ Hold every rule on every edit.
 - **One source.** Each fact lives in one module (table below). Other surfaces derive it by `slug` or exact company name, so retyping a fact is a defect. The three hand-written mirrors (homepage intro, `PRODUCT.md`, Product Match devices) are guarded by the content test.
 - **Voice.** Calm, precise, technical, human. State what was built, the problem it solves, and how it works, in concrete verbs. Profile copy is first person; case studies speak of the product; résumé bullets open with a verb. Match the file's typography (curly `’`, `·`, `–`).
 - **Current.** Replace the old fact in place. Periods read `Mon YYYY – Mon YYYY` or `Mon YYYY – Present`, and exactly one role is current.
+- **Compelling.** Copy is outcome-first and proof-backed for recruiters, managers, and AI agents; apply the `resume` skill's standing principles and two-round evaluation loop to every content change, not only résumé edits.
 - **Curated.** Strongest evidence first; featured work is public or deployed products, or client work Van confirmed and anonymised (see `PRODUCT.md`).
 
 ## Where facts live

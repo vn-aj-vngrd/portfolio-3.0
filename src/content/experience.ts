@@ -20,11 +20,11 @@ const fullScaleGroups = [
     client: "Lytho",
     label: "Current client · React, C# / ASP.NET Core, SQL Server, AWS",
     bullets: [
-      "Shipped multiple customer-facing feature epics, expanding how teams manage content, customize data, and coordinate approvals.",
-      "Built AI Reviewer and AI Insights, and contributed to AI Skills and AI Teammates: agent features that help customers review content and surface insights.",
-      "Fixed form-rendering and UI defects that supported a passed third-party WCAG 2.2 AA audit.",
-      "Resolved export, complex-query, and Lambda processing bottlenecks; QA and customers verified exports after the fixes.",
-      "Helped move Windows services from EC2 to Linux containers on ECS Fargate and built Lambda file processors with no Windows dependency.",
+      "Delivered customer-facing React and ASP.NET Core features, shipped as epics, that let teams manage content, customize data, and coordinate approvals.",
+      "Built AI Reviewer and AI Insights, and contributed to AI Skills and AI Teammates, giving customers agent-assisted content review and insights.",
+      "Fixed form-rendering and UI defects that helped the product pass a third-party WCAG 2.2 AA audit.",
+      "Fixed slow and failing exports, complex queries, and Lambda file processing; QA and customers confirmed the fixes.",
+      "Helped move Windows services from EC2 to Linux containers on ECS Fargate, and built Lambda file processors with no Windows dependency.",
     ],
   },
   {
@@ -32,7 +32,7 @@ const fullScaleGroups = [
     label: "Earlier client · ASP.NET Core, Angular, Salesforce, Stripe",
     bullets: [
       "Built a Salesforce event-booking dashboard for a corporate ticket-management platform.",
-      "Delivered ASP.NET Core and Angular features and integrated Stripe payments.",
+      "Delivered ASP.NET Core and Angular features and integrated Stripe payments for a corporate ticket-management platform.",
     ],
   },
   {
@@ -40,8 +40,8 @@ const fullScaleGroups = [
     label: "ASP.NET Core, Blazor, Azure",
     bullets: [
       "Sped up data fetches by replacing slow external API calls with direct database access and optimized queries.",
-      "Extended billing workflows and exports, and integrated QuickBooks employee data so staff no longer switch tools.",
-      "Set up GitHub Actions and Zoho CI/CD for Azure deployment.",
+      "Extended billing workflows and exports, and integrated QuickBooks employee data so staff can work without switching tools.",
+      "Set up CI/CD with GitHub Actions and Zoho to deploy the internal billing system to Azure.",
     ],
   },
 ] as const;
@@ -51,11 +51,11 @@ const fullScaleHomeGroups = [
     client: "Lytho",
     label: "Current client · React, C# / ASP.NET Core, SQL Server, AWS",
     bullets: [
-      "Shipped customer-facing feature epics across React and ASP.NET Core services: content management, data customization, and approval workflows.",
-      "Built AI Reviewer and AI Insights, and contributed to AI Skills and AI Teammates, so customers can review content and surface insights.",
-      "Improved UI and accessibility, including form-rendering fixes, for a product that passed a third-party WCAG 2.2 AA audit.",
+      "Delivered customer-facing feature epics across React and ASP.NET Core services: content management, data customization, and approval workflows.",
+      "Built AI Reviewer and AI Insights, and contributed to AI Skills and AI Teammates, giving customers agent-assisted content review and insights.",
+      "Fixed form-rendering and UI defects that helped the product pass a third-party WCAG 2.2 AA audit.",
       "Fixed slow and failing exports, complex queries, and Lambda file processing; QA and customers confirmed the fixes.",
-      "Helped move Windows services from EC2 to Linux containers on ECS Fargate and added Lambda file processors without Windows dependencies.",
+      "Helped move Windows services from EC2 to Linux containers on ECS Fargate, and built Lambda file processors with no Windows dependency.",
     ],
   },
   {
@@ -85,7 +85,7 @@ export const experience = [
     kind: "Professional",
     current: true,
     summary:
-      "Full-stack delivery for client products through Full Scale’s offshore teams, in sprint-based Agile with trunk-based development. Builds with a Claude Code software factory I made for this work, which takes Jira tickets to reviewed, proven pull requests that I check and merge.",
+      "Built a Claude Code software factory that takes Jira tickets to reviewed, proven pull requests, which I check and merge. Full-stack delivery for client products through Full Scale’s offshore teams, in sprint-based Agile with trunk-based development.",
     highlights: [
       {
         action: "Lytho.",
@@ -151,7 +151,8 @@ export const experience = [
       },
     ],
     resumeBullets: [
-      "Founded NextDevs and led delivery of three PWAs (Crew Management System, Crew Portal, Crew Application) with Next.js, NestJS/Fastify, and Prisma; the CMS and portal were adopted across the client company.",
+      "Founded NextDevs and led delivery of three crew-management PWAs with Next.js, NestJS/Fastify, and Prisma: Crew Management System, Crew Portal, and Crew Application.",
+      "Shipped the Crew Management System and Crew Portal, which the client company adopted across its organization.",
       "Defined requirements and priorities directly with clients, coordinated frontend and QA, and resolved client-reported issues.",
       "Built admin reports and alerts for expiring documents, contracts, and disembarkation schedules, plus in-app generation and export of crew contracts.",
       "Set up Docker and NGINX integration-test environments; documented and validated APIs with Swagger and Postman.",
@@ -245,7 +246,7 @@ export const experience = [
       },
     ],
     resumeBullets: [
-      "Built and documented CodeIgniter APIs for an Alumni Portal, validating endpoint behavior with Postman to support integration and testing.",
+      "Built and documented CodeIgniter APIs for an Alumni Portal, validating endpoint behavior with Postman.",
       "Worked with senior developers to resolve production issues and maintained JavaScript/jQuery interfaces supporting ERP business workflows.",
     ],
     stack: ["PHP", "CodeIgniter", "JavaScript", "jQuery", "Postman"],
