@@ -20,11 +20,11 @@ const fullScaleGroups = [
     client: "Lytho",
     label: "Current client · React, C# / ASP.NET Core, SQL Server, AWS",
     bullets: [
-      "Shipped multiple customer-facing feature epics, expanding how teams manage content, customize data, and coordinate approvals.",
-      "Built AI Reviewer and AI Insights, and contributed to AI Skills and AI Teammates: agent features that help customers review content and surface insights.",
-      "Fixed form-rendering and UI defects that supported a passed third-party WCAG 2.2 AA audit.",
-      "Resolved export, complex-query, and Lambda processing bottlenecks; QA and customers verified exports after the fixes.",
-      "Helped move Windows services from EC2 to Linux containers on ECS Fargate and built Lambda file processors with no Windows dependency.",
+      "Delivered customer-facing feature epics that expanded how teams manage content, customize data, and coordinate approvals.",
+      "Built AI Reviewer and AI Insights, and contributed to AI Skills and AI Teammates, giving customers agent-assisted content review and insights.",
+      "Fixed form-rendering and UI defects that helped the product pass a third-party WCAG 2.2 AA audit.",
+      "Fixed slow and failing exports, complex queries, and Lambda file processing; QA and customers confirmed the fixes.",
+      "Helped move Windows services from EC2 to Linux containers on ECS Fargate, and built Lambda file processors with no Windows dependency.",
     ],
   },
   {
@@ -40,7 +40,7 @@ const fullScaleGroups = [
     label: "ASP.NET Core, Blazor, Azure",
     bullets: [
       "Sped up data fetches by replacing slow external API calls with direct database access and optimized queries.",
-      "Extended billing workflows and exports, and integrated QuickBooks employee data so staff no longer switch tools.",
+      "Extended billing workflows and exports, and integrated QuickBooks employee data so staff no longer switch between tools.",
       "Set up GitHub Actions and Zoho CI/CD for Azure deployment.",
     ],
   },
@@ -51,11 +51,11 @@ const fullScaleHomeGroups = [
     client: "Lytho",
     label: "Current client · React, C# / ASP.NET Core, SQL Server, AWS",
     bullets: [
-      "Shipped customer-facing feature epics across React and ASP.NET Core services: content management, data customization, and approval workflows.",
-      "Built AI Reviewer and AI Insights, and contributed to AI Skills and AI Teammates, so customers can review content and surface insights.",
-      "Improved UI and accessibility, including form-rendering fixes, for a product that passed a third-party WCAG 2.2 AA audit.",
+      "Delivered customer-facing feature epics across React and ASP.NET Core services: content management, data customization, and approval workflows.",
+      "Built AI Reviewer and AI Insights, and contributed to AI Skills and AI Teammates, giving customers agent-assisted content review and insights.",
+      "Fixed form-rendering and UI defects that helped the product pass a third-party WCAG 2.2 AA audit.",
       "Fixed slow and failing exports, complex queries, and Lambda file processing; QA and customers confirmed the fixes.",
-      "Helped move Windows services from EC2 to Linux containers on ECS Fargate and added Lambda file processors without Windows dependencies.",
+      "Helped move Windows services from EC2 to Linux containers on ECS Fargate, and built Lambda file processors with no Windows dependency.",
     ],
   },
   {
@@ -85,7 +85,7 @@ export const experience = [
     kind: "Professional",
     current: true,
     summary:
-      "Full-stack delivery for client products through Full Scale’s offshore teams, in sprint-based Agile with trunk-based development. Builds with a Claude Code software factory I made for this work, which takes Jira tickets to reviewed, proven pull requests that I check and merge.",
+      "Built a Claude Code software factory that takes Jira tickets to reviewed, proven pull requests, which I check and merge. Full-stack delivery for client products through Full Scale’s offshore teams, in sprint-based Agile with trunk-based development.",
     highlights: [
       {
         action: "Lytho.",
