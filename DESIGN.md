@@ -93,6 +93,10 @@ A page tells its story as it is scrolled, with five named moves and one observer
 
 Reduced motion, scripting off, print, the guided tour and anchor jumps show the final state at once.
 
+### Copy feedback
+
+Copying the email shows what a copy is. A Signal Blue selection sweeps across the address, holds, and lets go to the right in under two seconds, while a check draws beside the control and its label reads "Copied". The address stays a real link and the status is announced politely. With reduced motion the selection appears and disappears without a sweep.
+
 ### Flow
 
 Process walkthroughs draw connectors with --motion-sweep-in and change node state with --motion-in; they never loop on their own. On the /ai page the diagrams draw their connectors and icons in order the first time they enter view. Flow is shown as 2px particles (transform and opacity only, no glow) that travel along live connectors and pause offscreen, in a hidden tab and while the factory run is paused; in the factory run a ticket marker rides card to card along the connectors, the plan-approval and merge stops hold it as a hollow ring with the particles gathered until release, and the review loop returns it to Build. Reduced motion shows the final tinted state with no particles.

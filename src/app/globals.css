@@ -3090,6 +3090,72 @@ html[data-tour] .project-list > .project-feature {
 .contact-email > a:hover {
   color: var(--signal);
 }
+/* Copy email: a text selection sweeps across the address, holds, then lets go to the right. */
+.contact-email > a {
+  position: relative;
+}
+.contact-email > a::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: -0.08em -0.18em;
+  padding: 0.08em 0.18em;
+  background: var(--signal);
+  color: #fff;
+  clip-path: inset(0.16em 100% 0.16em 0);
+  pointer-events: none;
+}
+.contact-email[data-copied] > a::after {
+  animation: copy-select 1.9s var(--ease-out) both;
+}
+@keyframes copy-select {
+  0% {
+    clip-path: inset(0.16em 100% 0.16em 0);
+  }
+  26%,
+  82% {
+    clip-path: inset(0.16em 0);
+  }
+  100% {
+    clip-path: inset(0.16em 0 0.16em 100%);
+  }
+}
+.copy-email {
+  display: inline-flex;
+  align-items: center;
+}
+.copy-email svg {
+  width: 0;
+  height: 0.9em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 14;
+  stroke-dashoffset: 14;
+  transition:
+    width var(--motion-out) var(--ease-out),
+    margin var(--motion-out) var(--ease-out);
+}
+.contact-email[data-copied] .copy-email svg {
+  width: 0.9em;
+  margin-right: 0.4em;
+  stroke-dashoffset: 0;
+  transition:
+    width var(--motion-in) var(--ease-out),
+    margin var(--motion-in) var(--ease-out),
+    stroke-dashoffset var(--motion-sweep-in) var(--ease-out) 0.35s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-email[data-copied] > a::after {
+    animation: none;
+    clip-path: inset(0.16em 0);
+  }
+  .copy-email svg,
+  .contact-email[data-copied] .copy-email svg {
+    transition: none;
+  }
+}
 .contact-section nav {
   display: flex;
   flex-wrap: wrap;

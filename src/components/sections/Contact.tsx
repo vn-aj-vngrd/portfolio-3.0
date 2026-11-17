@@ -22,10 +22,7 @@ export function Contact() {
         <Chip icon="web">web</Chip>, <Chip icon="mobile">mobile</Chip>, and{" "}
         <Chip icon="server">backend</Chip>. Email is the best way to reach me.
       </p>
-      <div className="contact-email">
-        <a href={`mailto:${profile.email}`}>{profile.email}</a>
-        <CopyEmail email={profile.email} />
-      </div>
+      <CopyEmail email={profile.email} />
       <nav aria-label="Contact links">
         <a href={profile.linkedin} target="_blank" rel="noreferrer">
           LinkedIn ↗
