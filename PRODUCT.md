@@ -45,7 +45,7 @@ The product is Portfolio 3.0 and represents Van AJ Vanguardia. Its voice is calm
 - Public repository and contribution evidence presented through the GitHub surfaces.
 - A downloadable résumé and confirmed education and certification records.
 - An inspectable design-system route and `design.md` endpoint documenting the portfolio's interface language.
-- The AI workflow page documents Van’s current Claude Code setup and his software factory (Van-confirmed; no run metrics published).
+- The AI workflow page lists the agents Van has shipped in products and documents his current Claude Code setup and his two software factories: the personal one and the one he built for Lytho client work (Van-confirmed; described by shape only, with no source, tickets, or run metrics published).
 - No employer or client source, private repository names, fabricated testimonials, or unverified performance and impact metrics are available for publication.
 
 ## Product Principles
