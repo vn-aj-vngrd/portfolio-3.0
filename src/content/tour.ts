@@ -55,13 +55,13 @@ export const tourChapters: readonly TourChapter[] = [
         id: "intro-2",
         stop: "hero-signals",
         lines: [
-          "He has 3+ years taking products from requirements to production, across web, mobile apps, and backend.",
+          "He takes products from requirements to production, across web, mobile apps, and backend.",
           "Today, he builds AI features and agents into real products.",
         ],
         evidence: [
           {
             file: "src/content/profile.ts",
-            text: "3+ years taking products from requirements to production across web, mobile apps, and backend",
+            text: "years taking products from requirements to production across web, mobile apps, and backend",
           },
           {
             file: "src/content/ai-workflow.ts",

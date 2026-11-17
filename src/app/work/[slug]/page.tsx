@@ -30,7 +30,10 @@ export async function generateMetadata({
     title: `${project.name} Case Study`,
     description: project.summary,
     keywords: [project.name, project.category, ...project.stack],
-    alternates: { canonical: `/work/${project.slug}` },
+    alternates: {
+      canonical: `/work/${project.slug}`,
+      types: { "text/markdown": `/work/${project.slug}.md` },
+    },
     openGraph: {
       title,
       description: project.summary,
@@ -81,6 +84,20 @@ export default async function ProjectPage({
         ...(project.liveUrl ? [project.liveUrl] : []),
       ],
     },
+    ...(project.repository
+      ? [
+          {
+            "@type": "SoftwareSourceCode",
+            "@id": `${projectUrl}#source`,
+            name: `${project.name} source code`,
+            codeRepository: project.repository,
+            programmingLanguage: project.stack.find((item) =>
+              ["TypeScript", "Swift"].includes(item)
+            ),
+            author: { "@id": PERSON_ID },
+          },
+        ]
+      : []),
     breadcrumbSchema(project.name, `/work/${project.slug}`),
   ];
 

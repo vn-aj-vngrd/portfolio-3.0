@@ -82,7 +82,10 @@ export const metadata: Metadata = {
     url: "/",
     siteName: SITE_NAME,
     locale: "en_PH",
-    type: "website",
+    type: "profile",
+    firstName: "Van AJ",
+    lastName: "Vanguardia",
+    username: "vn-aj-vngrd",
     images: [DEFAULT_SOCIAL_IMAGE],
   },
   twitter: {

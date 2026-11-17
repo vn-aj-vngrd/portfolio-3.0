@@ -19,6 +19,9 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [{ source: "/work/:slug.md", destination: "/work/:slug/md" }];
+  },
   async headers() {
     return [
       {

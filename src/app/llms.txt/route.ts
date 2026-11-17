@@ -1,6 +1,7 @@
 import { llmsIndex } from "@/lib/profile-markdown";
 
-export const dynamic = "force-static";
+// The years of experience are computed from today's date, so re-render daily.
+export const revalidate = 86400;
 
 export function GET() {
   return new Response(llmsIndex(), {

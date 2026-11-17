@@ -12,7 +12,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/design`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/gear`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/resume`, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE_URL}/hire`, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE_URL}/lab`, changeFrequency: "monthly", priority: 0.5 },
+    // Plain-text copies for AI assistants and recruiters' tools.
+    ...["llms.txt", "llms-full.txt", "hire.md", "resume.md", "ai.md"].map(
+      (file) => ({
+        url: `${SITE_URL}/${file}`,
+        changeFrequency: "monthly" as const,
+        priority: 0.5,
+      })
+    ),
     ...labGames.map((game) => ({
       url: `${SITE_URL}/lab/${game.slug}`,
       changeFrequency: "monthly" as const,

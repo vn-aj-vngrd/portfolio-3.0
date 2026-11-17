@@ -25,22 +25,22 @@
       ]
     },
     "intro-2": {
-      "file": "/tour/intro-2.758a65ca.m4a",
-      "hash": "758a65ca",
-      "seconds": 11.1,
-      "bytes": 93433,
+      "file": "/tour/intro-2.fe5dceb6.m4a",
+      "hash": "fe5dceb6",
+      "seconds": 9.9,
+      "bytes": 82635,
       "lines": [
-        "He has 3+ years taking products from requirements to production, across web, mobile apps, and backend.",
+        "He takes products from requirements to production, across web, mobile apps, and backend.",
         "Today, he builds AI features and agents into real products."
       ],
       "cues": [
         {
           "start": 0,
-          "end": 6.63
+          "end": 5.41
         },
         {
-          "start": 6.91,
-          "end": 11.1
+          "start": 5.69,
+          "end": 9.9
         }
       ]
     },

@@ -1,14 +1,17 @@
 import { aiWorkflow } from "@/content/ai-workflow";
+import { experienceYears } from "@/content/career";
 import type { RichPart } from "@/types/content";
 
 // Plain-text twins of these paragraphs feed metadata; keep both in step.
+const years = experienceYears();
+
 const intro: readonly (readonly RichPart[])[] = [
   [
     "I’m a ",
     { chip: "product-driven engineer", icon: "code" },
     " in ",
     { chip: "Cebu", icon: "pin" },
-    " with 3+ years taking products from requirements to production across ",
+    ` with ${years} years taking products from requirements to production across `,
     { chip: "web", icon: "web" },
     ", ",
     { chip: "mobile apps", icon: "mobile" },
@@ -32,8 +35,8 @@ const intro: readonly (readonly RichPart[])[] = [
 export const profile = {
   name: "Van AJ Vanguardia",
   title: "AI Product Engineer / Software Engineer.",
-  statement:
-    "I’m a product-driven engineer in Cebu with 3+ years taking products from requirements to production across web, mobile apps, and backend.",
+  statement: `I’m a product-driven engineer in Cebu with ${years} years taking products from requirements to production across web, mobile apps, and backend.`,
+  experienceYears: years,
   intro,
   introduction: `I am based in Cebu, Philippines. ${aiWorkflow.profileSummary}`,
   location: "Cebu, Philippines",

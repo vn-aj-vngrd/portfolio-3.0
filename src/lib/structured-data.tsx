@@ -29,7 +29,8 @@ export function personSchema() {
     url: SITE_URL,
     image: absoluteUrl("/images/profile.jpg"),
     email: `mailto:${profile.email}`,
-    jobTitle: ["AI Engineer", "Software Engineer", "AI Product Engineer"],
+    // The headline used on every page; the held title is in hasOccupation.
+    jobTitle: profile.title.replace(/\.$/u, ""),
     description: profile.statement,
     address: {
       "@type": "PostalAddress",
@@ -59,6 +60,11 @@ export function personSchema() {
         credentialCategory: "degree",
         recognizedBy: { "@type": "CollegeOrUniversity", name: item.issuer },
       })),
+    seeks: {
+      "@type": "Demand",
+      name: "AI Engineer, AI Product Engineer, or full-stack Software Engineer role",
+    },
+    subjectOf: { "@id": `${SITE_URL}/hire#profile-page` },
     sameAs: [profile.github, profile.linkedin],
     knowsAbout: [
       "AI engineering",

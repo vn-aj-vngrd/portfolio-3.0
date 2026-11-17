@@ -3,38 +3,102 @@
 import { shippedAi } from "@/content/ai-workflow";
 import { experience } from "@/content/experience";
 import { factoryIntro, factoryPair } from "@/content/factory";
+import { hiring } from "@/content/hiring";
 import { profile } from "@/content/profile";
 import { projectCatalog } from "@/content/projects";
 import { resume, resumeProducts } from "@/content/resume";
-import { absoluteUrl, SITE_DESCRIPTION, SITE_URL } from "@/lib/seo";
+import {
+  absoluteUrl,
+  RESUME_PDF_PATH,
+  SITE_DESCRIPTION,
+  SITE_URL,
+} from "@/lib/seo";
 import type { Project } from "@/types/content";
 
 const bullets = (items: readonly string[]) =>
   items.map((item) => `- ${item}`).join("\n");
-
-const currentRole = experience.find(
-  (item) => "current" in item && item.current
-);
 
 const role = profile.title.replace(/\.$/u, "");
 
 function facts() {
   return bullets([
     `Name: ${profile.name}`,
-    `Role: ${role}`,
-    `Location: ${profile.location} (UTC+8)`,
-    `Availability: ${profile.availability}`,
-    ...(currentRole
-      ? [
-          `Current position: ${currentRole.role}, ${currentRole.company} (${currentRole.period})`,
-        ]
-      : []),
-    `Education: ${profile.education}`,
+    `Headline: ${role}`,
+    ...hiring.facts
+      .filter((fact) => fact.label !== "Contact")
+      .map((fact) => `${fact.label}: ${fact.value}`),
     `Email: ${profile.email}`,
     `GitHub: ${profile.github}`,
     `LinkedIn: ${profile.linkedin}`,
     `Website: ${SITE_URL}`,
+    `Résumé (PDF): ${absoluteUrl(RESUME_PDF_PATH)}`,
   ]);
+}
+
+const link = (href: string) =>
+  href.startsWith("/") ? absoluteUrl(href) : href;
+
+function claimsMarkdown() {
+  return hiring.claims
+    .map(
+      (item) =>
+        `- **${item.claim}** ${item.detail} Proof: ${item.proof
+          .map((proof) => `[${proof.label}](${link(proof.href)})`)
+          .join(", ")}`
+    )
+    .join("\n");
+}
+
+function faqMarkdown() {
+  return hiring.faq
+    .map((item) => `**${item.question}** ${item.answer}`)
+    .join("\n\n");
+}
+
+// /hire.md: the hiring brief as Markdown.
+export function hireMarkdown() {
+  return [
+    `# ${profile.name}: hiring brief`,
+    "",
+    `> ${SITE_DESCRIPTION}`,
+    "",
+    hiring.introduction,
+    "",
+    "## Facts",
+    "",
+    facts(),
+    "",
+    "## Claims and proof",
+    "",
+    claimsMarkdown(),
+    "",
+    "## Questions",
+    "",
+    faqMarkdown(),
+    "",
+    "## More",
+    "",
+    bullets([
+      `[Full profile](${absoluteUrl("/llms-full.txt")})`,
+      `[Résumé as Markdown](${absoluteUrl("/resume.md")})`,
+      `[Résumé as PDF](${absoluteUrl(RESUME_PDF_PATH)})`,
+    ]),
+    "",
+  ].join("\n");
+}
+
+// /work/<slug>.md: one case study as Markdown.
+export function caseStudyMarkdown(slug: string) {
+  const project = projectCatalog.find(slug);
+  if (!project) return null;
+  return [
+    `# ${project.name}: case study by ${profile.name}`,
+    "",
+    projectMarkdown(project).replace(/^### .*\n\n/u, ""),
+    "",
+    `Author: ${profile.name}, ${role}. ${absoluteUrl(hiring.path)}`,
+    "",
+  ].join("\n");
 }
 
 function projectLinks(project: Project) {
@@ -88,28 +152,72 @@ function projectMarkdown(project: Project) {
 
 function experienceMarkdown() {
   const lines: string[] = [];
-  for (const item of experience) {
-    lines.push(
-      `### ${item.role}, ${item.company} (${item.period})`,
-      "",
-      `${item.kind}. ${item.summary}`,
-      ""
-    );
-    if ("resumeGroups" in item && item.resumeGroups) {
-      for (const group of item.resumeGroups) {
-        lines.push(
-          `**${group.client}** (${group.label})`,
-          "",
-          bullets(group.bullets),
-          ""
-        );
+  const groups = [
+    ["Professional", "Professional experience"],
+    ["Internship", "Internships"],
+    ["Capstone", "University capstone"],
+  ] as const;
+  for (const [kind, heading] of groups) {
+    lines.push(`### ${heading}`, "");
+    for (const item of experience.filter((entry) => entry.kind === kind)) {
+      lines.push(
+        `#### ${item.role}, ${item.company} (${item.period})`,
+        "",
+        item.summary,
+        ""
+      );
+      if ("resumeGroups" in item && item.resumeGroups) {
+        for (const group of item.resumeGroups) {
+          lines.push(
+            `**${group.client}** (${group.label})`,
+            "",
+            bullets(group.bullets),
+            ""
+          );
+        }
+      } else if (item.resumeBullets) {
+        lines.push(bullets(item.resumeBullets), "");
       }
-    } else if (item.resumeBullets) {
-      lines.push(bullets(item.resumeBullets), "");
+      lines.push(`Stack: ${item.stack.join(", ")}`, "");
     }
-    lines.push(`Stack: ${item.stack.join(", ")}`, "");
   }
   return lines.join("\n").trimEnd();
+}
+
+function aiSection() {
+  return [
+    "AI agents shipped in products:",
+    "",
+    bullets(
+      shippedAi.map(
+        (item) =>
+          `**${item.name}: ${item.title}.** ${item.description} (${item.stack})`
+      )
+    ),
+    "",
+    `**Software factories.** ${factoryIntro.lead.join(" ")} ${factoryPair.lead}`,
+    "",
+    bullets(
+      factoryPair.rows.map(
+        (row) =>
+          `${row.label}. ${factoryPair.columns.personal.name}: ${row.personal} ${factoryPair.columns.work.name}: ${row.work}`
+      )
+    ),
+    "",
+    factoryPair.note,
+  ].join("\n");
+}
+
+// /ai.md: the AI page as Markdown.
+export function aiMarkdown() {
+  return [
+    `# ${profile.name}: AI engineering and software factories`,
+    "",
+    aiSection(),
+    "",
+    `Page: ${absoluteUrl("/ai")}. Hiring brief: ${absoluteUrl(hiring.path)}`,
+    "",
+  ].join("\n");
 }
 
 function skillsMarkdown() {
@@ -209,14 +317,18 @@ export function llmsIndex() {
     "## Full text",
     "",
     bullets([
+      `[Hiring brief](${absoluteUrl("/hire.md")}): target roles, facts, and each claim linked to its proof`,
       `[Full profile](${absoluteUrl("/llms-full.txt")}): every case study, role, and skill on this site as one Markdown file`,
       `[Résumé](${absoluteUrl("/resume.md")}): the résumé as Markdown`,
+      `[Résumé PDF](${absoluteUrl(RESUME_PDF_PATH)}): the résumé as a file`,
+      `[AI engineering](${absoluteUrl("/ai.md")}): shipped agents and the two software factories`,
     ]),
     "",
     "## Pages",
     "",
     bullets([
       `[Portfolio](${SITE_URL}): introduction, products, tech stack, experience, credentials, and contact`,
+      `[Hiring brief](${absoluteUrl(hiring.path)}): the short version for recruiters and their AI agents`,
       `[Résumé](${absoluteUrl("/resume")}): printable résumé`,
       `[AI workflow](${absoluteUrl("/ai")}): how Van builds with Claude Code and his software factory`,
       `[GitHub activity](${absoluteUrl("/github")}): contribution and language aggregates`,
@@ -227,7 +339,7 @@ export function llmsIndex() {
     bullets(
       projects.map(
         (project) =>
-          `[${project.name}](${absoluteUrl(`/work/${project.slug}`)}): ${project.category}. ${project.summary}`
+          `[${project.name}](${absoluteUrl(`/work/${project.slug}.md`)}): ${project.category}. ${project.summary}`
       )
     ),
     "",
@@ -251,31 +363,23 @@ export function llmsFull() {
     "",
     profile.philosophy,
     "",
+    "## Claims and proof",
+    "",
+    claimsMarkdown(),
+    "",
+    "## Questions",
+    "",
+    faqMarkdown(),
+    "",
     "## Skills",
     "",
     skillsMarkdown(),
     "",
     "## AI engineering",
     "",
-    "AI agents shipped in products:",
+    aiSection(),
     "",
-    bullets(
-      shippedAi.map(
-        (item) =>
-          `**${item.name}: ${item.title}.** ${item.description} (${item.stack})`
-      )
-    ),
-    "",
-    `**Software factories.** ${factoryIntro.lead.join(" ")} ${factoryPair.lead}`,
-    "",
-    bullets(
-      factoryPair.rows.map(
-        (row) =>
-          `${row.label}. ${factoryPair.columns.personal.name}: ${row.personal} ${factoryPair.columns.work.name}: ${row.work}`
-      )
-    ),
-    "",
-    `${factoryPair.note} Details: ${absoluteUrl("/ai")}`,
+    `Details: ${absoluteUrl("/ai")}`,
     "",
     "## Products and case studies",
     "",

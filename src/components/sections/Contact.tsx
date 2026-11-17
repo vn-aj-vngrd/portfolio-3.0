@@ -33,7 +33,8 @@ export function Contact() {
         <a href={profile.github} target="_blank" rel="noreferrer">
           GitHub ↗
         </a>
-        <a href="/resume">Resume →</a>
+        <a href="/resume">Résumé →</a>
+        <a href="/hire">Hiring brief →</a>
       </nav>
     </section>
   );

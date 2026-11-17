@@ -4,14 +4,15 @@ import Link from "next/link";
 import { HeroIntro } from "@/components/sections/HeroIntro";
 import { TourEntry } from "@/components/tour/TourEntry";
 import { aiWorkflow } from "@/content/ai-workflow";
+import { hiring } from "@/content/hiring";
 import { profile } from "@/content/profile";
 
 const signals = [
-  { value: "3+ years", label: "Product engineering" },
+  { value: `${profile.experienceYears} years`, label: "Product engineering" },
   { value: "Web and mobile", label: "Interfaces people use" },
   { value: "Backend and cloud", label: "APIs, data, delivery" },
   { value: "AI features", label: "Agents and Claude Code" },
-] as const;
+];
 
 export function Hero() {
   return (
@@ -36,6 +37,7 @@ export function Hero() {
         <p className="hero-kicker">Hello, I’m</p>
         <h1 id="hero-title">{profile.name}</h1>
         <p className="hero-role">{profile.title}</p>
+        <p className="hero-status">{hiring.status}</p>
         <HeroIntro />
         <nav className="hero-links" aria-label="Profile links">
           <TourEntry variant="hero" />
@@ -46,6 +48,7 @@ export function Hero() {
             LinkedIn ↗
           </a>
           <Link href="/resume">Résumé ↗</Link>
+          <Link href="/hire">Hiring brief →</Link>
           <Link href={aiWorkflow.path}>{aiWorkflow.navigationLabel} →</Link>
         </nav>
       </div>
