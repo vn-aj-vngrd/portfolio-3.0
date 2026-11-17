@@ -25,7 +25,7 @@ export function ShippedAgentLoop() {
         {shippedAgentLoop.title}
       </h3>
       <div className="fxl-stage">
-        <ol className="fxl-steps">
+        <ol className="fxl-steps" role="list">
           {steps.map((step, i) => (
             <li
               key={step.label}
@@ -65,7 +65,7 @@ export function ShippedAgentLoop() {
             <i />
           </span>
         </div>
-        <div className="fxl-routes">
+        <div className="fxl-routes" aria-hidden="true">
           <p className="fxl-return">
             <span>{shippedAgentLoop.dismissed}</span>
           </p>
