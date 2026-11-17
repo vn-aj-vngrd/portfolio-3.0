@@ -28,10 +28,12 @@ export function ProjectFeature({
   return (
     <article
       className={`project-feature project-${project.slug}`}
+      data-tags={project.tags.join(" ")}
       data-tour-stop={tourStopId.project(project.slug)}
     >
       <div className="project-copy">
-        <p className="project-number">0{index + 1}</p>
+        {/* The number is a CSS counter, so it follows whatever the filter shows. */}
+        <p className="project-number" aria-hidden="true" />
         <p className="project-category">{project.category}</p>
         <h3>{project.name}</h3>
         <p className="project-summary">{project.summary}</p>

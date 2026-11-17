@@ -93,6 +93,7 @@ const projectEntries = [
     role: "Designed and built independently",
     status: "Live web product · Source available",
     featured: true,
+    tags: ["ai", "web"],
     stack: [
       "Next.js",
       "TypeScript",
@@ -504,6 +505,7 @@ const projectEntries = [
     role: "Designed and built independently",
     status: "Live · Open source · Self-hostable",
     featured: true,
+    tags: ["ai", "web"],
     stack: [
       "Next.js",
       "TypeScript",
@@ -870,6 +872,7 @@ const projectEntries = [
     role: "Designed and built independently",
     status: "Mobile prototype · Source available",
     featured: true,
+    tags: ["ai", "mobile"],
     stack: [
       "TypeScript",
       "React Native",
@@ -1237,6 +1240,7 @@ const projectEntries = [
     role: "Designed and built the public website and CMS",
     status: "Live organization website",
     featured: true,
+    tags: ["web"],
     stack: [
       "Next.js",
       "TypeScript",
@@ -1526,364 +1530,6 @@ const projectEntries = [
     liveUrl: "https://www.astro-foundation.com/",
   },
   {
-    slug: "balay",
-    name: "Balay",
-    category: "Interactive 3D web experiment · Home design",
-    summary:
-      "Balay is a fun experiment: a two-storey tropical-modern house you can walk through in the browser. Take a narrated tour, switch between Overview, Walk, and Fly, open doors, cabinets, and curtains, cut the house open by floor, see wiring, plumbing, and structure through the walls, and light it by the Cebu clock or one of five night scenes.",
-    match: {
-      prompt:
-        "A homeowner wants to judge a house design, its rooms, lighting, and wiring, before anything is built.",
-      clue: "Look for the product that lets you walk through the house in 3D.",
-      result:
-        "Balay turns one typed layout into a walkable 3D house, a narrated tour, and a floor plan, so design decisions can be felt before construction starts.",
-    },
-    problem:
-      "Plans and sketches make it hard to judge how a house will feel: how wide the stair is, where light falls at 6 PM, whether a desk fits beside a bed. Every change meant redrawing several documents by hand.",
-    solution:
-      "One typed data module describes the rooms, openings, furniture, finishes, and electrical points. A three.js engine and a floor-plan page both redraw from it, so a design change shows up in the walkthrough, the tour, and the plan together.",
-    role: "Designed and built independently",
-    status: "Live experiment · Closed source",
-    featured: true,
-    stack: [
-      "React",
-      "TypeScript",
-      "three.js",
-      "Vite",
-      "Zustand",
-      "React Router",
-      "Vitest",
-      "Vercel",
-    ],
-    decisions: [
-      {
-        title: "Make the layout the single source of truth",
-        body: "Geometry, furniture, finishes, and electrical points live in typed data files. The 3D scene and the floor plan are drawn from them, so the two views cannot disagree.",
-      },
-      {
-        title: "Keep the engine outside React",
-        body: "A framework-agnostic three.js engine owns the scene and exposes a small viewer API. React renders the chrome around it and never touches scene objects directly.",
-      },
-      {
-        title: "Let visitors explore at their own pace",
-        body: "Overview orbits the house, Walk moves at eye height, and Fly roams freely. Doors, cabinets, and curtains respond to a switch, and room shortcuts jump straight to a view.",
-      },
-      {
-        title: "Show what is behind the walls",
-        body: "X-ray layers reveal wiring and smart-home points, plumbing and drainage, and structure. Lighting presets and a Cebu-time sun show the house in morning light or evening glow.",
-      },
-    ],
-    journey: {
-      screenShape: "wide",
-      title: "Walk the whole house before it exists.",
-      summary:
-        "Balay is one typed layout drawn live in three.js. Every control below changes the same model: the views, the open doors, the layers behind the walls, the light, the tour, and the floor plan.",
-      chapters: [
-        {
-          label: "Look at the house",
-          title: "Start outside, in daylight or at dusk.",
-          lead: "The viewer opens on the front of the house. Outside, Inside, and Cutaways tabs group every saved view, and each view says what it is showing.",
-          points: [
-            "Seven outside views: the front, the street, the arrival path, the side path, the rear garden, an aerial of the whole lot, and an evening view.",
-            "The aerial shows the lot, the street, the carport pocket, and the roof lid, so proportions can be judged before anything else.",
-            "The same house reads very differently in morning sun and in the lit dusk view, with soffit downlights and warm interiors.",
-          ],
-          screens: [
-            balayScreen(
-              "front-day",
-              "Front, daylight",
-              "Balay front view in daylight: a two-storey house with a stone base, a timber slat band, a glass balcony and a timber gate, beside the sidebar of views and switches"
-            ),
-            balayScreen(
-              "aerial",
-              "Aerial",
-              "Balay aerial view of the lot with the house, carport, palms, garden and street"
-            ),
-            balayScreen(
-              "exterior",
-              "Evening view",
-              "Balay evening view with warm lit interiors, uplit palms and soffit downlights against a dusk sky"
-            ),
-          ],
-        },
-        {
-          label: "Go to a room",
-          title: "Any room is one click or one key away.",
-          lead: "A Go to menu groups the rooms by floor and outside, and the number keys jump straight to them.",
-          points: [
-            "Ground floor, upper floor, and outside shortcuts: living, kitchen and dining, foyer, stair, master bedroom, work desk, balcony, ensuite, second bedroom, front, and the rear garden.",
-            "Each stop frames the room the way it is used: the master bed facing the wall TV, the floating oak desk on its hidden brackets, the stair rising past the powder room.",
-            "A caption names every view and describes what to look at, so the walkthrough explains itself.",
-          ],
-          screens: [
-            balayScreen(
-              "go-to-menu",
-              "Go to menu",
-              "Balay Go to menu open over the living room, listing ground floor, upper floor and outside rooms with number key hints"
-            ),
-            balayScreen(
-              "master-bedroom",
-              "Master bedroom",
-              "Balay master bedroom with a bed against a fluted timber wall, bedside tables and a glass balcony door"
-            ),
-            balayScreen(
-              "work-desk",
-              "Work desk",
-              "Balay work desk: a floating oak desk with a wide monitor and a chair beside a timber partition"
-            ),
-          ],
-        },
-        {
-          label: "Move your way",
-          title: "Overview, Walk, and Fly.",
-          lead: "One switch changes how the camera moves, and the rest of the interface gets out of the way.",
-          points: [
-            "Overview orbits the house. Walk drops the camera to eye height and moves with WASD or touch. Fly roams freely, and a small pill names the mode and where you are.",
-            "Keys O, E, and Q jump to a mode, F cycles through them, and H hides the whole interface for a clean look.",
-            "Phones get a bottom sheet and touch controls, and landscape gets a side rail, so the same model stays usable away from a desk.",
-          ],
-          screens: [
-            balayScreen(
-              "walk-mode",
-              "Walk mode",
-              "Balay Walk mode at eye height in the living room with the sidebar hidden and a small Walk pill at the top"
-            ),
-            balayScreen(
-              "fly-mode",
-              "Fly mode",
-              "Balay Fly mode high above the lot with the house, carport and street, and a Fly pill naming the current position"
-            ),
-          ],
-        },
-        {
-          label: "Open it up",
-          title: "Doors, cabinets, and curtains actually move.",
-          lead: "Three switches under Open & close answer the questions a drawing cannot: what is inside, and how does the room look closed up.",
-          points: [
-            "Open all doors swings every door and slider, and Open cabinets pulls the kitchen cabinets and shelves open to show what they hold.",
-            "Close curtains draws the sheers across the living, dining, and bedroom glass, including a full-length curtain in the second bedroom.",
-            "Each switch is one call on the viewer API, and the sidebar reflects the engine state rather than keeping its own copy.",
-          ],
-          screens: [
-            balayScreen(
-              "open-kitchen",
-              "Cabinets open",
-              "Balay kitchen with cabinet doors and drawers open, showing shelves and the fridge, with the Open all doors and Open cabinets switches on"
-            ),
-            balayScreen(
-              "curtains-bedroom",
-              "Curtains closed, bedroom",
-              "Balay second bedroom with full-length sheer curtains closed over the window and a desk and shelf beside the beds"
-            ),
-            balayScreen(
-              "curtains-balcony",
-              "Curtains closed, balcony door",
-              "Balay balcony sliding door seen through closed sheer curtains"
-            ),
-          ],
-        },
-        {
-          label: "Peel it back",
-          title: "Cut the house open, floor by floor.",
-          lead: "Display modes and cutaway views show how the floors fit together, which is the part a render never shows.",
-          points: [
-            "Whole House, No Roof, and Ground modes remove the roof or the upper floor so the plan reads from above.",
-            "Ground floor, upper floor, and stair slot cutaways are ready-made dollhouse views with the furniture in place.",
-            "Room names label every space on demand, and a sketch-plan overlay lays the lot outline over the model.",
-          ],
-          screens: [
-            balayScreen(
-              "cutaway-ground",
-              "Ground floor cutaway",
-              "Balay ground floor cutaway from above showing the stair, living room, kitchen, foyer and carport"
-            ),
-            balayScreen(
-              "cutaway-upper",
-              "Upper floor cutaway",
-              "Balay upper floor cutaway from above showing the master bedroom, work desk, balcony and second bedroom"
-            ),
-            balayScreen(
-              "stair-slot",
-              "The stair slot",
-              "Balay stair slot cutaway looking down on the white stair fold under the skylight beside the living room"
-            ),
-            balayScreen(
-              "room-names",
-              "Room names",
-              "Balay ground floor cutaway with room name labels on the living room, kitchen and dining, foyer, entry hall and powder room"
-            ),
-          ],
-        },
-        {
-          label: "See behind the walls",
-          title: "Three X-ray layers.",
-          lead: "Wiring, plumbing, and structure are drawn through the walls, so the systems can be checked as part of the design.",
-          points: [
-            "Wiring and smart home shows circuits, outlets, lighting and the network points, with a legend for power, dedicated, aircon, data, and low voltage.",
-            "Plumbing and drainage draws cold and hot water, drains, vents, rainwater, the tank, and the septic tank through the walls.",
-            "Structure shows footings, columns, beams, and slabs as colored frames over the house.",
-          ],
-          screens: [
-            balayScreen(
-              "xray-wiring",
-              "Wiring and smart home",
-              "Balay upper floor cutaway with colored wiring routes and labeled network points drawn through the walls and a legend at the bottom"
-            ),
-            balayScreen(
-              "xray-plumbing",
-              "Plumbing and drainage",
-              "Balay ground floor cutaway with teal and orange pipe routes, labeled tank and drains, and a legend for cold water, hot water, drain, vent and rainwater"
-            ),
-            balayScreen(
-              "xray-structure",
-              "Structure",
-              "Balay aerial view with footings, columns, beams and slabs drawn as blue and orange frames inside the house"
-            ),
-          ],
-        },
-        {
-          label: "Light it",
-          title: "Cebu time, five scenes, and every date.",
-          lead: "The light panel follows the clock in Cebu, or hands control back so you can pick the hour, the date, and the scene.",
-          points: [
-            "A live Cebu time switch sets the sky and sun from the real clock. Touching any other light control turns it off.",
-            "Day, Dusk, and Night, plus five night scenes: Evening, Bright, Movie, Reading in bed, and Off.",
-            "A date picker and a sun-time slider show where the sun falls on solstice, equinox, and in between, and a ceiling lights switch lights every downlight and cove at once.",
-          ],
-          screens: [
-            balayScreen(
-              "light-movie",
-              "Movie scene",
-              "Balay living room at night in the Movie scene with the TV backlight glowing and the rest of the room dim, beside the Light panel"
-            ),
-            balayScreen(
-              "light-reading",
-              "Reading in bed",
-              "Balay master bedroom at night in the Reading in bed scene, with both bedside lights on the pillows and the room dim"
-            ),
-            balayScreen(
-              "light-bright",
-              "Bright scene",
-              "Balay living room at night in the Bright scene with every ceiling light up and a cove light along the ceiling edge"
-            ),
-            balayScreen(
-              "light-ceiling",
-              "Ceiling lights on",
-              "Balay work desk at night with the ceiling lights switch on and a warm light spread across the wall and floor"
-            ),
-          ],
-        },
-        {
-          label: "Point and ask",
-          title: "Hover to name what you see.",
-          lead: "Hover labels turn the model into something that explains itself.",
-          points: [
-            "Point at any object and a card names it and says what it is, such as the counter-depth fridge, the water dispenser, or the cabinet, and whether it counts toward the build budget.",
-            "Overlays, captions, and tooltips share one motion language, so panels open and close the same way everywhere.",
-          ],
-          screens: [
-            balayScreen(
-              "hover-labels",
-              "Hover labels",
-              "Balay kitchen with a hover label describing the refrigerator, pointed at in the 3D view"
-            ),
-          ],
-        },
-        {
-          label: "Tour and plan",
-          title: "A narrated tour, and the plan behind it.",
-          lead: "Take the Tour plays twelve chapters with a voice and a score, and the floor plan page reads the same layout data.",
-          points: [
-            "The tour runs from arrival through foyer, kitchen, living, garden, stair, master, desk, ensuite, balcony, and second bedroom to the evening view, with captions and a progress bar.",
-            "Narration is pre-rendered with an open voice model, the music is generated live in the browser, and the whole tour can be downloaded as an MP4 or opened from a share link.",
-            "The floor plan has Site, Ground floor, Upper floor, and Areas tabs with dimensions, areas, and a Show in 3D button for every room.",
-          ],
-          screens: [
-            balayScreen(
-              "tour-arrival",
-              "Tour, arrival",
-              "Balay tour at its first chapter: the front of the house with narration captions, a chapter counter and a player bar"
-            ),
-            balayScreen(
-              "tour-garden",
-              "Tour, garden",
-              "Balay tour in the rear garden chapter with a caption and player controls"
-            ),
-            balayScreen(
-              "plan-upper",
-              "Upper floor plan",
-              "Balay floor plan page showing the upper floor with the master bedroom, balcony, ensuite, second bedroom and stair, plus lot and area totals"
-            ),
-            balayScreen(
-              "plan-areas",
-              "Areas",
-              "Balay floor plan Areas tab listing every room and its area for the ground and upper floors, with total floor area"
-            ),
-          ],
-        },
-      ],
-    },
-    architectureSummary:
-      "A Vite single-page app with a three.js engine behind a typed viewer API. Zustand holds interface state, React Router serves the 3D viewer and the floor plan, and the whole site deploys as static files on Vercel.",
-    architecture: [
-      {
-        title: "Typed layout data",
-        body: "Rooms, openings, heights, furniture, and the site are described in TypeScript. Materials and electrical points sit in their own modules so each concern has one home.",
-      },
-      {
-        title: "three.js viewer engine",
-        body: "createViewer() builds the house from the data and returns controls for views, walk and fly modes, picking, lighting, and layers. Test hooks on the window let browser checks drive it.",
-      },
-      {
-        title: "Guided tour",
-        body: "A deterministic timeline of camera shots plays pre-rendered narration and a generated score. The same timeline can be exported as an MP4 video in the browser.",
-      },
-      {
-        title: "Floor plan",
-        body: "An SVG floor plan with Site, Ground floor, Upper floor, and Areas tabs reads the same layout data. Selecting a room opens it in 3D.",
-      },
-    ],
-    evidence: [
-      "The live viewer offers Outside, Inside, and Cutaways views, a Go to menu with number-key shortcuts, Overview, Walk, and Fly modes, and a screenshot control.",
-      "Switches open all doors and cabinets, close curtains, and toggle room names, hover labels, and wiring, plumbing, and structure layers.",
-      "The Light panel follows the Cebu clock or lets you pick Day, Dusk, or Night, five night scenes, a date, and a sun time.",
-      "A twelve-chapter narrated tour plays in the browser, opens from a share link, and downloads as an MP4.",
-      "The floor plan page has Site, Ground floor, Upper floor, and Areas tabs, with a Show in 3D button on every room.",
-      "Unit tests cover the layout data and pure helpers, and the app builds to static files for Vercel.",
-    ],
-    images: [
-      {
-        src: "/images/projects/balay/exterior.webp",
-        alt: "Balay 3D viewer showing the front of a two-storey modern house at dusk with a timber gate, palms, and lit interiors",
-        width: 1920,
-        height: 1200,
-        label: "Exterior at dusk",
-      },
-      {
-        src: "/images/projects/balay/living.webp",
-        alt: "Balay 3D viewer inside the living room with a fluted timber TV wall, sofa, round coffee table, and full-width glass to the garden",
-        width: 1920,
-        height: 1200,
-        label: "Living room",
-      },
-      {
-        src: "/images/projects/balay/floor-plan.webp",
-        alt: "Balay floor plan page showing the ground floor with living, kitchen and dining, entry hall, foyer, carport, and area totals",
-        width: 1920,
-        height: 1200,
-        label: "Floor plan",
-      },
-    ],
-    coverImage: {
-      src: "/images/projects/balay/front-morning.webp",
-      alt: "Balay 3D viewer showing the front of the two-storey modern house in morning light, with a timber gate, palms, and the tour panel open",
-      width: 2880,
-      height: 1800,
-    },
-    repository: undefined,
-    liveUrl: "https://balay.vanajvanguardia.tech/",
-  },
-  {
     slug: "aqd",
     name: "AQD",
     category: "Native iOS app · Personal wardrobe",
@@ -1903,6 +1549,7 @@ const projectEntries = [
     role: "Designed and built independently",
     status: "Personal iOS app · Source available",
     featured: true,
+    tags: ["ai", "mobile"],
     stack: [
       "Swift",
       "SwiftUI",
@@ -2309,6 +1956,365 @@ const projectEntries = [
       ],
     },
     repository: "https://github.com/vn-aj-vngrd/aqd",
+  },
+  {
+    slug: "balay",
+    name: "Balay",
+    category: "Interactive 3D web experiment · Home design",
+    summary:
+      "Balay is a fun experiment: a two-storey tropical-modern house you can walk through in the browser. Take a narrated tour, switch between Overview, Walk, and Fly, open doors, cabinets, and curtains, cut the house open by floor, see wiring, plumbing, and structure through the walls, and light it by the Cebu clock or one of five night scenes.",
+    match: {
+      prompt:
+        "A homeowner wants to judge a house design, its rooms, lighting, and wiring, before anything is built.",
+      clue: "Look for the product that lets you walk through the house in 3D.",
+      result:
+        "Balay turns one typed layout into a walkable 3D house, a narrated tour, and a floor plan, so design decisions can be felt before construction starts.",
+    },
+    problem:
+      "Plans and sketches make it hard to judge how a house will feel: how wide the stair is, where light falls at 6 PM, whether a desk fits beside a bed. Every change meant redrawing several documents by hand.",
+    solution:
+      "One typed data module describes the rooms, openings, furniture, finishes, and electrical points. A three.js engine and a floor-plan page both redraw from it, so a design change shows up in the walkthrough, the tour, and the plan together.",
+    role: "Designed and built independently",
+    status: "Live experiment · Closed source",
+    featured: true,
+    tags: ["web"],
+    stack: [
+      "React",
+      "TypeScript",
+      "three.js",
+      "Vite",
+      "Zustand",
+      "React Router",
+      "Vitest",
+      "Vercel",
+    ],
+    decisions: [
+      {
+        title: "Make the layout the single source of truth",
+        body: "Geometry, furniture, finishes, and electrical points live in typed data files. The 3D scene and the floor plan are drawn from them, so the two views cannot disagree.",
+      },
+      {
+        title: "Keep the engine outside React",
+        body: "A framework-agnostic three.js engine owns the scene and exposes a small viewer API. React renders the chrome around it and never touches scene objects directly.",
+      },
+      {
+        title: "Let visitors explore at their own pace",
+        body: "Overview orbits the house, Walk moves at eye height, and Fly roams freely. Doors, cabinets, and curtains respond to a switch, and room shortcuts jump straight to a view.",
+      },
+      {
+        title: "Show what is behind the walls",
+        body: "X-ray layers reveal wiring and smart-home points, plumbing and drainage, and structure. Lighting presets and a Cebu-time sun show the house in morning light or evening glow.",
+      },
+    ],
+    journey: {
+      screenShape: "wide",
+      title: "Walk the whole house before it exists.",
+      summary:
+        "Balay is one typed layout drawn live in three.js. Every control below changes the same model: the views, the open doors, the layers behind the walls, the light, the tour, and the floor plan.",
+      chapters: [
+        {
+          label: "Look at the house",
+          title: "Start outside, in daylight or at dusk.",
+          lead: "The viewer opens on the front of the house. Outside, Inside, and Cutaways tabs group every saved view, and each view says what it is showing.",
+          points: [
+            "Seven outside views: the front, the street, the arrival path, the side path, the rear garden, an aerial of the whole lot, and an evening view.",
+            "The aerial shows the lot, the street, the carport pocket, and the roof lid, so proportions can be judged before anything else.",
+            "The same house reads very differently in morning sun and in the lit dusk view, with soffit downlights and warm interiors.",
+          ],
+          screens: [
+            balayScreen(
+              "front-day",
+              "Front, daylight",
+              "Balay front view in daylight: a two-storey house with a stone base, a timber slat band, a glass balcony and a timber gate, beside the sidebar of views and switches"
+            ),
+            balayScreen(
+              "aerial",
+              "Aerial",
+              "Balay aerial view of the lot with the house, carport, palms, garden and street"
+            ),
+            balayScreen(
+              "exterior",
+              "Evening view",
+              "Balay evening view with warm lit interiors, uplit palms and soffit downlights against a dusk sky"
+            ),
+          ],
+        },
+        {
+          label: "Go to a room",
+          title: "Any room is one click or one key away.",
+          lead: "A Go to menu groups the rooms by floor and outside, and the number keys jump straight to them.",
+          points: [
+            "Ground floor, upper floor, and outside shortcuts: living, kitchen and dining, foyer, stair, master bedroom, work desk, balcony, ensuite, second bedroom, front, and the rear garden.",
+            "Each stop frames the room the way it is used: the master bed facing the wall TV, the floating oak desk on its hidden brackets, the stair rising past the powder room.",
+            "A caption names every view and describes what to look at, so the walkthrough explains itself.",
+          ],
+          screens: [
+            balayScreen(
+              "go-to-menu",
+              "Go to menu",
+              "Balay Go to menu open over the living room, listing ground floor, upper floor and outside rooms with number key hints"
+            ),
+            balayScreen(
+              "master-bedroom",
+              "Master bedroom",
+              "Balay master bedroom with a bed against a fluted timber wall, bedside tables and a glass balcony door"
+            ),
+            balayScreen(
+              "work-desk",
+              "Work desk",
+              "Balay work desk: a floating oak desk with a wide monitor and a chair beside a timber partition"
+            ),
+          ],
+        },
+        {
+          label: "Move your way",
+          title: "Overview, Walk, and Fly.",
+          lead: "One switch changes how the camera moves, and the rest of the interface gets out of the way.",
+          points: [
+            "Overview orbits the house. Walk drops the camera to eye height and moves with WASD or touch. Fly roams freely, and a small pill names the mode and where you are.",
+            "Keys O, E, and Q jump to a mode, F cycles through them, and H hides the whole interface for a clean look.",
+            "Phones get a bottom sheet and touch controls, and landscape gets a side rail, so the same model stays usable away from a desk.",
+          ],
+          screens: [
+            balayScreen(
+              "walk-mode",
+              "Walk mode",
+              "Balay Walk mode at eye height in the living room with the sidebar hidden and a small Walk pill at the top"
+            ),
+            balayScreen(
+              "fly-mode",
+              "Fly mode",
+              "Balay Fly mode high above the lot with the house, carport and street, and a Fly pill naming the current position"
+            ),
+          ],
+        },
+        {
+          label: "Open it up",
+          title: "Doors, cabinets, and curtains actually move.",
+          lead: "Three switches under Open & close answer the questions a drawing cannot: what is inside, and how does the room look closed up.",
+          points: [
+            "Open all doors swings every door and slider, and Open cabinets pulls the kitchen cabinets and shelves open to show what they hold.",
+            "Close curtains draws the sheers across the living, dining, and bedroom glass, including a full-length curtain in the second bedroom.",
+            "Each switch is one call on the viewer API, and the sidebar reflects the engine state rather than keeping its own copy.",
+          ],
+          screens: [
+            balayScreen(
+              "open-kitchen",
+              "Cabinets open",
+              "Balay kitchen with cabinet doors and drawers open, showing shelves and the fridge, with the Open all doors and Open cabinets switches on"
+            ),
+            balayScreen(
+              "curtains-bedroom",
+              "Curtains closed, bedroom",
+              "Balay second bedroom with full-length sheer curtains closed over the window and a desk and shelf beside the beds"
+            ),
+            balayScreen(
+              "curtains-balcony",
+              "Curtains closed, balcony door",
+              "Balay balcony sliding door seen through closed sheer curtains"
+            ),
+          ],
+        },
+        {
+          label: "Peel it back",
+          title: "Cut the house open, floor by floor.",
+          lead: "Display modes and cutaway views show how the floors fit together, which is the part a render never shows.",
+          points: [
+            "Whole House, No Roof, and Ground modes remove the roof or the upper floor so the plan reads from above.",
+            "Ground floor, upper floor, and stair slot cutaways are ready-made dollhouse views with the furniture in place.",
+            "Room names label every space on demand, and a sketch-plan overlay lays the lot outline over the model.",
+          ],
+          screens: [
+            balayScreen(
+              "cutaway-ground",
+              "Ground floor cutaway",
+              "Balay ground floor cutaway from above showing the stair, living room, kitchen, foyer and carport"
+            ),
+            balayScreen(
+              "cutaway-upper",
+              "Upper floor cutaway",
+              "Balay upper floor cutaway from above showing the master bedroom, work desk, balcony and second bedroom"
+            ),
+            balayScreen(
+              "stair-slot",
+              "The stair slot",
+              "Balay stair slot cutaway looking down on the white stair fold under the skylight beside the living room"
+            ),
+            balayScreen(
+              "room-names",
+              "Room names",
+              "Balay ground floor cutaway with room name labels on the living room, kitchen and dining, foyer, entry hall and powder room"
+            ),
+          ],
+        },
+        {
+          label: "See behind the walls",
+          title: "Three X-ray layers.",
+          lead: "Wiring, plumbing, and structure are drawn through the walls, so the systems can be checked as part of the design.",
+          points: [
+            "Wiring and smart home shows circuits, outlets, lighting and the network points, with a legend for power, dedicated, aircon, data, and low voltage.",
+            "Plumbing and drainage draws cold and hot water, drains, vents, rainwater, the tank, and the septic tank through the walls.",
+            "Structure shows footings, columns, beams, and slabs as colored frames over the house.",
+          ],
+          screens: [
+            balayScreen(
+              "xray-wiring",
+              "Wiring and smart home",
+              "Balay upper floor cutaway with colored wiring routes and labeled network points drawn through the walls and a legend at the bottom"
+            ),
+            balayScreen(
+              "xray-plumbing",
+              "Plumbing and drainage",
+              "Balay ground floor cutaway with teal and orange pipe routes, labeled tank and drains, and a legend for cold water, hot water, drain, vent and rainwater"
+            ),
+            balayScreen(
+              "xray-structure",
+              "Structure",
+              "Balay aerial view with footings, columns, beams and slabs drawn as blue and orange frames inside the house"
+            ),
+          ],
+        },
+        {
+          label: "Light it",
+          title: "Cebu time, five scenes, and every date.",
+          lead: "The light panel follows the clock in Cebu, or hands control back so you can pick the hour, the date, and the scene.",
+          points: [
+            "A live Cebu time switch sets the sky and sun from the real clock. Touching any other light control turns it off.",
+            "Day, Dusk, and Night, plus five night scenes: Evening, Bright, Movie, Reading in bed, and Off.",
+            "A date picker and a sun-time slider show where the sun falls on solstice, equinox, and in between, and a ceiling lights switch lights every downlight and cove at once.",
+          ],
+          screens: [
+            balayScreen(
+              "light-movie",
+              "Movie scene",
+              "Balay living room at night in the Movie scene with the TV backlight glowing and the rest of the room dim, beside the Light panel"
+            ),
+            balayScreen(
+              "light-reading",
+              "Reading in bed",
+              "Balay master bedroom at night in the Reading in bed scene, with both bedside lights on the pillows and the room dim"
+            ),
+            balayScreen(
+              "light-bright",
+              "Bright scene",
+              "Balay living room at night in the Bright scene with every ceiling light up and a cove light along the ceiling edge"
+            ),
+            balayScreen(
+              "light-ceiling",
+              "Ceiling lights on",
+              "Balay work desk at night with the ceiling lights switch on and a warm light spread across the wall and floor"
+            ),
+          ],
+        },
+        {
+          label: "Point and ask",
+          title: "Hover to name what you see.",
+          lead: "Hover labels turn the model into something that explains itself.",
+          points: [
+            "Point at any object and a card names it and says what it is, such as the counter-depth fridge, the water dispenser, or the cabinet, and whether it counts toward the build budget.",
+            "Overlays, captions, and tooltips share one motion language, so panels open and close the same way everywhere.",
+          ],
+          screens: [
+            balayScreen(
+              "hover-labels",
+              "Hover labels",
+              "Balay kitchen with a hover label describing the refrigerator, pointed at in the 3D view"
+            ),
+          ],
+        },
+        {
+          label: "Tour and plan",
+          title: "A narrated tour, and the plan behind it.",
+          lead: "Take the Tour plays twelve chapters with a voice and a score, and the floor plan page reads the same layout data.",
+          points: [
+            "The tour runs from arrival through foyer, kitchen, living, garden, stair, master, desk, ensuite, balcony, and second bedroom to the evening view, with captions and a progress bar.",
+            "Narration is pre-rendered with an open voice model, the music is generated live in the browser, and the whole tour can be downloaded as an MP4 or opened from a share link.",
+            "The floor plan has Site, Ground floor, Upper floor, and Areas tabs with dimensions, areas, and a Show in 3D button for every room.",
+          ],
+          screens: [
+            balayScreen(
+              "tour-arrival",
+              "Tour, arrival",
+              "Balay tour at its first chapter: the front of the house with narration captions, a chapter counter and a player bar"
+            ),
+            balayScreen(
+              "tour-garden",
+              "Tour, garden",
+              "Balay tour in the rear garden chapter with a caption and player controls"
+            ),
+            balayScreen(
+              "plan-upper",
+              "Upper floor plan",
+              "Balay floor plan page showing the upper floor with the master bedroom, balcony, ensuite, second bedroom and stair, plus lot and area totals"
+            ),
+            balayScreen(
+              "plan-areas",
+              "Areas",
+              "Balay floor plan Areas tab listing every room and its area for the ground and upper floors, with total floor area"
+            ),
+          ],
+        },
+      ],
+    },
+    architectureSummary:
+      "A Vite single-page app with a three.js engine behind a typed viewer API. Zustand holds interface state, React Router serves the 3D viewer and the floor plan, and the whole site deploys as static files on Vercel.",
+    architecture: [
+      {
+        title: "Typed layout data",
+        body: "Rooms, openings, heights, furniture, and the site are described in TypeScript. Materials and electrical points sit in their own modules so each concern has one home.",
+      },
+      {
+        title: "three.js viewer engine",
+        body: "createViewer() builds the house from the data and returns controls for views, walk and fly modes, picking, lighting, and layers. Test hooks on the window let browser checks drive it.",
+      },
+      {
+        title: "Guided tour",
+        body: "A deterministic timeline of camera shots plays pre-rendered narration and a generated score. The same timeline can be exported as an MP4 video in the browser.",
+      },
+      {
+        title: "Floor plan",
+        body: "An SVG floor plan with Site, Ground floor, Upper floor, and Areas tabs reads the same layout data. Selecting a room opens it in 3D.",
+      },
+    ],
+    evidence: [
+      "The live viewer offers Outside, Inside, and Cutaways views, a Go to menu with number-key shortcuts, Overview, Walk, and Fly modes, and a screenshot control.",
+      "Switches open all doors and cabinets, close curtains, and toggle room names, hover labels, and wiring, plumbing, and structure layers.",
+      "The Light panel follows the Cebu clock or lets you pick Day, Dusk, or Night, five night scenes, a date, and a sun time.",
+      "A twelve-chapter narrated tour plays in the browser, opens from a share link, and downloads as an MP4.",
+      "The floor plan page has Site, Ground floor, Upper floor, and Areas tabs, with a Show in 3D button on every room.",
+      "Unit tests cover the layout data and pure helpers, and the app builds to static files for Vercel.",
+    ],
+    images: [
+      {
+        src: "/images/projects/balay/exterior.webp",
+        alt: "Balay 3D viewer showing the front of a two-storey modern house at dusk with a timber gate, palms, and lit interiors",
+        width: 1920,
+        height: 1200,
+        label: "Exterior at dusk",
+      },
+      {
+        src: "/images/projects/balay/living.webp",
+        alt: "Balay 3D viewer inside the living room with a fluted timber TV wall, sofa, round coffee table, and full-width glass to the garden",
+        width: 1920,
+        height: 1200,
+        label: "Living room",
+      },
+      {
+        src: "/images/projects/balay/floor-plan.webp",
+        alt: "Balay floor plan page showing the ground floor with living, kitchen and dining, entry hall, foyer, carport, and area totals",
+        width: 1920,
+        height: 1200,
+        label: "Floor plan",
+      },
+    ],
+    coverImage: {
+      src: "/images/projects/balay/front-morning.webp",
+      alt: "Balay 3D viewer showing the front of the two-storey modern house in morning light, with a timber gate, palms, and the tour panel open",
+      width: 2880,
+      height: 1800,
+    },
+    repository: undefined,
+    liveUrl: "https://balay.vanajvanguardia.tech/",
   },
 ] satisfies readonly Project[];
 

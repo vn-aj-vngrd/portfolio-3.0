@@ -10,6 +10,7 @@ Copy the nearest existing entry. The content test enforces the counts.
 - `summary` one paragraph; `problem`, `solution`; `role` (`Designed and built independently` unless the contribution differs).
 - `status` as `Live … · Source available`, `Live · Open source · …`, or `… · Closed source`. "Source available" and "Open source" need `repository`; "Closed source" has none.
 - `liveUrl` only for a public product; `https` always.
+- `tags`: `ai` when the product ships an AI agent, plus its platform (`web` or `mobile`). They drive the homepage filter and its counts; a new tag also needs a label in `SelectedWork.tsx` and its two selectors in `globals.css`.
 - `match`: `prompt` (the user's problem), `clue` (how to spot the product), `result` (what it does). These drive Product Match.
 - 3–4 `decisions`, 4–6 `architecture` items, 4–6 `evidence` lines that each verify against the product, 3–6 `images`, `stack` of 4 or more.
 
@@ -36,4 +37,4 @@ Copy the nearest existing entry. The content test enforces the counts.
 
 ## Pages to view
 
-`/` (My work card), `/work/<slug>`, Product Lab → Product Match (tracker and legend show every product), `/resume` when touched.
+`/` (My work card), `/work/<slug>`, the homepage filter (each tag shows the right products, renumbered), Product Lab → Product Match (tracker and legend show every product), `/resume` when touched.

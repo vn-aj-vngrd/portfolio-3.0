@@ -144,43 +144,43 @@
         }
       ]
     },
-    "work-balay": {
-      "file": "/tour/work-balay.8b6ed822.m4a",
-      "hash": "8b6ed822",
-      "seconds": 7.3,
-      "bytes": 60590,
-      "lines": [
-        "Balay is a two-storey house you can walk through in the browser, drawn live in three.js.",
-        "It has a narrated tour, too."
-      ],
-      "cues": [
-        {
-          "start": 0,
-          "end": 5.38
-        },
-        {
-          "start": 5.66,
-          "end": 7.3
-        }
-      ]
-    },
     "work-aqd": {
-      "file": "/tour/work-aqd.79c9164c.m4a",
-      "hash": "79c9164c",
-      "seconds": 8,
-      "bytes": 66793,
+      "file": "/tour/work-aqd.82bd18ee.m4a",
+      "hash": "82bd18ee",
+      "seconds": 7.8,
+      "bytes": 65204,
       "lines": [
-        "And AQD is a private closet for iPhone, with an on-device agent.",
+        "AQD is a private closet for iPhone, with an on-device agent.",
         "No account, no backend, no cloud AI."
       ],
       "cues": [
         {
           "start": 0,
-          "end": 5
+          "end": 4.81
         },
         {
-          "start": 5.28,
-          "end": 8
+          "start": 5.09,
+          "end": 7.8
+        }
+      ]
+    },
+    "work-balay": {
+      "file": "/tour/work-balay.cb8d9e19.m4a",
+      "hash": "cb8d9e19",
+      "seconds": 7.9,
+      "bytes": 65952,
+      "lines": [
+        "Last, Balay is a two-storey house you can walk through in the browser, drawn live in three.js.",
+        "It has a narrated tour, too."
+      ],
+      "cues": [
+        {
+          "start": 0,
+          "end": 5.99
+        },
+        {
+          "start": 6.27,
+          "end": 7.9
         }
       ]
     },

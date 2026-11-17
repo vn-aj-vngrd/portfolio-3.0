@@ -47,18 +47,18 @@ const productDevices = [
     baseY: 0.7,
   },
   {
-    name: "BALAY",
-    color: "#c58a4e",
-    body: [1.9, 2.55] as const,
-    screen: [1.62, 1.86] as const,
-    baseY: 0.7,
-  },
-  {
     name: "AQD",
     color: "#cfc8bc",
     body: [1.5, 3.05] as const,
     screen: [1.23, 2.36] as const,
     baseY: 0.45,
+  },
+  {
+    name: "BALAY",
+    color: "#c58a4e",
+    body: [1.9, 2.55] as const,
+    screen: [1.62, 1.86] as const,
+    baseY: 0.7,
   },
 ] as const;
 

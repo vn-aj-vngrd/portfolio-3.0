@@ -29,6 +29,9 @@ export type ProjectChapter = {
   screens: readonly ProjectImage[];
 };
 
+// What the homepage filter groups by: an AI agent in the product, and the platform.
+export type ProjectTag = "ai" | "web" | "mobile";
+
 export type Project = {
   slug: string;
   name: string;
@@ -40,6 +43,7 @@ export type Project = {
   role: string;
   status: string;
   featured: boolean;
+  tags: readonly ProjectTag[];
   stack: readonly string[];
   decisions: readonly ProjectStage[];
   features?: readonly ProjectStage[];
