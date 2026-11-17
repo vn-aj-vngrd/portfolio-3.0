@@ -11032,97 +11032,61 @@ html[data-tour] .shortcut-hint {
   }
 }
 
-/* Shipped agents: the shared loop and one strip per agent (ShippedVisuals.tsx). */
+/* Shipped agents: the shared loop and one strip per agent (ShippedVisuals.tsx).
+   Lines never cross a marker or text: rail segments stop short of each marker,
+   step text sits above the rail, and both routes out of the gate run below it. */
 .fx-shipped-loop-title {
-  margin: 0 0 1.5rem;
+  margin: 0 0 1.75rem;
   font-size: 1.2rem;
   font-weight: 550;
 }
-/* The agent loop: four stations on one line, the person's decision as a diamond
-   on a surface band, and a dashed return for a dismissed proposal. */
 .fxl {
-  margin: 0 0 3rem;
+  margin: 0 0 3.5rem;
 }
 .fxl-stage {
   position: relative;
   /* The token layer is full width and slides right; clip it to the diagram. */
   overflow-x: clip;
 }
-.fxl-track {
-  position: absolute;
-  z-index: 1;
-  top: 0.5rem;
-  right: 12.5%;
-  left: 12.5%;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  height: 1px;
-}
-.fxl-seg {
-  height: 1px;
-  background: var(--ink);
-}
-.fxl-approved {
-  position: absolute;
-  bottom: 0.45rem;
-  left: 66.667%;
-  width: 33.333%;
-  color: var(--muted);
-  font:
-    500 0.62rem/1.4 var(--font-geist-mono),
-    monospace;
-  text-align: center;
-}
+/* Subgrid rows keep numbers, names and text aligned across all four steps. */
 .fxl-steps {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: auto auto 1fr;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 .fxl-steps li {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-row: span 3;
+  grid-template-rows: subgrid;
+  place-items: start center;
   min-width: 0;
-  padding: 0 0.9rem 1.25rem;
-  border-radius: 4px;
+  padding: 0 0.9rem;
   text-align: center;
 }
-.fxl-steps li[data-gate] {
-  background: var(--surface);
-}
-.fxl-marker {
-  position: relative;
-  z-index: 2;
-  flex: none;
-  width: 1rem;
-  height: 1rem;
-  border: 1.5px solid var(--ink);
-  border-radius: 50%;
-  background: var(--canvas);
-}
-.fxl-steps li[data-gate] .fxl-marker {
-  width: 1.2rem;
-  height: 1.2rem;
-  margin-top: -0.1rem;
-  border: 0;
-  border-radius: 0;
-  background: var(--ink);
-  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-}
 .fxl-number {
-  margin-top: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 1.25rem;
   color: var(--faint);
   font:
     500 0.66rem/1.4 var(--font-geist-mono),
     monospace;
 }
-.fxl-steps li[data-gate] .fxl-marker + .fxl-number {
-  margin-top: 0.7rem;
+.fxl-badge {
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--ink);
+  border-radius: 3px;
+  color: var(--ink);
+  font:
+    500 0.6rem/1.4 var(--font-geist-mono),
+    monospace;
 }
 .fxl-steps strong {
-  margin-top: 0.2rem;
+  margin-top: 0.3rem;
   color: var(--ink);
   font-size: 1rem;
   font-weight: 600;
@@ -11135,35 +11099,83 @@ html[data-tour] .shortcut-hint {
   font-size: 0.82rem;
   line-height: 1.5;
 }
-.fxl-return {
+.fxl-rail {
   position: relative;
-  width: 50%;
-  margin: 0 0 0 12.5%;
-  padding-top: 1.6rem;
-  color: var(--muted);
-  font:
-    500 0.68rem/1.4 var(--font-geist-mono),
-    monospace;
-  text-align: center;
+  height: 1.4rem;
+  margin-top: 1rem;
 }
-.fxl-return > span {
+.fxl-marker {
+  position: absolute;
+  top: 50%;
+  left: calc(12.5% + var(--x) * 25%);
+  width: 0.9rem;
+  height: 0.9rem;
+  margin: -0.45rem 0 0 -0.45rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  background: var(--canvas);
+}
+.fxl-marker[data-gate] {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin: -0.7rem 0 0 -0.7rem;
+  border: 0;
+  border-radius: 0;
+  background: var(--ink);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+/* Each segment stops 0.35rem short of the markers at both ends. */
+.fxl-seg {
+  --a: 0.8rem;
+  --b: 0.8rem;
+  position: absolute;
+  top: 50%;
+  left: calc(12.5% + var(--x) * 25% + var(--a));
+  width: calc(25% - var(--a) - var(--b));
+  height: 1px;
+  background: var(--ink);
+}
+.fxl-seg[data-seg="2"] {
+  --b: 1.05rem;
+}
+.fxl-seg[data-seg="3"] {
+  --a: 1.05rem;
+}
+.fxl-seg::after {
+  position: absolute;
+  top: -2.5px;
+  right: 0;
+  width: 6px;
+  height: 6px;
+  border-top: 1px solid var(--ink);
+  border-right: 1px solid var(--ink);
+  content: "";
+  transform: rotate(45deg);
+}
+.fxl-token {
   display: none;
 }
-.fxl-return::before {
+/* Routes out of the gate, below the rail: Dismissed returns to Read on a
+   rounded dashed path; Approved sits under its own segment. */
+.fxl-routes {
+  position: relative;
+  height: 3.5rem;
+}
+.fxl-return {
   position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: 1.1rem;
+  top: 0.35rem;
+  left: 12.5%;
+  width: 50%;
+  height: 1.35rem;
+  margin: 0;
   border: 1px dashed var(--muted);
   border-top: 0;
-  border-radius: 0 0 4px 4px;
-  content: "";
+  border-radius: 0 0 0.75rem 0.75rem;
 }
 .fxl-return::after {
   position: absolute;
   top: -1px;
-  left: -2.5px;
+  left: -3.5px;
   width: 6px;
   height: 6px;
   border-top: 1px solid var(--muted);
@@ -11171,12 +11183,32 @@ html[data-tour] .shortcut-hint {
   content: "";
   transform: rotate(45deg);
 }
-.fxl-token {
-  display: none;
+.fxl-return > span {
+  position: absolute;
+  top: calc(100% + 0.45rem);
+  right: 0;
+  left: 0;
+  color: var(--muted);
+  font:
+    500 0.66rem/1.4 var(--font-geist-mono),
+    monospace;
+  text-align: center;
+}
+.fxl-approved {
+  position: absolute;
+  top: 0.15rem;
+  left: 62.5%;
+  width: 25%;
+  margin: 0;
+  color: var(--muted);
+  font:
+    500 0.66rem/1.4 var(--font-geist-mono),
+    monospace;
+  text-align: center;
 }
 @container (max-width: 36rem) {
   .fxl-steps li {
-    padding: 0 0.3rem 1rem;
+    padding: 0 0.3rem;
   }
   .fxl-steps strong {
     font-size: 0.88rem;
@@ -11184,12 +11216,155 @@ html[data-tour] .shortcut-hint {
   .fxl-steps p {
     font-size: 0.74rem;
   }
-  .fxl-return {
-    font-size: 0.62rem;
+  .fxl-number {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .fxl-return > span,
+  .fxl-approved {
+    font-size: 0.6rem;
   }
 }
+
+/* Shipped rows: title and description, the four-stage strip across the row,
+   then the stack line and link under the description. */
+.ai-shipped article {
+  grid-template-areas:
+    "head desc"
+    "strip strip"
+    ". meta";
+  row-gap: 0;
+}
+.ai-shipped-head {
+  grid-area: head;
+}
+.ai-shipped-desc {
+  grid-area: desc;
+}
+.ai-shipped .fx-strip-wrap {
+  grid-area: strip;
+  margin-top: 1.75rem;
+}
+.ai-shipped-meta {
+  grid-area: meta;
+  margin-top: 0.75rem;
+}
+@media (max-width: 800px) {
+  .ai-shipped article {
+    grid-template-areas:
+      "head"
+      "desc"
+      "strip"
+      "meta";
+  }
+  .ai-shipped-desc {
+    margin-top: 1rem;
+  }
+  .ai-shipped .fx-strip-wrap {
+    margin-top: 1.5rem;
+  }
+}
+.fx-strip {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+}
+.fx-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  min-width: 0;
+  padding: 0.85rem 1rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--canvas);
+}
+.fx-stage dt {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 1.3rem;
+  color: var(--muted);
+  font:
+    500 0.66rem/1.4 var(--font-geist-mono),
+    monospace;
+}
+.fx-stage dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+.fx-stage-mark {
+  flex: none;
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 1px solid var(--muted);
+  border-radius: 50%;
+}
+/* The gate: a tinted cell, a hairline ink border and a labelled diamond badge. */
+.fx-stage[data-kind="approval"] {
+  border-color: color-mix(in srgb, var(--ink) 28%, var(--border));
+  background: var(--surface);
+}
+.fx-stage[data-kind="approval"] dt {
+  align-self: flex-start;
+  padding: 0 0.45rem;
+  border: 1px solid var(--ink);
+  border-radius: 3px;
+  color: var(--ink);
+}
+.fx-stage[data-kind="approval"] .fx-stage-mark {
+  width: 0.6rem;
+  height: 0.6rem;
+  border: 0;
+  border-radius: 0;
+  background: var(--ink);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+/* Connectors live in the gaps between cells only. */
+.fx-stage:not(:last-child)::after,
+.fx-stage:not(:last-child)::before {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+}
+.fx-stage:not(:last-child)::after {
+  top: calc(100% + 1px);
+  left: calc(1.27rem - 0.5px);
+  width: 1px;
+  height: calc(0.75rem - 2px);
+  background: var(--muted);
+}
+.fx-stage:not(:last-child)::before {
+  display: none;
+}
+@container (min-width: 44rem) {
+  .fx-strip {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+  .fx-stage:not(:last-child)::after {
+    top: 1.5rem;
+    left: calc(100% + 0.35rem);
+    width: calc(1.5rem - 0.7rem);
+    height: 1px;
+  }
+  .fx-stage:not(:last-child)::before {
+    top: calc(1.5rem - 2.5px);
+    left: calc(100% + 1.15rem - 6px);
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-top: 1px solid var(--muted);
+    border-right: 1px solid var(--muted);
+    transform: rotate(45deg);
+  }
+}
+
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-  /* One pass, 4.8s: Read 0s, Validate 1.2s, Propose 2.4s (held 1.2s), Apply 4.1s. */
+  /* Loop, one pass of 4.8s: Read 0s, Validate 1.2s, Propose 2.4s (held 1.2s), Apply 4.1s. */
   .fxl[data-flow] [data-step="1"] {
     --t: 0s;
     --d: 0.7s;
@@ -11215,7 +11390,7 @@ html[data-tour] .shortcut-hint {
   .fxl[data-flow] [data-seg="3"] {
     --t: 3.6s;
   }
-  .fxl[data-flow]:not([data-drawn]) .fxl-steps li,
+  .fxl[data-flow]:not([data-drawn]) :is(.fxl-steps li, .fxl-marker),
   .fxl[data-flow]:not([data-drawn]) .fxl-return,
   .fxl[data-flow]:not([data-drawn]) .fxl-approved {
     opacity: 0;
@@ -11226,19 +11401,21 @@ html[data-tour] .shortcut-hint {
   .fxl[data-flow][data-drawn] .fxl-steps li {
     animation: fx-arrive var(--motion-sweep-in) var(--ease-out) var(--t) both;
   }
-  .fxl[data-flow][data-drawn] .fxl-steps li[data-gate] {
-    animation:
-      fx-arrive var(--motion-sweep-in) var(--ease-out) var(--t) both,
-      fxl-lit-band var(--d) linear var(--t) both;
-  }
   .fxl[data-flow][data-drawn] .fxl-marker {
-    animation: fxl-lit-ring var(--d) linear var(--t) both;
+    animation:
+      fxl-appear var(--motion-in) var(--ease-out) var(--t) both,
+      fxl-lit-ring var(--d) linear var(--t) both;
   }
-  .fxl[data-flow][data-drawn] [data-gate] .fxl-marker {
-    animation-name: fxl-lit-fill;
+  .fxl[data-flow][data-drawn] .fxl-marker[data-gate] {
+    animation:
+      fxl-appear var(--motion-in) var(--ease-out) var(--t) both,
+      fxl-lit-fill var(--d) linear var(--t) both;
   }
   .fxl[data-flow][data-drawn] .fxl-number {
     animation: fxl-lit-text var(--d) linear var(--t) both;
+  }
+  .fxl[data-flow][data-drawn] .fxl-badge {
+    animation: fxl-lit-badge 1.2s linear 2.4s both;
   }
   .fxl[data-flow][data-drawn] .fxl-seg {
     transform-origin: left;
@@ -11253,20 +11430,18 @@ html[data-tour] .shortcut-hint {
   .fxl[data-flow][data-drawn] .fxl-token {
     position: absolute;
     z-index: 3;
-    top: 0.5rem;
-    left: 0;
+    inset: 0;
     display: block;
-    width: 100%;
-    height: 0;
     pointer-events: none;
     animation: fxl-token 4.8s ease-in-out both;
   }
   .fxl-token i {
     position: absolute;
-    top: -0.3rem;
-    left: -0.3rem;
-    width: 0.6rem;
-    height: 0.6rem;
+    top: 50%;
+    left: 0;
+    width: 0.45rem;
+    height: 0.45rem;
+    margin: -0.225rem 0 0 -0.225rem;
     border-radius: 50%;
     background: var(--signal);
   }
@@ -11304,6 +11479,11 @@ html[data-tour] .shortcut-hint {
       transform: translate3d(87.5%, 0, 0);
     }
   }
+  @keyframes fxl-appear {
+    from {
+      opacity: 0;
+    }
+  }
   @keyframes fxl-lit-ring {
     from,
     80% {
@@ -11322,101 +11502,38 @@ html[data-tour] .shortcut-hint {
       color: var(--signal);
     }
   }
-  @keyframes fxl-lit-band {
+  @keyframes fxl-lit-badge {
     from,
-    80% {
-      background-color: var(--signal-soft);
+    85% {
+      border-color: var(--signal);
+      color: var(--signal);
     }
   }
-}
-.fx-strip-wrap {
-  margin: 1.25rem 0 0.25rem;
-}
-.fx-strip {
-  position: relative;
-  display: grid;
-  gap: 0.9rem;
-  margin: 0;
-}
-.fx-strip::before {
-  position: absolute;
-  top: 0.5rem;
-  bottom: 0.5rem;
-  left: calc(0.35rem - 0.5px);
-  width: 1px;
-  background: var(--border);
-  content: "";
-}
-.fx-strip > div {
-  position: relative;
-  min-width: 0;
-}
-.fx-strip dt {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  color: var(--muted);
-  font:
-    500 0.66rem/1.5 var(--font-geist-mono),
-    monospace;
-}
-.fx-strip dd {
-  margin: 0.15rem 0 0 1.35rem;
-  color: var(--muted);
-  font-size: 0.84rem;
-  line-height: 1.5;
-}
-.fx-strip [data-kind="approval"] dt,
-.fx-strip [data-kind="approval"] dd {
-  color: var(--ink);
-}
-.fx-strip-dot {
-  position: relative;
-  flex: none;
-  width: 0.7rem;
-  height: 0.7rem;
-  border: 1px solid var(--ink);
-  border-radius: 50%;
-  background: var(--canvas);
-}
-@container (min-width: 36rem) {
-  .fx-strip {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0 1.25rem;
-  }
-  .fx-strip::before {
-    top: calc(0.35rem - 0.5px);
-    right: 0;
-    bottom: auto;
-    left: 0.35rem;
-    width: auto;
-    height: 1px;
-  }
-  .fx-strip dt {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  .fx-strip dd {
-    margin: 0.2rem 0 0;
-  }
-}
-@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+
+  /* Strip: cells arrive in order; each connector draws after its cell. */
   .fx[data-flow] .fx-strip {
     --fx-step: 0.18s;
   }
-  .fx[data-flow]:not([data-drawn]) .fx-strip::before {
+  .fx[data-flow]:not([data-drawn]) .fx-stage::after {
     transform: scaleY(0);
   }
-  .fx[data-flow][data-drawn] .fx-strip::before {
-    transform-origin: top;
-    animation: draw-y 0.8s linear backwards;
+  .fx[data-flow]:not([data-drawn]) .fx-stage::before {
+    opacity: 0;
   }
-  @container (min-width: 36rem) {
-    .fx[data-flow]:not([data-drawn]) .fx-strip::before {
+  .fx[data-flow][data-drawn] .fx-stage::after {
+    transform-origin: top;
+    animation: draw-y 0.2s linear backwards;
+    animation-delay: calc((var(--i, 0) + 0.7) * var(--fx-step));
+  }
+  .fx[data-flow][data-drawn] .fx-stage::before {
+    transition: opacity var(--motion-in) var(--ease-out)
+      calc((var(--i, 0) + 1) * var(--fx-step));
+  }
+  @container (min-width: 44rem) {
+    .fx[data-flow]:not([data-drawn]) .fx-stage::after {
       transform: scaleX(0);
     }
-    .fx[data-flow][data-drawn] .fx-strip::before {
+    .fx[data-flow][data-drawn] .fx-stage::after {
       transform-origin: left;
       animation-name: draw-x;
     }

@@ -331,7 +331,8 @@ export const shippedAgentLoop = {
         "Only after approval. Relay and Roleway recheck permissions; AQD can undo",
     },
   ],
-  // Path labels for the diagram; both restate the caption below.
+  // Diagram labels: the gate badge marks step 03; both path labels restate the caption below.
+  gate: "Gate",
   approved: "Approved",
   dismissed: "Dismissed: nothing is written",
   caption:

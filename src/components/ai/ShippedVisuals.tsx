@@ -1,16 +1,18 @@
 import { shippedAgentLoop } from "@/content/ai-workflow";
 
 // Visuals for the shipped-agent ledger on /ai, in the factory diagrams' language
-// (FactoryVisuals.tsx): one draw-in on entry, solid lines forward, a diamond
-// where a person decides. All text is real; only markers and lines are hidden.
+// (FactoryVisuals.tsx): one draw-in on entry, solid lines forward, dashed lines
+// back, a diamond where a person decides. Every label is real text; only
+// markers, connectors and the token are hidden from assistive tech.
 
 type Vars = Record<`--${string}`, string | number>;
 const vars = (v: Vars) => v as React.CSSProperties;
+const pad = (n: number) => String(n).padStart(2, "0");
 
-// The loop draws once on entry: a token rides Read → Validate → Propose, holds
-// at the person's decision while the dismissed path draws, then continues to
-// Apply. Each step is Signal Blue only while the token is on it. Reduced motion
-// shows the finished diagram with no token.
+// Step text sits above a rail of markers, so connectors and the two routes out
+// of the gate run below the text and never cross it. A token rides the rail
+// once: Read → Validate → Propose, holds at the gate while the dismissed route
+// draws, then continues to Apply. Reduced motion shows the finished diagram.
 export function ShippedAgentLoop() {
   const { steps } = shippedAgentLoop;
   return (
@@ -23,20 +25,6 @@ export function ShippedAgentLoop() {
         {shippedAgentLoop.title}
       </h3>
       <div className="fxl-stage">
-        <div className="fxl-track" aria-hidden="true">
-          {steps.slice(1).map((step, i) => (
-            <span
-              key={step.label}
-              className="fxl-seg"
-              data-seg={i + 1}
-              style={vars({ "--n": i })}
-            />
-          ))}
-          <span className="fxl-approved">{shippedAgentLoop.approved}</span>
-        </div>
-        <span className="fxl-token" aria-hidden="true">
-          <i />
-        </span>
         <ol className="fxl-steps">
           {steps.map((step, i) => (
             <li
@@ -44,19 +32,45 @@ export function ShippedAgentLoop() {
               data-step={i + 1}
               data-gate={"person" in step ? "" : undefined}
             >
-              <span className="fxl-marker" aria-hidden="true" />
               <span className="fxl-number">
-                {String(i + 1).padStart(2, "0")}
+                {pad(i + 1)}
+                {"person" in step ? (
+                  <span className="fxl-badge">{shippedAgentLoop.gate}</span>
+                ) : null}
               </span>
               <strong>{step.label}</strong>
               <p>{step.detail}</p>
             </li>
           ))}
         </ol>
-        <p className="fxl-return">
-          <span aria-hidden="true">↺ </span>
-          {shippedAgentLoop.dismissed}
-        </p>
+        <div className="fxl-rail" aria-hidden="true">
+          {steps.slice(1).map((step, i) => (
+            <span
+              key={`seg-${step.label}`}
+              className="fxl-seg"
+              data-seg={i + 1}
+              style={vars({ "--x": i })}
+            />
+          ))}
+          {steps.map((step, i) => (
+            <span
+              key={`marker-${step.label}`}
+              className="fxl-marker"
+              data-step={i + 1}
+              data-gate={"person" in step ? "" : undefined}
+              style={vars({ "--x": i })}
+            />
+          ))}
+          <span className="fxl-token">
+            <i />
+          </span>
+        </div>
+        <div className="fxl-routes">
+          <p className="fxl-return">
+            <span>{shippedAgentLoop.dismissed}</span>
+          </p>
+          <p className="fxl-approved">{shippedAgentLoop.approved}</p>
+        </div>
       </div>
       <figcaption>{shippedAgentLoop.caption}</figcaption>
     </figure>
@@ -65,7 +79,7 @@ export function ShippedAgentLoop() {
 
 type Loop = { reads: string; checks: string; approval: string; proof: string };
 
-/** One agent's place in the loop: what it reads, how output is checked, what waits for a person, and the evidence. */
+/** One agent's place in the loop: four equal stages, the approval stage marked as the gate. */
 export function AgentStrip({ loop }: { loop: Loop }) {
   const { labels } = shippedAgentLoop;
   const rows = [
@@ -80,16 +94,12 @@ export function AgentStrip({ loop }: { loop: Loop }) {
         {rows.map((row, i) => (
           <div
             key={row.key}
-            className="fx-node"
+            className="fx-node fx-stage"
             data-kind={row.key}
             style={vars({ "--i": i })}
           >
             <dt>
-              {row.key === "approval" ? (
-                <span className="fx-diamond" aria-hidden="true" />
-              ) : (
-                <span className="fx-strip-dot" aria-hidden="true" />
-              )}
+              <span className="fx-stage-mark" aria-hidden="true" />
               {labels[row.key]}
             </dt>
             <dd>{row.text}</dd>

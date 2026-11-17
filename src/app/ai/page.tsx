@@ -118,13 +118,15 @@ export default function AiWorkflowPage() {
         <div className="ai-ledger ai-shipped" data-reveal="list">
           {shippedAi.map((item) => (
             <article key={item.name}>
-              <div>
+              <div className="ai-shipped-head">
                 <p className="ai-kicker">{item.name}</p>
                 <h3>{item.title}</h3>
               </div>
-              <div>
+              <div className="ai-shipped-desc">
                 <p>{item.description}</p>
-                {"loop" in item ? <AgentStrip loop={item.loop} /> : null}
+              </div>
+              {"loop" in item ? <AgentStrip loop={item.loop} /> : null}
+              <div className="ai-shipped-meta">
                 <p className="ai-ledger-stack">{item.stack}</p>
                 <div className="ai-links">
                   {"slug" in item ? (
