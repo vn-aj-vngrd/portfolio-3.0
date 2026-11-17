@@ -76,29 +76,30 @@ export function ProjectFeature({
             </div>
           </figure>
         ) : (
-          (usesPhoneScreens ? project.images.slice(0, 2) : [featureImage]).map(
-            (image, imageIndex) => (
-              <figure
-                key={image.src}
-                className={imageIndex === 1 ? "media-secondary" : ""}
-              >
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  width={image.width}
-                  height={image.height}
-                  sizes={
-                    usesPhoneScreens
-                      ? "(max-width: 700px) 52vw, 360px"
-                      : "(max-width: 900px) 86vw, 620px"
-                  }
-                  // Preserve fine UI text in the already-compressed WebP covers.
-                  unoptimized={Boolean(project.coverImage)}
-                  priority={index === 0 && imageIndex === 0}
-                />
-              </figure>
-            )
-          )
+          (usesPhoneScreens
+            ? project.images.slice(0, project.slug === "viya" ? 3 : 2)
+            : [featureImage]
+          ).map((image, imageIndex) => (
+            <figure
+              key={image.src}
+              className={imageIndex % 2 === 1 ? "media-secondary" : ""}
+            >
+              <Image
+                src={image.src}
+                alt={image.alt}
+                width={image.width}
+                height={image.height}
+                sizes={
+                  usesPhoneScreens
+                    ? "(max-width: 700px) 52vw, 360px"
+                    : "(max-width: 900px) 86vw, 620px"
+                }
+                // Preserve fine UI text in the already-compressed WebP covers.
+                unoptimized={Boolean(project.coverImage)}
+                priority={index === 0 && imageIndex === 0}
+              />
+            </figure>
+          ))
         )}
       </div>
     </article>
