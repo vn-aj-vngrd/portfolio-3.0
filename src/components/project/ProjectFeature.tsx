@@ -4,6 +4,15 @@ import Link from "next/link";
 import { tourStopId } from "@/content/tour";
 import type { Project } from "@/types/content";
 
+const phoneCallouts: Record<string, readonly string[]> = {
+  viya: ["57% ready", "Draft · nothing changes until you apply", "₱9,670 left"],
+  aqd: [
+    "Planned · Office day",
+    "Answered on device",
+    "Draft, not confirmed saved",
+  ],
+};
+
 export function ProjectFeature({
   project,
   index,
@@ -77,7 +86,10 @@ export function ProjectFeature({
           </figure>
         ) : (
           (usesPhoneScreens
-            ? project.images.slice(0, project.slug === "viya" ? 3 : 2)
+            ? project.images.slice(
+                0,
+                project.slug === "viya" || project.slug === "aqd" ? 3 : 2
+              )
             : [featureImage]
           ).map((image, imageIndex) => (
             <figure
@@ -98,6 +110,11 @@ export function ProjectFeature({
                 unoptimized={Boolean(project.coverImage)}
                 priority={index === 0 && imageIndex === 0}
               />
+              {phoneCallouts[project.slug]?.[imageIndex] ? (
+                <span className="phone-callout" aria-hidden="true">
+                  {phoneCallouts[project.slug][imageIndex]}
+                </span>
+              ) : null}
             </figure>
           ))
         )}
