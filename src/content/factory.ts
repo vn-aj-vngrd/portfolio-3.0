@@ -146,6 +146,99 @@ export const factoryRoles = [
   },
 ] as const;
 
+// The swimlane: who holds the ticket at each stage. A stage's lane is the first
+// part of its actor; any other model in `models` steps in (the actor says when).
+export const factoryLanes = [
+  "Me",
+  "Claude Code",
+  "Opus",
+  "Sonnet",
+  "Script",
+] as const;
+
+export const factorySwimlane = {
+  title: "Who holds the ticket",
+  lead: "Each row is one actor and each column is one stage. My row holds the three decisions that stay mine: the issue, the plan, and the merge.",
+  legend: {
+    holds: "Runs the stage",
+    stepsIn: "Steps in when needed",
+    mine: "My decision",
+  },
+} as const;
+
+// The review loop, drawn from the stage summaries and the run frames above.
+export const factoryReviewLoop = {
+  title: "Proof and review, before anyone approves",
+  lead: "After the build, the checks run, the real UI is driven, and reviewers read the whole diff. Findings go back to the builder, two rounds at most; then the run stops and tells me why.",
+  reviewers: [
+    { name: "Code review", model: "Sonnet", when: "Always" },
+    { name: "Design review", model: "Sonnet", when: "On UI changes" },
+    { name: "Security review", model: "Opus", when: "On risk" },
+  ],
+  steps: {
+    build: { label: "Build", detail: "A failing test, the code, one commit" },
+    prove: {
+      label: "Prove",
+      detail: "Checks, then screenshots of the real UI",
+    },
+    review: { label: "Review", detail: "Reviewers read the whole diff" },
+    approve: { label: "Approve", detail: "Opus re-runs the checks" },
+  },
+  changes: "Changes go back to the builder, test first",
+  rounds: ["Round 1", "Round 2"],
+  stop: "Then it stops and tells me why",
+} as const;
+
+// What the ticket collects on its way through. `from` is the stage that makes
+// the artifact; `to` is the last stage that carries it.
+export const factoryArtifacts = {
+  title: "What the ticket collects",
+  lead: "Each stage leaves something I can inspect, and it rides with the ticket to the end.",
+  items: [
+    {
+      label: "Issue",
+      detail:
+        "Problem, spec, and acceptance criteria. The PR closes it on merge.",
+      from: "issue",
+      to: "merge",
+    },
+    {
+      label: "Plan",
+      detail:
+        "Thin slices, locked criteria, UI proof scenarios, and a risk rating. Locked at my yes.",
+      from: "plan",
+      to: "approve",
+    },
+    {
+      label: "Commits",
+      detail: "One per slice, each with its failing test first.",
+      from: "build",
+      to: "merge",
+    },
+    {
+      label: "Screenshots",
+      detail: "The real UI, judged against each pass condition.",
+      from: "prove",
+      to: "merge",
+    },
+    {
+      label: "PR description",
+      detail: "Written by the approver after it confirms every criterion.",
+      from: "approve",
+      to: "merge",
+    },
+  ],
+} as const satisfies {
+  title: string;
+  lead: string;
+  items: readonly {
+    label: string;
+    detail: string;
+    from: FactoryStageId;
+    to: FactoryStageId;
+  }[];
+};
+
 export const factoryGuardrails = [
   "Change the plan after I approve it. The plan is locked; a mismatch stops the run.",
   "Push, merge, rebase, deploy, reach the network, or read secrets. A guard hook checks every tool call against the agent’s role. It is a seatbelt, not a sandbox.",
@@ -157,6 +250,18 @@ export const factoryGuardrails = [
 
 export const factoryImprovement =
   "Every run logs what slowed it down or went wrong. A retro reads those logs and proposes one fix for the biggest bottleneck: a new check, a lesson, or an agent edit. Nothing changes until I approve it.";
+
+// The same loop as four steps for the diagram; `mine` marks my decision.
+export const factoryImprovementSteps = [
+  { label: "Run", detail: "Logs what slowed it down or went wrong" },
+  { label: "Retro", detail: "Reads the logs, finds the biggest bottleneck" },
+  { label: "One fix", detail: "A new check, a lesson, or an agent edit" },
+  {
+    label: "My approval",
+    detail: "Nothing changes until I approve",
+    mine: true,
+  },
+] as const;
 
 export type FactoryFrame = {
   id: string;
@@ -337,5 +442,32 @@ export const factoryPair = {
       work: "A permission gate decides what runs unasked and what asks me first: merges, deletes, and messages to people always ask.",
     },
   ],
+  // The rows above as a route of six stops; `mine` marks where I step in.
+  route: {
+    title: "Where I step in",
+    stops: ["Ticket in", "Plan", "Agents", "Final call", "Ends at", "After"],
+    personal: [
+      { text: "I write a GitHub issue", mine: true },
+      { text: "I approve the plan", mine: true },
+      { text: "Build · prove · review" },
+      { text: "Opus approves or escalates to me" },
+      { text: "Draft PR with screenshots" },
+      { text: "I review and merge", mine: true },
+    ],
+    work: [
+      { text: "A Jira ticket, one or several in parallel" },
+      {
+        text: "I approve the plan; in auto mode an Opus plan judge does",
+        mine: true,
+      },
+      { text: "Build · review · proof" },
+      { text: "A risk judge ships or escalates to me" },
+      { text: "PR, proof comment, handover note" },
+      {
+        text: "I review the PR; a loop answers comments and fixes failing CI",
+        mine: true,
+      },
+    ],
+  },
   note: "The work factory is internal to the client, so its source, tickets, and run numbers stay private. I designed and built both.",
 } as const;

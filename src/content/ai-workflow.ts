@@ -1,12 +1,17 @@
+// `mark` names a small monochrome mark in src/components/ai/ToolMark.tsx; null shows a monogram.
 export const aiTools = {
-  claudeCode: { name: "Claude Code", kind: "Agent harness" },
-  opus: { name: "Claude Opus", kind: "Planning model" },
-  sonnet: { name: "Claude Sonnet", kind: "Building model" },
-  herdr: { name: "Herdr", kind: "Terminal workspace for coding agents" },
-  handy: { name: "Handy", kind: "Voice input" },
+  claudeCode: { name: "Claude Code", kind: "Agent harness", mark: "claude" },
+  opus: { name: "Claude Opus", kind: "Planning model", mark: "claude" },
+  sonnet: { name: "Claude Sonnet", kind: "Building model", mark: "claude" },
+  herdr: {
+    name: "Herdr",
+    kind: "Terminal workspace for coding agents",
+    mark: "herdr",
+  },
+  handy: { name: "Handy", kind: "Voice input", mark: null },
 } as const;
 
-type AiToolId = keyof typeof aiTools;
+export type AiToolId = keyof typeof aiTools;
 
 export function aiToolNames(ids: readonly AiToolId[]) {
   return ids.map((id) => aiTools[id].name);
@@ -56,6 +61,7 @@ export const aiWorkflow = {
 
 export const setupItems = [
   {
+    tool: "claudeCode",
     kicker: "Harness",
     title: "Claude Code",
     body: "Every agent I run is Claude Code: the terminal agent with its tools, permissions, subagents, skills, and hooks. One harness means one set of instructions and skills across every project, and my factory is built from the same parts.",
@@ -65,6 +71,7 @@ export const setupItems = [
     },
   },
   {
+    tool: "opus",
     kicker: "Plans",
     title: "Claude Opus",
     body: "Plans and judges. In the factory, Opus writes the plan and rates its risk, reviews security, and makes the final call before a pull request. It also builds when a plan is rated high risk.",
@@ -74,6 +81,7 @@ export const setupItems = [
     },
   },
   {
+    tool: "sonnet",
     kicker: "Builds",
     title: "Claude Sonnet",
     body: "Builds and checks. Sonnet implements each slice test-first, judges the UI screenshots, and reviews code and design.",
@@ -83,16 +91,21 @@ export const setupItems = [
     },
   },
   {
+    tool: "herdr",
     kicker: "Workspace",
     title: "Herdr",
     body: "Herdr keeps my Claude Code sessions in workspaces, tabs, and panes on one screen and recognizes the agents running in them, so parallel work stays visible.",
+    link: { label: "Herdr", href: "https://herdr.dev" },
   },
   {
+    tool: "handy",
     kicker: "Voice input",
     title: "Handy",
     body: "I dictate prompts, grill answers, and notes with Handy. It turns speech into text; it makes no decisions.",
+    link: { label: "Handy", href: "https://handy.computer" },
   },
 ] as const satisfies readonly {
+  tool: AiToolId;
   kicker: string;
   title: string;
   body: string;
@@ -198,6 +211,15 @@ export const shippedAi = [
     description:
       "Relay’s Agent streams answers from Zod-validated tools that read only the games, groups, and courts a player is allowed to see. Creating anything goes through a review card and an explicit approval, and the server rechecks permissions before it writes.",
     stack: "Vercel AI SDK · OpenRouter · Zod",
+    loop: {
+      reads:
+        "Games, groups, and courts the player may see, through permission-checked tools",
+      checks: "Tools and proposals are validated with Zod",
+      approval:
+        "A review card the player approves; the server rechecks permissions before it writes",
+      proof:
+        "Live Agent evals passed 52 of 54 checks over six runs on one model (Nov 2026)",
+    },
   },
   {
     slug: "roleway",
@@ -206,6 +228,14 @@ export const shippedAi = [
     description:
       "Roleway’s Agent runs on the provider the user connects: OpenAI, Anthropic, Gemini, or OpenRouter. Proposals are validated with Zod, and approval calls PostgreSQL functions that recheck ownership, status, and expiry in a transaction.",
     stack: "Vercel AI SDK · OpenAI, Anthropic, Gemini APIs · PostgreSQL",
+    loop: {
+      reads: "Scoped read tools over bounded Workspace context, not raw SQL",
+      checks: "Zod validates the answer and every proposal",
+      approval:
+        "Each change approved one by one; PostgreSQL functions recheck ownership, status, and expiry",
+      proof:
+        "Unit tests cover provider parsing and validation; Playwright covers authorization",
+    },
   },
   {
     slug: "aqd",
@@ -214,6 +244,13 @@ export const shippedAi = [
     description:
       "AQD’s Agent runs on Apple Foundation Models with no cloud AI. It answers from the closet and drafts changes as change sets the owner ticks, applies, and can undo. A deterministic eval gate and a live on-device eval check it.",
     stack: "Swift · Foundation Models · Swift Testing",
+    loop: {
+      reads: "The closet on the phone, with no cloud AI",
+      checks: "Grounding repair and Agent budgets are pure, tested Core rules",
+      approval: "Change sets the owner ticks, applies, and can undo",
+      proof:
+        "Release gate: 714 of 747 cases fully clean over 24 live runs (Oct 2026)",
+    },
   },
   {
     slug: "qsm",
@@ -222,6 +259,15 @@ export const shippedAi = [
     description:
       "In a ship-management company’s safety system, AI Import turns a legacy PDF into a structured form: one page per model call, validated against the form schema, repaired on failure, and reviewed against the page image. An editor streams document help under fixed maritime rules, and an assistant answers from permission-checked data. Every call is capped per user and audited.",
     stack: "Vercel AI SDK · Google, Anthropic, OpenAI-compatible · BullMQ",
+    loop: {
+      reads: "The assistant answers from permission-checked database summaries",
+      checks:
+        "Imports are validated against the form schema, repaired on failure, and checked for leaked prompt text",
+      approval:
+        "An import lands as a draft beside the source PDF for a person to correct",
+      proof:
+        "AI package tests cover parsing, repair, prompt building, and rate limits",
+    },
   },
   {
     slug: "viya",
@@ -230,6 +276,14 @@ export const shippedAi = [
     description:
       "Viya’s agent is scoped to one trip. Every proposed change is validated against shared schemas and saved as a draft for the traveler to review, with deterministic fallbacks behind one provider interface.",
     stack: "TypeScript · Convex · Zod",
+    loop: {
+      reads:
+        "Ten of its 17 tools read the trip: itinerary, budget, bookings, readiness, and more",
+      checks: "Shared schemas validate every structured output",
+      approval:
+        "A draft the traveler applies or dismisses; the agent never edits a trip",
+      proof: "Backend contract tests cover AI draft application",
+    },
   },
   {
     name: "Full Scale · Lytho",
@@ -244,7 +298,46 @@ export const shippedAi = [
   title: string;
   description: string;
   stack: string;
+  // Where the agent sits in the shared loop; each line restates the case study in projects.ts.
+  loop?: { reads: string; checks: string; approval: string; proof: string };
 }[];
+
+// The loop every shipped agent follows, drawn above the ledger.
+export const shippedAgentLoop = {
+  title: "The loop every agent follows",
+  labels: {
+    reads: "Reads",
+    checks: "Checks",
+    approval: "Needs approval",
+    proof: "Proof",
+  },
+  steps: [
+    {
+      label: "Read",
+      detail: "Scoped tools return only what the user may see",
+    },
+    {
+      label: "Validate",
+      detail: "Model output is checked against schemas before anything uses it",
+    },
+    {
+      label: "Propose",
+      detail: "A draft, review card, or change set waits for a person",
+      person: true,
+    },
+    {
+      label: "Apply",
+      detail:
+        "Only after approval. Relay and Roleway recheck permissions; AQD can undo",
+    },
+  ],
+  // Diagram labels: the gate badge marks step 03; both path labels restate the caption below.
+  gate: "Gate",
+  approved: "Approved",
+  dismissed: "Dismissed: nothing is written",
+  caption:
+    "Each agent below reads, checks, and proposes on its own. Nothing is written until a person approves it, and a dismissed proposal changes nothing.",
+} as const;
 
 export const skillGroups = [
   {
@@ -374,11 +467,30 @@ export const skillGroups = [
   },
 ] as const;
 
+// Each item is one accountability: a short label for scanning, then the commitment itself.
 export const agentGuardrails = [
-  "Keep the user need, constraints, and acceptance criteria explicit.",
-  "Give each agent a bounded task and an output I can inspect.",
-  "Check repository evidence and primary documentation instead of accepting confident claims.",
-  "Treat generated code as a proposal: run relevant tests, type checks, browser checks, and direct review.",
-  "Protect confidential employer and client information, credentials, private source, and remote-access details.",
-  "Keep tool permissions, plan approval, merges, and releases under my control.",
+  {
+    title: "Requirements",
+    text: "Keep the user need, constraints, and acceptance criteria explicit.",
+  },
+  {
+    title: "Scope",
+    text: "Give each agent a bounded task and an output I can inspect.",
+  },
+  {
+    title: "Evidence",
+    text: "Check repository evidence and primary documentation instead of accepting confident claims.",
+  },
+  {
+    title: "Verification",
+    text: "Treat generated code as a proposal: run relevant tests, type checks, browser checks, and direct review.",
+  },
+  {
+    title: "Confidentiality",
+    text: "Protect confidential employer and client information, credentials, private source, and remote-access details.",
+  },
+  {
+    title: "Control",
+    text: "Keep tool permissions, plan approval, merges, and releases under my control.",
+  },
 ] as const;
