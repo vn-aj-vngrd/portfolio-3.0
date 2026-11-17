@@ -188,6 +188,56 @@ export const workflowEvidence = [
   },
 ] as const;
 
+// AI inside products, as distinct from the coding agents used to build them.
+// Each line repeats a fact from the product's case study or the experience entry.
+export const shippedAi = [
+  {
+    slug: "relay",
+    name: "Relay",
+    title: "A tool-calling agent over permission-checked data",
+    description:
+      "Relay’s Agent streams answers from Zod-validated tools that read only the games, groups, and courts a player is allowed to see. Creating anything goes through a review card and an explicit approval, and the server rechecks permissions before it writes.",
+    stack: "Vercel AI SDK · OpenRouter · Zod",
+  },
+  {
+    slug: "roleway",
+    name: "Roleway",
+    title: "A provider-neutral tool loop, authorized by the database",
+    description:
+      "Roleway’s Agent runs on the provider the user connects: OpenAI, Anthropic, Gemini, or OpenRouter. Proposals are validated with Zod, and approval calls PostgreSQL functions that recheck ownership, status, and expiry in a transaction.",
+    stack: "Vercel AI SDK · OpenAI, Anthropic, Gemini APIs · PostgreSQL",
+  },
+  {
+    slug: "aqd",
+    name: "AQD",
+    title: "An on-device agent with reviewed change sets",
+    description:
+      "AQD’s Agent runs on Apple Foundation Models with no cloud AI. It answers from the closet and drafts changes as change sets the owner ticks, applies, and can undo. A deterministic eval gate and a live on-device eval check it.",
+    stack: "Swift · Foundation Models · Swift Testing",
+  },
+  {
+    slug: "viya",
+    name: "Viya",
+    title: "A trip agent with 17 scoped tools",
+    description:
+      "Viya’s agent is scoped to one trip. Every proposed change is validated against shared schemas and saved as a draft for the traveler to review, with deterministic fallbacks behind one provider interface.",
+    stack: "TypeScript · Convex · Zod",
+  },
+  {
+    name: "Full Scale · Lytho",
+    title: "Agent features in a customer product",
+    description:
+      "At Full Scale I contributed AI Insights, AI Reviewer, AI Skills, and AI Teammates for Lytho: agent features that help customers review content and surface insights.",
+    stack: "React · C# / ASP.NET Core · AWS",
+  },
+] as const satisfies readonly {
+  slug?: string;
+  name: string;
+  title: string;
+  description: string;
+  stack: string;
+}[];
+
 export const skillGroups = [
   {
     title: "Research and product decisions",

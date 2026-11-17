@@ -9,6 +9,7 @@ import {
   agentGuardrails,
   aiWorkflow,
   setupItems,
+  shippedAi,
   skillGroups,
   workflowEvidence,
 } from "@/content/ai-workflow";
@@ -16,6 +17,7 @@ import {
   factoryGuardrails,
   factoryImprovement,
   factoryIntro,
+  factoryPair,
   factoryRoles,
 } from "@/content/factory";
 import { projectCatalog } from "@/content/projects";
@@ -28,9 +30,9 @@ import {
 } from "@/lib/structured-data";
 
 export const metadata = createPageMetadata({
-  title: "AI Engineering Workflow",
+  title: "AI Engineering and Software Factory",
   description:
-    "How Van AJ Vanguardia builds with Claude Code: Opus plans, Sonnet builds, and his software factory turns GitHub issues into reviewed draft pull requests.",
+    "The AI agents Van AJ Vanguardia has shipped in products, and how he builds with Claude Code: two software factories that turn tickets into reviewed pull requests.",
   path: aiWorkflow.path,
 });
 
@@ -75,12 +77,53 @@ export default function AiWorkflowPage() {
           <div>
             <p className="ai-introduction">{aiWorkflow.introduction}</p>
             <nav className="ai-links" aria-label="Page sections">
+              <a href="#shipped">Shipped AI ↓</a>
               <a href="#setup">My setup ↓</a>
               <a href="#factory">The factory ↓</a>
               <a href="#loop">The loop ↓</a>
               <a href="#evidence">Evidence ↓</a>
             </nav>
           </div>
+        </div>
+      </section>
+
+      <section
+        className="ai-section"
+        id="shipped"
+        aria-labelledby="shipped-title"
+      >
+        <header className="ai-section-heading" data-reveal>
+          <p className="ai-kicker">AI in the products</p>
+          <h2 id="shipped-title">Agents I’ve shipped. Approval built in.</h2>
+          <p>
+            Before the tools I build with, the AI I have built: agents inside
+            real products. Each one reads through scoped tools, validates what
+            the model returns, and waits for a person before it changes
+            anything.
+          </p>
+        </header>
+        <div className="ai-ledger" data-reveal="list">
+          {shippedAi.map((item) => (
+            <article key={item.name}>
+              <div>
+                <p className="ai-kicker">{item.name}</p>
+                <h3>{item.title}</h3>
+              </div>
+              <div>
+                <p>{item.description}</p>
+                <p className="ai-ledger-stack">{item.stack}</p>
+                <div className="ai-links">
+                  {"slug" in item ? (
+                    <Link href={`/work/${item.slug}`}>
+                      Read the case study →
+                    </Link>
+                  ) : (
+                    <Link href="/#experience">See the experience →</Link>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -153,6 +196,37 @@ export default function AiWorkflowPage() {
               ))}
             </ul>
           </div>
+        </div>
+        <div className="factory-pair" id="factory-pair">
+          <h3>{factoryPair.title}</h3>
+          <p>{factoryPair.lead}</p>
+          <table>
+            <thead>
+              <tr>
+                <td />
+                <th scope="col">
+                  {factoryPair.columns.personal.name}
+                  <span>{factoryPair.columns.personal.scope}</span>
+                </th>
+                <th scope="col">
+                  {factoryPair.columns.work.name}
+                  <span>{factoryPair.columns.work.scope}</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody data-reveal="list">
+              {factoryPair.rows.map((row) => (
+                <tr key={row.label}>
+                  <th scope="row">{row.label}</th>
+                  <td data-label={factoryPair.columns.personal.name}>
+                    {row.personal}
+                  </td>
+                  <td data-label={factoryPair.columns.work.name}>{row.work}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p className="ai-section-note">{factoryPair.note}</p>
         </div>
         <div className="factory-improve">
           <h3>How it improves</h3>
