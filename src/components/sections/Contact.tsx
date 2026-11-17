@@ -17,7 +17,7 @@ export function Contact() {
       </div>
       <h2 id="contact-title">Interested in working together?</h2>
       <p>
-        Open to <Chip icon="sparkles">AI product engineering</Chip> and{" "}
+        Open to remote <Chip icon="sparkles">AI product engineering</Chip> and{" "}
         <Chip icon="code">software engineering</Chip> roles across{" "}
         <Chip icon="web">web</Chip>, <Chip icon="mobile">mobile</Chip>, and{" "}
         <Chip icon="server">backend</Chip>. Email is the best way to reach me.

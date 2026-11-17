@@ -44,7 +44,7 @@ export const hiring = {
   introduction:
     "What I am looking for, what I have shipped, and where to check each claim. Every line here links to a case study, a public repository, or a live product.",
   // One line under the headline: the held title, place, and what I am open to.
-  status: `${currentRole?.role ?? ""} at ${currentRole?.company ?? ""} · ${profile.location} (UTC+8) · Open to AI Engineer and Software Engineer roles`,
+  status: `${currentRole?.role ?? ""} at ${currentRole?.company ?? ""} · ${profile.location} (UTC+8) · Open to remote AI Engineer and Software Engineer roles`,
   roles: ["AI Engineer", "AI Product Engineer", "Full-stack Software Engineer"],
   facts: [
     {
@@ -62,13 +62,16 @@ export const hiring = {
         ]
       : []),
     { label: "Location", value: `${profile.location}. Time zone UTC+8.` },
+    { label: "Work arrangement", value: "Remote." },
+    { label: "Role type", value: "Individual contributor." },
+    { label: "Language", value: "English." },
     { label: "Availability", value: `${profile.availability}.` },
     { label: "Education", value: `${profile.education}.` },
     { label: "Contact", value: profile.email },
     {
       label: "Not published",
       value:
-        "Work arrangement, notice period, and compensation. Ask by email and I will answer directly.",
+        "Notice period, work authorization, and compensation. Ask by email and I will answer directly.",
     },
   ],
   claims: [
@@ -99,8 +102,20 @@ export const hiring = {
     {
       claim: "I validate model output and test agent behavior.",
       detail:
-        "Structured output is validated with Zod before it is used. Relay and Roleway keep agent eval suites in their repositories. AQD has a deterministic agent eval gate and a live on-device eval. The eval files are public; no pass rates are published here.",
+        "Structured output is validated with Zod before it is used. Relay’s live agent evals passed 52 of 54 checks over six runs on one model (Nov 2026), and its CI passed 2,789 tests. AQD’s release eval gate passed over 24 live on-device runs, with 714 of 747 cases fully clean (Oct 2026). Roleway keeps a live agent eval suite and passed 253 tests in CI.",
       proof: [
+        {
+          label: "Relay eval results",
+          href: "https://github.com/vn-aj-vngrd/relay/pull/67",
+        },
+        {
+          label: "Relay CI run",
+          href: "https://github.com/vn-aj-vngrd/relay/actions/runs/36453183450",
+        },
+        {
+          label: "AQD eval and test results",
+          href: "https://github.com/vn-aj-vngrd/aqd/pull/49",
+        },
         {
           label: "Relay agent behavior evals",
           href: "https://github.com/vn-aj-vngrd/relay/blob/master/evals/agent.behavior.eval.ts",
@@ -132,7 +147,7 @@ export const hiring = {
     {
       claim: "I build AI features in a commercial product at work.",
       detail:
-        "At Full Scale I contributed AI Insights, AI Reviewer, AI Skills, and AI Teammates for Lytho, alongside customer-facing feature epics in React and C# / ASP.NET Core on AWS.",
+        "At Full Scale I built AI Reviewer and AI Insights for Lytho and contributed to AI Skills and AI Teammates, alongside customer-facing feature epics in React and C# / ASP.NET Core on AWS.",
       proof: [
         { label: "Experience", href: "/#experience" },
         { label: "Résumé", href: "/resume" },
@@ -180,7 +195,7 @@ export const hiring = {
     {
       question: "Has he built AI agents in real products?",
       answer:
-        "Yes. Relay and Roleway are live web products with streaming, tool-calling agents and approval-gated actions. AQD has an on-device agent on Apple Foundation Models, and Viya has a trip agent with 17 scoped tools. At work he contributed agent features to Lytho’s product.",
+        "Yes. Relay and Roleway are live web products with streaming, tool-calling agents and approval-gated actions. AQD has an on-device agent on Apple Foundation Models, and Viya has a trip agent with 17 scoped tools. At work he built AI Reviewer and AI Insights for Lytho’s product.",
     },
     {
       question: "Which AI tools and providers has he used?",
@@ -191,8 +206,13 @@ export const hiring = {
       answer: `Frontend and mobile: ${skill("Frontend & mobile")}. Backend: ${skill("Backend & APIs")}. Data: ${skill("Data & backend services")}. Cloud: ${skill("Cloud & delivery")}.`,
     },
     {
-      question: "Where is he based?",
-      answer: `${profile.location}, time zone UTC+8.`,
+      question: "Where is he based, and how does he work?",
+      answer: `${profile.location}, time zone UTC+8. He works remotely, in English, as an individual contributor.`,
+    },
+    {
+      question: "Are his AI agents evaluated?",
+      answer:
+        "Yes, with published results. Relay’s live agent evals passed 52 of 54 checks over six runs (Nov 2026). AQD’s release eval gate passed over 24 live on-device runs, with 714 of 747 cases fully clean (Oct 2026). Both result records are public on GitHub.",
     },
     {
       question: "How can his work be verified?",

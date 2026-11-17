@@ -429,7 +429,7 @@ const projectEntries = [
     evidence: [
       "The public product presents guest RSVP, device-local Quick Play, five play formats, court scoring, repayment tracking with proof and host confirmation, and game chat. Court Finder lists 305 places on a map with setting, access, parking, price, and availability filters. Story offers Court Pop, Studio, Scrapbook, Soft Serve, and Clubhouse themes with 1080 × 1920 export.",
       "Signed-in players get personal game insights: games hosted and played, match record, win rate, points, and recent results. The database model covers users, sessions, guests, rosters, queues, matches, scores, expenses, messages, groups, and memories.",
-      "Automated tests cover RSVP and waitlist rules, expense splitting, queue assignment, standings, permissions, rotation formats, and accessible interface behavior. Agent adds saved chat history, reply feedback, and admin metrics and eval views for reviewing answer quality.",
+      "2,789 automated tests passed in CI (Sep 2026), covering RSVP and waitlist rules, expense splitting, queue assignment, standings, permissions, rotation formats, and accessible interface behavior. Live Agent evals passed 52 of 54 checks over six runs on one model (Nov 2026); the prompt-injection marker was never printed. Agent also has saved chat history, reply feedback, and admin metrics and eval views.",
       "The public repository documents authorization rules, domain structure, accessibility targets, integration boundaries, local setup, and quality commands.",
     ],
     images: [
@@ -1610,7 +1610,7 @@ const projectEntries = [
       "The public repository holds the SwiftUI app, the Core package, the unit and UI test targets, and a feature contract for each area in docs/features.",
       "Import-layer and color-token scripts run in the pre-commit hook, so the architecture rules are checked rather than only documented.",
       "Persistence tests cover Agent undo for pieces, outfits, themes, plans, wear, profile, and whole trips.",
-      "A deterministic Agent eval gate lives in Core, and a live on-device eval script checks the real model; the live run is manual on the owner’s phone.",
+      "A deterministic Agent eval gate lives in Core, and a live on-device eval script checks the real model. The release gate passed over 24 live runs with 714 of 747 cases fully clean; 290 Core tests and 362 device unit tests passed (Oct 2026). The live run is manual on the owner’s phone.",
       "Two decision records explain the device-only first version and the reviewed change-set model for the Agent.",
       "The screenshots on this page come from the app running on an iPhone 17 Pro Max with its built-in sample closet.",
     ],
