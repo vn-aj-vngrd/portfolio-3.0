@@ -1,9 +1,10 @@
 import Link from "next/link";
 
 import { ProjectFeature } from "@/components/project/ProjectFeature";
+import { ProjectFilterList } from "@/components/project/ProjectFilterList";
 import { Chip } from "@/components/ui/Chip";
 import { projectCatalog } from "@/content/projects";
-import type { ChipIcon } from "@/types/content";
+import type { ChipIcon, ProjectTag } from "@/types/content";
 
 const productChips: readonly {
   name: string;
@@ -14,13 +15,29 @@ const productChips: readonly {
   { name: "Roleway", slug: "roleway", icon: "briefcase" },
   { name: "Viya", slug: "viya", icon: "plane" },
   { name: "ACSFI", slug: "acsfi", icon: "news" },
-  { name: "Balay", slug: "balay", icon: "home" },
   { name: "AQD", slug: "aqd", icon: "shirt" },
+  { name: "Balay", slug: "balay", icon: "home" },
+];
+
+const filterLabels: readonly { tag: ProjectTag; label: string }[] = [
+  { tag: "ai", label: "AI agents" },
+  { tag: "web", label: "Web" },
+  { tag: "mobile", label: "Mobile" },
 ];
 
 export function SelectedWork() {
   const featured = projectCatalog.list({ featured: true });
   const supporting = projectCatalog.list({ featured: false });
+  const filters = [
+    { id: "all", label: "All", count: featured.length },
+    ...filterLabels.map(({ tag, label }) => ({
+      id: tag,
+      label,
+      count: featured.filter((project) =>
+        (project.tags as readonly ProjectTag[]).includes(tag)
+      ).length,
+    })),
+  ];
 
   return (
     <section
@@ -52,11 +69,11 @@ export function SelectedWork() {
           </p>
         </div>
       </div>
-      <div className="project-list" data-reveal="list">
+      <ProjectFilterList filters={filters}>
         {featured.map((project, index) => (
           <ProjectFeature key={project.slug} project={project} index={index} />
         ))}
-      </div>
+      </ProjectFilterList>
 
       {supporting.length ? (
         <div

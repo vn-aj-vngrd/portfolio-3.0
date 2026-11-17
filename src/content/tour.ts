@@ -166,10 +166,28 @@ export const tourChapters: readonly TourChapter[] = [
         ],
       },
       {
+        id: "work-aqd",
+        stop: "project-aqd",
+        lines: [
+          "AQD is a private closet for iPhone, with an on-device agent.",
+          "No account, no backend, no cloud AI.",
+        ],
+        evidence: [
+          {
+            file: "src/content/projects.ts",
+            text: "AQD is a private closet for iPhone",
+          },
+          {
+            file: "src/content/projects.ts",
+            text: "no account, no backend, no cloud AI",
+          },
+        ],
+      },
+      {
         id: "work-balay",
         stop: "project-balay",
         lines: [
-          "Balay is a two-storey house you can walk through in the browser, drawn live in three.js.",
+          "Last, Balay is a two-storey house you can walk through in the browser, drawn live in three.js.",
           "It has a narrated tour, too.",
         ],
         evidence: [
@@ -182,24 +200,6 @@ export const tourChapters: readonly TourChapter[] = [
             text: "Balay is one typed layout drawn live in three.js",
           },
           { file: "src/content/projects.ts", text: "Take a narrated tour" },
-        ],
-      },
-      {
-        id: "work-aqd",
-        stop: "project-aqd",
-        lines: [
-          "And AQD is a private closet for iPhone, with an on-device agent.",
-          "No account, no backend, no cloud AI.",
-        ],
-        evidence: [
-          {
-            file: "src/content/projects.ts",
-            text: "AQD is a private closet for iPhone",
-          },
-          {
-            file: "src/content/projects.ts",
-            text: "no account, no backend, no cloud AI",
-          },
         ],
       },
     ],

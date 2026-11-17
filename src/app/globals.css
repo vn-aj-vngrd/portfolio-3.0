@@ -1947,6 +1947,76 @@ main,
   grid-template-columns: minmax(0, 1.28fr) minmax(17rem, 0.72fr);
   grid-template-areas: "media copy";
 }
+/* Filters hide by tag in CSS, so every product stays in the server HTML. */
+.project-list[data-filter="ai"] > .project-feature:not([data-tags~="ai"]),
+.project-list[data-filter="web"] > .project-feature:not([data-tags~="web"]),
+.project-list[data-filter="mobile"]
+  > .project-feature:not([data-tags~="mobile"]) {
+  display: none;
+}
+/* The guided tour visits every product, whatever the filter says. */
+html[data-tour] .project-list > .project-feature {
+  display: grid;
+}
+@media (min-width: 981px) {
+  .project-list:not([data-filter="all"]) > .project-feature {
+    grid-template-columns: minmax(17rem, 0.72fr) minmax(0, 1.28fr);
+    grid-template-areas: "copy media";
+  }
+  .project-list[data-filter="ai"]
+    > .project-feature:nth-child(even of [data-tags~="ai"]),
+  .project-list[data-filter="web"]
+    > .project-feature:nth-child(even of [data-tags~="web"]),
+  .project-list[data-filter="mobile"]
+    > .project-feature:nth-child(even of [data-tags~="mobile"]) {
+    grid-template-columns: minmax(0, 1.28fr) minmax(17rem, 0.72fr);
+    grid-template-areas: "media copy";
+  }
+}
+.project-list {
+  counter-reset: project;
+}
+.project-feature {
+  counter-increment: project;
+}
+.project-number::before {
+  content: counter(project, decimal-leading-zero);
+}
+.work-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+  border-bottom: 1px solid var(--border);
+}
+.work-filter button {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  min-height: 2.75rem;
+  margin-bottom: -1px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+.work-filter button span {
+  color: var(--faint);
+  font:
+    450 0.7rem/1 var(--font-geist-mono),
+    monospace;
+}
+.work-filter button:hover {
+  color: var(--ink);
+}
+.work-filter button[aria-pressed="true"] {
+  border-bottom-color: var(--signal);
+  color: var(--ink);
+}
 .project-copy {
   grid-area: copy;
 }
