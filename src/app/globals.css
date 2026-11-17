@@ -10050,7 +10050,8 @@ html[data-tour] .shortcut-hint {
 .agent-skills summary {
   transition: border-color var(--motion-out) var(--ease-out);
 }
-.ai-ledger article:hover,
+/* The shipped-agent rows stay still: their strips already carry the emphasis. */
+.ai-ledger:not(.ai-shipped) article:hover,
 .factory-roles > div:hover {
   border-color: var(--muted);
 }
@@ -11032,18 +11033,301 @@ html[data-tour] .shortcut-hint {
 }
 
 /* Shipped agents: the shared loop and one strip per agent (ShippedVisuals.tsx). */
-.fx-shipped-loop {
-  margin: 0 0 3rem;
-}
 .fx-shipped-loop-title {
-  margin: 0 0 1rem;
+  margin: 0 0 1.5rem;
   font-size: 1.2rem;
   font-weight: 550;
 }
-.fx-chain .fx-chain-title {
+/* The agent loop: four stations on one line, the person's decision as a diamond
+   on a surface band, and a dashed return for a dismissed proposal. */
+.fxl {
+  margin: 0 0 3rem;
+}
+.fxl-stage {
+  position: relative;
+  /* The token layer is full width and slides right; clip it to the diagram. */
+  overflow-x: clip;
+}
+.fxl-track {
+  position: absolute;
+  z-index: 1;
+  top: 0.5rem;
+  right: 12.5%;
+  left: 12.5%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  height: 1px;
+}
+.fxl-seg {
+  height: 1px;
+  background: var(--ink);
+}
+.fxl-approved {
+  position: absolute;
+  bottom: 0.45rem;
+  left: 66.667%;
+  width: 33.333%;
+  color: var(--muted);
+  font:
+    500 0.62rem/1.4 var(--font-geist-mono),
+    monospace;
+  text-align: center;
+}
+.fxl-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.fxl-steps li {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.45rem;
+  min-width: 0;
+  padding: 0 0.9rem 1.25rem;
+  border-radius: 4px;
+  text-align: center;
+}
+.fxl-steps li[data-gate] {
+  background: var(--surface);
+}
+.fxl-marker {
+  position: relative;
+  z-index: 2;
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  background: var(--canvas);
+}
+.fxl-steps li[data-gate] .fxl-marker {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-top: -0.1rem;
+  border: 0;
+  border-radius: 0;
+  background: var(--ink);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+.fxl-number {
+  margin-top: 0.8rem;
+  color: var(--faint);
+  font:
+    500 0.66rem/1.4 var(--font-geist-mono),
+    monospace;
+}
+.fxl-steps li[data-gate] .fxl-marker + .fxl-number {
+  margin-top: 0.7rem;
+}
+.fxl-steps strong {
+  margin-top: 0.2rem;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.fxl-steps p {
+  max-width: 24ch;
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+.fxl-return {
+  position: relative;
+  width: 50%;
+  margin: 0 0 0 12.5%;
+  padding-top: 1.6rem;
+  color: var(--muted);
+  font:
+    500 0.68rem/1.4 var(--font-geist-mono),
+    monospace;
+  text-align: center;
+}
+.fxl-return > span {
+  display: none;
+}
+.fxl-return::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1.1rem;
+  border: 1px dashed var(--muted);
+  border-top: 0;
+  border-radius: 0 0 4px 4px;
+  content: "";
+}
+.fxl-return::after {
+  position: absolute;
+  top: -1px;
+  left: -2.5px;
+  width: 6px;
+  height: 6px;
+  border-top: 1px solid var(--muted);
+  border-left: 1px solid var(--muted);
+  content: "";
+  transform: rotate(45deg);
+}
+.fxl-token {
+  display: none;
+}
+@container (max-width: 36rem) {
+  .fxl-steps li {
+    padding: 0 0.3rem 1rem;
+  }
+  .fxl-steps strong {
+    font-size: 0.88rem;
+  }
+  .fxl-steps p {
+    font-size: 0.74rem;
+  }
+  .fxl-return {
+    font-size: 0.62rem;
+  }
+}
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  /* One pass, 4.8s: Read 0s, Validate 1.2s, Propose 2.4s (held 1.2s), Apply 4.1s. */
+  .fxl[data-flow] [data-step="1"] {
+    --t: 0s;
+    --d: 0.7s;
+  }
+  .fxl[data-flow] [data-step="2"] {
+    --t: 1.2s;
+    --d: 0.7s;
+  }
+  .fxl[data-flow] [data-step="3"] {
+    --t: 2.4s;
+    --d: 1.2s;
+  }
+  .fxl[data-flow] [data-step="4"] {
+    --t: 4.1s;
+    --d: 0.7s;
+  }
+  .fxl[data-flow] [data-seg="1"] {
+    --t: 0.7s;
+  }
+  .fxl[data-flow] [data-seg="2"] {
+    --t: 1.9s;
+  }
+  .fxl[data-flow] [data-seg="3"] {
+    --t: 3.6s;
+  }
+  .fxl[data-flow]:not([data-drawn]) .fxl-steps li,
+  .fxl[data-flow]:not([data-drawn]) .fxl-return,
+  .fxl[data-flow]:not([data-drawn]) .fxl-approved {
+    opacity: 0;
+  }
+  .fxl[data-flow]:not([data-drawn]) .fxl-seg {
+    transform: scaleX(0);
+  }
+  .fxl[data-flow][data-drawn] .fxl-steps li {
+    animation: fx-arrive var(--motion-sweep-in) var(--ease-out) var(--t) both;
+  }
+  .fxl[data-flow][data-drawn] .fxl-steps li[data-gate] {
+    animation:
+      fx-arrive var(--motion-sweep-in) var(--ease-out) var(--t) both,
+      fxl-lit-band var(--d) linear var(--t) both;
+  }
+  .fxl[data-flow][data-drawn] .fxl-marker {
+    animation: fxl-lit-ring var(--d) linear var(--t) both;
+  }
+  .fxl[data-flow][data-drawn] [data-gate] .fxl-marker {
+    animation-name: fxl-lit-fill;
+  }
+  .fxl[data-flow][data-drawn] .fxl-number {
+    animation: fxl-lit-text var(--d) linear var(--t) both;
+  }
+  .fxl[data-flow][data-drawn] .fxl-seg {
+    transform-origin: left;
+    animation: draw-x 0.5s ease-in-out var(--t) backwards;
+  }
+  .fxl[data-flow] .fxl-return {
+    transition: opacity var(--motion-sweep-in) var(--ease-out) 2.7s;
+  }
+  .fxl[data-flow] .fxl-approved {
+    transition: opacity var(--motion-in) var(--ease-out) 3.6s;
+  }
+  .fxl[data-flow][data-drawn] .fxl-token {
+    position: absolute;
+    z-index: 3;
+    top: 0.5rem;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 0;
+    pointer-events: none;
+    animation: fxl-token 4.8s ease-in-out both;
+  }
+  .fxl-token i {
+    position: absolute;
+    top: -0.3rem;
+    left: -0.3rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: var(--signal);
+  }
+  @keyframes fxl-token {
+    0% {
+      opacity: 0;
+      transform: translate3d(12.5%, 0, 0);
+    }
+    4% {
+      opacity: 1;
+    }
+    14.6% {
+      transform: translate3d(12.5%, 0, 0);
+    }
+    25% {
+      transform: translate3d(37.5%, 0, 0);
+    }
+    39.6% {
+      transform: translate3d(37.5%, 0, 0);
+    }
+    50% {
+      transform: translate3d(62.5%, 0, 0);
+    }
+    75% {
+      transform: translate3d(62.5%, 0, 0);
+    }
+    85.4% {
+      transform: translate3d(87.5%, 0, 0);
+    }
+    95.8% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(87.5%, 0, 0);
+    }
+  }
+  @keyframes fxl-lit-ring {
+    from,
+    80% {
+      border-color: var(--signal);
+    }
+  }
+  @keyframes fxl-lit-fill {
+    from,
+    80% {
+      background-color: var(--signal);
+    }
+  }
+  @keyframes fxl-lit-text {
+    from,
+    80% {
+      color: var(--signal);
+    }
+  }
+  @keyframes fxl-lit-band {
+    from,
+    80% {
+      background-color: var(--signal-soft);
+    }
+  }
 }
 .fx-strip-wrap {
   margin: 1.25rem 0 0.25rem;

@@ -331,6 +331,9 @@ export const shippedAgentLoop = {
         "Only after approval. Relay and Roleway recheck permissions; AQD can undo",
     },
   ],
+  // Path labels for the diagram; both restate the caption below.
+  approved: "Approved",
+  dismissed: "Dismissed: nothing is written",
   caption:
     "Each agent below reads, checks, and proposes on its own. Nothing is written until a person approves it, and a dismissed proposal changes nothing.",
 } as const;

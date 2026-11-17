@@ -7,37 +7,57 @@ import { shippedAgentLoop } from "@/content/ai-workflow";
 type Vars = Record<`--${string}`, string | number>;
 const vars = (v: Vars) => v as React.CSSProperties;
 
+// The loop draws once on entry: a token rides Read → Validate → Propose, holds
+// at the person's decision while the dismissed path draws, then continues to
+// Apply. Each step is Signal Blue only while the token is on it. Reduced motion
+// shows the finished diagram with no token.
 export function ShippedAgentLoop() {
+  const { steps } = shippedAgentLoop;
   return (
     <figure
-      className="fx fx-shipped-loop"
+      className="fx fxl"
       data-flow="draw"
       aria-labelledby="fx-shipped-loop-title"
     >
       <h3 id="fx-shipped-loop-title" className="fx-shipped-loop-title">
         {shippedAgentLoop.title}
       </h3>
-      <ol className="fx-chain" style={vars({ "--k": 4 })}>
-        {shippedAgentLoop.steps.map((step, i) => (
-          <li
-            key={step.label}
-            className="fx-node"
-            data-mine={"person" in step ? "" : undefined}
-            style={vars({ "--i": i })}
-          >
-            <span className="fx-node-number">
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <strong className="fx-chain-title">
-              {"person" in step ? (
-                <span className="fx-diamond" aria-hidden="true" />
-              ) : null}
-              {step.label}
-            </strong>
-            <p>{step.detail}</p>
-          </li>
-        ))}
-      </ol>
+      <div className="fxl-stage">
+        <div className="fxl-track" aria-hidden="true">
+          {steps.slice(1).map((step, i) => (
+            <span
+              key={step.label}
+              className="fxl-seg"
+              data-seg={i + 1}
+              style={vars({ "--n": i })}
+            />
+          ))}
+          <span className="fxl-approved">{shippedAgentLoop.approved}</span>
+        </div>
+        <span className="fxl-token" aria-hidden="true">
+          <i />
+        </span>
+        <ol className="fxl-steps">
+          {steps.map((step, i) => (
+            <li
+              key={step.label}
+              data-step={i + 1}
+              data-gate={"person" in step ? "" : undefined}
+            >
+              <span className="fxl-marker" aria-hidden="true" />
+              <span className="fxl-number">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <strong>{step.label}</strong>
+              <p>{step.detail}</p>
+            </li>
+          ))}
+        </ol>
+        <p className="fxl-return">
+          <span aria-hidden="true">↺ </span>
+          {shippedAgentLoop.dismissed}
+        </p>
+      </div>
       <figcaption>{shippedAgentLoop.caption}</figcaption>
     </figure>
   );
