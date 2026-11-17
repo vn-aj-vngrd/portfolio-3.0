@@ -43,7 +43,7 @@ The product is Portfolio 3.0 and represents Van AJ Vanguardia. Its voice is calm
 - Typed profile, experience, project, credential, stack, and design-system content under `src/content/`.
 - Public case studies and product links for Relay, Roleway, Viya, ACSFI, Balay (a closed-source 3D home-design experiment), and AQD (a source-available on-device iPhone closet app).
 - Public repository and contribution evidence presented through the GitHub surfaces.
-- A downloadable résumé and confirmed education and certification records.
+- A downloadable résumé (page, Markdown, and PDF), a hiring brief that links each claim to its proof, and confirmed education and certification records.
 - An inspectable design-system route and `design.md` endpoint documenting the portfolio's interface language.
 - The AI workflow page lists the agents Van has shipped in products and documents his current Claude Code setup and his two software factories: the personal one and the one he built for Lytho client work (Van-confirmed; described by shape only, with no source, tickets, or run metrics published).
 - No employer or client source, private repository names, fabricated testimonials, or unverified performance and impact metrics are available for publication.

@@ -239,3 +239,16 @@ test("profile keeps the identity fields every surface reads", () => {
   }
   assert.match(profile, /name: "Van AJ Vanguardia"/u);
 });
+
+test("the résumé PDF was regenerated after the résumé last changed", async () => {
+  const { resumeSourceHash, pdfPath, manifestPath } = await load(
+    "scripts/resume-pdf.mjs"
+  );
+  assert.ok(existsSync(pdfPath), "missing résumé PDF (run yarn resume:pdf)");
+  const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
+  assert.equal(
+    manifest.source,
+    resumeSourceHash(),
+    "résumé PDF is stale (run yarn dev, then yarn resume:pdf)"
+  );
+});

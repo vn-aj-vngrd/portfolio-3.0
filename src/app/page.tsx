@@ -15,6 +15,9 @@ import {
   WEBSITE_ID,
 } from "@/lib/structured-data";
 
+// The years of experience are computed from today's date, so re-render daily.
+export const revalidate = 86400;
+
 export default function Home() {
   const graph = [
     personSchema(),

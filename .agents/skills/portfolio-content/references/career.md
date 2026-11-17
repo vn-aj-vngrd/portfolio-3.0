@@ -24,6 +24,18 @@ Compiles from other modules; it holds only selection and compact wording.
 - `introduction` includes `aiWorkflow.profileSummary`; change AI wording in `ai-workflow.ts`.
 - A change of title, location, or education also reaches `src/lib/seo.ts` (site title and description) and the résumé `summary`.
 
+## Years of experience (`career.ts`)
+
+Never type "3+ years". `experienceYears()` counts whole years from `CAREER_START` (the first paid role, NextDevs, Apr 2023); internships are not counted, so the number agrees with the résumé dates. `profile.experienceYears` feeds the hero, the statement, the résumé summary, and the hiring brief. The guided tour does not say the number, because recorded audio cannot update.
+
+## Hiring brief (`hiring.ts`)
+
+`/hire` and `/hire.md`: `facts`, `claims` (each with `proof` links to a case study, public repository, or live product), and `faq` (also emitted as FAQPage JSON-LD). Every line repeats a fact from another module. A fact Van has not confirmed (work arrangement, notice period, compensation) stays under "Not published". A new claim needs at least one proof link that resolves.
+
+## Résumé PDF
+
+After changing `resume.ts`, `experience.ts`, or `profile.ts`: run `yarn dev`, then `yarn resume:pdf`, and commit `public/Van-AJ-Vanguardia-Resume.pdf` with `src/lib/resume-pdf.json`. The content test fails until this is done.
+
 ## Certifications (`certifications.ts`)
 
 `title`, `issuer`, `kind`, optional `href` and `featured` (one featured item). Files live in `public/certificates/` and the `href` matches the file name. Degree dates stay consistent with `profile.education` and the experience periods.

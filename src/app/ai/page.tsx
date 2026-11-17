@@ -35,6 +35,10 @@ export const metadata = createPageMetadata({
     "The AI agents Van AJ Vanguardia has shipped in products, and how he builds with Claude Code: two software factories that turn tickets into reviewed pull requests.",
   path: aiWorkflow.path,
 });
+metadata.alternates = {
+  canonical: aiWorkflow.path,
+  types: { "text/markdown": "/ai.md" },
+};
 
 export default function AiWorkflowPage() {
   return (

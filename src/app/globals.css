@@ -1758,6 +1758,14 @@ main,
   font-weight: 560;
   letter-spacing: -0.025em;
 }
+.hero-status {
+  max-width: 60ch;
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+  font:
+    450 0.74rem/1.6 var(--font-geist-mono),
+    monospace;
+}
 .hero-statement {
   max-width: 44ch;
   margin: 0.8rem 0 0;
@@ -9466,6 +9474,47 @@ html[data-tour] .shortcut-hint {
     color: var(--ink);
     font-size: 0.8rem;
     font-weight: 550;
+  }
+}
+.hire-facts > div {
+  grid-template-columns: 9rem minmax(0, 1fr);
+}
+.hire-facts dd {
+  max-width: 70ch;
+  font-size: 0.95rem;
+}
+.hire-facts a,
+.ai-footer p a {
+  color: var(--signal);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.hire-faq {
+  margin: 0;
+  border-top: 1px solid var(--border);
+}
+.hire-faq > div {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+  gap: 3rem;
+  padding-block: 1.4rem;
+  border-bottom: 1px solid var(--border);
+}
+.hire-faq dt {
+  color: var(--ink);
+  font-weight: 550;
+}
+.hire-faq dd {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+@media (max-width: 700px) {
+  .hire-facts > div,
+  .hire-faq > div {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
   }
 }
 .factory-improve {

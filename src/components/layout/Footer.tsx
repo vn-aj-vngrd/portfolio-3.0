@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { profile } from "@/content/profile";
 
 export function Footer() {
@@ -15,6 +17,9 @@ export function Footer() {
             LinkedIn ↗
           </a>
           <a href={`mailto:${profile.email}`}>Email</a>
+          <Link href="/hire">Hiring brief</Link>
+          <Link href="/resume">Résumé</Link>
+          <a href="/llms.txt">llms.txt</a>
           <a href="#top">Back to top ↑</a>
         </nav>
       </div>

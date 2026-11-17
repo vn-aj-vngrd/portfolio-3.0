@@ -4,6 +4,7 @@ export const SITE_URL = "https://vanajvanguardia.tech";
 export const SITE_NAME = "Van AJ Vanguardia";
 export const SITE_TITLE =
   "Van AJ Vanguardia | AI Product Engineer / Software Engineer";
+export const RESUME_PDF_PATH = "/Van-AJ-Vanguardia-Resume.pdf";
 export const SITE_DESCRIPTION =
   "Van AJ Vanguardia is an AI engineer and full-stack software engineer in Cebu, Philippines, building AI features, agents, and web, mobile, and backend products with TypeScript, React, Next.js, ASP.NET Core, and Claude Code.";
 
